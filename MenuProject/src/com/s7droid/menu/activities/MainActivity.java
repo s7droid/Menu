@@ -1,3 +1,4 @@
+package com.s7droid.menu.activities;
 import com.s7design.menu.R;
 
 import android.app.Activity;
