@@ -5,5 +5,5 @@
     android:orientation="vertical" >
     
     <include layout="@layout/action_bar" />
-
+    
 </LinearLayout>
