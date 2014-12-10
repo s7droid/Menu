@@ -7,5 +7,7 @@
     <string name="action_bar_back">Back</string>
     <string name="action_bar_tutorial">Tutorial</string>
     
+    <string name="menu_tutorial_screen_button_continue">Continue</string>
+    <string name="menu_tutorial_screen_button_make_your_choice">Make your choice</string>
 
 </resources>

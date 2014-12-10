@@ -403,6 +403,7 @@ int id showTitle 0x7f090012
 int id split_action_bar 0x7f090004
 int id submit_area 0x7f09003c
 int id tabMode 0x7f09000c
+int id textviewSplashActivityMenuTitle 0x7f090042
 int id title 0x7f090027
 int id up 0x7f090001
 int id useLogo 0x7f090013
@@ -455,6 +456,8 @@ int string abc_toolbar_collapse_description 0x7f0a0004
 int string action_bar_back 0x7f0a0011
 int string action_bar_tutorial 0x7f0a0012
 int string app_name 0x7f0a0010
+int string menu_tutorial_screen_button_continue 0x7f0a0013
+int string menu_tutorial_screen_button_make_your_choice 0x7f0a0014
 int style AppBaseTheme 0x7f0b00eb
 int style AppTheme 0x7f0b00ec
 int style Base_TextAppearance_AppCompat 0x7f0b0098
