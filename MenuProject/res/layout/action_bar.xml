@@ -11,4 +11,18 @@
         android:drawableLeft="@drawable/icon_left"
         android:text="@string/action_bar_back" />
 
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:scaleType="centerInside"
+        android:src="@drawable/menu_icon" />
+
+    <Button
+        android:id="@+id/buttonActionBarForward"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:drawableRight="@drawable/icon_left"
+        android:text="@string/action_bar_tutorial" />
+
 </RelativeLayout>

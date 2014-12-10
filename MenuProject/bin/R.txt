@@ -354,6 +354,7 @@ int id activity_chooser_view_content 0x7f090021
 int id always 0x7f090014
 int id beginning 0x7f09001b
 int id buttonActionBarBack 0x7f09003f
+int id buttonActionBarForward 0x7f090040
 int id checkbox 0x7f090029
 int id collapseActionView 0x7f090015
 int id decor_content_parent 0x7f09002f
@@ -445,6 +446,7 @@ int string abc_shareactionprovider_share_with 0x7f0a000f
 int string abc_shareactionprovider_share_with_application 0x7f0a000e
 int string abc_toolbar_collapse_description 0x7f0a0004
 int string action_bar_back 0x7f0a0011
+int string action_bar_tutorial 0x7f0a0012
 int string app_name 0x7f0a0010
 int style AppBaseTheme 0x7f0b00eb
 int style AppTheme 0x7f0b00ec
