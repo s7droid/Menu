@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:text="Enjoy your meal!"
+        android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/iv1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/buttonuTutorialScreenSecondContinueButton"
+        android:layout_below="@+id/tv1"
+        android:layout_margin="40dp"
+        android:src="@drawable/tutorial_02" />
+
+    <Button
+        android:id="@+id/buttonuTutorialScreenSecondContinueButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/menu_orange_button_shape"
+        android:text="@string/menu_tutorial_screen_button_make_your_choice"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>
