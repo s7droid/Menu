@@ -8,7 +8,27 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
+        android:background="@null"
         android:drawableLeft="@drawable/icon_left"
-        android:text="@string/action_bar_back" />
+        android:text="@string/action_bar_back"
+        android:textColor="@color/menu_main_gray" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:background="@null"
+        android:scaleType="centerInside"
+        android:src="@drawable/menu_icon" />
+
+    <Button
+        android:id="@+id/buttonActionBarForward"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:background="@null"
+        android:drawableRight="@drawable/icon_right"
+        android:text="@string/action_bar_tutorial"
+        android:textColor="@color/menu_main_gray" />
 
 </RelativeLayout>
