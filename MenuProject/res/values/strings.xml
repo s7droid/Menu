@@ -1,5 +1,10 @@
 <resources>
 
     <string name="app_name">MenuProject</string>
+    
+    <!--Action bar -->
+    
+    <string name="action_bar_back">Back</string>
+    
 
 </resources>
