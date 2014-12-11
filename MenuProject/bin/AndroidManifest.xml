@@ -11,9 +11,10 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:name="com.s7design.menu.app.Menu" >
         <activity
-            android:name="com.s7droid.menu.activities.MainActivity"
+            android:name="com.s7design.menu.activities.SplashActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -22,9 +23,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity 
-            android:name="com.s7droid.menu.activities.TutorialFirsActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.s7design.menu.activities.RestaurantPreviewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.s7design.menu.activities.TutorialFirstActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.s7design.menu.activities.TutorialSecondActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.s7design.menu.activities.CategoryMealsActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

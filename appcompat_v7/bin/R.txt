@@ -331,6 +331,11 @@ int drawable abc_textfield_default_mtrl_alpha 0x7f02002f
 int drawable abc_textfield_search_activated_mtrl_alpha 0x7f020030
 int drawable abc_textfield_search_default_mtrl_alpha 0x7f020031
 int drawable abc_textfield_search_material 0x7f020032
+int drawable logo_menu_small 0x7f020033
+int drawable meal_category_01 0x7f020034
+int drawable meal_category_02 0x7f020035
+int drawable meal_category_03 0x7f020036
+int drawable restaurant_01 0x7f020037
 int id action_bar 0x7f090031
 int id action_bar_activity_content 0x7f090003
 int id action_bar_container 0x7f090030
