@@ -7,7 +7,11 @@
     <string name="action_bar_back">Back</string>
     <string name="action_bar_tutorial">Tutorial</string>
     
-    <string name="menu_tutorial_screen_button_continue">Continue</string>
-    <string name="menu_tutorial_screen_button_make_your_choice">Make your choice</string>
+    <string name="menu_tutorial_screen_button_continue">CONTINUE</string>
+    <string name="menu_tutorial_screen_button_make_your_choice">MAKE YOUR CHOICE</string>
 
+    <!-- Restaurant preview -->
+    <string name="restaurant_preview_activity_welcome_message">Welcome to</string>
+    <string name="restaurant_preview_activity_make_your_order">MAKE YOUR ORDER</string>
+    <string name="restaurant_preview_activity_powered_by">Provided to you by</string>
 </resources>

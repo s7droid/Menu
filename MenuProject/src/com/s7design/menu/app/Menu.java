@@ -1,0 +1,102 @@
+package com.s7design.menu.app;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
+import android.support.v4.util.Pair;
+
+public class Menu extends Application {
+
+	private final String TAG = Menu.class.getSimpleName();
+
+	private static Menu instance;
+
+	private List<Activity> activityStack;
+	private Map<String, Pair<String, Pair<String, String>>> responseTimeStatistics;
+
+	private static Context context;
+
+	public Menu() {
+		instance = this;
+		activityStack = new ArrayList<Activity>();
+		responseTimeStatistics = new HashMap<String, Pair<String, Pair<String, String>>>();
+
+	}
+
+	public static synchronized Context getContext() {
+		if (instance == null)
+			new Menu();
+		return instance;
+	}
+
+	public static Menu getInstance() {
+		if (instance == null)
+			new Menu();
+		return instance;
+	}
+
+	public static Context getMenuApplicationContext() {
+		return context;
+	}
+
+	@Override
+	public void onCreate() {
+		super.onCreate();
+		System.out.println("DroveU.onCreate()");
+		this.context = getApplicationContext();
+	}
+
+	public void destroyActivity(int position) {
+		try {
+			activityStack.get(position).finish();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void destroyActivity(Activity activity) {
+		try {
+			activityStack.get(activityStack.indexOf(activity)).finish();
+			activityStack.remove(activityStack.indexOf(activity));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void addActivityToStack(Activity activity) {
+		try {
+			activityStack.add(activity);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void popBackActivityStack() {
+		try {
+			activityStack.get(activityStack.size() - 1).finish();
+			activityStack.remove(activityStack.size() - 1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void destroyAllActivitiesFromStack() {
+		try {
+			for (Activity activity : activityStack) {
+				activity.finish();
+			}
+			activityStack.clear();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public Map<String, Pair<String, Pair<String, String>>> getTimeResponses() {
+		return this.responseTimeStatistics;
+	}
+}
