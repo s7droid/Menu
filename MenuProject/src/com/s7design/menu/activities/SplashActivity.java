@@ -1,4 +1,4 @@
-package com.s7droid.menu.activities;
+package com.s7design.menu.activities;
 
 import android.app.Activity;
 import android.os.Bundle;

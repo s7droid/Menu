@@ -1,4 +1,4 @@
-package com.s7droid.menu.activities;
+package com.s7design.menu.activities;
 
 import com.s7design.menu.R;
 

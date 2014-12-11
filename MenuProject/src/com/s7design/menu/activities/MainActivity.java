@@ -1,4 +1,4 @@
-package com.s7droid.menu.activities;
+package com.s7design.menu.activities;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
