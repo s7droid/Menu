@@ -16,16 +16,9 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.s7design.menu.activities.MainActivity"
+            android:name="com.s7design.menu.activities.RestaurantPreviewActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name="com.s7design.menu.activities.TutorialFirstActivity"
@@ -38,9 +31,6 @@
         </activity>
         <activity
             android:name="com.s7design.menu.activities.TutorialSecondActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.s7design.menu.activities.CategoryMealsActivity"
             android:screenOrientation="portrait" />
     </application>
 
