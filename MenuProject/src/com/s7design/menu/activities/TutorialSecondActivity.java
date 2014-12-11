@@ -1,13 +1,13 @@
 package com.s7design.menu.activities;
 
-import com.s7design.menu.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+
+import com.s7design.menu.R;
 
 /**
  * Activity for showing second screen of the two screens tutorial. <br>
@@ -34,13 +34,14 @@ public class TutorialSecondActivity extends Activity {
 	 */
 	private void initViews() {
 		mMakeOrder = (Button) findViewById(R.id.buttonuTutorialScreenSecondContinueButton);
-		
+
 		mMakeOrder.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(getApplicationContext(), CategoryMealsActivity.class);
-//				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+				// intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK |
+				// Intent.FLAG_ACTIVITY_NEW_TASK);
 				startActivity(intent);
 			}
 		});

@@ -3,19 +3,25 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="21" />
 
     <application
+        android:name="com.s7design.menu.app.Menu"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name="com.s7design.menu.app.Menu" >
+        android:theme="@style/AppTheme" >
         <activity
-            android:name="com.s7design.menu.activities.SplashActivity"
+            android:name="com.s7design.menu.activities.RestaurantPreviewActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.s7design.menu.activities.TutorialFirstActivity"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,16 +30,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.s7design.menu.activities.RestaurantPreviewActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.s7design.menu.activities.TutorialFirstActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="com.s7design.menu.activities.TutorialSecondActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.s7design.menu.activities.CategoryMealsActivity"
             android:screenOrientation="portrait" />
     </application>
 
