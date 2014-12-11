@@ -1,6 +1,7 @@
 package com.s7design.menu.volley.requests;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Map;
 
 import android.app.Activity;
@@ -38,7 +39,7 @@ public class GsonRequest<T> extends Request<T> {
 	private static final String PROTOCOL_CHARSET = "utf-8";
 
 	public GsonRequest(Activity context, int method, String url, Map<String, String> params, boolean showProgressDialog, Class<T> outputType, Listener<T> listener, ErrorListener errorListener) {
-		super(method, Constants.getPrefix() + Constants.BASE_URL + url + ".php", errorListener);
+		super(method, Constants.getPrefix() + Constants.BASE_URL + url + ".php" + getParams(params), errorListener);
 		this.listener = listener;
 		this.outputType = outputType;
 		this.activityContext = context;
@@ -46,17 +47,40 @@ public class GsonRequest<T> extends Request<T> {
 		this.params = params;
 		this.showProgressDialog = showProgressDialog;
 
-		 setTag(outputType);
+		setTag(outputType);
 	}
 
-	@Override
-	public String getBodyContentType() {
-		return "application/json";
-	}
+//	@Override
+//	public String getBodyContentType() {
+//		return "application/json";
+//	}
+	
+//	@Override
+//	protected Map<String, String> getParams() throws AuthFailureError {
+//		return params;
+//	}
 
-	@Override
-	protected Map<String, String> getParams() throws AuthFailureError {
-		return params;
+	private static String getParams(Map<String, String> params) {
+
+		StringBuilder sb = new StringBuilder();
+
+		for (Map.Entry<String, String> entry : params.entrySet()) {
+
+			if (sb.length() > 0)
+				sb.append("&");
+			else
+				sb.append("?");
+
+			try {
+				sb.append(String.format("%s=%s", URLEncoder.encode(entry.getKey(), "UTF-8"), URLEncoder.encode(entry.getValue(), "UTF-8")));
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+
+		return sb.toString();
 	}
 
 	@Override
