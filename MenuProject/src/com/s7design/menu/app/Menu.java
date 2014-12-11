@@ -1,4 +1,4 @@
-package com.s7droid.menu.app;
+package com.s7design.menu.app;
 
 import java.util.ArrayList;
 import java.util.HashMap;

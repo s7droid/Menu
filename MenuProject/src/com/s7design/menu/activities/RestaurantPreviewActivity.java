@@ -1,7 +1,7 @@
-package com.s7droid.menu.activities;
+package com.s7design.menu.activities;
 
 import com.s7design.menu.R;
-import com.s7droid.menu.app.Menu;
+import com.s7design.menu.app.Menu;
 
 import android.content.Intent;
 import android.os.Bundle;

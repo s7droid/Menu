@@ -1,4 +1,4 @@
-package com.s7droid.menu.activities;
+package com.s7design.menu.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,7 +10,7 @@ import android.text.style.StyleSpan;
 import android.widget.TextView;
 
 import com.s7design.menu.R;
-import com.s7droid.menu.app.Menu;
+import com.s7design.menu.app.Menu;
 
 /**
  * Splash screen activity used for getting data from server, such are connection
