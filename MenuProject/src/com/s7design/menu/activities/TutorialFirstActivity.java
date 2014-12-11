@@ -14,6 +14,7 @@ import com.android.volley.Response.Listener;
 import com.s7design.menu.R;
 import com.s7design.menu.volley.VolleySingleton;
 import com.s7design.menu.volley.requests.GetRestaurantInfoRequest;
+import com.s7design.menu.volley.responses.GetRestaurantInfoResponse;
 
 /**
  * Activity for showing first screen of the two screens tutorial. <br>
@@ -54,10 +55,10 @@ public class TutorialFirstActivity extends Activity {
 				params.put("major", "22");
 				params.put("minor", "2");
 
-				GetRestaurantInfoRequest request = new GetRestaurantInfoRequest(TutorialFirstActivity.this, params, new Listener<GetRestaurantInfoRequest>() {
+				GetRestaurantInfoRequest request = new GetRestaurantInfoRequest(TutorialFirstActivity.this, params, new Listener<GetRestaurantInfoResponse>() {
 
 					@Override
-					public void onResponse(GetRestaurantInfoRequest arg0) {
+					public void onResponse(GetRestaurantInfoResponse arg0) {
 
 						Log.d(TAG, "onResponse");
 					}
