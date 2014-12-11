@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/action_bar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:id="@+id/textviewRestaurantPreviewActivityWelcomeMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/restaurant_preview_activity_welcome_message"
+            android:textColor="@color/menu_main_gray"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/textviewRestaurantPreviewActivityRestaurantName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textviewRestaurantPreviewActivityWelcomeMessage"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="Restaurant Name"
+            android:textColor="@color/menu_main_gray"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/textviewRestaurantPreviewActivityPowered"
+            android:layout_below="@+id/textviewRestaurantPreviewActivityRestaurantName"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/restaurant_01" />
+
+        <TextView
+            android:id="@+id/textviewRestaurantPreviewActivityPowered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/imageviewRestaurantPreviewActivityMenuLogo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:text="@string/restaurant_preview_activity_powered_by" />
+
+        <ImageView
+            android:id="@+id/imageviewRestaurantPreviewActivityMenuLogo"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_above="@+id/buttonRestaurantPreviewActivityMakeOrder"
+            android:layout_marginBottom="30dp"
+            android:src="@drawable/logo_menu_small" />
+
+        <Button
+            android:id="@+id/buttonRestaurantPreviewActivityMakeOrder"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/menu_orange_button_shape"
+            android:text="@string/restaurant_preview_activity_make_your_order"
+            android:textColor="@android:color/white" />
+    </RelativeLayout>
+
+</LinearLayout>
