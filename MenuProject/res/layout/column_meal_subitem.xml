@@ -1,63 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="wrap_content"
     android:background="@android:color/white"
-    android:orientation="horizontal"
-    android:padding="10dp" >
+    android:orientation="vertical" >
 
-    <ImageView
-        android:id="@+id/imageviewSubMealImage"
-        android:layout_width="100dp"
-        android:layout_height="match_parent"
-        android:src="@drawable/meal_category_01" />
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="15dp"
-        android:background="@android:color/white" >
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
 
-        <TextView
-            android:id="@+id/textviewSubMealTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:text="Garlic Soup"
-            android:textColor="@color/menu_main_gray"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+        <RelativeLayout
+            android:id="@+id/linearlayoutSubMealImageContainer"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:orientation="vertical" 
+            android:layout_margin="10dp">
 
-        <TextView
-            android:id="@+id/textviewSubMealPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textviewSubMealTitle"
-            android:layout_marginTop="5dp"
-            android:alpha="0.5"
-            android:text="7.00e / 12.00e"
-            android:textSize="13sp" />
+            <ImageView
+                android:id="@+id/imageviewSubMealImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/meal_category_01"
+                android:scaleType="centerInside" />
+            
+            <ImageView 
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/image_meals_list_selector"/>
+            
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/textviewSubMealPrice"
-            android:layout_marginTop="5dp" >
+            android:layout_alignBottom="@+id/imageviewSubMealImage"
+            android:layout_alignTop="@+id/imageviewSubMealImage"
+            android:layout_margin="10dp"
+            android:layout_toRightOf="@+id/imageviewSubMealImage"
+            android:background="@android:color/white" >
 
-            <Button
-                android:id="@+id/buttonSubMealOrderLarge"
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/textviewSubMealTitle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="large" />
+                android:singleLine="true"
+                android:text="Garlic Soup"
+                android:textColor="@color/menu_main_gray"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/buttonSubMealOrderSmall"
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/textviewSubMealPrice"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="small" />
-        </LinearLayout>
-    </RelativeLayout>
+                android:layout_below="@+id/textviewSubMealTitle"
+                android:layout_marginTop="5dp"
+                android:alpha="0.5"
+                android:text="7.00e / 12.00e"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/textviewSubMealPrice"
+                android:layout_marginTop="5dp"
+                android:gravity="center" >
+
+                <Button
+                    android:id="@+id/buttonSubMealOrderLarge"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="large" />
+
+                <Button
+                    android:id="@+id/buttonSubMealOrderSmall"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="small" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/imageviewSubMealImage"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/menu_main_gray" />
 
 </LinearLayout>

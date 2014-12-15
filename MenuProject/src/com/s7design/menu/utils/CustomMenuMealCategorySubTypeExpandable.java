@@ -1,21 +1,21 @@
 package com.s7design.menu.utils;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
-import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.s7design.menu.R;
 
-public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
+public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout implements OnClickListener{
 
 	private Context mGlobalContext;
 	private String mSubclassTitle;
@@ -51,21 +51,62 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 //
 //		addView(title);
 		
-		View view = inflate(mGlobalContext, R.layout.column_meal_subitem, this);
+		View view = inflate(mGlobalContext, R.layout.activity_meal_sub_item, this);
 		
-//		Button subCategoryButton = (Button) view.findViewById(R.id.);
-//		ListView mealsListView = (ListView) view.findViewById(R.id.);
-//
-//		subCategoryButton.setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				if(!mealsListView)
-//					mealsListView.setVisibility(View.VISIBLE);
-//				else
-//					mealsListView.setVisibility(View.GONE);
-//			}
-//		});
+		final Button subCategoryButton = (Button) view.findViewById(R.id.buttonOrderMealActivitySubItem);
+		final LinearLayout mealsListView = (LinearLayout) view.findViewById(R.id.listviewOrderMealActivitySubItemsList);
+
+		for (int i = 0; i< mMeals.length; i++) {
+			  LinearLayout vi = (LinearLayout) LayoutInflater.from(mGlobalContext).inflate(R.layout.column_meal_subitem, null);
+			  Button large = (Button) vi.findViewById(R.id.buttonSubMealOrderLarge);
+			  Button small = (Button) vi.findViewById(R.id.buttonSubMealOrderSmall);
+			  RelativeLayout imageContainer = (RelativeLayout) vi.findViewById(R.id.linearlayoutSubMealImageContainer);
+			  
+			  
+			  
+			  final int ii = i;
+			  
+			  large.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Toast.makeText(mGlobalContext, "Clicked large " + ii, Toast.LENGTH_SHORT).show();
+				}
+			});
+			  small.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Toast.makeText(mGlobalContext, "Clicked small " + ii, Toast.LENGTH_SHORT).show();
+
+				}
+			});
+			  
+			  imageContainer.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Toast.makeText(mGlobalContext, "Clicked on image " + ii, Toast.LENGTH_SHORT).show();
+				}
+			});
+			  
+			  mealsListView.addView(vi);
+		}
+		
+		mealsListView.setVisibility(View.GONE);
+		
+		subCategoryButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				if(!isMealsListOpen)
+					mealsListView.setVisibility(View.VISIBLE);
+				else
+					mealsListView.setVisibility(View.GONE);
+				
+				isMealsListOpen = !isMealsListOpen;
+			}
+		});
 		invalidate();
 		requestLayout();
 	}
@@ -130,5 +171,8 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 		}
 
 	}
+
+	@Override
+	public void onClick(View v) {}
 
 }
