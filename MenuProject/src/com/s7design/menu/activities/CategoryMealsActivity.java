@@ -1,12 +1,15 @@
 package com.s7design.menu.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
@@ -15,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.s7design.menu.R;
+import com.s7design.menu.app.Menu;
 
 /**
  * Activity for presenting all meal categories from one restaurant. <br>
@@ -65,6 +69,15 @@ public class CategoryMealsActivity extends BaseActivity{
 				Toast.makeText(getApplicationContext(), "Go to checkout.", Toast.LENGTH_SHORT).show();
 			}
 		});
+		
+		mCategoryGridView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				startActivity(new Intent(Menu.getContext(), OrderMealsActivity.class));
+			}
+		});
+		
 	}
 
 	class CategoriesAdapter extends BaseAdapter {

@@ -28,6 +28,7 @@
             android:textColor="@color/menu_main_gray" />
 
         <ImageButton
+            android:id="@+id/imagebuttonActionBarMenu"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
