@@ -56,13 +56,13 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout implem
 		final Button subCategoryButton = (Button) view.findViewById(R.id.buttonOrderMealActivitySubItem);
 		final LinearLayout mealsListView = (LinearLayout) view.findViewById(R.id.listviewOrderMealActivitySubItemsList);
 
+		subCategoryButton.setText(mSubclassTitle);
+		
 		for (int i = 0; i< mMeals.length; i++) {
 			  LinearLayout vi = (LinearLayout) LayoutInflater.from(mGlobalContext).inflate(R.layout.column_meal_subitem, null);
 			  Button large = (Button) vi.findViewById(R.id.buttonSubMealOrderLarge);
 			  Button small = (Button) vi.findViewById(R.id.buttonSubMealOrderSmall);
 			  RelativeLayout imageContainer = (RelativeLayout) vi.findViewById(R.id.linearlayoutSubMealImageContainer);
-			  
-			  
 			  
 			  final int ii = i;
 			  

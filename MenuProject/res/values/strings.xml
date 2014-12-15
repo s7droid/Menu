@@ -1,12 +1,16 @@
 <resources>
 
     <string name="app_name">MenuProject</string>
-    
-    <!--Action bar -->
-    
-    <string name="action_bar_back">Back</string>
-    <string name="action_bar_tutorial">Tutorial</string>
-    
+
+    <!-- Action bar -->
+
+    <string name="action_bar_back">BACK</string>
+    <string name="action_bar_tutorial">TUTORIAL</string>
+	<string name="action_bar_checkout">CHECKOUT</string>
+	<string name="action_bar_add_items">ADD ITEMS</string>
+	<string name="action_bar_order_summary">ORDER SUMMARY</string>
+	
+    <!-- Tutorial -->
     <string name="menu_tutorial_screen_button_continue">CONTINUE</string>
     <string name="menu_tutorial_screen_button_make_your_choice">MAKE YOUR CHOICE</string>
 
@@ -14,7 +18,14 @@
     <string name="restaurant_preview_activity_welcome_message">Welcome to</string>
     <string name="restaurant_preview_activity_make_your_order">MAKE YOUR ORDER</string>
     <string name="restaurant_preview_activity_powered_by">Provided to you by</string>
-    
     <string name="txt_checkout_small">Checkout</string>
-    
+
+    <!-- Dialogs -->
+
+    <string name="dialog_loading">Loading&#8230;</string>
+    <string name="dialog_please_wait">Please wait&#8230;</string>
+    <string name="dialog_title_error">Error</string>
+    <string name="dialog_no_internet_connection">No internet connection</string>
+    <string name="dialog_bluetooth_off">Bluetooth is off. Would you like to turn it on?</string>
+
 </resources>

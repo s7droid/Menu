@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp" >
+
+    <ImageView
+        android:id="@+id/iv1"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/logo_menu_small" />
+
+    <View
+        android:id="@+id/separator1"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/iv1"
+        android:layout_marginTop="25dp"
+        android:background="@color/menu_main_orange" />
+
+    <Button
+        android:id="@+id/buttonMainMenuActivityViewVenue"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/separator1"
+        android:background="@android:color/transparent"
+        android:gravity="left|center_vertical"
+        android:text="VIEW VENUE MENU"
+        android:textColor="@color/menu_main_gray"
+        android:textSize="15sp" />
+
+    <View
+        android:id="@+id/separator2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/buttonMainMenuActivityViewVenue"
+        android:background="@color/menu_main_orange" />
+
+    <Button
+        android:id="@+id/buttonMainMenuActivityViewTutorial"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/separator2"
+        android:background="@android:color/transparent"
+        android:gravity="left|center_vertical"
+        android:text="VIEW TUTORIAL"
+        android:textColor="@color/menu_main_gray"
+        android:textSize="15sp" />
+
+    <View
+        android:id="@+id/separator3"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/buttonMainMenuActivityViewTutorial"
+        android:background="@color/menu_main_orange" />
+
+    <Button
+        android:id="@+id/buttonMainMenuActivityViewPastReceipts"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/separator3"
+        android:background="@android:color/transparent"
+        android:gravity="left|center_vertical"
+        android:text="VIEW PAST RECEIPTS"
+        android:textColor="@color/menu_main_gray"
+        android:textSize="15sp" />
+
+    <View
+        android:id="@+id/separator4"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/buttonMainMenuActivityViewPastReceipts"
+        android:background="@color/menu_main_orange" />
+
+    <Button
+        android:id="@+id/buttonMainMenuActivityManageYourAccount"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/separator4"
+        android:background="@android:color/transparent"
+        android:gravity="left|center_vertical"
+        android:text="MANAGE YOUR ACCOUNT"
+        android:textColor="@color/menu_main_gray"
+        android:textSize="15sp" />
+
+    <View
+        android:id="@+id/separator5"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/buttonMainMenuActivityManageYourAccount"
+        android:background="@color/menu_main_orange" />
+
+    <View
+        android:id="@+id/separator6"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_above="@+id/buttonMainMenuActivityCurrentOrderPreview"
+        android:background="@color/menu_main_orange" />
+
+    <Button
+        android:id="@+id/buttonMainMenuActivityCurrentOrderPreview"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/transparent"
+        android:gravity="left|center_vertical"
+        android:text="CURRENT ORDER PREVIEW"
+        android:textColor="@color/menu_main_orange"
+        android:textSize="15sp" />
+
+</RelativeLayout>
