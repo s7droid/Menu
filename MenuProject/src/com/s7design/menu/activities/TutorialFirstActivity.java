@@ -13,7 +13,9 @@ import android.widget.Button;
 import com.android.volley.Response.Listener;
 import com.s7design.menu.R;
 import com.s7design.menu.volley.VolleySingleton;
+import com.s7design.menu.volley.requests.GetCategoriesRequest;
 import com.s7design.menu.volley.requests.GetRestaurantInfoRequest;
+import com.s7design.menu.volley.responses.GetCategoriesResponse;
 import com.s7design.menu.volley.responses.GetRestaurantInfoResponse;
 
 /**
@@ -24,7 +26,7 @@ import com.s7design.menu.volley.responses.GetRestaurantInfoResponse;
  * @author s7Design
  *
  */
-public class TutorialFirstActivity extends Activity {
+public class TutorialFirstActivity extends BaseActivity {
 
 	private static final String TAG = TutorialFirstActivity.class.getSimpleName();
 
@@ -35,6 +37,7 @@ public class TutorialFirstActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tutorial_screen_first);
+		hideActionBar();
 		initViews();
 	}
 
@@ -54,11 +57,12 @@ public class TutorialFirstActivity extends Activity {
 				Map<String, String> params = new HashMap<String, String>();
 				params.put("major", "22");
 				params.put("minor", "2");
+				params.put("lang", "en");
 
-				GetRestaurantInfoRequest request = new GetRestaurantInfoRequest(TutorialFirstActivity.this, params, new Listener<GetRestaurantInfoResponse>() {
+				GetCategoriesRequest request = new GetCategoriesRequest(TutorialFirstActivity.this, params, new Listener<GetCategoriesResponse>() {
 
 					@Override
-					public void onResponse(GetRestaurantInfoResponse arg0) {
+					public void onResponse(GetCategoriesResponse arg0) {
 
 						Log.d(TAG, "onResponse");
 					}

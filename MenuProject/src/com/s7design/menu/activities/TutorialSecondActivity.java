@@ -17,7 +17,7 @@ import com.s7design.menu.R;
  * @author s7Design
  *
  */
-public class TutorialSecondActivity extends Activity {
+public class TutorialSecondActivity extends BaseActivity {
 
 	// VIEWS
 	private Button mMakeOrder;
@@ -26,6 +26,7 @@ public class TutorialSecondActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tutorial_screen_second);
+		hideActionBar();
 		initViews();
 	}
 
