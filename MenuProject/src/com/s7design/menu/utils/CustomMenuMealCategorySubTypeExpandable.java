@@ -20,7 +20,7 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 	private Context mGlobalContext;
 	private String mSubclassTitle;
 	private String[] mMeals;
-
+	private boolean isMealsListOpen = false;
 	public CustomMenuMealCategorySubTypeExpandable(Context context, String subclassTitle, String[] meals) {
 		super(context);
 
@@ -38,27 +38,34 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 	 */
 	private void init() {
 
-		Button title = new Button(mGlobalContext);
-		final ListView listview = new ListView(mGlobalContext);
-
-		title.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-		title.setText(mSubclassTitle);
-		title.setBackgroundColor(getResources().getColor(R.color.menu_main_orange));
-		title.setTypeface(null, Typeface.BOLD);
-		listview.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-		listview.setAdapter(new MealsAdapter(mMeals));
-		listview.setVisibility(View.GONE);
-
-		addView(title);
-		addView(listview);
-
-		title.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				listview.setVisibility(View.VISIBLE);
-			}
-		});
+//		Button title = new Button(mGlobalContext);
+//		final ListView listview = new ListView(mGlobalContext);
+//
+//		title.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+//		title.setText(mSubclassTitle);
+//		title.setBackgroundColor(getResources().getColor(R.color.menu_main_orange));
+//		title.setTypeface(null, Typeface.BOLD);
+//		listview.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+//		listview.setAdapter(new MealsAdapter(mMeals));
+//		listview.setVisibility(View.GONE);
+//
+//		addView(title);
+		
+		View view = inflate(mGlobalContext, R.layout.column_meal_subitem, this);
+		
+//		Button subCategoryButton = (Button) view.findViewById(R.id.);
+//		ListView mealsListView = (ListView) view.findViewById(R.id.);
+//
+//		subCategoryButton.setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//				if(!mealsListView)
+//					mealsListView.setVisibility(View.VISIBLE);
+//				else
+//					mealsListView.setVisibility(View.GONE);
+//			}
+//		});
 		invalidate();
 		requestLayout();
 	}
