@@ -3,7 +3,6 @@ package com.s7design.menu.activities;
 import java.util.HashMap;
 import java.util.Map;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,9 +14,7 @@ import com.android.volley.Response.Listener;
 import com.s7design.menu.R;
 import com.s7design.menu.volley.VolleySingleton;
 import com.s7design.menu.volley.requests.GetCategoriesRequest;
-import com.s7design.menu.volley.requests.GetRestaurantInfoRequest;
 import com.s7design.menu.volley.responses.GetCategoriesResponse;
-import com.s7design.menu.volley.responses.GetRestaurantInfoResponse;
 
 /**
  * Activity for showing first screen of the two screens tutorial. <br>
