@@ -27,5 +27,24 @@
     <string name="dialog_title_error">Error</string>
     <string name="dialog_no_internet_connection">No internet connection</string>
     <string name="dialog_bluetooth_off">Bluetooth is off. Would you like to turn it on?</string>
-
+    <string name="dialog_insert_email_address">Please, insert Your email address.</string>
+	<string name="dialog_insert_password">Please, insert Your password.</string>
+	<string name="dialog_insert_emal_address_and_password">Please, insert Your email address and password.</string>
+    
+    <!-- Sign in -->
+    <string name="sign_in_button_text">SIGN IN</string>
+    <string name="sign_in_username_hint_text">Email address</string>
+    <string name="sign_in_password_hint_text">Password</string>
+    <string name="sign_in_sign_up_text">Don\'t have an account yet?</string>
+    <string name="sign_in_forgot_password_text">Forgot password?</string>
+    
+    <!-- Sign up -->
+    <string name="sign_up_button_text">SIGN UP</string>
+    <string name="sign_up_hide_button">HIDE</string>
+    <string name="sign_up_repeat_password_hint_text">Repeat password</string>
+    <string name="sign_up_scan_credit_card_hint_text">SCAN CREDIT CARD</string>
+    <string name="sign_up_credit_card_number_hint_text">Credit card number</string>
+    <string name="sign_up_name_on_card_hint_text">Name on card</string>
+    <string name="sign_up_date_hint_text">MM / YYYY</string>
+    <string name="sign_up_ccv_hint_text">CCV</string>
 </resources>

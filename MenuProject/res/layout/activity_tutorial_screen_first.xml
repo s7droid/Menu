@@ -26,11 +26,10 @@
 
     <Button
         android:id="@+id/buttonuTutorialScreenFirstContinueButton"
+        style="@style/Menu_Button_Orange"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/menu_orange_button_shape"
-        android:text="@string/menu_tutorial_screen_button_continue"
-        android:textColor="@android:color/white" />
+        android:text="@string/menu_tutorial_screen_button_continue" />
 
 </RelativeLayout>

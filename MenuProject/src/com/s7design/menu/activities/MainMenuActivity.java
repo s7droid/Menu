@@ -130,7 +130,7 @@ public class MainMenuActivity extends BaseActivity {
 	}
 
 	private void venuMenuButtonAction() {
-		Toast.makeText(getApplicationContext(), "venuMenuButtonAction", Toast.LENGTH_SHORT).show();
+		startActivity(new Intent(getApplicationContext(), SignInActivity.class));
 	}
 
 	private void tutorialsButtonAction() {

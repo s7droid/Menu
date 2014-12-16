@@ -43,12 +43,19 @@
         <activity
             android:name="com.s7design.menu.activities.CategoryMealsActivity"
             android:screenOrientation="portrait" />
-         <activity
+        <activity
             android:name="com.s7design.menu.activities.MainMenuActivity"
             android:screenOrientation="portrait" />
-           <activity
+        <activity
             android:name="com.s7design.menu.activities.CheckoutActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.s7design.menu.activities.SignInActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.s7design.menu.activities.SignUpActivity"
+            android:screenOrientation="portrait" />
+        
     </application>
 
 </manifest>

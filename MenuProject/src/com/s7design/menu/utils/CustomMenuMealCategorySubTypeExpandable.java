@@ -4,13 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.s7design.menu.R;
@@ -111,66 +107,66 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout implem
 		requestLayout();
 	}
 
-	private class MealsAdapter extends BaseAdapter {
-
-		private String[] mItems;
-		private LayoutInflater mInflater;
-
-		public MealsAdapter(String[] meals) {
-			mItems = meals;
-			mInflater = LayoutInflater.from(mGlobalContext);
-		}
-
-		@Override
-		public int getCount() {
-			return mItems.length;
-		}
-
-		@Override
-		public Object getItem(int position) {
-			return null;
-		}
-
-		@Override
-		public long getItemId(int position) {
-			return 0;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-
-			if (convertView == null) {
-
-				convertView = mInflater.inflate(R.layout.column_meal_subitem, null);
-
-				ViewHolder holder = new ViewHolder();
-
-				holder.mealImage = (ImageView) convertView.findViewById(R.id.imageviewSubMealImage);
-				holder.mealName = (TextView) convertView.findViewById(R.id.textviewSubMealTitle);
-				holder.mealPrice = (TextView) convertView.findViewById(R.id.textviewSubMealPrice);
-				holder.orderLarge = (Button) convertView.findViewById(R.id.buttonSubMealOrderLarge);
-				holder.orderSmall = (Button) convertView.findViewById(R.id.buttonSubMealOrderSmall);
-
-				convertView.setTag(holder);
-			}
-
-			ViewHolder holder = (ViewHolder) convertView.getTag();
-
-			holder.mealName.setText(mItems[position]);
-			holder.mealImage.setImageResource(R.drawable.meal_category_01);
-
-			return convertView;
-		}
-
-		class ViewHolder {
-			ImageView mealImage;
-			TextView mealName;
-			TextView mealPrice;
-			Button orderLarge;
-			Button orderSmall;
-		}
-
-	}
+//	private class MealsAdapter extends BaseAdapter {
+//
+//		private String[] mItems;
+//		private LayoutInflater mInflater;
+//
+//		public MealsAdapter(String[] meals) {
+//			mItems = meals;
+//			mInflater = LayoutInflater.from(mGlobalContext);
+//		}
+//
+//		@Override
+//		public int getCount() {
+//			return mItems.length;
+//		}
+//
+//		@Override
+//		public Object getItem(int position) {
+//			return null;
+//		}
+//
+//		@Override
+//		public long getItemId(int position) {
+//			return 0;
+//		}
+//
+//		@Override
+//		public View getView(int position, View convertView, ViewGroup parent) {
+//
+//			if (convertView == null) {
+//
+//				convertView = mInflater.inflate(R.layout.column_meal_subitem, null);
+//
+//				ViewHolder holder = new ViewHolder();
+//
+//				holder.mealImage = (ImageView) convertView.findViewById(R.id.imageviewSubMealImage);
+//				holder.mealName = (TextView) convertView.findViewById(R.id.textviewSubMealTitle);
+//				holder.mealPrice = (TextView) convertView.findViewById(R.id.textviewSubMealPrice);
+//				holder.orderLarge = (Button) convertView.findViewById(R.id.buttonSubMealOrderLarge);
+//				holder.orderSmall = (Button) convertView.findViewById(R.id.buttonSubMealOrderSmall);
+//
+//				convertView.setTag(holder);
+//			}
+//
+//			ViewHolder holder = (ViewHolder) convertView.getTag();
+//
+//			holder.mealName.setText(mItems[position]);
+//			holder.mealImage.setImageResource(R.drawable.meal_category_01);
+//
+//			return convertView;
+//		}
+//
+//		class ViewHolder {
+//			ImageView mealImage;
+//			TextView mealName;
+//			TextView mealPrice;
+//			Button orderLarge;
+//			Button orderSmall;
+//		}
+//
+//	}
 
 	@Override
 	public void onClick(View v) {}
