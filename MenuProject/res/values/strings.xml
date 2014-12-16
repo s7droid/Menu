@@ -6,10 +6,10 @@
 
     <string name="action_bar_back">BACK</string>
     <string name="action_bar_tutorial">TUTORIAL</string>
-	<string name="action_bar_checkout">CHECKOUT</string>
-	<string name="action_bar_add_items">ADD ITEMS</string>
-	<string name="action_bar_order_summary">ORDER SUMMARY</string>
-	
+    <string name="action_bar_checkout">CHECKOUT</string>
+    <string name="action_bar_add_items">ADD ITEMS</string>
+    <string name="action_bar_order_summary">ORDER SUMMARY</string>
+
     <!-- Tutorial -->
     <string name="menu_tutorial_screen_button_continue">CONTINUE</string>
     <string name="menu_tutorial_screen_button_make_your_choice">MAKE YOUR CHOICE</string>
@@ -27,5 +27,18 @@
     <string name="dialog_title_error">Error</string>
     <string name="dialog_no_internet_connection">No internet connection</string>
     <string name="dialog_bluetooth_off">Bluetooth is off. Would you like to turn it on?</string>
+
+    <!-- Checkout activity -->
+    <string name="checkout_desc">Thank you for your order! A receipt has been sent to your email.</string>
+    <string name="checkout_tip_col">TIP:</string>
+    <string name="checkout_subtotal">SUBTOTAL</string>
+    <string name="checkout_tax">TAX</string>
+    <string name="checkout_tip">TIP</string>
+    <string name="checkout_discount">DISCOUNT</string>
+    <string name="checkout_total">TOTAL</string>
+    <string name="checkout">CHECKOUT</string>
+
+    <!-- Misc -->
+    <string name="misc_euro">€</string>
 
 </resources>

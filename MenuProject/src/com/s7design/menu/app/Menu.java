@@ -10,6 +10,8 @@ import android.app.Application;
 import android.content.Context;
 import android.support.v4.util.Pair;
 
+import com.s7design.menu.dataclasses.DataManager;
+
 public class Menu extends Application {
 
 	private final String TAG = Menu.class.getSimpleName();
@@ -21,10 +23,14 @@ public class Menu extends Application {
 
 	private static Context context;
 
+	private DataManager dataManager;
+
 	public Menu() {
 		instance = this;
 		activityStack = new ArrayList<Activity>();
 		responseTimeStatistics = new HashMap<String, Pair<String, Pair<String, String>>>();
+
+		dataManager = new DataManager();
 
 	}
 
@@ -98,5 +104,9 @@ public class Menu extends Application {
 
 	public Map<String, Pair<String, Pair<String, String>>> getTimeResponses() {
 		return this.responseTimeStatistics;
+	}
+
+	public DataManager getDataManager() {
+		return dataManager;
 	}
 }
