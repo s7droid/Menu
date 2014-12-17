@@ -1,6 +1,7 @@
 package com.s7design.menu.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -10,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.s7design.menu.R;
+import com.s7design.menu.activities.MealDetailsActivity;
 
 public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout implements OnClickListener{
 
@@ -82,7 +84,7 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout implem
 				
 				@Override
 				public void onClick(View v) {
-					Toast.makeText(mGlobalContext, "Clicked on image " + ii, Toast.LENGTH_SHORT).show();
+					mGlobalContext.startActivity(new Intent(mGlobalContext, MealDetailsActivity.class));
 				}
 			});
 			  

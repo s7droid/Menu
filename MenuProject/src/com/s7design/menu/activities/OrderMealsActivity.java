@@ -48,7 +48,6 @@ public class OrderMealsActivity extends BaseActivity {
 			
 			@Override
 			public void onClick(View v) {
-				//TODO: go to checkout activity
 				startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
 			}
 		});
@@ -57,7 +56,7 @@ public class OrderMealsActivity extends BaseActivity {
 	
 	private void initData() {
 		for (int i = 0; i < 3; i++) {
-			CustomMenuMealCategorySubTypeExpandable item = new CustomMenuMealCategorySubTypeExpandable(getApplicationContext(), titles[i], meals);
+			CustomMenuMealCategorySubTypeExpandable item = new CustomMenuMealCategorySubTypeExpandable(OrderMealsActivity.this, titles[i], meals);
 			mContainer.addView(item);
 		}		
 	}
