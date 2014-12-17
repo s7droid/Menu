@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="@string/checkout_desc" />
+        android:visibility="gone" />
 
     <ListView
         android:id="@+id/listView"
@@ -21,6 +21,7 @@
     </ListView>
 
     <LinearLayout
+        android:id="@+id/layoutAddMore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"
@@ -34,6 +35,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layoutSeekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
@@ -47,13 +49,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="@string/checkout_tip_col" />
+                android:text="@string/checkout_tip_col"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewTipPercent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:textStyle="bold" />
         </RelativeLayout>
 
         <SeekBar
@@ -96,7 +100,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/checkout_subtotal" />
+                android:text="@string/checkout_subtotal"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -106,7 +111,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/checkout_tax" />
+                    android:text="@string/checkout_tax"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -121,7 +127,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/checkout_tip" />
+                    android:text="@string/checkout_tip"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -129,6 +136,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layoutDiscount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
@@ -136,7 +144,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/checkout_total" />
+                    android:text="@string/checkout_discount"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -152,22 +161,28 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/textViewDiscount"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <RelativeLayout
+            android:id="@+id/layoutTotal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
@@ -175,6 +190,7 @@
             android:padding="5dp" >
 
             <TextView
+                android:id="@+id/textViewTotalLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -183,6 +199,7 @@
                 android:textColor="@color/menu_main_orange" />
 
             <TextView
+                android:id="@+id/textViewTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -195,7 +212,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/buttonRestaurantPreviewActivityMakeOrder"
+        android:id="@+id/buttonCheckout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/menu_orange_button_shape"

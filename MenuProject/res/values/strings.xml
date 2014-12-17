@@ -9,6 +9,7 @@
     <string name="action_bar_checkout">CHECKOUT</string>
     <string name="action_bar_add_items">ADD ITEMS</string>
     <string name="action_bar_order_summary">ORDER SUMMARY</string>
+    <string name="action_bar_receipt">RECEIPT</string>
 
     <!-- Tutorial -->
     <string name="menu_tutorial_screen_button_continue">CONTINUE</string>
@@ -21,15 +22,18 @@
     <string name="txt_checkout_small">Checkout</string>
 
     <!-- Dialogs -->
-
     <string name="dialog_loading">Loading&#8230;</string>
     <string name="dialog_please_wait">Please wait&#8230;</string>
     <string name="dialog_title_error">Error</string>
     <string name="dialog_no_internet_connection">No internet connection</string>
     <string name="dialog_bluetooth_off">Bluetooth is off. Would you like to turn it on?</string>
+    <string name="dialog_insert_email_address">Please, insert Your email address.</string>
+    <string name="dialog_insert_password">Please, insert Your password.</string>
+    <string name="dialog_insert_emal_address_and_password">Please, insert Your email address and password.</string>
 
     <!-- Checkout activity -->
-    <string name="checkout_desc">Thank you for your order! A receipt has been sent to your email.</string>
+    <string name="checkout_thank_you_for_order">Thank you for your order!</string>
+    <string name="checkout_receipt_sent"> A receipt has been sent to your email.</string>
     <string name="checkout_tip_col">TIP:</string>
     <string name="checkout_subtotal">SUBTOTAL</string>
     <string name="checkout_tax">TAX</string>
@@ -37,21 +41,15 @@
     <string name="checkout_discount">DISCOUNT</string>
     <string name="checkout_total">TOTAL</string>
     <string name="checkout">CHECKOUT</string>
+    <string name="checkout_enjoy">ENJOY YOUR MEAL!</string>
 
-    <!-- Misc -->
-    <string name="misc_euro">€</string>
-
-    <string name="dialog_insert_email_address">Please, insert Your email address.</string>
-	<string name="dialog_insert_password">Please, insert Your password.</string>
-	<string name="dialog_insert_emal_address_and_password">Please, insert Your email address and password.</string>
-    
     <!-- Sign in -->
     <string name="sign_in_button_text">SIGN IN</string>
     <string name="sign_in_username_hint_text">Email address</string>
     <string name="sign_in_password_hint_text">Password</string>
     <string name="sign_in_sign_up_text">Don\'t have an account yet?</string>
     <string name="sign_in_forgot_password_text">Forgot password?</string>
-    
+
     <!-- Sign up -->
     <string name="sign_up_button_text">SIGN UP</string>
     <string name="sign_up_hide_button">HIDE</string>
@@ -61,5 +59,8 @@
     <string name="sign_up_name_on_card_hint_text">Name on card</string>
     <string name="sign_up_date_hint_text">MM / YYYY</string>
     <string name="sign_up_ccv_hint_text">CCV</string>
-    
+
+    <!-- Misc -->
+    <string name="misc_euro">€</string>
+
 </resources>

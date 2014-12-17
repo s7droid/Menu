@@ -4,12 +4,18 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -28,6 +34,15 @@ public class CheckoutActivity extends BaseActivity {
 	private CircleButtonView circleButtonAdd;
 	private SeekBar seekBar;
 	private TextView textViewTipPercent;
+	private Button buttonCheckout;
+	private TextView textViewDesc;
+	private LinearLayout layoutAddMore;
+	private LinearLayout layoutSeekBar;
+	private LinearLayout layoutDiscount;
+	private TextView textViewDiscount;
+	private RelativeLayout layoutTotal;
+	private TextView textViewTotalLabel;
+	private TextView textViewTotal;
 
 	private double total;
 
@@ -68,6 +83,15 @@ public class CheckoutActivity extends BaseActivity {
 		circleButtonAdd = (CircleButtonView) findViewById(R.id.circleButtonAdd);
 		seekBar = (SeekBar) findViewById(R.id.seekBar);
 		textViewTipPercent = (TextView) findViewById(R.id.textViewTipPercent);
+		buttonCheckout = (Button) findViewById(R.id.buttonCheckout);
+		textViewDesc = (TextView) findViewById(R.id.textViewDesc);
+		layoutAddMore = (LinearLayout) findViewById(R.id.layoutAddMore);
+		layoutSeekBar = (LinearLayout) findViewById(R.id.layoutSeekBar);
+		layoutDiscount = (LinearLayout) findViewById(R.id.layoutDiscount);
+		textViewDiscount = (TextView) findViewById(R.id.textViewDiscount);
+		layoutTotal = (RelativeLayout) findViewById(R.id.layoutTotal);
+		textViewTotalLabel = (TextView) findViewById(R.id.textViewTotalLabel);
+		textViewTotal = (TextView) findViewById(R.id.textViewTotal);
 
 		circleButtonAdd.setAsAdd();
 
@@ -96,6 +120,37 @@ public class CheckoutActivity extends BaseActivity {
 			}
 		});
 
+		buttonCheckout.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				checkout();
+			}
+		});
+
+	}
+
+	private void checkout() {
+
+		textViewDesc.setVisibility(View.VISIBLE);
+		layoutAddMore.setVisibility(View.GONE);
+		layoutSeekBar.setVisibility(View.GONE);
+		layoutDiscount.setVisibility(View.GONE);
+		textViewDiscount.setVisibility(View.GONE);
+		layoutTotal.setBackgroundResource(R.drawable.border_square_gray);
+		textViewTotalLabel.setTextColor(getResources().getColor(R.color.menu_main_gray));
+		textViewTotal.setTextColor(getResources().getColor(R.color.menu_main_gray));
+		setActionBarForwardButtonText(R.string.action_bar_receipt);
+		buttonCheckout.setText(R.string.checkout_enjoy);
+
+		String thankYou = getString(R.string.checkout_thank_you_for_order);
+		SpannableStringBuilder ssb = new SpannableStringBuilder(thankYou + " " + getString(R.string.checkout_receipt_sent));
+
+		final StyleSpan bss1 = new StyleSpan(android.graphics.Typeface.BOLD);
+		ssb.setSpan(bss1, 0, thankYou.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+
+		textViewDesc.setText(ssb);
 	}
 
 	class Adapter extends BaseAdapter {

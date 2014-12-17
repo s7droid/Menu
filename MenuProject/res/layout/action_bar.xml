@@ -10,13 +10,14 @@
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:background="@null"
+        android:drawableLeft="@drawable/icon_left"
         android:drawablePadding="5dp"
-        android:drawableStart="@drawable/icon_left"
         android:gravity="center_vertical|start"
         android:paddingEnd="5dp"
         android:paddingStart="5dp"
         android:text="@string/action_bar_back"
-        android:textColor="@color/menu_main_gray" />
+        android:textColor="@color/menu_main_gray"
+        android:textSize="16sp" />
 
     <ImageButton
         android:id="@+id/imageButtonActionBarMenu"
@@ -33,12 +34,13 @@
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
         android:background="@null"
-        android:drawableEnd="@drawable/icon_right"
         android:drawablePadding="5dp"
+        android:drawableRight="@drawable/icon_right"
         android:gravity="center_vertical|end"
         android:paddingEnd="5dp"
         android:paddingStart="5dp"
         android:text="@string/action_bar_tutorial"
-        android:textColor="@color/menu_main_gray" />
+        android:textColor="@color/menu_main_gray"
+        android:textSize="16sp" />
 
 </RelativeLayout>
