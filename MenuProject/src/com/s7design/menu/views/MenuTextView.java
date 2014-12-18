@@ -40,4 +40,5 @@ public class MenuTextView extends TextView {
 		else
 			setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/GothamRounded-Medium.otf"));
 	}
+	
 }

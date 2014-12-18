@@ -42,6 +42,7 @@
     <string name="checkout_total">TOTAL</string>
     <string name="checkout">CHECKOUT</string>
     <string name="checkout_enjoy">ENJOY YOUR MEAL!</string>
+    <string name="checkout_done">DONE</string>
 
     <!-- Sign in -->
     <string name="sign_in_button_text">SIGN IN</string>
