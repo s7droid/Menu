@@ -27,4 +27,16 @@ public class DataManager {
 		return checkoutList;
 	}
 
+	public void addCheckoutListItem(Item item){
+		checkoutList.add(item);
+	}
+
+	public void addCheckoutListItems(ArrayList<Item> items){
+		checkoutList.addAll(items);
+	}
+	
+	public ArrayList<Item> getTestCheckoutList(){
+		return checkoutList;
+	}
+	
 }

@@ -55,7 +55,9 @@
         <activity
             android:name="com.s7design.menu.activities.SignUpActivity"
             android:screenOrientation="portrait" />
-        
+        <activity
+            android:name="com.s7design.menu.activities.MealDetailsActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

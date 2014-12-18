@@ -116,7 +116,6 @@ public class MealDetailsActivity extends BaseActivity {
 			public void onClick(View v) {
 				getReceiptAction();
 			}
-
 		});
 
 	}

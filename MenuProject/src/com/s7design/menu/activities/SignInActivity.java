@@ -25,8 +25,29 @@ public class SignInActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sign_in);
-		hideActionBar();
+		initActionBar();
 		initViews();
+	}
+
+	private void initActionBar() {
+		setActionBarForwardButtonvisibility(View.INVISIBLE);
+		setActionBarMenuButtonVisibility(View.INVISIBLE);
+
+		setActionBarMenuButtonOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+			}
+		});
+
+		setActionBarBackButtonOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
 	}
 
 	private void initViews() {

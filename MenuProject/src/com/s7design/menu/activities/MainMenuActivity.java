@@ -138,7 +138,7 @@ public class MainMenuActivity extends BaseActivity {
 	}
 
 	private void manageYourProfileButtonAction() {
-		Toast.makeText(getApplicationContext(), "manageYourProfileButtonAction", Toast.LENGTH_SHORT).show();
+		startActivity(new Intent(getApplicationContext(), SignUpActivity.class));
 	}
 
 	private void viewPastReceiptsButtonAction() {

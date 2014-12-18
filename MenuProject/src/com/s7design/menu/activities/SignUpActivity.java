@@ -1,8 +1,10 @@
 package com.s7design.menu.activities;
 
-import com.s7design.menu.R;
-
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+
+import com.s7design.menu.R;
 
 public class SignUpActivity extends BaseActivity {
 
@@ -10,8 +12,30 @@ public class SignUpActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sign_up);
-		hideActionBar();
+		initActionBar();
 		initViews();
+	
+	}
+
+	private void initActionBar() {
+		setActionBarForwardButtonvisibility(View.INVISIBLE);
+		setActionBarMenuButtonVisibility(View.INVISIBLE);
+		
+		setActionBarMenuButtonOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+			}
+		});
+
+		setActionBarBackButtonOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
 	
 	}
 

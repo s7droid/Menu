@@ -53,6 +53,8 @@
     <!-- Sign up -->
     <string name="sign_up_button_text">SIGN UP</string>
     <string name="sign_up_hide_button">HIDE</string>
+    <string name="sign_in_nickname_hint_text">Nickname</string>
+    <string name="sign_up_show_button">SHOW</string>
     <string name="sign_up_repeat_password_hint_text">Repeat password</string>
     <string name="sign_up_scan_credit_card_hint_text">SCAN CREDIT CARD</string>
     <string name="sign_up_credit_card_number_hint_text">Credit card number</string>
