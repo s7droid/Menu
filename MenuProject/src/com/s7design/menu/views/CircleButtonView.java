@@ -28,6 +28,7 @@ public class CircleButtonView extends RelativeLayout {
 		inflate(getContext(), R.layout.circle_button_view, this);
 
 		textView = (TextView) findViewById(R.id.textView);
+		setBackgroundResource(R.drawable.border_round_gray);
 	}
 
 	@Override
@@ -39,18 +40,26 @@ public class CircleButtonView extends RelativeLayout {
 
 	public void setAsQty(int qty) {
 		textView.setText(String.valueOf(qty));
-		textView.setTextColor(getResources().getColor(R.color.menu_main_gray));
-		setBackgroundResource(R.drawable.border_round_gray);
 	}
 
 	public void setAsDel() {
 		textView.setText("x");
-		textView.setTextColor(getResources().getColor(R.color.menu_main_gray));
-		setBackgroundResource(R.drawable.border_round_gray);
+	}
+
+	public void setAsRemove() {
+		textView.setText("-");
 	}
 
 	public void setAsAdd() {
 		textView.setText("+");
+	}
+
+	public void setAsLight() {
+		textView.setTextColor(getResources().getColor(R.color.menu_main_gray_light));
+		setBackgroundResource(R.drawable.border_round_gray_light);
+	}
+
+	public void setAsOrange() {
 		textView.setTextColor(getResources().getColor(R.color.menu_main_orange));
 		setBackgroundResource(R.drawable.border_round_orange);
 	}

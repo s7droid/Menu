@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -110,6 +112,7 @@ public class CheckoutActivity extends BaseActivity {
 		textViewTip = (TextView) findViewById(R.id.textViewTip);
 
 		circleButtonAdd.setAsAdd();
+		circleButtonAdd.setAsOrange();
 
 		adapter = new Adapter(this, checkoutList);
 		listView.setAdapter(adapter);
@@ -230,6 +233,12 @@ public class CheckoutActivity extends BaseActivity {
 				holder.textViewName = (TextView) convertView.findViewById(R.id.textViewName);
 				holder.textViewPrice = (TextView) convertView.findViewById(R.id.textViewPrice);
 				holder.circleButtonViewDel = (CircleButtonView) convertView.findViewById(R.id.circleButtonViewDel);
+				holder.circleButtonViewMinus = (CircleButtonView) convertView.findViewById(R.id.circleButtonViewMinus);
+				holder.circleButtonViewPlus = (CircleButtonView) convertView.findViewById(R.id.circleButtonViewPlus);
+				holder.textViewQty = (TextView) convertView.findViewById(R.id.textViewQty);
+				holder.buttonDone = (Button) convertView.findViewById(R.id.buttonDone);
+				holder.layoutName = (LinearLayout) convertView.findViewById(R.id.layoutName);
+				holder.layoutMinusPlus = (LinearLayout) convertView.findViewById(R.id.layoutMinusPlus);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
@@ -237,11 +246,61 @@ public class CheckoutActivity extends BaseActivity {
 
 			Item item = getItem(position);
 
-			//TODO: promeniti quantity
-			holder.circleButtonViewQty.setAsQty(item.quantityLarge);
+			holder.position = position;
+
+			holder.circleButtonViewQty.setAsQty(item.quantitySmall);
+			holder.circleButtonViewQty.setAsLight();
 			holder.textViewName.setText(item.name);
 			holder.textViewPrice.setText(String.valueOf(item.largeprice));
 			holder.circleButtonViewDel.setAsDel();
+			holder.circleButtonViewDel.setAsLight();
+			holder.circleButtonViewMinus.setAsRemove();
+			holder.circleButtonViewPlus.setAsAdd();
+			holder.textViewQty.setText(String.valueOf(item.quantitySmall));
+
+			convertView.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					ViewHolder holder = (ViewHolder) v.getTag();
+					if (holder.layoutName.getVisibility() == View.VISIBLE) {
+						holder.layoutName.setVisibility(View.GONE);
+						holder.layoutMinusPlus.setVisibility(View.VISIBLE);
+					}
+				}
+			});
+
+			holder.buttonDone.setTag(holder);
+			holder.buttonDone.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					ViewHolder holder = (ViewHolder) v.getTag();
+					holder.layoutMinusPlus.setVisibility(View.GONE);
+					holder.layoutName.setVisibility(View.VISIBLE);
+					holder.circleButtonViewQty.setAsQty(getItem(holder.position).quantitySmall);
+				}
+			});
+
+			holder.circleButtonViewMinus.setTag(holder);
+			holder.circleButtonViewMinus.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					ViewHolder holder = (ViewHolder) v.getTag();
+					holder.textViewQty.setText(String.valueOf(--getItem(holder.position).quantitySmall));
+				}
+			});
+
+			holder.circleButtonViewPlus.setTag(holder);
+			holder.circleButtonViewPlus.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					ViewHolder holder = (ViewHolder) v.getTag();
+					holder.textViewQty.setText(String.valueOf(++getItem(holder.position).quantitySmall));
+				}
+			});
 
 			return convertView;
 		}
@@ -251,6 +310,13 @@ public class CheckoutActivity extends BaseActivity {
 			TextView textViewName;
 			TextView textViewPrice;
 			CircleButtonView circleButtonViewDel;
+			LinearLayout layoutName;
+			LinearLayout layoutMinusPlus;
+			CircleButtonView circleButtonViewMinus;
+			CircleButtonView circleButtonViewPlus;
+			TextView textViewQty;
+			Button buttonDone;
+			int position;
 		}
 
 	}
