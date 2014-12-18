@@ -15,7 +15,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -40,11 +39,20 @@ public class CheckoutActivity extends BaseActivity {
 	private LinearLayout layoutSeekBar;
 	private LinearLayout layoutDiscount;
 	private TextView textViewDiscount;
-	private RelativeLayout layoutTotal;
+	private View viewDivider;
 	private TextView textViewTotalLabel;
 	private TextView textViewTotal;
+	private TextView textViewTaxPercent;
+	private TextView textViewTipTotalPercent;
+	private TextView textViewDiscountPercent;
+	private TextView textViewSubtotal;
+	private TextView textViewTax;
+	private TextView textViewTip;
 
 	private double total;
+	private double tax = 4.23;
+	private double tip = 0;
+	private double discount = 5;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -89,9 +97,16 @@ public class CheckoutActivity extends BaseActivity {
 		layoutSeekBar = (LinearLayout) findViewById(R.id.layoutSeekBar);
 		layoutDiscount = (LinearLayout) findViewById(R.id.layoutDiscount);
 		textViewDiscount = (TextView) findViewById(R.id.textViewDiscount);
-		layoutTotal = (RelativeLayout) findViewById(R.id.layoutTotal);
+		viewDivider = (View) findViewById(R.id.viewDivider);
 		textViewTotalLabel = (TextView) findViewById(R.id.textViewTotalLabel);
 		textViewTotal = (TextView) findViewById(R.id.textViewTotal);
+
+		textViewTaxPercent = (TextView) findViewById(R.id.textViewTaxPercent);
+		textViewTipTotalPercent = (TextView) findViewById(R.id.textViewTipTotalPercent);
+		textViewDiscountPercent = (TextView) findViewById(R.id.textViewDiscountPercent);
+		textViewSubtotal = (TextView) findViewById(R.id.textViewSubtotal);
+		textViewTax = (TextView) findViewById(R.id.textViewTax);
+		textViewTip = (TextView) findViewById(R.id.textViewTip);
 
 		circleButtonAdd.setAsAdd();
 
@@ -100,7 +115,8 @@ public class CheckoutActivity extends BaseActivity {
 
 		seekBar.setMax(25);
 
-		textViewTipPercent.setText(seekBar.getProgress() + "% - " + getString(R.string.misc_euro) + String.format("%.2f", seekBar.getProgress() * total / 100));
+		textViewTaxPercent.setText(String.valueOf(tax) + "%");
+		textViewDiscountPercent.setText(String.valueOf(discount) + "%");
 
 		seekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
@@ -116,7 +132,8 @@ public class CheckoutActivity extends BaseActivity {
 
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-				textViewTipPercent.setText(progress + "% - " + getString(R.string.misc_euro) + String.format("%.2f", progress * total / 100));
+				tip = progress;
+				setData();
 			}
 		});
 
@@ -129,6 +146,27 @@ public class CheckoutActivity extends BaseActivity {
 			}
 		});
 
+		setData();
+
+	}
+
+	private void setData() {
+
+		double totalTax = total * tax / 100;
+		double totalTip = (total + totalTax) * tip / 100;
+		double disc = (total + totalTax + totalTip) * discount / 100;
+		double totalAmount = total + totalTax + totalTip - disc;
+
+		textViewTipPercent.setText(tip + "% - " + getString(R.string.misc_euro) + String.format("%.2f", totalTip));
+
+		textViewTipTotalPercent.setText(tip + "%");
+
+		textViewSubtotal.setText(String.format("%.2f", total));
+		textViewTax.setText(String.format("%.2f", totalTax));
+		textViewTip.setText(String.format("%.2f", totalTip));
+		textViewDiscount.setText(String.format("%.2f", disc));
+		textViewTotal.setText(getString(R.string.misc_euro) + String.format("%.2f", totalAmount));
+
 	}
 
 	private void checkout() {
@@ -138,7 +176,7 @@ public class CheckoutActivity extends BaseActivity {
 		layoutSeekBar.setVisibility(View.GONE);
 		layoutDiscount.setVisibility(View.GONE);
 		textViewDiscount.setVisibility(View.GONE);
-		layoutTotal.setBackgroundResource(R.drawable.border_square_gray);
+		viewDivider.setBackgroundColor(getResources().getColor(R.color.menu_main_orange));
 		textViewTotalLabel.setTextColor(getResources().getColor(R.color.menu_main_gray));
 		textViewTotal.setTextColor(getResources().getColor(R.color.menu_main_gray));
 		setActionBarForwardButtonText(R.string.action_bar_receipt);

@@ -7,34 +7,42 @@
     android:paddingBottom="10dp"
     android:paddingTop="10dp" >
 
-    <com.s7design.menu.views.CircleButtonView
-        android:id="@+id/circleButtonViewQty"
-        android:layout_width="30dp"
-        android:layout_height="30dp" >
-    </com.s7design.menu.views.CircleButtonView>
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_weight="1" >
+        android:layout_weight="1"
+        android:gravity="center_vertical" >
 
-        <TextView
+        <com.s7design.menu.views.CircleButtonView
+            android:id="@+id/circleButtonViewQty"
+            android:layout_width="30dp"
+            android:layout_height="30dp" >
+        </com.s7design.menu.views.CircleButtonView>
+
+        <com.s7design.menu.views.MenuTextView
             android:id="@+id/textViewName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:textStyle="bold" />
+    </LinearLayout>
 
-        <TextView
-            android:id="@+id/textViewPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:textStyle="bold" />
-    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:visibility="gone" >
+    </LinearLayout>
+
+    <com.s7design.menu.views.MenuTextView
+        android:id="@+id/textViewPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:textStyle="bold" />
 
     <com.s7design.menu.views.CircleButtonView
         android:id="@+id/circleButtonViewDel"

@@ -40,7 +40,7 @@
             android:background="@android:color/white"
             android:orientation="vertical" >
 
-            <TextView
+            <com.s7design.menu.views.MenuTextView
                 android:id="@+id/textviewSubMealTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
@@ -57,7 +57,7 @@
                 android:layout_weight="1"
                 android:orientation="horizontal" >
 
-                <TextView
+                <com.s7design.menu.views.MenuTextView
                     android:id="@+id/textviewSubMealBigPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
                     android:text="7.00e"
                     android:textSize="13sp" />
 
-                <TextView
+                <com.s7design.menu.views.MenuTextView
                     android:id="@+id/textviewSubMealSmallPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
                 android:layout_weight="1"
                 android:gravity="center" >
 
-                <Button
+                <com.s7design.menu.views.MenuButton
                     android:id="@+id/buttonSubMealOrderLarge"
                     android:layout_width="0dp"
                     android:layout_height="25dp"
@@ -94,7 +94,7 @@
                     android:textColor="@drawable/orange_text_selector"
                     android:textSize="12sp" />
 
-                <Button
+                <com.s7design.menu.views.MenuButton
                     android:id="@+id/buttonSubMealOrderSmall"
                     android:layout_width="0dp"
                     android:layout_height="25dp"

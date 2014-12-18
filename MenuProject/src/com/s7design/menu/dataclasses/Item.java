@@ -1,8 +1,6 @@
 package com.s7design.menu.dataclasses;
 
 public class Item {
-	
-	enum Size { SMALL, LARGE};
 
 	public String name;
 	public String image;
@@ -15,5 +13,4 @@ public class Item {
 	public String currency;
 	public String category;
 	public int quantity;
-	public Size size;
 }

@@ -5,14 +5,14 @@
     android:gravity="center_horizontal"
     android:orientation="vertical" >
 
-    <TextView
+    <com.s7design.menu.views.MenuTextView
         android:id="@+id/textViewTitleAlertDialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="20sp" />
 
-    <TextView
+    <com.s7design.menu.views.MenuTextView
         android:id="@+id/textViewbodyAlertDialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
         android:gravity="center"
         android:textSize="18sp" />
 
-    <Button
+    <com.s7design.menu.views.MenuButton
         android:id="@+id/buttonOk"
         android:layout_width="100dp"
         android:layout_height="wrap_content"

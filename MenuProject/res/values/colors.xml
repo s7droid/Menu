@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
+
     <color name="menu_main_orange">#ff6600 </color>
-    <color name="menu_main_gray">#666666</color>
+    <color name="menu_main_gray">#ff666666</color>
+    <color name="menu_main_gray_light">#ffb4b4b4</color>
     <color name="white">#ffffffff</color>
+
 </resources>
