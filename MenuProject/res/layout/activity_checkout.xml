@@ -5,7 +5,7 @@
     android:background="@color/white"
     android:orientation="vertical" >
 
-    <TextView
+    <com.s7design.menu.views.MenuTextView
         android:id="@+id/textViewDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,18 +45,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
-            <TextView
+            <com.s7design.menu.views.MenuTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:text="@string/checkout_tip_col"
+                android:textColor="@color/menu_main_gray"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <com.s7design.menu.views.MenuTextView
                 android:id="@+id/textViewTipPercent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:textColor="@color/menu_main_gray"
+                android:textSize="16sp"
                 android:textStyle="bold" />
         </RelativeLayout>
 
@@ -71,17 +75,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
-            <TextView
+            <com.s7design.menu.views.MenuTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="0%" />
+                android:text="0%"
+                android:textColor="@color/menu_main_gray_light"
+                android:textSize="16sp" />
 
-            <TextView
+            <com.s7design.menu.views.MenuTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="25%" />
+                android:text="25%"
+                android:textColor="@color/menu_main_gray_light"
+                android:textSize="16sp" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -92,92 +100,124 @@
         android:orientation="horizontal" >
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
             android:orientation="vertical" >
 
-            <TextView
+            <com.s7design.menu.views.MenuTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/checkout_subtotal"
+                android:textColor="@color/menu_main_gray"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
 
-                <TextView
+                <com.s7design.menu.views.MenuTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/checkout_tax"
+                    android:textColor="@color/menu_main_gray"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <TextView
+                <com.s7design.menu.views.MenuTextView
+                    android:id="@+id/textViewTaxPercent"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:textColor="@color/menu_main_gray_light"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
 
-                <TextView
+                <com.s7design.menu.views.MenuTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/checkout_tip"
+                    android:textColor="@color/menu_main_gray"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <TextView
+                <com.s7design.menu.views.MenuTextView
+                    android:id="@+id/textViewTipTotalPercent"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:textColor="@color/menu_main_gray_light"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layoutDiscount"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
 
-                <TextView
+                <com.s7design.menu.views.MenuTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/checkout_discount"
+                    android:textColor="@color/menu_main_gray"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <TextView
+                <com.s7design.menu.views.MenuTextView
+                    android:id="@+id/textViewDiscountPercent"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:textColor="@color/menu_main_gray_light"
+                    android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:gravity="right"
             android:orientation="vertical" >
 
-            <TextView
+            <com.s7design.menu.views.MenuTextView
+                android:id="@+id/textViewSubtotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/menu_main_gray"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <com.s7design.menu.views.MenuTextView
+                android:id="@+id/textViewTax"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/menu_main_gray"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <com.s7design.menu.views.MenuTextView
+                android:id="@+id/textViewTip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/menu_main_gray"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <com.s7design.menu.views.MenuTextView
                 android:id="@+id/textViewDiscount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/menu_main_gray"
+                android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -185,38 +225,45 @@
             android:id="@+id/layoutTotal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:background="@drawable/border_square_orange"
-            android:padding="5dp" >
+            android:layout_weight="1" >
 
-            <TextView
+            <com.s7design.menu.views.MenuTextView
                 android:id="@+id/textViewTotalLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_above="@+id/viewDivider"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
                 android:text="@string/checkout_total"
-                android:textColor="@color/menu_main_orange" />
+                android:textColor="@color/menu_main_orange"
+                android:textSize="16sp" />
 
-            <TextView
+            <View
+                android:id="@+id/viewDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_above="@+id/textViewTotal"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/menu_main_orange" />
+
+            <com.s7design.menu.views.MenuTextView
                 android:id="@+id/textViewTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:text="e160.50"
                 android:textColor="@color/menu_main_orange"
-                android:textSize="20sp"
+                android:textSize="24sp"
                 android:textStyle="bold" />
         </RelativeLayout>
     </LinearLayout>
 
-    <Button
+    <com.s7design.menu.views.MenuButton
         android:id="@+id/buttonCheckout"
+        style="@style/Menu_Button_Orange"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/menu_orange_button_shape"
+        android:layout_height="wrap_content"
         android:text="@string/checkout"
-        android:textColor="@android:color/white" />
+        android:textStyle="bold" />
 
 </LinearLayout>

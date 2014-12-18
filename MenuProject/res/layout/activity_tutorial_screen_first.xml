@@ -5,7 +5,7 @@
     android:background="@android:color/white"
     android:orientation="vertical" >
 
-    <TextView
+    <com.s7design.menu.views.MenuTextView
         android:id="@+id/tv1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
         android:layout_margin="40dp"
         android:src="@drawable/tutorial_01" />
 
-    <Button
+    <com.s7design.menu.views.MenuButton
         android:id="@+id/buttonuTutorialScreenFirstContinueButton"
         style="@style/Menu_Button_Orange"
         android:layout_width="match_parent"

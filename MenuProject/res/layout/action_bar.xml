@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/border_action_bar" >
 
-    <Button
+    <com.s7design.menu.views.MenuButton
         android:id="@+id/buttonActionBarBack"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -28,7 +28,7 @@
         android:scaleType="centerInside"
         android:src="@drawable/menu_icon" />
 
-    <Button
+    <com.s7design.menu.views.MenuButton
         android:id="@+id/buttonActionBarForward"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

@@ -29,7 +29,7 @@
             android:alpha="0.5"
             android:background="@color/menu_main_gray" />
 
-        <EditText
+        <com.s7design.menu.views.MenuEditText
             android:id="@+id/edittextSignUpActivityUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
-            <EditText
+            <com.s7design.menu.views.MenuEditText
                 android:id="@+id/edittextSignUpActivityPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
                 android:singleLine="true"
                 android:textColor="@color/menu_main_gray" />
 
-            <Button
+            <com.s7design.menu.views.MenuButton
                 android:id="@+id/buttonSignUpActivityHide"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
             android:alpha="0.5"
             android:background="@color/menu_main_gray" />
 
-        <EditText
+        <com.s7design.menu.views.MenuEditText
             android:id="@+id/edittextSignUpActivityRepeatPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -104,7 +104,7 @@
             android:alpha="0.5"
             android:background="@color/menu_main_gray" />
 
-        <Button
+        <com.s7design.menu.views.MenuButton
             android:id="@+id/buttonSignUpScanCreditCard"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
@@ -124,7 +124,7 @@
             android:alpha="0.5"
             android:background="@color/menu_main_gray" />
 
-        <EditText
+        <com.s7design.menu.views.MenuEditText
             android:id="@+id/edittextSignUpActivityCardNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -134,8 +134,7 @@
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
             android:singleLine="true"
-            android:textColor="@color/menu_main_gray" 
-            />
+            android:textColor="@color/menu_main_gray" />
 
         <View
             android:layout_width="match_parent"
@@ -143,7 +142,7 @@
             android:alpha="0.5"
             android:background="@color/menu_main_gray" />
 
-        <EditText
+        <com.s7design.menu.views.MenuEditText
             android:id="@+id/edittextSignUpActivityNameOnCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -165,15 +164,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
-            <Button
+            <com.s7design.menu.views.MenuButton
                 android:id="@+id/buttonSignUpActivityDateOfBirth"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_marginRight="15dp"
-                android:drawableRight="@drawable/icon_right"
-                android:drawablePadding="10dp"
                 android:background="@android:color/transparent"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/icon_right"
                 android:gravity="left|center_vertical"
                 android:hint="@string/sign_up_date_hint_text"
                 android:inputType="datetime"
@@ -184,27 +183,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignLeft="@+id/buttonSignUpActivityDateOfBirth"
-                android:layout_toLeftOf="@+id/edittextSignUpActivityCCV"
                 android:layout_below="@+id/buttonSignUpActivityDateOfBirth"
-                android:alpha="0.5"
                 android:layout_marginRight="15dp"
+                android:layout_toLeftOf="@+id/edittextSignUpActivityCCV"
+                android:alpha="0.5"
                 android:background="@color/menu_main_gray" />
 
-            <EditText
+            <com.s7design.menu.views.MenuEditText
                 android:id="@+id/edittextSignUpActivityCCV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:background="@drawable/sign_in_edittext_shape"
                 android:gravity="right"
                 android:hint="@string/sign_up_ccv_hint_text"
+                android:maxLength="3"
                 android:paddingBottom="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingTop="10dp"
                 android:singleLine="true"
-                android:maxLength="3"
-                android:layout_centerVertical="true"
                 android:textColor="@color/menu_main_gray" />
 
             <View
@@ -218,7 +217,7 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <Button
+    <com.s7design.menu.views.MenuButton
         android:id="@+id/buttonSignUpActivitySignUp"
         style="@style/Menu_Button_Orange"
         android:layout_width="match_parent"

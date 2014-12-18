@@ -62,5 +62,6 @@
 
     <!-- Misc -->
     <string name="misc_euro">€</string>
+    <string name="misc_splash">Welcome to MENU</string>
 
 </resources>

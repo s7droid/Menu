@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <Button
+    <com.s7design.menu.views.MenuButton
         style="@style/Menu_Button_Orange"
         android:id="@+id/buttonOrderMealActivitySubItem"
         android:layout_width="match_parent"
