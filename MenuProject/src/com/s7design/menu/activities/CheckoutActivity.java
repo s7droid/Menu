@@ -58,9 +58,10 @@ public class CheckoutActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_checkout);
-		checkoutList = Menu.getInstance().getDataManager().getCheckoutList();
+		checkoutList = Menu.getInstance().getDataManager().getTestCheckoutList();
 		for (Item item : checkoutList) {
-			total += item.quantity * item.largeprice;
+			total += item.quantityLarge * item.largeprice;
+			total += item.quantitySmall * item.smallprice;
 		}
 		initViews();
 	}
@@ -236,7 +237,8 @@ public class CheckoutActivity extends BaseActivity {
 
 			Item item = getItem(position);
 
-			holder.circleButtonViewQty.setAsQty(item.quantity);
+			//TODO: promeniti quantity
+			holder.circleButtonViewQty.setAsQty(item.quantityLarge);
 			holder.textViewName.setText(item.name);
 			holder.textViewPrice.setText(String.valueOf(item.largeprice));
 			holder.circleButtonViewDel.setAsDel();

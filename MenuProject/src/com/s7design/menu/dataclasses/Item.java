@@ -12,5 +12,6 @@ public class Item {
 	public int largetag;
 	public String currency;
 	public String category;
-	public int quantity;
+	public int quantityLarge;
+	public int quantitySmall;
 }

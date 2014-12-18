@@ -62,15 +62,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:alpha="0.5"
-                    android:text="7.00e"
                     android:textSize="13sp" />
 
+                <com.s7design.menu.views.MenuTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.5"
+                    android:text=" / "
+                    android:textSize="13sp" />
+                
                 <com.s7design.menu.views.MenuTextView
                     android:id="@+id/textviewSubMealSmallPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:alpha="0.5"
-                    android:text=" / 12.00e"
                     android:textSize="13sp" />
             </LinearLayout>
 

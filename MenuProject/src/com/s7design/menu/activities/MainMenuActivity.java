@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.s7design.menu.R;
+import com.s7design.menu.app.Menu;
 
 /**
  * Activity for presenting main menu of the <i><b>Menu</b></i> application. <br>
@@ -146,7 +147,10 @@ public class MainMenuActivity extends BaseActivity {
 	}
 
 	private void reviewCurrentOrderButtonAction() {
-		Toast.makeText(getApplicationContext(), "reviewCurrentOrderButtonAction", Toast.LENGTH_SHORT).show();
+		if(Menu.getInstance().getDataManager().getTestCheckoutList() != null)
+			startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
+		else
+			showAlertDialog("Alert", "Your checkout list is empty. Add some things to Your chart.");
 	}
 
 }

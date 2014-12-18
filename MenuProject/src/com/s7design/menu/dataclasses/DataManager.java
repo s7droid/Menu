@@ -11,32 +11,36 @@ public class DataManager {
 		if (checkoutList == null)
 			checkoutList = new ArrayList<Item>();
 
-		Item item = new Item();
-		item.name = "Tomato soup";
-		item.largeprice = 8.00f;
-		item.quantity = 1;
-
-		Item item2 = new Item();
-		item2.name = "Orange chicken";
-		item2.largeprice = 10.50f;
-		item2.quantity = 2;
-
-		checkoutList.add(item);
-		checkoutList.add(item2);
+//		Item item = new Item();
+//		item.name = "Tomato soup";
+//		item.largeprice = 8.00f;
+//		item.quantity = 1;
+//
+//		Item item2 = new Item();
+//		item2.name = "Orange chicken";
+//		item2.largeprice = 10.50f;
+//		item2.quantity = 2;
+//
+//		checkoutList.add(item);
+//		checkoutList.add(item2);
 
 		return checkoutList;
 	}
 
-	public void addCheckoutListItem(Item item){
+	public void addCheckoutListItem(Item item) {
+		if (checkoutList == null)
+			checkoutList = new ArrayList<Item>();
 		checkoutList.add(item);
 	}
 
-	public void addCheckoutListItems(ArrayList<Item> items){
+	public void addCheckoutListItems(ArrayList<Item> items) {
+		if (checkoutList == null)
+			checkoutList = new ArrayList<Item>();
 		checkoutList.addAll(items);
 	}
-	
-	public ArrayList<Item> getTestCheckoutList(){
+
+	public ArrayList<Item> getTestCheckoutList() {
 		return checkoutList;
 	}
-	
+
 }

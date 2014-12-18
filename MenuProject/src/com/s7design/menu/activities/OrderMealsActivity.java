@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.s7design.menu.R;
+import com.s7design.menu.app.Menu;
 import com.s7design.menu.utils.CustomMenuMealCategorySubTypeExpandable;
 
 public class OrderMealsActivity extends BaseActivity {
@@ -48,7 +49,10 @@ public class OrderMealsActivity extends BaseActivity {
 			
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
+				if(Menu.getInstance().getDataManager().getTestCheckoutList() != null)
+					startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
+				else
+					showAlertDialog("Alert", "Your checkout list is empty. Add some things to Your chart.");
 			}
 		});
 		
