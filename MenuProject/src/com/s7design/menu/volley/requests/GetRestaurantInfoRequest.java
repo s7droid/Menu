@@ -17,7 +17,6 @@ public class GetRestaurantInfoRequest extends GsonRequest<GetRestaurantInfoRespo
 
 			@Override
 			public void onErrorResponse(VolleyError arg0) {
-				// TODO Auto-generated method stub
 
 			}
 		});

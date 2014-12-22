@@ -1,14 +1,20 @@
 package com.s7design.menu.activities;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.Toast;
 
+import com.android.volley.Response.Listener;
 import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
+import com.s7design.menu.volley.VolleySingleton;
+import com.s7design.menu.volley.requests.GetRestaurantInfoRequest;
+import com.s7design.menu.volley.responses.GetRestaurantInfoResponse;
 
 /**
  * Activity for presenting main menu of the <i><b>Menu</b></i> application. <br>
@@ -143,7 +149,17 @@ public class MainMenuActivity extends BaseActivity {
 	}
 
 	private void viewPastReceiptsButtonAction() {
-		Toast.makeText(getApplicationContext(), "viewPastReceiptsButtonAction", Toast.LENGTH_SHORT).show();
+		Map<String,String> params = new HashMap<String, String>();
+		params.put("major", "1");
+		params.put("minor", "1");
+		GetRestaurantInfoRequest request = new GetRestaurantInfoRequest(MainMenuActivity.this, params, new Listener<GetRestaurantInfoResponse>() {
+
+			@Override
+			public void onResponse(GetRestaurantInfoResponse arg0) {
+				System.out.println("Restaurant Info response= " + arg0.toString());
+			}
+		});
+		VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
 	}
 
 	private void reviewCurrentOrderButtonAction() {

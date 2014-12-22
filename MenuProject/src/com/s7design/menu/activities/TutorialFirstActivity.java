@@ -53,8 +53,8 @@ public class TutorialFirstActivity extends BaseActivity {
 				// TutorialSecondActivity.class));
 
 				Map<String, String> params = new HashMap<String, String>();
-				params.put("major", "22");
-				params.put("minor", "2");
+				params.put("major", "1");
+				params.put("minor", "1");
 				params.put("lang", "en");
 
 				GetCategoriesRequest request = new GetCategoriesRequest(TutorialFirstActivity.this, params, new Listener<GetCategoriesResponse>() {
@@ -63,6 +63,7 @@ public class TutorialFirstActivity extends BaseActivity {
 					public void onResponse(GetCategoriesResponse arg0) {
 
 						Log.d(TAG, "onResponse");
+						Log.d(TAG, arg0.toString());
 					}
 				});
 
