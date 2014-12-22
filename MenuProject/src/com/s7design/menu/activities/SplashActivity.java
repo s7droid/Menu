@@ -1,5 +1,8 @@
 package com.s7design.menu.activities;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -12,9 +15,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
+import com.android.volley.Response.Listener;
 import com.s7design.menu.R;
+import com.s7design.menu.app.Menu;
 import com.s7design.menu.dialogs.OkCancelDialogFragment;
 import com.s7design.menu.utils.Utils;
+import com.s7design.menu.volley.VolleySingleton;
+import com.s7design.menu.volley.requests.GetRestaurantInfoRequest;
+import com.s7design.menu.volley.responses.GetRestaurantInfoResponse;
 
 /**
  * Splash screen activity used for getting data from server, such are connection
@@ -125,26 +133,24 @@ public class SplashActivity extends BaseActivity {
 		//
 		// mTitleText.setText(finalString);
 
-		new Handler().postDelayed(new Runnable() {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("major", "1");
+		params.put("minor", "1");
 
-			/*
-			 * Showing splash screen with a timer. This will be useful when you
-			 * want to show case your app logo / company
-			 */
+		GetRestaurantInfoRequest request = new GetRestaurantInfoRequest(this, params, new Listener<GetRestaurantInfoResponse>() {
 
 			@Override
-			public void run() {
-				// This method will be executed once the timer is over
-				// Start your app main activity
+			public void onResponse(GetRestaurantInfoResponse restaurantInfo) {
+
+				Menu.getInstance().getDataManager().setRestaurantInfo(restaurantInfo);
+
 				Intent i = new Intent(SplashActivity.this, RestaurantPreviewActivity.class);
 				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(i);
-
-				// close this activity
-				finish();
 			}
-		}, SPLASH_SCREEN_TIMEOUT);
+		});
 
+		VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
 	}
 
 	@Override

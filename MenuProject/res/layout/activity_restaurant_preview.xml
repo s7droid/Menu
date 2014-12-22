@@ -31,13 +31,15 @@
             android:textSize="22sp"
             android:textStyle="bold" />
 
-        <ImageView
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/imageViewRestaurantPreviewActivityRestaurantImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/textviewRestaurantPreviewActivityPowered"
             android:layout_below="@+id/textviewRestaurantPreviewActivityRestaurantName"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="20dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/restaurant_01" />
 
         <com.s7design.menu.views.MenuTextView

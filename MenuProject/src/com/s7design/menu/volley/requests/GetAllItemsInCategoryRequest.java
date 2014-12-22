@@ -15,7 +15,7 @@ import com.s7design.menu.volley.responses.GetRestaurantInfoResponse;
 public class GetAllItemsInCategoryRequest extends GsonRequest<GetAllItemsInCategoryResponse> {
 
 	public GetAllItemsInCategoryRequest(Activity context, Map<String, String> params, Listener<GetAllItemsInCategoryResponse> listener) {
-		super(context, Request.Method.GET, "getitems", params, true, GetAllItemsInCategoryResponse.class, listener, new ErrorListener() {
+		super(context, Request.Method.GET, "getitems", params, GetAllItemsInCategoryResponse.class, listener, new ErrorListener() {
 
 			@Override
 			public void onErrorResponse(VolleyError arg0) {

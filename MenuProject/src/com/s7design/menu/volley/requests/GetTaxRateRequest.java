@@ -13,7 +13,7 @@ import com.s7design.menu.volley.responses.GetTaxRateResponse;
 public class GetTaxRateRequest extends GsonRequest<GetTaxRateResponse> {
 
 	public GetTaxRateRequest(Activity context, Map<String, String> params, Listener<GetTaxRateResponse> listener) {
-		super(context, Request.Method.GET, "gettaxrate", params, true, GetTaxRateResponse.class, listener, new ErrorListener() {
+		super(context, Request.Method.GET, "gettaxrate", params, GetTaxRateResponse.class, listener, new ErrorListener() {
 
 			@Override
 			public void onErrorResponse(VolleyError arg0) {

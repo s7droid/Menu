@@ -1,5 +1,10 @@
 package com.s7design.menu.activities;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,11 +16,17 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.Response.Listener;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
+import com.s7design.menu.dataclasses.Category;
+import com.s7design.menu.volley.VolleySingleton;
+import com.s7design.menu.volley.requests.GetCategoriesRequest;
+import com.s7design.menu.volley.responses.GetCategoriesResponse;
 
 /**
  * Activity for presenting all meal categories from one restaurant. <br>
@@ -24,83 +35,104 @@ import com.s7design.menu.app.Menu;
  * @author s7Design
  *
  */
-public class CategoryMealsActivity extends BaseActivity{
+public class CategoryMealsActivity extends BaseActivity {
+
+	public static final String INTENT_EXTRA_CATEGORY_TAG = "category_tag";
 
 	// VIEWS
 	private GridView mCategoryGridView;
 	// DATA
-	private String[] mCategoryTitles = { "Meal1", "Meal2", "Meal3", "Meal4", "Meal5", "Meal6", "Meal7", "Meal8", "Meal9", "Meal10", "Meal11", "Meal12", "Meal13", "Meal14", "Meal15", "Meal16",
-			"Meal17", "Meal18", "Meal19", "Meal20" };
+	private ArrayList<Category> categories;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_category_meals);
-		
-		initViews();
+
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("major", "1");
+		params.put("minor", "1");
+		params.put("lang", "en");
+
+		GetCategoriesRequest request = new GetCategoriesRequest(this, params, new Listener<GetCategoriesResponse>() {
+
+			@Override
+			public void onResponse(GetCategoriesResponse categories) {
+
+				CategoryMealsActivity.this.categories = new ArrayList<Category>(Arrays.asList(categories.categories));
+				Menu.getInstance().getDataManager().setCategoriesList(CategoryMealsActivity.this.categories);
+
+				initViews();
+				dismissProgressDialog();
+
+			}
+		});
+
+		showProgressDialogLoading();
+		VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+
 	}
 
 	/**
 	 * Method for initializing all views in {@link CategoryMealsActivity}
 	 */
 	private void initViews() {
-		
-		
+
 		mCategoryGridView = (GridView) findViewById(R.id.gridviewCategoryMealsActivity);
-		mCategoryGridView.setAdapter(new CategoriesAdapter(CategoryMealsActivity.this, mCategoryTitles));
+		mCategoryGridView.setAdapter(new CategoriesAdapter(CategoryMealsActivity.this));
 
 		setActionBarBackButtonVisibility(View.INVISIBLE);
 		setActionBarForwardButtonText(R.string.action_bar_checkout);
-		
+
 		setActionBarForwardButtonOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				if(Menu.getInstance().getDataManager().getTestCheckoutList() != null)
+				if (Menu.getInstance().getDataManager().getTestCheckoutList() != null)
 					startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
 				else
 					showAlertDialog("Alert", "Your checkout list is empty. Add some things to Your chart.");
 			}
 		});
-		
+
 		setActionBarBackButtonOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				
+
 			}
 		});
-		
+
 		mCategoryGridView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				startActivity(new Intent(Menu.getContext(), OrderMealsActivity.class));
+				Intent intent = new Intent(Menu.getContext(), OrderMealsActivity.class);
+				intent.putExtra(INTENT_EXTRA_CATEGORY_TAG, categories.get(position).tag);
+				startActivity(intent);
 			}
 		});
-		
+
 	}
 
 	class CategoriesAdapter extends BaseAdapter {
 
-		private Context mContext;
-		private String[] mItems;
 		private LayoutInflater mInflater;
+		private ImageLoader imageLoader;
 
-		public CategoriesAdapter(Context context, String[] items) {
-			mContext = context;
-			mItems = items;
+		public CategoriesAdapter(Context context) {
 			mInflater = LayoutInflater.from(context);
+			imageLoader = VolleySingleton.getInstance(getApplicationContext()).getImageLoader();
 		}
 
 		@Override
 		public int getCount() {
-			return mItems.length;
+			return categories.size();
 		}
 
 		@Override
-		public Object getItem(int position) {
-			return null;
+		public Category getItem(int position) {
+			return categories.get(position);
 		}
 
 		@Override
@@ -117,7 +149,7 @@ public class CategoryMealsActivity extends BaseActivity{
 
 				ViewHolder holder = new ViewHolder();
 
-				holder.categoryImage = (ImageView) convertView.findViewById(R.id.imageviewCategoryMealsGridViewItemImage);
+				holder.categoryImage = (NetworkImageView) convertView.findViewById(R.id.imageviewCategoryMealsGridViewItemImage);
 				holder.categoryTitle = (TextView) convertView.findViewById(R.id.textviewCategoryMealsGridViewItemTitle);
 
 				convertView.setTag(holder);
@@ -125,22 +157,15 @@ public class CategoryMealsActivity extends BaseActivity{
 
 			ViewHolder holder = (ViewHolder) convertView.getTag();
 
-			if (position % 2 == 0) {
-				System.out.println("Meal category 1");
-				holder.categoryImage.setImageDrawable(getResources().getDrawable(R.drawable.meal_category_01));
-			} else {
-				System.out.println("Meal category 2");
-				holder.categoryImage.setImageDrawable(getResources().getDrawable(R.drawable.meal_category_02));
-			}
-
-			holder.categoryTitle.setText(mItems[position]);
+			holder.categoryImage.setImageUrl(getItem(position).image, imageLoader);
+			holder.categoryTitle.setText(getItem(position).name);
 
 			return convertView;
 		}
 
 		class ViewHolder {
 			TextView categoryTitle;
-			ImageView categoryImage;
+			NetworkImageView categoryImage;
 		}
 
 	}

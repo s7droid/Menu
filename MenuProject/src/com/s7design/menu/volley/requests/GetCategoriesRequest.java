@@ -14,7 +14,7 @@ import com.s7design.menu.volley.responses.GetRestaurantInfoResponse;
 public class GetCategoriesRequest extends GsonRequest<GetCategoriesResponse> {
 
 	public GetCategoriesRequest(Activity context, Map<String, String> params, Listener<GetCategoriesResponse> listener) {
-		super(context, Request.Method.GET, "getcat", params, true, GetCategoriesResponse.class, listener, new ErrorListener() {
+		super(context, Request.Method.GET, "getcat", params, GetCategoriesResponse.class, listener, new ErrorListener() {
 
 			@Override
 			public void onErrorResponse(VolleyError arg0) {
