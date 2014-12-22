@@ -23,49 +23,37 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 
 	private Context mGlobalContext;
 	private String mSubclassTitle;
-	private String[] mMeals;
 	private boolean isMealsListOpen = false;
+	private ArrayList<Item> items;
 
-	public CustomMenuMealCategorySubTypeExpandable(Context context, String subclassTitle, String[] meals) {
+	public CustomMenuMealCategorySubTypeExpandable(Context context) {
 		super(context);
 
+		items = new ArrayList<Item>();
+
 		mGlobalContext = context;
-		mSubclassTitle = subclassTitle;
-		mMeals = meals;
 
-		init();
+		// init();
 
+	}
+
+	public void setTitle(String title) {
+		mSubclassTitle = title;
+	}
+
+	public void addItem(Item item) {
+
+		items.add(item);
 	}
 
 	/**
 	 * Method for initializing all needed parameters and views for this custom
 	 * component.
 	 */
-	private void init() {
+	public CustomMenuMealCategorySubTypeExpandable init() {
 
 		View view = inflate(mGlobalContext, R.layout.activity_meal_sub_item, this);
 
-		ArrayList<Item> items = new ArrayList<Item>();
-		
-		Item item = new Item();
-		item.name = "Tomato soup";
-		item.largeprice = 12.00f;
-		item.smallprice = 8.00f;
-		
-		Item item2 = new Item();
-		item2.name = "Orange chicken";
-		item2.largeprice = 10.50f;
-		item2.smallprice = 7.00f;
-		
-		Item item3 = new Item();
-		item3.name = "Pork chops";
-		item3.largeprice = 15.00f;
-		item3.smallprice = 8.50f;
-
-		items.add(item);
-		items.add(item2);
-		items.add(item3);
-		
 		final Button subCategoryButton = (Button) view.findViewById(R.id.buttonOrderMealActivitySubItem);
 		final LinearLayout mealsListView = (LinearLayout) view.findViewById(R.id.listviewOrderMealActivitySubItemsList);
 
@@ -77,7 +65,7 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 			final Item itemToSend = items.get(i);
 			final double largePrice = items.get(i).largeprice;
 			final double smallPrice = items.get(i).smallprice;
-			
+
 			LinearLayout vi = (LinearLayout) LayoutInflater.from(mGlobalContext).inflate(R.layout.column_meal_subitem, null);
 			Button large = (Button) vi.findViewById(R.id.buttonSubMealOrderLarge);
 			Button small = (Button) vi.findViewById(R.id.buttonSubMealOrderSmall);
@@ -89,7 +77,7 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 			mealName.setText(items.get(i).name);
 			bigOrderPriceAndQuantity.setText(items.get(i).largeprice + getResources().getString(R.string.misc_euro));
 			smallOrderPriceAndQuantity.setText(items.get(i).smallprice + getResources().getString(R.string.misc_euro));
-			
+
 			large.setTag(largeMealCounter);
 			small.setTag(smallMealCounter);
 			large.setOnClickListener(new OnClickListener() {
@@ -98,15 +86,15 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 				public void onClick(View v) {
 					int counter = (Integer) v.getTag();
 					counter++;
-					if(counter > 0){
+					if (counter > 0) {
 						bigOrderPriceAndQuantity.setTextColor(getResources().getColor(R.color.menu_main_orange));
 						bigOrderPriceAndQuantity.setTypeface(null, Typeface.BOLD);
 						bigOrderPriceAndQuantity.setAlpha(1.0f);
-					}else{
+					} else {
 						bigOrderPriceAndQuantity.setTextColor(getResources().getColor(R.color.menu_main_gray));
 						bigOrderPriceAndQuantity.setAlpha(0.5f);
 					}
-					
+
 					bigOrderPriceAndQuantity.setText(largePrice + getResources().getString(R.string.misc_euro) + " (" + String.valueOf(counter) + ")");
 					v.setTag(counter);
 					itemToSend.quantityLarge = 1;
@@ -114,23 +102,23 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 					Menu.getInstance().getDataManager().addCheckoutListItem(itemToSend);
 				}
 			});
-			
+
 			small.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
 					int counter = (Integer) v.getTag();
 					counter++;
-					
-					if(counter > 0){
+
+					if (counter > 0) {
 						smallOrderPriceAndQuantity.setTextColor(getResources().getColor(R.color.menu_main_gray));
 						smallOrderPriceAndQuantity.setTypeface(null, Typeface.BOLD);
 						smallOrderPriceAndQuantity.setAlpha(1.0f);
-					}else{
+					} else {
 						smallOrderPriceAndQuantity.setTextColor(getResources().getColor(R.color.menu_main_gray));
 						smallOrderPriceAndQuantity.setAlpha(0.5f);
 					}
-					
+
 					smallOrderPriceAndQuantity.setText(smallPrice + getResources().getString(R.string.misc_euro) + " (" + String.valueOf(counter) + ")");
 					v.setTag(counter);
 					itemToSend.quantityLarge = 0;
@@ -146,6 +134,9 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 					mGlobalContext.startActivity(new Intent(mGlobalContext, MealDetailsActivity.class));
 				}
 			});
+
+			if (i == items.size() - 1)
+				vi.findViewById(R.id.viewDivider).setVisibility(View.GONE);
 
 			mealsListView.addView(vi);
 		}
@@ -166,6 +157,8 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 		});
 		invalidate();
 		requestLayout();
+
+		return this;
 	}
 
 }

@@ -25,13 +25,7 @@ import com.s7design.menu.volley.responses.GetAllItemsInCategoryResponse;
 public class OrderMealsActivity extends BaseActivity {
 
 	// VIEWS
-	private ScrollView mGlobalContainer;
 	private LinearLayout mContainer;
-
-	// DATA
-	private int counter = 0;
-	private String[] titles = { "Soups", "Main dishes", "Salads" };
-	private String[] meals = { "Meal 1", "Meal 2", "Meal 3", "Meal 4" };
 
 	private ArrayList<Item> items;
 
@@ -69,7 +63,6 @@ public class OrderMealsActivity extends BaseActivity {
 
 	private void initViews() {
 
-		mGlobalContainer = (ScrollView) findViewById(R.id.scrollviewOrderMealsActivityContainer);
 		mContainer = (LinearLayout) findViewById(R.id.scrollviewOrderMealsActivityLinearContainer);
 
 		setActionBarForwardButtonText(R.string.action_bar_checkout);
@@ -96,10 +89,27 @@ public class OrderMealsActivity extends BaseActivity {
 	}
 
 	private void initData() {
-		for (int i = 0; i < 3; i++) {
-			CustomMenuMealCategorySubTypeExpandable item = new CustomMenuMealCategorySubTypeExpandable(OrderMealsActivity.this, titles[i], meals);
-			mContainer.addView(item);
+
+		Map<String, CustomMenuMealCategorySubTypeExpandable> viewMap = new HashMap<String, CustomMenuMealCategorySubTypeExpandable>();
+		ArrayList<String> catList = new ArrayList<String>();
+
+		for (Item item : items) {
+			if (!viewMap.containsKey(item.category)) {
+				viewMap.put(item.category, new CustomMenuMealCategorySubTypeExpandable(this));
+			}
+
+			if (item.image.equals("subcat")) {
+				viewMap.get(item.category).setTitle(item.name);
+				catList.add(item.category);
+			} else {
+				viewMap.get(item.category).addItem(item);
+			}
 		}
+
+		for (String cat : catList) {
+			mContainer.addView(viewMap.get(cat).init());
+		}
+
 	}
 
 }

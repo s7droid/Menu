@@ -10,6 +10,25 @@ public class DataManager {
 	private GetRestaurantInfoResponse restaurantInfo;
 	private ArrayList<Category> categoriesList;
 	private ArrayList<Item> itemsList;
+	private Rate rate;
+	private double discount;
+	private String currency;
+
+	public double getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(double discount) {
+		this.discount = discount;
+	}
+
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
+	}
 
 	public ArrayList<Item> getItemsList() {
 		return itemsList;
@@ -70,6 +89,25 @@ public class DataManager {
 
 	public void setCategoriesList(ArrayList<Category> categoriesList) {
 		this.categoriesList = categoriesList;
+	}
+
+	public void setTaxRate(double tax) {
+		if (rate == null)
+			rate = new Rate();
+
+		rate.tax = tax;
+	}
+
+	public void setTipRate(double min, double max) {
+		if (rate == null)
+			rate = new Rate();
+
+		rate.mintip = min;
+		rate.maxtip = max;
+	}
+
+	public Rate getRate() {
+		return rate;
 	}
 
 }
