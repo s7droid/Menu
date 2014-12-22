@@ -12,6 +12,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -129,19 +132,15 @@ public class SplashActivity extends BaseActivity {
 	 */
 	private void initViews() {
 
-		// mTitleText = (TextView)
-		// findViewById(R.id.textviewSplashActivityMenuTitle);
-		//
-		// String normalBefore= "First Part Not Bold ";
-		// String normalBOLD = "BOLD ";
-		// String normalAfter = "rest not bold";
-		// String finalString = normalBefore + normalBOLD + normalAfter;
-		// Spannable sb = new SpannableString(finalString);
-		// sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD),
-		// finalString.indexOf(normalBOLD), normalBOLD.length(),
-		// Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); // bold
-		//
-		// mTitleText.setText(finalString);
+		mTitleText = (TextView) findViewById(R.id.textviewSplashActivityMenuTitle);
+
+		String finalString = getResources().getString(R.string.splash_screen_welcome_message);
+		Spannable sb = new SpannableString(finalString);
+		System.out.println("finalstring.lenght= " + finalString.length());
+		System.out.println("lenght - 4=" + (finalString.length() - 4));
+		sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), finalString.length() - 4, finalString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); // bold
+
+		mTitleText.setText(sb);
 
 		new AsyncTask<Void, Void, Void>() {
 

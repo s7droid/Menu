@@ -49,6 +49,8 @@ public class CategoryMealsActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_category_meals);
 
+		initActionBar();
+		
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("major", "1");
 		params.put("minor", "1");
@@ -81,6 +83,19 @@ public class CategoryMealsActivity extends BaseActivity {
 		mCategoryGridView = (GridView) findViewById(R.id.gridviewCategoryMealsActivity);
 		mCategoryGridView.setAdapter(new CategoriesAdapter(CategoryMealsActivity.this));
 
+		mCategoryGridView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Intent intent = new Intent(Menu.getContext(), OrderMealsActivity.class);
+				intent.putExtra(INTENT_EXTRA_CATEGORY_TAG, categories.get(position).tag);
+				startActivity(intent);
+			}
+		});
+
+	}
+
+	private void initActionBar() {
 		setActionBarBackButtonVisibility(View.INVISIBLE);
 		setActionBarForwardButtonText(R.string.action_bar_checkout);
 
@@ -102,17 +117,6 @@ public class CategoryMealsActivity extends BaseActivity {
 
 			}
 		});
-
-		mCategoryGridView.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Intent intent = new Intent(Menu.getContext(), OrderMealsActivity.class);
-				intent.putExtra(INTENT_EXTRA_CATEGORY_TAG, categories.get(position).tag);
-				startActivity(intent);
-			}
-		});
-
 	}
 
 	class CategoriesAdapter extends BaseAdapter {
