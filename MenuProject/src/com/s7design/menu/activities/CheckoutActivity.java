@@ -3,6 +3,8 @@ package com.s7design.menu.activities;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -11,8 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -50,6 +50,7 @@ public class CheckoutActivity extends BaseActivity {
 	private TextView textViewSubtotal;
 	private TextView textViewTax;
 	private TextView textViewTip;
+	private TextView textViewSendEmail;
 
 	private double total;
 	private double tax = 4.23;
@@ -110,6 +111,7 @@ public class CheckoutActivity extends BaseActivity {
 		textViewSubtotal = (TextView) findViewById(R.id.textViewSubtotal);
 		textViewTax = (TextView) findViewById(R.id.textViewTax);
 		textViewTip = (TextView) findViewById(R.id.textViewTip);
+		textViewSendEmail = (TextView) findViewById(R.id.textViewSendEmail);
 
 		circleButtonAdd.setAsAdd();
 		circleButtonAdd.setAsOrange();
@@ -176,11 +178,12 @@ public class CheckoutActivity extends BaseActivity {
 	private void checkout() {
 
 		textViewDesc.setVisibility(View.VISIBLE);
+		textViewSendEmail.setVisibility(View.VISIBLE);
 		layoutAddMore.setVisibility(View.GONE);
 		layoutSeekBar.setVisibility(View.GONE);
 		layoutDiscount.setVisibility(View.GONE);
 		textViewDiscount.setVisibility(View.GONE);
-		viewDivider.setBackgroundColor(getResources().getColor(R.color.menu_main_orange));
+		viewDivider.setBackgroundColor(getResources().getColor(R.color.menu_main_gray_light));
 		textViewTotalLabel.setTextColor(getResources().getColor(R.color.menu_main_gray));
 		textViewTotal.setTextColor(getResources().getColor(R.color.menu_main_gray));
 		setActionBarForwardButtonText(R.string.action_bar_receipt);
@@ -193,6 +196,16 @@ public class CheckoutActivity extends BaseActivity {
 		ssb.setSpan(bss1, 0, thankYou.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
 		textViewDesc.setText(ssb);
+
+		textViewSendEmail.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "abc@gmail.com", null));
+				emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Menu Restaurant receipt");
+				startActivity(Intent.createChooser(emailIntent, "Send email..."));
+			}
+		});
 	}
 
 	class Adapter extends BaseAdapter {

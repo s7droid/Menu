@@ -39,8 +39,7 @@
             android:layout_below="@+id/textviewRestaurantPreviewActivityRestaurantName"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="20dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/restaurant_01" />
+            android:scaleType="centerCrop" />
 
         <com.s7design.menu.views.MenuTextView
             android:id="@+id/textviewRestaurantPreviewActivityPowered"

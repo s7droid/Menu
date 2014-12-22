@@ -25,7 +25,6 @@ import com.s7design.menu.volley.responses.GetAllItemsInCategoryResponse;
 public class OrderMealsActivity extends BaseActivity {
 
 	// VIEWS
-	private ScrollView mGlobalContainer;
 	private LinearLayout mContainer;
 
 	// DATA
@@ -40,6 +39,8 @@ public class OrderMealsActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_order_meals);
 
+		initActionBar();
+		
 		int tag = getIntent().getIntExtra(CategoryMealsActivity.INTENT_EXTRA_CATEGORY_TAG, 0);
 
 		Map<String, String> params = new HashMap<String, String>();
@@ -69,9 +70,11 @@ public class OrderMealsActivity extends BaseActivity {
 
 	private void initViews() {
 
-		mGlobalContainer = (ScrollView) findViewById(R.id.scrollviewOrderMealsActivityContainer);
 		mContainer = (LinearLayout) findViewById(R.id.scrollviewOrderMealsActivityLinearContainer);
 
+	}
+
+	private void initActionBar(){
 		setActionBarForwardButtonText(R.string.action_bar_checkout);
 
 		setActionBarBackButtonOnClickListener(new OnClickListener() {
@@ -92,9 +95,9 @@ public class OrderMealsActivity extends BaseActivity {
 					showAlertDialog("Alert", "Your checkout list is empty. Add some things to Your chart.");
 			}
 		});
-
+		
 	}
-
+	
 	private void initData() {
 		for (int i = 0; i < 3; i++) {
 			CustomMenuMealCategorySubTypeExpandable item = new CustomMenuMealCategorySubTypeExpandable(OrderMealsActivity.this, titles[i], meals);

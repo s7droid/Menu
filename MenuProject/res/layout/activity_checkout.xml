@@ -9,7 +9,23 @@
         android:id="@+id/textViewDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:visibility="gone" />
+
+    <com.s7design.menu.views.MenuTextView
+        android:id="@+id/textViewSendEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="5dp"
+        android:text="SEND TO EMAIL"
+        android:textStyle="bold"
+        android:textColor="@color/menu_main_orange"
+        android:textSize="15sp"
         android:visibility="gone" />
 
     <ListView
@@ -32,7 +48,7 @@
             android:id="@+id/circleButtonAdd"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginRight="10dp" />
+            android:layout_marginRight="20dp" />
     </LinearLayout>
 
     <LinearLayout
