@@ -13,7 +13,7 @@ import com.s7design.menu.volley.responses.GetDiscountResponse;
 public class GetDiscountRequest extends GsonRequest<GetDiscountResponse> {
 
 	public GetDiscountRequest(Activity context, Map<String, String> params, Listener<GetDiscountResponse> listener) {
-		super(context, Request.Method.GET, "getdiscount", params, true, GetDiscountResponse.class, listener, new ErrorListener() {
+		super(context, Request.Method.GET, "getdiscount", params, GetDiscountResponse.class, listener, new ErrorListener() {
 
 			@Override
 			public void onErrorResponse(VolleyError arg0) {

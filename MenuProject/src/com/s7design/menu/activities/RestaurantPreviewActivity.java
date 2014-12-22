@@ -7,7 +7,11 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.NetworkImageView;
 import com.s7design.menu.R;
+import com.s7design.menu.app.Menu;
+import com.s7design.menu.volley.VolleySingleton;
+import com.s7design.menu.volley.responses.GetRestaurantInfoResponse;
 
 /**
  * Welcome activity. This activity contains data about current restaurant. From
@@ -25,11 +29,15 @@ public class RestaurantPreviewActivity extends BaseActivity {
 	// VIEWS
 	private Button mMakeOrderButton;
 	private TextView mRestaurantName;
+	private NetworkImageView imageViewRestaurant;
+
+	private GetRestaurantInfoResponse restaurantInfo;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_restaurant_preview);
+		restaurantInfo = Menu.getInstance().getDataManager().getRestaurantInfo();
 		initViews();
 	}
 
@@ -39,8 +47,12 @@ public class RestaurantPreviewActivity extends BaseActivity {
 	private void initViews() {
 
 		mMakeOrderButton = (Button) findViewById(R.id.buttonRestaurantPreviewActivityMakeOrder);
+		mRestaurantName = (TextView) findViewById(R.id.textviewRestaurantPreviewActivityRestaurantName);
+		imageViewRestaurant = (NetworkImageView) findViewById(R.id.imageViewRestaurantPreviewActivityRestaurantImage);
 
-		
+		imageViewRestaurant.setImageUrl(restaurantInfo.imageurl, VolleySingleton.getInstance(getApplicationContext()).getImageLoader());
+		mRestaurantName.setText(restaurantInfo.restaurantname);
+
 		setActionBarBackButtonVisibility(View.INVISIBLE);
 		setActionBarForwardButtonText(R.string.action_bar_tutorial);
 		mMakeOrderButton.setOnClickListener(new OnClickListener() {

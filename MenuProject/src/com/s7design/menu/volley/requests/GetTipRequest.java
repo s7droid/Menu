@@ -13,7 +13,7 @@ import com.s7design.menu.volley.responses.GetTipResponse;
 public class GetTipRequest extends GsonRequest<GetTipResponse> {
 
 	public GetTipRequest(Activity context, Map<String, String> params, Listener<GetTipResponse> listener) {
-		super(context, Request.Method.GET, "gettip", params, true, GetTipResponse.class, listener, new ErrorListener() {
+		super(context, Request.Method.GET, "gettip", params, GetTipResponse.class, listener, new ErrorListener() {
 
 			@Override
 			public void onErrorResponse(VolleyError arg0) {
