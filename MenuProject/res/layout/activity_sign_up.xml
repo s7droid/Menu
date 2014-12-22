@@ -129,11 +129,11 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/rounded_orange_button_shape"
+            android:background="@drawable/rounded_orange_button_selector"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:text="@string/sign_up_scan_credit_card_hint_text"
-            android:textColor="@color/menu_main_orange"
+            android:textColor="@drawable/orange_text_selector"
             android:textSize="10sp" />
 
         <View
@@ -152,6 +152,7 @@
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
             android:singleLine="true"
+            android:maxLength="16"
             android:textColor="@color/menu_main_gray" />
 
         <View
@@ -182,28 +183,53 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
-            <com.s7design.menu.views.MenuButton
-                android:id="@+id/buttonSignUpActivityDateOfBirth"
-                android:layout_width="120dp"
+            <com.s7design.menu.views.MenuEditText
+                android:id="@+id/edittextSignUpActivityMonth"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/edittextSignUpActivityCCV"
                 android:layout_alignParentLeft="true"
+                android:layout_alignTop="@+id/edittextSignUpActivityCCV"
                 android:layout_marginRight="15dp"
                 android:background="@android:color/transparent"
-                android:drawablePadding="10dp"
-                android:drawableRight="@drawable/icon_right"
-                android:gravity="left|center_vertical"
-                android:hint="@string/sign_up_date_hint_text"
-                android:inputType="datetime"
+                android:gravity="center_horizontal|center_vertical"
+                android:hint="MM"
+                android:inputType="number"
+                android:maxLength="2"
+                android:singleLine="true"
+                android:textColor="@color/menu_main_gray" />
+
+            <com.s7design.menu.views.MenuEditText
+                android:id="@+id/edittextSignUpActivityYear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/edittextSignUpActivityCCV"
+                android:layout_alignTop="@+id/edittextSignUpActivityCCV"
+                android:layout_marginRight="15dp"
+                android:layout_toRightOf="@+id/edittextSignUpActivityMonth"
+                android:background="@android:color/transparent"
+                android:gravity="center_horizontal|center_vertical"
+                android:hint="YYYY"
+                android:inputType="number"
+                android:maxLength="4"
                 android:singleLine="true"
                 android:textColor="@color/menu_main_gray" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_alignLeft="@+id/buttonSignUpActivityDateOfBirth"
-                android:layout_below="@+id/buttonSignUpActivityDateOfBirth"
-                android:layout_marginRight="15dp"
-                android:layout_toLeftOf="@+id/edittextSignUpActivityCCV"
+                android:layout_alignLeft="@+id/edittextSignUpActivityMonth"
+                android:layout_alignRight="@+id/edittextSignUpActivityMonth"
+                android:layout_below="@+id/edittextSignUpActivityMonth"
+                android:alpha="0.5"
+                android:background="@color/menu_main_gray" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignLeft="@+id/edittextSignUpActivityYear"
+                android:layout_alignRight="@+id/edittextSignUpActivityYear"
+                android:layout_below="@+id/edittextSignUpActivityYear"
                 android:alpha="0.5"
                 android:background="@color/menu_main_gray" />
 
@@ -222,6 +248,7 @@
                 android:paddingRight="10dp"
                 android:paddingTop="10dp"
                 android:singleLine="true"
+                android:inputType="number"
                 android:textColor="@color/menu_main_gray" />
 
             <View
@@ -229,7 +256,7 @@
                 android:layout_height="1dp"
                 android:layout_alignLeft="@+id/edittextSignUpActivityCCV"
                 android:layout_alignRight="@+id/edittextSignUpActivityCCV"
-                android:layout_below="@+id/buttonSignUpActivityDateOfBirth"
+                android:layout_below="@+id/edittextSignUpActivityCCV"
                 android:alpha="0.5"
                 android:background="@color/menu_main_gray" />
         </RelativeLayout>
