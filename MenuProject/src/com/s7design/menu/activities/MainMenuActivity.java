@@ -163,7 +163,7 @@ public class MainMenuActivity extends BaseActivity {
 	}
 
 	private void reviewCurrentOrderButtonAction() {
-		if(Menu.getInstance().getDataManager().getTestCheckoutList() != null)
+		if(Menu.getInstance().getDataManager().getCheckoutList() != null)
 			startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
 		else
 			showAlertDialog("Alert", "Your checkout list is empty. Add some things to Your chart.");

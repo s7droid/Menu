@@ -11,20 +11,19 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.s7design.menu.R;
 import com.s7design.menu.activities.MealDetailsActivity;
 import com.s7design.menu.app.Menu;
-import com.s7design.menu.dataclasses.DataManager;
 import com.s7design.menu.dataclasses.Item;
 
 public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 
 	private Context mGlobalContext;
 	private String mSubclassTitle;
-	private boolean isMealsListOpen = false;
+	private boolean isMealsListOpen = true;
 	private ArrayList<Item> items;
+	private String currency;
 
 	public CustomMenuMealCategorySubTypeExpandable(Context context) {
 		super(context);
@@ -32,6 +31,7 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 		items = new ArrayList<Item>();
 
 		mGlobalContext = context;
+		currency = Menu.getInstance().getDataManager().getCurrency();
 
 		// init();
 
@@ -75,8 +75,8 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 			RelativeLayout imageContainer = (RelativeLayout) vi.findViewById(R.id.linearlayoutSubMealImageContainer);
 
 			mealName.setText(items.get(i).name);
-			bigOrderPriceAndQuantity.setText(items.get(i).largeprice + getResources().getString(R.string.misc_euro));
-			smallOrderPriceAndQuantity.setText(items.get(i).smallprice + getResources().getString(R.string.misc_euro));
+			bigOrderPriceAndQuantity.setText(items.get(i).largeprice + currency);
+			smallOrderPriceAndQuantity.setText(items.get(i).smallprice + currency);
 
 			large.setTag(largeMealCounter);
 			small.setTag(smallMealCounter);
@@ -95,11 +95,9 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 						bigOrderPriceAndQuantity.setAlpha(0.5f);
 					}
 
-					bigOrderPriceAndQuantity.setText(largePrice + getResources().getString(R.string.misc_euro) + " (" + String.valueOf(counter) + ")");
+					bigOrderPriceAndQuantity.setText(largePrice + currency + " (" + String.valueOf(counter) + ")");
 					v.setTag(counter);
-					itemToSend.quantityLarge = 1;
-					itemToSend.quantitySmall = 0;
-					Menu.getInstance().getDataManager().addCheckoutListItem(itemToSend);
+					Menu.getInstance().getDataManager().addCheckoutListItem(itemToSend.getLarge());
 				}
 			});
 
@@ -119,11 +117,9 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 						smallOrderPriceAndQuantity.setAlpha(0.5f);
 					}
 
-					smallOrderPriceAndQuantity.setText(smallPrice + getResources().getString(R.string.misc_euro) + " (" + String.valueOf(counter) + ")");
+					smallOrderPriceAndQuantity.setText(smallPrice + currency + " (" + String.valueOf(counter) + ")");
 					v.setTag(counter);
-					itemToSend.quantityLarge = 0;
-					itemToSend.quantitySmall = 1;
-					Menu.getInstance().getDataManager().addCheckoutListItem(itemToSend);
+					Menu.getInstance().getDataManager().addCheckoutListItem(itemToSend.getSmall());
 				}
 			});
 
@@ -140,8 +136,6 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 
 			mealsListView.addView(vi);
 		}
-
-		mealsListView.setVisibility(View.GONE);
 
 		subCategoryButton.setOnClickListener(new OnClickListener() {
 

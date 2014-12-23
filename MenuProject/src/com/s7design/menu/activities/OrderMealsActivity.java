@@ -35,7 +35,7 @@ public class OrderMealsActivity extends BaseActivity {
 		setContentView(R.layout.activity_order_meals);
 
 		initActionBar();
-		
+
 		int tag = getIntent().getIntExtra(CategoryMealsActivity.INTENT_EXTRA_CATEGORY_TAG, 0);
 
 		Map<String, String> params = new HashMap<String, String>();
@@ -69,7 +69,7 @@ public class OrderMealsActivity extends BaseActivity {
 
 	}
 
-	private void initActionBar(){
+	private void initActionBar() {
 		setActionBarForwardButtonText(R.string.action_bar_checkout);
 
 		setActionBarBackButtonOnClickListener(new OnClickListener() {
@@ -84,15 +84,15 @@ public class OrderMealsActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				if (Menu.getInstance().getDataManager().getTestCheckoutList() != null)
+				if (Menu.getInstance().getDataManager().getCheckoutList() != null)
 					startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
 				else
 					showAlertDialog("Alert", "Your checkout list is empty. Add some things to Your chart.");
 			}
 		});
-		
+
 	}
-	
+
 	private void initData() {
 
 		Map<String, CustomMenuMealCategorySubTypeExpandable> viewMap = new HashMap<String, CustomMenuMealCategorySubTypeExpandable>();

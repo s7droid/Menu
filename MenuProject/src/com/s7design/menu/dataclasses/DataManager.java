@@ -2,9 +2,13 @@ package com.s7design.menu.dataclasses;
 
 import java.util.ArrayList;
 
+import android.util.Log;
+
 import com.s7design.menu.volley.responses.GetRestaurantInfoResponse;
 
 public class DataManager {
+
+	private static final String TAG = DataManager.class.getSimpleName();
 
 	private ArrayList<Item> checkoutList;
 	private GetRestaurantInfoResponse restaurantInfo;
@@ -43,18 +47,10 @@ public class DataManager {
 		if (checkoutList == null)
 			checkoutList = new ArrayList<Item>();
 
-		// Item item = new Item();
-		// item.name = "Tomato soup";
-		// item.largeprice = 8.00f;
-		// item.quantity = 1;
-		//
-		// Item item2 = new Item();
-		// item2.name = "Orange chicken";
-		// item2.largeprice = 10.50f;
-		// item2.quantity = 2;
-		//
-		// checkoutList.add(item);
-		// checkoutList.add(item2);
+		for (Item item : checkoutList) {
+			Log.w(TAG, "item qty small " + item.quantitySmall);
+			Log.w(TAG, "item qty large " + item.quantityLarge);
+		}
 
 		return checkoutList;
 	}
@@ -62,17 +58,20 @@ public class DataManager {
 	public void addCheckoutListItem(Item item) {
 		if (checkoutList == null)
 			checkoutList = new ArrayList<Item>();
+		Log.d(TAG, "item qty small " + item.quantitySmall);
+		Log.d(TAG, "item qty large " + item.quantityLarge);
 		checkoutList.add(item);
+
+		for (Item i : checkoutList) {
+			Log.w(TAG, "item qty small " + i.quantitySmall);
+			Log.w(TAG, "item qty large " + i.quantityLarge);
+		}
 	}
 
 	public void addCheckoutListItems(ArrayList<Item> items) {
 		if (checkoutList == null)
 			checkoutList = new ArrayList<Item>();
 		checkoutList.addAll(items);
-	}
-
-	public ArrayList<Item> getTestCheckoutList() {
-		return checkoutList;
 	}
 
 	public void setRestaurantInfo(GetRestaurantInfoResponse restaurantInfo) {

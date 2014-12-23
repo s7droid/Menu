@@ -23,12 +23,28 @@
 
         <com.s7design.menu.views.MenuTextView
             android:id="@+id/textViewName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:textColor="@color/menu_main_gray"
             android:textSize="16sp"
             android:textStyle="bold" />
+
+        <com.s7design.menu.views.MenuTextView
+            android:id="@+id/textViewIsSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/misc_is_small"
+            android:textColor="@color/menu_main_gray_light"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout
@@ -48,10 +64,11 @@
 
         <com.s7design.menu.views.MenuTextView
             android:id="@+id/textViewQty"
-            android:layout_width="wrap_content"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
             android:textColor="@color/menu_main_gray"
             android:textSize="16sp"
             android:textStyle="bold" />

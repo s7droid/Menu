@@ -23,9 +23,9 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="5dp"
         android:text="SEND TO EMAIL"
-        android:textStyle="bold"
         android:textColor="@color/menu_main_orange"
         android:textSize="15sp"
+        android:textStyle="bold"
         android:visibility="gone" />
 
     <ListView
@@ -93,6 +93,7 @@
             android:layout_height="wrap_content" >
 
             <com.s7design.menu.views.MenuTextView
+                android:id="@+id/textViewMinTip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -101,6 +102,7 @@
                 android:textSize="16sp" />
 
             <com.s7design.menu.views.MenuTextView
+                android:id="@+id/textViewMaxTip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
