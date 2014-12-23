@@ -22,12 +22,16 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.braintreegateway.encryption.Braintree;
 import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
 import com.s7design.menu.dataclasses.Item;
+import com.s7design.menu.dataclasses.Rate;
 import com.s7design.menu.views.CircleButtonView;
 
 public class CheckoutActivity extends BaseActivity {
+
+	private static final String TAG = CheckoutActivity.class.getSimpleName();
 
 	private ArrayList<Item> checkoutList;
 	private ListView listView;
@@ -51,22 +55,45 @@ public class CheckoutActivity extends BaseActivity {
 	private TextView textViewTax;
 	private TextView textViewTip;
 	private TextView textViewSendEmail;
+	private TextView textViewMinTip;
+	private TextView textViewMaxTip;
 
 	private double total;
-	private double tax = 4.23;
+	private double tax;
+	private double minTip;
+	private double maxTip;
 	private double tip = 0;
-	private double discount = 5;
+	private double discount;
+	private String currency;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_checkout);
-		checkoutList = Menu.getInstance().getDataManager().getTestCheckoutList();
-		for (Item item : checkoutList) {
-			total += item.quantityLarge * item.largeprice;
-			total += item.quantitySmall * item.smallprice;
-		}
+		checkoutList = Menu.getInstance().getDataManager().getCheckoutList();
+
+		initData();
 		initViews();
+		refreshList();
+	}
+
+	private void refreshList() {
+		total = 0;
+		for (Item item : checkoutList) {
+			total += item.quantitySmall > 0 ? (item.quantitySmall * item.smallprice) : (item.quantityLarge * item.largeprice);
+		}
+
+		setData();
+	}
+
+	private void initData() {
+
+		Rate rate = Menu.getInstance().getDataManager().getRate();
+		tax = rate.tax;
+		minTip = rate.mintip;
+		maxTip = rate.maxtip;
+		discount = Menu.getInstance().getDataManager().getDiscount();
+		currency = Menu.getInstance().getDataManager().getCurrency();
 	}
 
 	private void initViews() {
@@ -112,6 +139,8 @@ public class CheckoutActivity extends BaseActivity {
 		textViewTax = (TextView) findViewById(R.id.textViewTax);
 		textViewTip = (TextView) findViewById(R.id.textViewTip);
 		textViewSendEmail = (TextView) findViewById(R.id.textViewSendEmail);
+		textViewMinTip = (TextView) findViewById(R.id.textViewMinTip);
+		textViewMaxTip = (TextView) findViewById(R.id.textViewMaxTip);
 
 		circleButtonAdd.setAsAdd();
 		circleButtonAdd.setAsOrange();
@@ -123,6 +152,8 @@ public class CheckoutActivity extends BaseActivity {
 
 		textViewTaxPercent.setText(String.valueOf(tax) + "%");
 		textViewDiscountPercent.setText(String.valueOf(discount) + "%");
+		textViewMinTip.setText(minTip + "%");
+		textViewMaxTip.setText(maxTip + "%");
 
 		seekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
@@ -152,8 +183,6 @@ public class CheckoutActivity extends BaseActivity {
 			}
 		});
 
-		setData();
-
 	}
 
 	private void setData() {
@@ -162,8 +191,8 @@ public class CheckoutActivity extends BaseActivity {
 		double totalTip = (total + totalTax) * tip / 100;
 		double disc = (total + totalTax + totalTip) * discount / 100;
 		double totalAmount = total + totalTax + totalTip - disc;
-
-		textViewTipPercent.setText(tip + "% - " + getString(R.string.misc_euro) + String.format("%.2f", totalTip));
+		
+		textViewTipPercent.setText(tip + "% - " + currency + String.format("%.2f", totalTip));
 
 		textViewTipTotalPercent.setText(tip + "%");
 
@@ -171,7 +200,9 @@ public class CheckoutActivity extends BaseActivity {
 		textViewTax.setText(String.format("%.2f", totalTax));
 		textViewTip.setText(String.format("%.2f", totalTip));
 		textViewDiscount.setText(String.format("%.2f", disc));
-		textViewTotal.setText(getString(R.string.misc_euro) + String.format("%.2f", totalAmount));
+		textViewTotal.setText(currency + String.format("%.2f", totalAmount));
+
+		adapter.notifyDataSetChanged();
 
 	}
 
@@ -252,6 +283,7 @@ public class CheckoutActivity extends BaseActivity {
 				holder.buttonDone = (Button) convertView.findViewById(R.id.buttonDone);
 				holder.layoutName = (LinearLayout) convertView.findViewById(R.id.layoutName);
 				holder.layoutMinusPlus = (LinearLayout) convertView.findViewById(R.id.layoutMinusPlus);
+				holder.textViewIsSmall = (TextView) convertView.findViewById(R.id.textViewIsSmall);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
@@ -261,15 +293,19 @@ public class CheckoutActivity extends BaseActivity {
 
 			holder.position = position;
 
-			holder.circleButtonViewQty.setAsQty(item.quantitySmall);
+			boolean isSmall = item.quantitySmall > 0;
+			holder.isSmall = isSmall;
+
+			holder.circleButtonViewQty.setAsQty(isSmall ? item.quantitySmall : item.quantityLarge);
 			holder.circleButtonViewQty.setAsLight();
 			holder.textViewName.setText(item.name);
-			holder.textViewPrice.setText(String.valueOf(item.largeprice));
+			holder.textViewPrice.setText(String.valueOf(isSmall ? (item.smallprice * item.quantitySmall) : (item.largeprice * item.quantityLarge)));
 			holder.circleButtonViewDel.setAsDel();
 			holder.circleButtonViewDel.setAsLight();
 			holder.circleButtonViewMinus.setAsRemove();
 			holder.circleButtonViewPlus.setAsAdd();
-			holder.textViewQty.setText(String.valueOf(item.quantitySmall));
+			holder.textViewQty.setText(String.valueOf(isSmall ? item.quantitySmall : item.quantityLarge));
+			holder.textViewIsSmall.setVisibility(isSmall ? View.VISIBLE : View.GONE);
 
 			convertView.setOnClickListener(new OnClickListener() {
 
@@ -291,7 +327,7 @@ public class CheckoutActivity extends BaseActivity {
 					ViewHolder holder = (ViewHolder) v.getTag();
 					holder.layoutMinusPlus.setVisibility(View.GONE);
 					holder.layoutName.setVisibility(View.VISIBLE);
-					holder.circleButtonViewQty.setAsQty(getItem(holder.position).quantitySmall);
+					holder.circleButtonViewQty.setAsQty(holder.isSmall ? getItem(holder.position).quantitySmall : getItem(holder.position).quantityLarge);
 				}
 			});
 
@@ -301,7 +337,11 @@ public class CheckoutActivity extends BaseActivity {
 				@Override
 				public void onClick(View v) {
 					ViewHolder holder = (ViewHolder) v.getTag();
-					holder.textViewQty.setText(String.valueOf(--getItem(holder.position).quantitySmall));
+					int qty = holder.isSmall ? getItem(holder.position).quantitySmall : getItem(holder.position).quantityLarge;
+					if (qty > 1) {
+						holder.textViewQty.setText(String.valueOf(holder.isSmall ? --getItem(holder.position).quantitySmall : --getItem(holder.position).quantityLarge));
+						refreshList();
+					}
 				}
 			});
 
@@ -311,7 +351,22 @@ public class CheckoutActivity extends BaseActivity {
 				@Override
 				public void onClick(View v) {
 					ViewHolder holder = (ViewHolder) v.getTag();
-					holder.textViewQty.setText(String.valueOf(++getItem(holder.position).quantitySmall));
+					int qty = holder.isSmall ? getItem(holder.position).quantitySmall : getItem(holder.position).quantityLarge;
+					if (qty < 99) {
+						holder.textViewQty.setText(String.valueOf(holder.isSmall ? ++getItem(holder.position).quantitySmall : ++getItem(holder.position).quantityLarge));
+						refreshList();
+					}
+				}
+			});
+
+			holder.circleButtonViewDel.setTag(holder);
+			holder.circleButtonViewDel.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					ViewHolder holder = (ViewHolder) v.getTag();
+					checkoutList.remove(holder.position);
+					refreshList();
 				}
 			});
 
@@ -328,8 +383,10 @@ public class CheckoutActivity extends BaseActivity {
 			CircleButtonView circleButtonViewMinus;
 			CircleButtonView circleButtonViewPlus;
 			TextView textViewQty;
+			TextView textViewIsSmall;
 			Button buttonDone;
 			int position;
+			boolean isSmall;
 		}
 
 	}

@@ -103,7 +103,7 @@ public class CategoryMealsActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				if (Menu.getInstance().getDataManager().getTestCheckoutList() != null)
+				if (Menu.getInstance().getDataManager().getCheckoutList() != null)
 					startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
 				else
 					showAlertDialog("Alert", "Your checkout list is empty. Add some things to Your chart.");

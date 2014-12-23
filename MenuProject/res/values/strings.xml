@@ -13,8 +13,7 @@
 
     <!-- Splash screen -->
     <string name="splash_screen_welcome_message">Welcome to MENU</string>
-    
-    
+
     <!-- Tutorial -->
     <string name="menu_tutorial_screen_button_continue">CONTINUE</string>
     <string name="menu_tutorial_screen_button_make_your_choice">MAKE YOUR CHOICE</string>
@@ -68,7 +67,7 @@
     <string name="sign_up_ccv_hint_text">CCV</string>
 
     <!-- Misc -->
-    <string name="misc_euro">€</string>
+    <string name="misc_is_small">(S)</string>
     <string name="misc_splash">Welcome to MENU</string>
 
 </resources>
