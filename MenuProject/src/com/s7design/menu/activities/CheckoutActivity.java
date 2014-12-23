@@ -198,12 +198,9 @@ public class CheckoutActivity extends BaseActivity {
 		textViewDesc.setText(ssb);
 
 		textViewSendEmail.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
-				Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "abc@gmail.com", null));
-				emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Menu Restaurant receipt");
-				startActivity(Intent.createChooser(emailIntent, "Send email..."));
+				
 			}
 		});
 	}
