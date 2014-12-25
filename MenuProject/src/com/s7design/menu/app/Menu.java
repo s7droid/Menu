@@ -10,6 +10,8 @@ import android.app.Application;
 import android.content.Context;
 import android.support.v4.util.Pair;
 
+import com.android.volley.VolleyError;
+import com.s7design.menu.callbacks.OnVolleyErrorCallback;
 import com.s7design.menu.dataclasses.DataManager;
 
 public class Menu extends Application {
@@ -24,6 +26,8 @@ public class Menu extends Application {
 	private static Context context;
 
 	private DataManager dataManager;
+
+	private OnVolleyErrorCallback onVolleyErrorCallback;
 
 	public Menu() {
 		instance = this;
@@ -108,5 +112,19 @@ public class Menu extends Application {
 
 	public DataManager getDataManager() {
 		return dataManager;
+	}
+
+	public void registerOnVolleyErrorCallback(OnVolleyErrorCallback onVolleyErrorCallback) {
+		this.onVolleyErrorCallback = onVolleyErrorCallback;
+	}
+
+	public void unregisterOnVolleyErrorCallback() {
+		this.onVolleyErrorCallback = null;
+	}
+
+	public void onVolleyErrorReceived(VolleyError error) {
+
+		if (onVolleyErrorCallback != null)
+			onVolleyErrorCallback.onVolleyError(error);
 	}
 }

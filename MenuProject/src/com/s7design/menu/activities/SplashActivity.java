@@ -24,13 +24,16 @@ import com.android.volley.Response.Listener;
 import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
 import com.s7design.menu.dialogs.OkCancelDialogFragment;
+import com.s7design.menu.utils.Settings;
 import com.s7design.menu.utils.Utils;
 import com.s7design.menu.volley.VolleySingleton;
+import com.s7design.menu.volley.requests.GetBraintreeTokenRequest;
 import com.s7design.menu.volley.requests.GetCurrencyRequest;
 import com.s7design.menu.volley.requests.GetDiscountRequest;
 import com.s7design.menu.volley.requests.GetRestaurantInfoRequest;
 import com.s7design.menu.volley.requests.GetTaxRateRequest;
 import com.s7design.menu.volley.requests.GetTipRequest;
+import com.s7design.menu.volley.responses.GetBraintreeTokenResponse;
 import com.s7design.menu.volley.responses.GetCurrencyResponse;
 import com.s7design.menu.volley.responses.GetDiscountResponse;
 import com.s7design.menu.volley.responses.GetRestaurantInfoResponse;
@@ -99,6 +102,7 @@ public class SplashActivity extends BaseActivity {
 								case BluetoothAdapter.STATE_ON:
 									dismissProgressDialog();
 									initViews();
+									initData();
 									Log.d(TAG, "on");
 									break;
 								case BluetoothAdapter.STATE_TURNING_ON:
@@ -123,6 +127,7 @@ public class SplashActivity extends BaseActivity {
 			});
 		} else {
 			initViews();
+			initData();
 		}
 
 	}
@@ -141,13 +146,16 @@ public class SplashActivity extends BaseActivity {
 		sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), finalString.length() - 4, finalString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); // bold
 
 		mTitleText.setText(sb);
+	}
+
+	private void initData() {
 
 		new AsyncTask<Void, Void, Void>() {
 
 			@Override
 			protected Void doInBackground(Void... pars) {
 
-				final CountDownLatch countDownLatch = new CountDownLatch(5);
+				final CountDownLatch countDownLatch = new CountDownLatch(6);
 
 				Map<String, String> params = new HashMap<String, String>();
 				params.put("major", "1");
@@ -203,11 +211,22 @@ public class SplashActivity extends BaseActivity {
 					}
 				});
 
+				GetBraintreeTokenRequest tokenRequest = new GetBraintreeTokenRequest(SplashActivity.this, null, new Listener<GetBraintreeTokenResponse>() {
+
+					@Override
+					public void onResponse(GetBraintreeTokenResponse token) {
+
+						Menu.getInstance().getDataManager().setClientBraintreeToken(token.token);
+						countDownLatch.countDown();
+					}
+				});
+
 				VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(restaurantInfoRequest);
 				VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(taxRequest);
 				VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(tipRequest);
 				VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(discountRequest);
 				VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(currencyRequest);
+				VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(tokenRequest);
 
 				try {
 					countDownLatch.await(20000, TimeUnit.MILLISECONDS);
@@ -220,12 +239,19 @@ public class SplashActivity extends BaseActivity {
 
 			protected void onPostExecute(Void result) {
 
-				Intent i = new Intent(SplashActivity.this, RestaurantPreviewActivity.class);
-				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				startActivity(i);
+				String accessToken = Settings.getAccessToken(getApplicationContext());
+
+				if (accessToken.length() > 0) {
+					Intent i = new Intent(SplashActivity.this, RestaurantPreviewActivity.class);
+					i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					startActivity(i);
+				} else {
+					Intent i = new Intent(SplashActivity.this, SignInActivity.class);
+					i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					startActivity(i);
+				}
 			};
 		}.execute();
-
 	}
 
 	@Override
