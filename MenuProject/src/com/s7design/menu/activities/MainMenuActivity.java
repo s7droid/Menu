@@ -149,7 +149,7 @@ public class MainMenuActivity extends BaseActivity {
 	}
 
 	private void viewPastReceiptsButtonAction() {
-		startActivity(new Intent(getApplicationContext(), ReceipListActivity.class));
+		startActivity(new Intent(getApplicationContext(), ReceiptListActivity.class));
 	}
 
 	private void reviewCurrentOrderButtonAction() {

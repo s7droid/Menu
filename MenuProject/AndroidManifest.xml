@@ -68,11 +68,12 @@
             android:name="com.s7design.menu.activities.MealDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.s7design.menu.activities.ReceipListActivity"
+            android:name="com.s7design.menu.activities.ReceiptListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.s7design.menu.activities.ReceiptDetailsActivity"
             android:screenOrientation="portrait" />
 
-        
-        
         <!-- Activities from card.io library -->
         <activity
             android:name="io.card.payment.CardIOActivity"

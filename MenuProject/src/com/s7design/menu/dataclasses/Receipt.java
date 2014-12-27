@@ -1,7 +1,12 @@
 package com.s7design.menu.dataclasses;
 
-public class Receipt {
+import java.io.Serializable;
 
+public class Receipt implements Serializable{
+
+
+	private static final long serialVersionUID = 8549055767470018716L;
+	
 	private String date;
 	private String restaurantName;
 	private String ammount;
