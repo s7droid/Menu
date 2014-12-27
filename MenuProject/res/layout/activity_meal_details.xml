@@ -87,8 +87,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp" >
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp" >
 
                 <TextView
                     android:id="@+id/tv2"
@@ -160,12 +160,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp" >
 
-<!--                 <ImageButton -->
-<!--                     android:id="@+id/imagebuttonMealDetailsActivityGetReceipt" -->
-<!--                     android:layout_width="wrap_content" -->
-<!--                     android:layout_height="wrap_content" -->
-<!--                     android:layout_alignParentRight="true" -->
-<!--                     android:layout_alignParentTop="true" /> -->
+                <ImageButton
+                    android:id="@+id/imagebuttonMealDetailsActivityGetReceipt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true" />
 
                 <TextView
                     android:id="@+id/textviewMealDetailsActivityReceiptText"

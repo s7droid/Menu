@@ -7,15 +7,14 @@ import java.util.Map;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
 import com.android.volley.Response.Listener;
 import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
-import com.s7design.menu.dataclasses.Category;
 import com.s7design.menu.dataclasses.Item;
 import com.s7design.menu.utils.CustomMenuMealCategorySubTypeExpandable;
 import com.s7design.menu.volley.VolleySingleton;
@@ -23,6 +22,8 @@ import com.s7design.menu.volley.requests.GetAllItemsInCategoryRequest;
 import com.s7design.menu.volley.responses.GetAllItemsInCategoryResponse;
 
 public class OrderMealsActivity extends BaseActivity {
+
+	private static final String TAG = OrderMealsActivity.class.getSimpleName();
 
 	// VIEWS
 	private LinearLayout mContainer;
@@ -95,24 +96,24 @@ public class OrderMealsActivity extends BaseActivity {
 
 	private void initData() {
 
-		Map<String, CustomMenuMealCategorySubTypeExpandable> viewMap = new HashMap<String, CustomMenuMealCategorySubTypeExpandable>();
-		ArrayList<String> catList = new ArrayList<String>();
+		ArrayList<CustomMenuMealCategorySubTypeExpandable> viewList = new ArrayList<CustomMenuMealCategorySubTypeExpandable>();
+
+		CustomMenuMealCategorySubTypeExpandable view = null;
 
 		for (Item item : items) {
-			if (!viewMap.containsKey(item.category)) {
-				viewMap.put(item.category, new CustomMenuMealCategorySubTypeExpandable(this));
-			}
-
 			if (item.image.equals("subcat")) {
-				viewMap.get(item.category).setTitle(item.name);
-				catList.add(item.category);
+				view = new CustomMenuMealCategorySubTypeExpandable(this);
+				view.setTitle(item.name);
+				viewList.add(view);
+				Log.d(TAG, "subcat " + item.name);
 			} else {
-				viewMap.get(item.category).addItem(item);
+				view.addItem(item);
+				Log.d(TAG, "item " + item.name);
 			}
 		}
 
-		for (String cat : catList) {
-			mContainer.addView(viewMap.get(cat).init());
+		for (CustomMenuMealCategorySubTypeExpandable v : viewList) {
+			mContainer.addView(v.init());
 		}
 
 	}

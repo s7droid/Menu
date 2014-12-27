@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.s7design.menu.app.Menu;
 import com.s7design.menu.utils.Utils;
 import com.s7design.menu.volley.Constants;
 
@@ -112,6 +113,8 @@ public class GsonRequest<T> extends Request<T> {
 			final String errorBody = new String(error.networkResponse.data, HttpHeaderParser.parseCharset(error.networkResponse.headers));
 
 			Log.w(TAG, "deliverError(), body " + errorBody);
+
+			Menu.getInstance().onVolleyErrorReceived(error);
 
 			super.deliverError(error);
 
