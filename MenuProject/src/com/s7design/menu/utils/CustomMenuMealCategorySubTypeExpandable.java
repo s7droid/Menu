@@ -75,8 +75,8 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 			RelativeLayout imageContainer = (RelativeLayout) vi.findViewById(R.id.linearlayoutSubMealImageContainer);
 
 			mealName.setText(items.get(i).name);
-			bigOrderPriceAndQuantity.setText(items.get(i).largeprice + currency);
-			smallOrderPriceAndQuantity.setText(items.get(i).smallprice + currency);
+			bigOrderPriceAndQuantity.setText(String.format("%.2f", items.get(i).largeprice) + currency);
+			smallOrderPriceAndQuantity.setText(String.format("%.2f", items.get(i).smallprice) + currency);
 
 			large.setTag(largeMealCounter);
 			small.setTag(smallMealCounter);
@@ -95,7 +95,7 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 						bigOrderPriceAndQuantity.setAlpha(0.5f);
 					}
 
-					bigOrderPriceAndQuantity.setText(largePrice + currency + " (" + String.valueOf(counter) + ")");
+					bigOrderPriceAndQuantity.setText(String.format("%.2f", largePrice) + currency + " (" + String.valueOf(counter) + ")");
 					v.setTag(counter);
 					Menu.getInstance().getDataManager().addCheckoutListItem(itemToSend.getLarge());
 				}
@@ -117,7 +117,7 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 						smallOrderPriceAndQuantity.setAlpha(0.5f);
 					}
 
-					smallOrderPriceAndQuantity.setText(smallPrice + currency + " (" + String.valueOf(counter) + ")");
+					smallOrderPriceAndQuantity.setText(String.format("%.2f", smallPrice) + currency + " (" + String.valueOf(counter) + ")");
 					v.setTag(counter);
 					Menu.getInstance().getDataManager().addCheckoutListItem(itemToSend.getSmall());
 				}
