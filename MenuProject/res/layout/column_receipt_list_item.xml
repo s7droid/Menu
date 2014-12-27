@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+
+    <com.s7design.menu.views.MenuTextView
+        android:id="@+id/textviewReceiptListItemDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="22.15.2014"
+        android:textColor="@color/menu_main_gray"
+        android:textStyle="bold" />
+
+    <com.s7design.menu.views.MenuTextView
+        android:id="@+id/textviewReceiptListItemPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="e28.00"
+        android:textColor="@color/menu_main_gray"
+        android:textStyle="bold" />
+
+    <com.s7design.menu.views.MenuTextView
+        android:id="@+id/textviewReceiptListItemRestaurantName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/textviewReceiptListItemDate"
+        android:layout_marginTop="5dp"
+        android:text="Very nice Chinese restaurant"
+        android:textColor="@color/menu_main_gray_light" />
+
+    <com.s7design.menu.views.MenuButton
+        android:id="@+id/buttonReceiptListItemSendMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_below="@id/textviewReceiptListItemRestaurantName"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/rounded_orange_button_selector"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="SEND MESSAGE"
+        android:textColor="@drawable/orange_text_selector"
+        android:textSize="12sp" />
+
+    <View
+        android:id="@+id/viewReceiptListItemSeparator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/buttonReceiptListItemSendMessage"
+        android:layout_marginTop="10dp"
+        android:background="@color/menu_main_gray_light" />
+
+</RelativeLayout>

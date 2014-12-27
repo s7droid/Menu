@@ -149,17 +149,7 @@ public class MainMenuActivity extends BaseActivity {
 	}
 
 	private void viewPastReceiptsButtonAction() {
-		Map<String,String> params = new HashMap<String, String>();
-		params.put("major", "1");
-		params.put("minor", "1");
-		GetRestaurantInfoRequest request = new GetRestaurantInfoRequest(MainMenuActivity.this, params, new Listener<GetRestaurantInfoResponse>() {
-
-			@Override
-			public void onResponse(GetRestaurantInfoResponse arg0) {
-				System.out.println("Restaurant Info response= " + arg0.toString());
-			}
-		});
-		VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+		startActivity(new Intent(getApplicationContext(), ReceipListActivity.class));
 	}
 
 	private void reviewCurrentOrderButtonAction() {
