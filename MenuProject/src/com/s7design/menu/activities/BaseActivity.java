@@ -12,11 +12,15 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.android.volley.VolleyError;
 import com.s7design.menu.R;
+import com.s7design.menu.app.Menu;
+import com.s7design.menu.callbacks.OnVolleyErrorCallback;
 import com.s7design.menu.dialogs.AlertDialogFragment;
 import com.s7design.menu.dialogs.ProgressDialogFragment;
+import com.s7design.menu.volley.responses.GsonResponse;
 
-public class BaseActivity extends Activity {
+public class BaseActivity extends Activity implements OnVolleyErrorCallback {
 
 	private ActionBar actionBar;
 
@@ -60,6 +64,20 @@ public class BaseActivity extends Activity {
 			}
 		});
 
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		Menu.getInstance().registerOnVolleyErrorCallback(this);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+
+		Menu.getInstance().unregisterOnVolleyErrorCallback();
 	}
 
 	public void hideActionBar() {
@@ -158,6 +176,18 @@ public class BaseActivity extends Activity {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void onResponseError(GsonResponse response) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onVolleyError(VolleyError volleyError) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

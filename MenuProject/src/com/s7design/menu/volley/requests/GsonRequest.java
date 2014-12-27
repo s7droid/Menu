@@ -7,6 +7,7 @@ import java.util.Map;
 import android.app.Activity;
 import android.util.Log;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
@@ -17,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.s7design.menu.app.Menu;
 import com.s7design.menu.utils.Utils;
 import com.s7design.menu.volley.Constants;
 
@@ -34,7 +36,7 @@ public class GsonRequest<T> extends Request<T> {
 	private static final String PROTOCOL_CHARSET = "utf-8";
 
 	public GsonRequest(Activity context, int method, String url, Map<String, String> params, Class<T> outputType, Listener<T> listener, ErrorListener errorListener) {
-		super(method, Constants.getPrefix() + Constants.BASE_URL + url + ".php" + getParams(params), errorListener);
+		super(method, Constants.getPrefix() + Constants.BASE_URL + url + ".php" + (method == Request.Method.GET ? getParams(params, true) : ""), errorListener);
 		this.listener = listener;
 		this.outputType = outputType;
 		this.activityContext = context;
@@ -49,12 +51,15 @@ public class GsonRequest<T> extends Request<T> {
 	// return "application/json";
 	// }
 
-	// @Override
-	// protected Map<String, String> getParams() throws AuthFailureError {
-	// return params;
-	// }
+	@Override
+	protected Map<String, String> getParams() throws AuthFailureError {
+		return params;
+	}
 
-	private static String getParams(Map<String, String> params) {
+	private static String getParams(Map<String, String> params, boolean isGet) {
+
+		if (params == null)
+			return "";
 
 		StringBuilder sb = new StringBuilder();
 
@@ -62,11 +67,11 @@ public class GsonRequest<T> extends Request<T> {
 
 			if (sb.length() > 0)
 				sb.append("&");
-			else
+			else if (isGet)
 				sb.append("?");
 
 			try {
-				sb.append(String.format("%s=%s", URLEncoder.encode(entry.getKey(), "UTF-8"), URLEncoder.encode(entry.getValue(), "UTF-8")));
+				sb.append(String.format("%s=%s", URLEncoder.encode(entry.getKey(), PROTOCOL_CHARSET), URLEncoder.encode(entry.getValue(), PROTOCOL_CHARSET)));
 			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -74,7 +79,18 @@ public class GsonRequest<T> extends Request<T> {
 
 		}
 
+		Log.d(TAG, "" + sb.toString());
+
 		return sb.toString();
+	}
+
+	@Override
+	public byte[] getBody() {
+		try {
+			return getParams(params, false).getBytes(PROTOCOL_CHARSET);
+		} catch (UnsupportedEncodingException e) {
+			return null;
+		}
 	}
 
 	@Override
@@ -97,6 +113,8 @@ public class GsonRequest<T> extends Request<T> {
 			final String errorBody = new String(error.networkResponse.data, HttpHeaderParser.parseCharset(error.networkResponse.headers));
 
 			Log.w(TAG, "deliverError(), body " + errorBody);
+
+			Menu.getInstance().onVolleyErrorReceived(error);
 
 			super.deliverError(error);
 

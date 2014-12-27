@@ -39,4 +39,12 @@ public class MenuEditText extends EditText {
 		else
 			setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/GothamRounded-Medium.otf"));
 	}
+
+	public void setFont(boolean bold) {
+
+		if (!bold)
+			setTypeface(Typeface.createFromAsset(getContext().getAssets(), "fonts/GothamRounded-Book.otf"));
+		else
+			setTypeface(Typeface.createFromAsset(getContext().getAssets(), "fonts/GothamRounded-Medium.otf"));
+	}
 }

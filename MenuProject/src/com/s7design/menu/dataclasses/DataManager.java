@@ -17,6 +17,15 @@ public class DataManager {
 	private Rate rate;
 	private double discount;
 	private String currency;
+	private String clientBraintreeToken;
+
+	public String getClientBraintreeToken() {
+		return clientBraintreeToken;
+	}
+
+	public void setClientBraintreeToken(String clientBraintreeToken) {
+		this.clientBraintreeToken = clientBraintreeToken;
+	}
 
 	public double getDiscount() {
 		return discount;

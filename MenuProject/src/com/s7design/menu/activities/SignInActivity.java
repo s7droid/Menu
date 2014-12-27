@@ -1,5 +1,8 @@
 package com.s7design.menu.activities;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,8 +12,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Response.Listener;
 import com.s7design.menu.R;
+import com.s7design.menu.utils.Settings;
 import com.s7design.menu.utils.Utils;
+import com.s7design.menu.volley.VolleySingleton;
+import com.s7design.menu.volley.requests.LoginRequest;
+import com.s7design.menu.volley.responses.LoginResponse;
 
 public class SignInActivity extends BaseActivity {
 
@@ -80,14 +88,34 @@ public class SignInActivity extends BaseActivity {
 			public void onClick(View v) {
 
 				if (Utils.isNetworkAvailable(getApplicationContext())) {
-					if (!mUsernameEditText.getText().toString().equals("") && !mPasswordEditText.getText().toString().equals("")) {
-						Toast.makeText(SignInActivity.this, "LoginUser: " + mUsernameEditText.getText().toString(), Toast.LENGTH_SHORT).show();
-					} else if (mUsernameEditText.getText().toString().equals("") && !mPasswordEditText.getText().toString().equals("")) {
+					if (mUsernameEditText.getText().toString().equals("")) {
 						showAlertDialog(null, getResources().getString(R.string.dialog_insert_email_address));
-					} else if (!mUsernameEditText.getText().toString().equals("") && mPasswordEditText.getText().toString().equals("")) {
+					} else if (mPasswordEditText.getText().toString().equals("")) {
 						showAlertDialog(null, getResources().getString(R.string.dialog_insert_password));
-					} else if (mUsernameEditText.getText().toString().equals("") && mPasswordEditText.getText().toString().equals("")) {
-						showAlertDialog(null, getResources().getString(R.string.dialog_insert_emal_address_and_password));
+					} else {
+
+						showProgressDialogLoading();
+
+						Map<String, String> params = new HashMap<String, String>();
+						params.put("email", mUsernameEditText.getText().toString());
+						params.put("password", mPasswordEditText.getText().toString());
+
+						LoginRequest loginRequest = new LoginRequest(SignInActivity.this, params, new Listener<LoginResponse>() {
+
+							@Override
+							public void onResponse(LoginResponse loginResponse) {
+
+								if (loginResponse.response.equals("success")) {
+									Settings.setAccessToken(SignInActivity.this, loginResponse.accesstoken);
+									Intent i = new Intent(SignInActivity.this, RestaurantPreviewActivity.class);
+									i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+									startActivity(i);
+									dismissProgressDialog();
+								}
+							}
+						});
+
+						VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(loginRequest);
 					}
 
 				} else {
