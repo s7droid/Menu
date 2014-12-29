@@ -139,6 +139,7 @@ public class BaseActivity extends Activity implements OnVolleyErrorCallback {
 	 */
 	public void setActionBarForwardArrowVisibility(Drawable drawable) {
 		buttonActionBarForward.setCompoundDrawables(null, null, drawable, null);
+		buttonActionBarForward.setPadding(buttonActionBarForward.getPaddingLeft(), buttonActionBarForward.getPaddingTop(), 30, buttonActionBarForward.getPaddingBottom());
 	}
 
 	public void showAlertDialog(int title, int body) {

@@ -76,55 +76,71 @@ public class SplashActivity extends BaseActivity {
 
 				}
 			});
+		} else if (!Utils.isLocationEnabled(this)) {
+
+			Intent intent = new Intent(this, SplashWarningActivity.class);
+			intent.putExtra(SplashWarningActivity.INTENT_EXTRA_TAG_START, SplashWarningActivity.INTENT_EXTRA_START_LOCATION);
+			startActivity(intent);
+
 		} else if (!Utils.isBluetoothEnabled()) {
 
-			OkCancelDialogFragment okCancelDialog = new OkCancelDialogFragment();
-			okCancelDialog.showDialog(getFragmentManager(), getString(R.string.dialog_title_error), getString(R.string.dialog_bluetooth_off), new OnClickListener() {
+			Intent intent = new Intent(this, SplashWarningActivity.class);
+			intent.putExtra(SplashWarningActivity.INTENT_EXTRA_TAG_START, SplashWarningActivity.INTENT_EXTRA_START_BLUETOOTH);
+			startActivity(intent);
 
-				@Override
-				public void onClick(View v) {
-
-					IntentFilter filter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
-					bluetoothReceiver = new BroadcastReceiver() {
-						@Override
-						public void onReceive(Context context, Intent intent) {
-							final String action = intent.getAction();
-
-							if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
-								final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
-								switch (state) {
-								case BluetoothAdapter.STATE_OFF:
-									Log.d(TAG, "off");
-									break;
-								case BluetoothAdapter.STATE_TURNING_OFF:
-									Log.d(TAG, "turning off");
-									break;
-								case BluetoothAdapter.STATE_ON:
-									dismissProgressDialog();
-									initViews();
-									initData();
-									Log.d(TAG, "on");
-									break;
-								case BluetoothAdapter.STATE_TURNING_ON:
-									Log.d(TAG, "turning on");
-									break;
-								}
-							}
-						}
-					};
-					registerReceiver(bluetoothReceiver, filter);
-
-					showProgressDialog(R.string.dialog_please_wait);
-
-					BluetoothAdapter.getDefaultAdapter().enable();
-				}
-			}, new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					finish();
-				}
-			});
+			// OkCancelDialogFragment okCancelDialog = new
+			// OkCancelDialogFragment();
+			// okCancelDialog.showDialog(getFragmentManager(),
+			// getString(R.string.dialog_title_error),
+			// getString(R.string.dialog_bluetooth_off), new OnClickListener() {
+			//
+			// @Override
+			// public void onClick(View v) {
+			//
+			// IntentFilter filter = new
+			// IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
+			// bluetoothReceiver = new BroadcastReceiver() {
+			// @Override
+			// public void onReceive(Context context, Intent intent) {
+			// final String action = intent.getAction();
+			//
+			// if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
+			// final int state =
+			// intent.getIntExtra(BluetoothAdapter.EXTRA_STATE,
+			// BluetoothAdapter.ERROR);
+			// switch (state) {
+			// case BluetoothAdapter.STATE_OFF:
+			// Log.d(TAG, "off");
+			// break;
+			// case BluetoothAdapter.STATE_TURNING_OFF:
+			// Log.d(TAG, "turning off");
+			// break;
+			// case BluetoothAdapter.STATE_ON:
+			// dismissProgressDialog();
+			// initViews();
+			// initData();
+			// Log.d(TAG, "on");
+			// break;
+			// case BluetoothAdapter.STATE_TURNING_ON:
+			// Log.d(TAG, "turning on");
+			// break;
+			// }
+			// }
+			// }
+			// };
+			// registerReceiver(bluetoothReceiver, filter);
+			//
+			// showProgressDialog(R.string.dialog_please_wait);
+			//
+			// BluetoothAdapter.getDefaultAdapter().enable();
+			// }
+			// }, new OnClickListener() {
+			//
+			// @Override
+			// public void onClick(View v) {
+			// finish();
+			// }
+			// });
 		} else {
 			initViews();
 			initData();
