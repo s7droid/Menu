@@ -1,7 +1,9 @@
 package com.s7design.menu.activities;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,15 +12,22 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.Response.Listener;
 import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
 import com.s7design.menu.dataclasses.Item;
 import com.s7design.menu.dataclasses.Receipt;
 import com.s7design.menu.dataclasses.ReceiptInfo;
+import com.s7design.menu.utils.Settings;
 import com.s7design.menu.views.CircleButtonView;
+import com.s7design.menu.volley.VolleySingleton;
+import com.s7design.menu.volley.requests.GetReceiptInfoRequest;
+import com.s7design.menu.volley.requests.GetReceiptsRequest;
+import com.s7design.menu.volley.responses.GetReceiptInfoResponse;
 
 public class ReceiptDetailsActivity extends BaseActivity {
 
@@ -31,10 +40,10 @@ public class ReceiptDetailsActivity extends BaseActivity {
 	private TextView mTextViewTotal;
 	private ListView mListViewItems;
 	private Button mButtonSendEmail;
+	private LinearLayout mContainer;
+	
 	// DATA
-	private ReceiptInfo mReceiptInfo;
 	private Receipt mReceiptSelected;
-	private List<Item> mItems;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +51,7 @@ public class ReceiptDetailsActivity extends BaseActivity {
 		setContentView(R.layout.activity_receipt_details);
 
 		mReceiptSelected = (Receipt) getIntent().getExtras().getSerializable(ReceiptListActivity.RECEIPT_LIST_ITEM_SELECTED);
-		
+
 		initActionBar();
 		initViews();
 		initData();
@@ -53,7 +62,8 @@ public class ReceiptDetailsActivity extends BaseActivity {
 		setActionBarForwardArrowVisibility(null);
 		setActionBarForwardButtonTextColor(getResources().getColor(R.color.menu_main_orange));
 		setActionBarForwardButtonText("RECEIPT");
-		
+		setActionBarMenuButtonVisibility(View.GONE);
+
 		setActionBarBackButtonOnClickListener(new OnClickListener() {
 
 			@Override
@@ -81,7 +91,8 @@ public class ReceiptDetailsActivity extends BaseActivity {
 		mTextViewTotal = (TextView) findViewById(R.id.textViewTotal);
 		mListViewItems = (ListView) findViewById(R.id.listViewReceipts);
 		mButtonSendEmail = (Button) findViewById(R.id.buttonSendEmail);
-
+		mContainer = (LinearLayout) findViewById(R.id.linearlayoutReceiptDetailsActivityContainer);
+		
 		mButtonSendEmail.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -90,86 +101,64 @@ public class ReceiptDetailsActivity extends BaseActivity {
 			}
 		});
 
+		mContainer.setVisibility(View.INVISIBLE);
+		
 	}
 
 	private void initData() {
 
-		mItems = new ArrayList<Item>();
-
-		Item item = new Item();
-		item.name = "Dummy Meal Name";
-		item.largeprice = 25;
-		item.quantityLarge = 2;
-
-		Item item1 = new Item();
-		item1.name = "Dummy Meal Name 2";
-		item1.largeprice = 25;
-		item1.quantityLarge = 2;
-
-		Item item2 = new Item();
-		item2.name = "Dummy Meal Name 3";
-		item2.largeprice = 25;
-		item2.quantityLarge = 5;
-
-		Item item3 = new Item();
-		item3.name = "Dummy Meal Name 4";
-		item3.largeprice = 25;
-		item3.quantityLarge = 2;
-
-		Item item4 = new Item();
-		item4.name = "Dummy Meal Name 5";
-		item4.largeprice = 25;
-		item4.quantityLarge = 2;
-
-		mItems.add(item);
-		mItems.add(item1);
-		mItems.add(item2);
-		mItems.add(item3);
-		mItems.add(item4);
-
-		mReceiptInfo = new ReceiptInfo();
-		mReceiptInfo.setDate("25.03.2014");
-		mReceiptInfo.setDiscount("5.05");
-		mReceiptInfo.setOrderPrice("25.67");
-		mReceiptInfo.setTax("4.00");
-		mReceiptInfo.setTime("23:00");
-		mReceiptInfo.setTip("15.00");
-		mReceiptInfo.setItems(mItems);
+		showProgressDialogLoading();
 		
-		StringBuilder stringBuilder = new StringBuilder();
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("minor", "1");
+		params.put("major", "1");
+		params.put("accesstoken", Settings.getAccessToken(ReceiptDetailsActivity.this));
+		params.put("receiptid", mReceiptSelected.getReceiptId());
+
+		GetReceiptInfoRequest request = new GetReceiptInfoRequest(ReceiptDetailsActivity.this, params, new Listener<GetReceiptInfoResponse>() {
+
+			@Override
+			public void onResponse(GetReceiptInfoResponse arg0) {
+				StringBuilder stringBuilder = new StringBuilder();
+
+				stringBuilder.append(arg0.date);
+				stringBuilder.append(" at " + arg0.time);
+				stringBuilder.append(" / Table 5");
+
+				mTextViewReceiptTime.setText(stringBuilder);
+
+				mTextViewRestaurantName.setText(mReceiptSelected.getRestaurantName());
+				mTextViewSubtotal.setText(String.format("%.2f", arg0.orderprice));
+				mTextViewTax.setText(String.format("%.2f", arg0.tax));
+				mTextViewTip.setText(String.format("%.2f", arg0.tip));
+				mTextViewTotal.setText(Menu.getInstance().getDataManager().getCurrency() + mReceiptSelected.getAmmount());
+
+				mListViewItems.setAdapter(new ItemListAdapter(arg0));
+				mContainer.setVisibility(View.VISIBLE);
+				dismissProgressDialog();
+			}
+		});
 		
-		stringBuilder.append(mReceiptInfo.getDate());
-		stringBuilder.append(" at " + mReceiptInfo.getTime());
-		stringBuilder.append(" / Table 5");
-		
-		mTextViewReceiptTime.setText(stringBuilder);
-		
-		mTextViewRestaurantName.setText(mReceiptSelected.getRestaurantName());
-		mTextViewSubtotal.setText(mReceiptInfo.getOrderPrice());
-		mTextViewTax.setText(mReceiptInfo.getTax());
-		mTextViewTip.setText(mReceiptInfo.getTip());
-		mTextViewTotal.setText(Menu.getInstance().getDataManager().getCurrency() + mReceiptSelected.getAmmount());
-		
-		mListViewItems.setAdapter(new ItemListAdapter(mItems));
+		VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
 		
 	}
 
-	private class ItemListAdapter extends BaseAdapter{
+	private class ItemListAdapter extends BaseAdapter {
 
-		private List<Item> items;
-		
-		public ItemListAdapter(List<Item> items) {
+		private GetReceiptInfoResponse items;
+
+		public ItemListAdapter(GetReceiptInfoResponse items) {
 			this.items = items;
 		}
-		
+
 		@Override
 		public int getCount() {
-			return items.size();
+			return items.items.length;
 		}
 
 		@Override
 		public Item getItem(int position) {
-			return items.get(position);
+			return items.items[position];
 		}
 
 		@Override
@@ -179,39 +168,39 @@ public class ReceiptDetailsActivity extends BaseActivity {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			
-			if(convertView == null){
-				
+
+			if (convertView == null) {
+
 				ViewHolder holder = new ViewHolder();
-				
+
 				convertView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.row_checkout_list, null);
-				
+
 				holder.name = (TextView) convertView.findViewById(R.id.textViewName);
 				holder.quantity = (CircleButtonView) convertView.findViewById(R.id.circleButtonViewQty);
 				holder.price = (TextView) convertView.findViewById(R.id.textViewPrice);
 				holder.delButton = (CircleButtonView) convertView.findViewById(R.id.circleButtonViewDel);
-				
+
 				convertView.setTag(holder);
 			}
-			
+
 			ViewHolder holder = (ViewHolder) convertView.getTag();
 			Item item = getItem(position);
-			
+
 			holder.name.setText(item.name);
-			holder.price.setText(String.format("%.2f",item.largeprice));
+			holder.price.setText(String.format("%.2f", item.largeprice));
 			holder.quantity.setAsQty(item.quantityLarge);
 			holder.delButton.setVisibility(View.GONE);
-			
+
 			return convertView;
 		}
-		
-		class ViewHolder{
+
+		class ViewHolder {
 			TextView name;
 			TextView price;
 			CircleButtonView quantity;
 			CircleButtonView delButton;
 		}
-		
+
 	}
-	
+
 }

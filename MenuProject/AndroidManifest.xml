@@ -73,6 +73,9 @@
         <activity
             android:name="com.s7design.menu.activities.ReceiptDetailsActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.s7design.menu.activities.ManageAccountActivity"
+            android:screenOrientation="portrait" />
 
         <!-- Activities from card.io library -->
         <activity
