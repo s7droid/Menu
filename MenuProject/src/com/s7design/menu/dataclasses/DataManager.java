@@ -18,6 +18,25 @@ public class DataManager {
 	private double discount;
 	private String currency;
 	private String clientBraintreeToken;
+	private String major = "1";
+	private String minor = "1";
+	private String language = "en";
+
+	public String getMajor() {
+		return major;
+	}
+
+	public void setMajor(String major) {
+		this.major = major;
+	}
+
+	public String getMinor() {
+		return minor;
+	}
+
+	public void setMinor(String minor) {
+		this.minor = minor;
+	}
 
 	public String getClientBraintreeToken() {
 		return clientBraintreeToken;
@@ -116,6 +135,14 @@ public class DataManager {
 
 	public Rate getRate() {
 		return rate;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 
 }

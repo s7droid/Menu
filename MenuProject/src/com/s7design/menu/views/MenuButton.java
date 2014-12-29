@@ -33,7 +33,7 @@ public class MenuButton extends Button {
 	}
 
 	private void init(Context context) {
-
+		
 		if (isBookFont)
 			setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/GothamRounded-Book.otf"));
 		else

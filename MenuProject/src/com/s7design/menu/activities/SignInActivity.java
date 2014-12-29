@@ -111,6 +111,15 @@ public class SignInActivity extends BaseActivity {
 									i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 									startActivity(i);
 									dismissProgressDialog();
+								} else {
+									dismissProgressDialog();
+
+									if (loginResponse.response.equals("nouser")) {
+										showAlertDialog(R.string.dialog_title_error, R.string.dialog_no_user);
+									} else if (loginResponse.response.equals("passwordfalse")) {
+										showAlertDialog(R.string.dialog_title_error, R.string.dialog_wrong_password);
+									}
+
 								}
 							}
 						});

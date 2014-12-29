@@ -28,11 +28,15 @@
     <string name="dialog_loading">Loading&#8230;</string>
     <string name="dialog_please_wait">Please wait&#8230;</string>
     <string name="dialog_title_error">Error</string>
+    <string name="dialog_title_success">Success</string>
     <string name="dialog_no_internet_connection">No internet connection</string>
     <string name="dialog_bluetooth_off">Bluetooth is off. Would you like to turn it on?</string>
     <string name="dialog_insert_email_address">Please, insert Your email address.</string>
     <string name="dialog_insert_password">Please, insert Your password.</string>
     <string name="dialog_insert_emal_address_and_password">Please, insert Your email address and password.</string>
+    <string name="dialog_no_user">No user was found with provided email.</string>
+    <string name="dialog_wrong_password">The password provided is incorrect.</string>
+    <string name="dialog_order_successful">Your order was successful!</string>
 
     <!-- Checkout activity -->
     <string name="checkout_thank_you_for_order">Thank you for your order!</string>

@@ -1,12 +1,19 @@
 package com.s7design.menu.activities;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,11 +27,17 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Response.Listener;
 import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
+import com.s7design.menu.dataclasses.DataManager;
 import com.s7design.menu.dataclasses.Item;
 import com.s7design.menu.dataclasses.Rate;
+import com.s7design.menu.utils.Settings;
 import com.s7design.menu.views.CircleButtonView;
+import com.s7design.menu.volley.VolleySingleton;
+import com.s7design.menu.volley.requests.OrderRequest;
+import com.s7design.menu.volley.responses.OrderResponse;
 
 public class CheckoutActivity extends BaseActivity {
 
@@ -62,16 +75,21 @@ public class CheckoutActivity extends BaseActivity {
 	private double tip = 0;
 	private double discount;
 	private String currency;
+	private double totalPrice;
+
+	private DataManager data;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_checkout);
-		checkoutList = Menu.getInstance().getDataManager().getCheckoutList();
+		data = Menu.getInstance().getDataManager();
+		checkoutList = data.getCheckoutList();
 
 		initData();
 		initViews();
 		refreshList();
+
 	}
 
 	private void refreshList() {
@@ -85,12 +103,12 @@ public class CheckoutActivity extends BaseActivity {
 
 	private void initData() {
 
-		Rate rate = Menu.getInstance().getDataManager().getRate();
+		Rate rate = data.getRate();
 		tax = rate.tax;
 		minTip = rate.mintip;
 		maxTip = rate.maxtip;
-		discount = Menu.getInstance().getDataManager().getDiscount();
-		currency = Menu.getInstance().getDataManager().getCurrency();
+		discount = data.getDiscount();
+		currency = data.getCurrency();
 	}
 
 	private void initViews() {
@@ -145,7 +163,9 @@ public class CheckoutActivity extends BaseActivity {
 		adapter = new Adapter(this, checkoutList);
 		listView.setAdapter(adapter);
 
-		seekBar.setMax(25);
+		int tipRange = (int) ((maxTip - minTip) * 100);
+
+		seekBar.setMax(tipRange);
 
 		textViewTaxPercent.setText(String.valueOf(tax) + "%");
 		textViewDiscountPercent.setText(String.valueOf(discount) + "%");
@@ -166,7 +186,7 @@ public class CheckoutActivity extends BaseActivity {
 
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-				tip = progress;
+				tip = progress / 100 + minTip;
 				setData();
 			}
 		});
@@ -187,8 +207,8 @@ public class CheckoutActivity extends BaseActivity {
 		double totalTax = total * tax / 100;
 		double totalTip = (total + totalTax) * tip / 100;
 		double disc = (total + totalTax + totalTip) * discount / 100;
-		double totalAmount = total + totalTax + totalTip - disc;
-		
+		totalPrice = total + totalTax + totalTip - disc;
+
 		textViewTipPercent.setText(tip + "% - " + currency + String.format("%.2f", totalTip));
 
 		textViewTipTotalPercent.setText(tip + "%");
@@ -197,13 +217,13 @@ public class CheckoutActivity extends BaseActivity {
 		textViewTax.setText(String.format("%.2f", totalTax));
 		textViewTip.setText(String.format("%.2f", totalTip));
 		textViewDiscount.setText(String.format("%.2f", disc));
-		textViewTotal.setText(currency + String.format("%.2f", totalAmount));
+		textViewTotal.setText(currency + String.format("%.2f", totalPrice));
 
 		adapter.notifyDataSetChanged();
 
 	}
 
-	private void checkout() {
+	private void onSuccessfulCheckout() {
 
 		textViewDesc.setVisibility(View.VISIBLE);
 		textViewSendEmail.setVisibility(View.VISIBLE);
@@ -228,9 +248,115 @@ public class CheckoutActivity extends BaseActivity {
 		textViewSendEmail.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
+
 			}
 		});
+	}
+
+	private void checkout() {
+
+		showProgressDialogLoading();
+
+		Calendar cal = Calendar.getInstance();
+
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("type", "neworder");
+		params.put("major", data.getMajor());
+		params.put("minor", data.getMinor());
+		params.put("language", data.getLanguage());
+		params.put("accesstoken", Settings.getAccessToken(this));
+		params.put("itemcount", String.valueOf(checkoutList.size()));
+		params.put("orderprice", String.valueOf(total));
+		params.put("discount", String.valueOf(discount));
+		params.put("tip", String.valueOf(tip));
+		params.put("tax", String.valueOf(tax));
+		params.put("totalprice", String.valueOf(totalPrice));
+		params.put("day", String.valueOf(cal.get(Calendar.DAY_OF_MONTH)));
+		params.put("month", String.valueOf(cal.get(Calendar.MONTH) + 1));
+		params.put("year", String.valueOf(cal.get(Calendar.YEAR)));
+		params.put("time", String.valueOf(cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE)));
+
+		OrderRequest createOrderRequest = new OrderRequest(this, params, new Listener<OrderResponse>() {
+
+			@Override
+			public void onResponse(final OrderResponse response) {
+
+				new AsyncTask<Void, Void, Boolean>() {
+
+					@Override
+					protected Boolean doInBackground(Void... params) {
+
+						final CountDownLatch countDownLatch = new CountDownLatch(checkoutList.size());
+
+						for (Item item : checkoutList) {
+							Map<String, String> itemParams = new HashMap<String, String>();
+							itemParams.put("type", "addtoorder");
+							itemParams.put("major", data.getMajor());
+							itemParams.put("minor", data.getMinor());
+							itemParams.put("language", data.getLanguage());
+							itemParams.put("tag", String.valueOf(item.quantitySmall > 0 ? item.smalltag : item.largetag));
+							itemParams.put("amount", String.valueOf(item.quantitySmall > 0 ? item.quantitySmall : item.quantityLarge));
+							itemParams.put("orderid", response.orderid);
+							itemParams.put("accesstoken", Settings.getAccessToken(CheckoutActivity.this));
+
+							OrderRequest itemRequest = new OrderRequest(CheckoutActivity.this, itemParams, new Listener<OrderResponse>() {
+
+								@Override
+								public void onResponse(OrderResponse response) {
+
+									if (response.response.equals("success"))
+										countDownLatch.countDown();
+								}
+							});
+
+							VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(itemRequest);
+						}
+
+						boolean success = false;
+						try {
+							success = countDownLatch.await(20000, TimeUnit.MILLISECONDS);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+
+						return success;
+					}
+
+					@Override
+					protected void onPostExecute(Boolean result) {
+
+						if (result) {
+
+							Map<String, String> executeParams = new HashMap<String, String>();
+							executeParams.put("type", "execute");
+							executeParams.put("major", data.getMajor());
+							executeParams.put("minor", data.getMinor());
+							executeParams.put("language", data.getLanguage());
+							executeParams.put("orderid", response.orderid);
+							executeParams.put("accesstoken", Settings.getAccessToken(CheckoutActivity.this));
+
+							OrderRequest executeRequest = new OrderRequest(CheckoutActivity.this, executeParams, new Listener<OrderResponse>() {
+
+								@Override
+								public void onResponse(OrderResponse response) {
+
+									dismissProgressDialog();
+									showAlertDialog(R.string.dialog_title_success, R.string.dialog_order_successful);
+								}
+							});
+
+							VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(executeRequest);
+
+						} else {
+							Log.d(TAG, "latch said false");
+						}
+					}
+				}.execute();
+
+			}
+		});
+
+		VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(createOrderRequest);
 	}
 
 	class Adapter extends BaseAdapter {
