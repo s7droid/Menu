@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <com.s7design.menu.views.MenuTextView
+        android:id="@+id/textViewDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+                android:textColor="@color/menu_main_gray_light"
+        android:visibility="visible" />
+
+    <com.s7design.menu.views.MenuTextView
+        android:id="@+id/textViewRestaurantName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="5dp"
+        android:text="Very small chinese restaurant"
+        android:textColor="@color/menu_main_orange"
+        android:textStyle="bold"
+        android:visibility="visible" />
+
+    <ListView
+        android:id="@+id/listViewReceipts"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="20dp"
+        android:layout_weight="1"
+        android:listSelector="@android:color/transparent" 
+        android:scrollbars="none">
+    </ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <com.s7design.menu.views.MenuTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/checkout_subtotal"
+                android:textColor="@color/menu_main_gray"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <com.s7design.menu.views.MenuTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/checkout_tax"
+                    android:textColor="@color/menu_main_gray"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <com.s7design.menu.views.MenuTextView
+                    android:id="@+id/textViewTaxPercent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:textColor="@color/menu_main_gray_light"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <com.s7design.menu.views.MenuTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/checkout_tip"
+                    android:textColor="@color/menu_main_gray"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <com.s7design.menu.views.MenuTextView
+                    android:id="@+id/textViewTipTotalPercent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:textColor="@color/menu_main_gray_light"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:gravity="right"
+            android:orientation="vertical" >
+
+            <com.s7design.menu.views.MenuTextView
+                android:id="@+id/textViewSubtotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/menu_main_gray"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <com.s7design.menu.views.MenuTextView
+                android:id="@+id/textViewTax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/menu_main_gray"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <com.s7design.menu.views.MenuTextView
+                android:id="@+id/textViewTip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/menu_main_gray"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/layoutTotal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <com.s7design.menu.views.MenuTextView
+                android:id="@+id/textViewTotalLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/viewDivider"
+                android:layout_alignParentRight="true"
+                android:text="@string/checkout_total"
+                android:textColor="@color/menu_main_gray"
+                android:textSize="16sp" />
+
+            <View
+                android:id="@+id/viewDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_above="@+id/textViewTotal"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/menu_main_gray_light" />
+
+            <com.s7design.menu.views.MenuTextView
+                android:id="@+id/textViewTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/menu_main_gray"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <com.s7design.menu.views.MenuButton
+        android:id="@+id/buttonSendEmail"
+        style="@style/Menu_Button_Orange"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sendEmail"
+        android:textStyle="bold" />
+
+</LinearLayout>

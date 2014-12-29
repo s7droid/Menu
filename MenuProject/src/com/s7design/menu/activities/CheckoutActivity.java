@@ -153,7 +153,7 @@ public class CheckoutActivity extends BaseActivity {
 		textViewSubtotal = (TextView) findViewById(R.id.textViewSubtotal);
 		textViewTax = (TextView) findViewById(R.id.textViewTax);
 		textViewTip = (TextView) findViewById(R.id.textViewTip);
-		textViewSendEmail = (TextView) findViewById(R.id.textViewSendEmail);
+		textViewSendEmail = (TextView) findViewById(R.id.buttonSendEmail);
 		textViewMinTip = (TextView) findViewById(R.id.textViewMinTip);
 		textViewMaxTip = (TextView) findViewById(R.id.textViewMaxTip);
 

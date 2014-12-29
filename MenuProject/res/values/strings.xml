@@ -6,7 +6,7 @@
 
     <string name="action_bar_back">BACK</string>
     <string name="action_bar_tutorial">TUTORIAL</string>
-    <string name="action_bar_checkout">CHECKOUT</string>
+    <string name="action_bar_checkout">VIEW ORDER</string>
     <string name="action_bar_add_items">ADD ITEMS</string>
     <string name="action_bar_order_summary">ORDER SUMMARY</string>
     <string name="action_bar_receipt">RECEIPT</string>
@@ -72,6 +72,9 @@
     <string name="sign_up_show">SHOW</string>
     <string name="sign_up_hide">HIDE</string>
 
+    <!-- Receipt -->
+    <string name="sendEmail">SEND TO EMAIL</string>
+    
     <!-- Misc -->
     <string name="misc_is_small">(S)</string>
     <string name="misc_splash">Welcome to MENU</string>
