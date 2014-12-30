@@ -47,6 +47,7 @@
     <string name="dialog_no_user">No user was found with provided email.</string>
     <string name="dialog_wrong_password">The password provided is incorrect.</string>
     <string name="dialog_order_successful">Your order was successful!</string>
+    <string name="dialog_no_beacon_found">No iBeacon found. Search again?</string>
 
     <!-- Checkout activity -->
     <string name="checkout_thank_you_for_order">Thank you for your order!</string>
@@ -89,9 +90,7 @@
     <string name="manage_account_repeat_password_hint_text">Repeat password</string>
     <string name="manage_account_change_credit_card">CHANGE CREDIT CARD</string>
     <string name="manage_account_confirm_changes_text">CONFIRM CHANGES</string>
-    
-    
-    
+
     <!-- Receipt -->
     <string name="sendEmail">SEND TO EMAIL</string>
     <string name="receipt_list_empty_body">Receipt list is empty.</string>
