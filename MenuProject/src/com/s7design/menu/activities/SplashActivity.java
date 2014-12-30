@@ -19,6 +19,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.RemoteException;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -27,10 +28,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response.Listener;
 import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
+import com.s7design.menu.dialogs.OkCancelDialogFragment;
 import com.s7design.menu.utils.Settings;
 import com.s7design.menu.utils.Utils;
 import com.s7design.menu.volley.VolleySingleton;
@@ -70,6 +73,8 @@ public class SplashActivity extends BaseActivity implements BeaconConsumer, LeSc
 
 	private BeaconManager beaconManager;
 	private BluetoothAdapter bluetoothAdapter;
+
+	private boolean hasBeacon = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -180,110 +185,51 @@ public class SplashActivity extends BaseActivity implements BeaconConsumer, LeSc
 		beaconManager.bind(this);
 		BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
 		bluetoothAdapter = bluetoothManager.getAdapter();
+
+		searchForIBeacon();
+	}
+
+	private int searchAtempts = 2;
+
+	private void searchForIBeacon() {
+
 		bluetoothAdapter.startLeScan(this);
 
-		new AsyncTask<Void, Void, Void>() {
+		Handler handler = new Handler();
+		handler.postDelayed(new Runnable() {
+			public void run() {
 
-			@Override
-			protected Void doInBackground(Void... pars) {
-
-				final CountDownLatch countDownLatch = new CountDownLatch(6);
-
-				Map<String, String> params = new HashMap<String, String>();
-				params.put("major", "1");
-				params.put("minor", "1");
-
-				GetRestaurantInfoRequest restaurantInfoRequest = new GetRestaurantInfoRequest(SplashActivity.this, params, new Listener<GetRestaurantInfoResponse>() {
-
-					@Override
-					public void onResponse(GetRestaurantInfoResponse restaurantInfo) {
-
-						Menu.getInstance().getDataManager().setRestaurantInfo(restaurantInfo);
-						countDownLatch.countDown();
-					}
-				});
-
-				GetTaxRateRequest taxRequest = new GetTaxRateRequest(SplashActivity.this, params, new Listener<GetTaxRateResponse>() {
-
-					@Override
-					public void onResponse(GetTaxRateResponse taxRate) {
-
-						Menu.getInstance().getDataManager().setTaxRate(taxRate.rate[0].tax);
-						countDownLatch.countDown();
-					}
-				});
-
-				GetTipRequest tipRequest = new GetTipRequest(SplashActivity.this, params, new Listener<GetTipResponse>() {
-
-					@Override
-					public void onResponse(GetTipResponse tipRate) {
-
-						Menu.getInstance().getDataManager().setTipRate(tipRate.rate[0].mintip, tipRate.rate[0].maxtip);
-						countDownLatch.countDown();
-					}
-				});
-
-				GetDiscountRequest discountRequest = new GetDiscountRequest(SplashActivity.this, params, new Listener<GetDiscountResponse>() {
-
-					@Override
-					public void onResponse(GetDiscountResponse discount) {
-
-						Menu.getInstance().getDataManager().setDiscount(discount.discount);
-						countDownLatch.countDown();
-					}
-				});
-
-				GetCurrencyRequest currencyRequest = new GetCurrencyRequest(SplashActivity.this, params, new Listener<GetCurrencyResponse>() {
-
-					@Override
-					public void onResponse(GetCurrencyResponse currency) {
-
-						Menu.getInstance().getDataManager().setCurrency(currency.currency);
-						countDownLatch.countDown();
-					}
-				});
-
-				GetBraintreeTokenRequest tokenRequest = new GetBraintreeTokenRequest(SplashActivity.this, null, new Listener<GetBraintreeTokenResponse>() {
-
-					@Override
-					public void onResponse(GetBraintreeTokenResponse token) {
-
-						Menu.getInstance().getDataManager().setClientBraintreeToken(token.token);
-						countDownLatch.countDown();
-					}
-				});
-
-				VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(restaurantInfoRequest);
-				VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(taxRequest);
-				VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(tipRequest);
-				VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(discountRequest);
-				VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(currencyRequest);
-				VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(tokenRequest);
-
-				try {
-					countDownLatch.await(20000, TimeUnit.MILLISECONDS);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+				if (hasBeacon) {
+					// TODO refactor with removing the runnable
+					return;
 				}
 
-				return null;
-			}
+				bluetoothAdapter.stopLeScan(SplashActivity.this);
 
-			protected void onPostExecute(Void result) {
+				if (searchAtempts > 0) {
+					--searchAtempts;
+					OkCancelDialogFragment dialog = new OkCancelDialogFragment();
+					dialog.showDialog(getFragmentManager(), "", getString(R.string.dialog_no_beacon_found), new OnClickListener() {
 
-				String accessToken = Settings.getAccessToken(getApplicationContext());
+						@Override
+						public void onClick(View v) {
+							showProgressDialogLoading();
+							searchForIBeacon();
 
-				if (accessToken.length() > 0) {
-					Intent i = new Intent(SplashActivity.this, RestaurantPreviewActivity.class);
-					i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					startActivity(i);
+						}
+					}, new OnClickListener() {
+
+						@Override
+						public void onClick(View v) {
+							startActivity(new Intent(getApplicationContext(), MainMenuActivity.class));
+						}
+					});
 				} else {
-					Intent i = new Intent(SplashActivity.this, SignInActivity.class);
-					i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					startActivity(i);
+					startActivity(new Intent(getApplicationContext(), MainMenuActivity.class));
 				}
-			};
-		}.execute();
+
+			}
+		}, 10000);
 	}
 
 	@Override
@@ -329,6 +275,8 @@ public class SplashActivity extends BaseActivity implements BeaconConsumer, LeSc
 	public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
 
 		Log.d(TAG, "onLeScan");
+		bluetoothAdapter.stopLeScan(this);
+		hasBeacon = true;
 
 		int startByte = 2;
 		boolean patternFound = false;
@@ -356,6 +304,115 @@ public class SplashActivity extends BaseActivity implements BeaconConsumer, LeSc
 			int major = (scanRecord[startByte + 20] & 0xff) * 0x100 + (scanRecord[startByte + 21] & 0xff);
 			// Here is your Minor value
 			int minor = (scanRecord[startByte + 22] & 0xff) * 0x100 + (scanRecord[startByte + 23] & 0xff);
+
+			Log.d(TAG, "major " + major);
+			Log.d(TAG, "minor " + minor);
+
+			Menu.getInstance().getDataManager().setMajor(String.valueOf(major));
+			Menu.getInstance().getDataManager().setMinor(String.valueOf(minor));
+
+			new AsyncTask<Void, Void, Void>() {
+
+				@Override
+				protected Void doInBackground(Void... pars) {
+
+					final CountDownLatch countDownLatch = new CountDownLatch(6);
+
+					Map<String, String> params = new HashMap<String, String>();
+					params.put("major", Menu.getInstance().getDataManager().getMajor());
+					params.put("minor", Menu.getInstance().getDataManager().getMinor());
+
+					GetRestaurantInfoRequest restaurantInfoRequest = new GetRestaurantInfoRequest(SplashActivity.this, params, new Listener<GetRestaurantInfoResponse>() {
+
+						@Override
+						public void onResponse(GetRestaurantInfoResponse restaurantInfo) {
+
+							Menu.getInstance().getDataManager().setRestaurantInfo(restaurantInfo);
+							countDownLatch.countDown();
+						}
+					});
+
+					GetTaxRateRequest taxRequest = new GetTaxRateRequest(SplashActivity.this, params, new Listener<GetTaxRateResponse>() {
+
+						@Override
+						public void onResponse(GetTaxRateResponse taxRate) {
+
+							Menu.getInstance().getDataManager().setTaxRate(taxRate.rate[0].tax);
+							countDownLatch.countDown();
+						}
+					});
+
+					GetTipRequest tipRequest = new GetTipRequest(SplashActivity.this, params, new Listener<GetTipResponse>() {
+
+						@Override
+						public void onResponse(GetTipResponse tipRate) {
+
+							Menu.getInstance().getDataManager().setTipRate(tipRate.rate[0].mintip, tipRate.rate[0].maxtip);
+							countDownLatch.countDown();
+						}
+					});
+
+					GetDiscountRequest discountRequest = new GetDiscountRequest(SplashActivity.this, params, new Listener<GetDiscountResponse>() {
+
+						@Override
+						public void onResponse(GetDiscountResponse discount) {
+
+							Menu.getInstance().getDataManager().setDiscount(discount.discount);
+							countDownLatch.countDown();
+						}
+					});
+
+					GetCurrencyRequest currencyRequest = new GetCurrencyRequest(SplashActivity.this, params, new Listener<GetCurrencyResponse>() {
+
+						@Override
+						public void onResponse(GetCurrencyResponse currency) {
+
+							Menu.getInstance().getDataManager().setCurrency(currency.currency);
+							countDownLatch.countDown();
+						}
+					});
+
+					GetBraintreeTokenRequest tokenRequest = new GetBraintreeTokenRequest(SplashActivity.this, null, new Listener<GetBraintreeTokenResponse>() {
+
+						@Override
+						public void onResponse(GetBraintreeTokenResponse token) {
+
+							Menu.getInstance().getDataManager().setClientBraintreeToken(token.token);
+							countDownLatch.countDown();
+						}
+					});
+
+					VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(restaurantInfoRequest);
+					VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(taxRequest);
+					VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(tipRequest);
+					VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(discountRequest);
+					VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(currencyRequest);
+					VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(tokenRequest);
+
+					try {
+						countDownLatch.await(20000, TimeUnit.MILLISECONDS);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+
+					return null;
+				}
+
+				protected void onPostExecute(Void result) {
+
+					String accessToken = Settings.getAccessToken(getApplicationContext());
+
+					if (accessToken.length() > 0) {
+						Intent i = new Intent(SplashActivity.this, RestaurantPreviewActivity.class);
+						i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						startActivity(i);
+					} else {
+						Intent i = new Intent(SplashActivity.this, SignInActivity.class);
+						i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						startActivity(i);
+					}
+				};
+			}.execute();
 		}
 	}
 
