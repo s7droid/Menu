@@ -128,6 +128,8 @@ public class SignUpActivity extends BaseActivity {
 									startActivity(i);
 									dismissProgressDialog();
 								}
+
+								dismissProgressDialog();
 							}
 						});
 

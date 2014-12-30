@@ -71,8 +71,6 @@ public class GsonRequest<T> extends Request<T> {
 				sb.append("?");
 
 			try {
-				Log.d(TAG, "key " + entry.getKey());
-				Log.d(TAG, "value " + entry.getValue());
 				sb.append(String.format("%s=%s", URLEncoder.encode(entry.getKey(), PROTOCOL_CHARSET), URLEncoder.encode(entry.getValue(), PROTOCOL_CHARSET)));
 			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
