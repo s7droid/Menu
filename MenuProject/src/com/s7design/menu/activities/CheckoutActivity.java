@@ -76,6 +76,9 @@ public class CheckoutActivity extends BaseActivity {
 	private double discount;
 	private String currency;
 	private double totalPrice;
+	private double disc;
+	private double totalTip;
+	private double totalTax;
 
 	private DataManager data;
 
@@ -204,9 +207,9 @@ public class CheckoutActivity extends BaseActivity {
 
 	private void setData() {
 
-		double totalTax = total * tax / 100;
-		double totalTip = (total + totalTax) * tip / 100;
-		double disc = (total + totalTax + totalTip) * discount / 100;
+		totalTax = total * tax / 100;
+		totalTip = (total + totalTax) * tip / 100;
+		disc = (total + totalTax + totalTip) * discount / 100;
 		totalPrice = total + totalTax + totalTip - disc;
 
 		textViewTipPercent.setText(tip + "% - " + currency + String.format("%.2f", totalTip));
@@ -266,11 +269,11 @@ public class CheckoutActivity extends BaseActivity {
 		params.put("language", data.getLanguage());
 		params.put("accesstoken", Settings.getAccessToken(this));
 		params.put("itemcount", String.valueOf(checkoutList.size()));
-		params.put("orderprice", String.valueOf(total));
-		params.put("discount", String.valueOf(discount));
-		params.put("tip", String.valueOf(tip));
-		params.put("tax", String.valueOf(tax));
-		params.put("totalprice", String.valueOf(totalPrice));
+		params.put("orderprice", String.format("%.2f", total));
+		params.put("discount", String.format("%.2f", disc));
+		params.put("tip", String.format("%.2f", totalTip));
+		params.put("tax", String.format("%.2f", totalTax));
+		params.put("totalprice", String.format("%.2f", totalPrice));
 		params.put("day", String.valueOf(cal.get(Calendar.DAY_OF_MONTH)));
 		params.put("month", String.valueOf(cal.get(Calendar.MONTH) + 1));
 		params.put("year", String.valueOf(cal.get(Calendar.YEAR)));

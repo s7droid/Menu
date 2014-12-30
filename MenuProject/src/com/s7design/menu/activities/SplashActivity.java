@@ -5,13 +5,21 @@ import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import org.altbeacon.beacon.BeaconConsumer;
+import org.altbeacon.beacon.BeaconManager;
+import org.altbeacon.beacon.MonitorNotifier;
+import org.altbeacon.beacon.Region;
+
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothAdapter.LeScanCallback;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
@@ -23,7 +31,6 @@ import android.widget.TextView;
 import com.android.volley.Response.Listener;
 import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
-import com.s7design.menu.dialogs.OkCancelDialogFragment;
 import com.s7design.menu.utils.Settings;
 import com.s7design.menu.utils.Utils;
 import com.s7design.menu.volley.VolleySingleton;
@@ -49,7 +56,7 @@ import com.s7design.menu.volley.responses.GetTipResponse;
  * @author s7Design
  *
  */
-public class SplashActivity extends BaseActivity {
+public class SplashActivity extends BaseActivity implements BeaconConsumer, LeScanCallback {
 
 	private static final String TAG = SplashActivity.class.getSimpleName();
 
@@ -60,6 +67,9 @@ public class SplashActivity extends BaseActivity {
 	private static final int SPLASH_SCREEN_TIMEOUT = 1000;
 
 	private BroadcastReceiver bluetoothReceiver;
+
+	private BeaconManager beaconManager;
+	private BluetoothAdapter bluetoothAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -165,6 +175,12 @@ public class SplashActivity extends BaseActivity {
 	}
 
 	private void initData() {
+
+		beaconManager = BeaconManager.getInstanceForApplication(this);
+		beaconManager.bind(this);
+		BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+		bluetoothAdapter = bluetoothManager.getAdapter();
+		bluetoothAdapter.startLeScan(this);
 
 		new AsyncTask<Void, Void, Void>() {
 
@@ -276,6 +292,83 @@ public class SplashActivity extends BaseActivity {
 
 		if (bluetoothReceiver != null)
 			unregisterReceiver(bluetoothReceiver);
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		beaconManager.unbind(this);
+	}
+
+	@Override
+	public void onBeaconServiceConnect() {
+		beaconManager.setMonitorNotifier(new MonitorNotifier() {
+			@Override
+			public void didEnterRegion(Region region) {
+				Log.i(TAG, "I just saw a beacon for the first time!");
+			}
+
+			@Override
+			public void didExitRegion(Region region) {
+				Log.i(TAG, "I no longer see a beacon");
+			}
+
+			@Override
+			public void didDetermineStateForRegion(int state, Region region) {
+				Log.i(TAG, "I have just switched from seeing/not seeing beacons: " + state);
+			}
+		});
+
+		try {
+			beaconManager.startMonitoringBeaconsInRegion(new Region("myMonitoringUniqueId", null, null, null));
+		} catch (RemoteException e) {
+		}
+	}
+
+	@Override
+	public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
+
+		Log.d(TAG, "onLeScan");
+
+		int startByte = 2;
+		boolean patternFound = false;
+		while (startByte <= 5) {
+			if (((int) scanRecord[startByte + 2] & 0xff) == 0x02 && // Identifies
+																	// an
+																	// iBeacon
+					((int) scanRecord[startByte + 3] & 0xff) == 0x15) { // Identifies
+																		// correct
+																		// data
+																		// length
+				patternFound = true;
+				break;
+			}
+			startByte++;
+		}
+		if (patternFound) {
+			// Convert to hex String
+			byte[] uuidBytes = new byte[16];
+			System.arraycopy(scanRecord, startByte + 4, uuidBytes, 0, 16);
+			String hexString = bytesToHex(uuidBytes);
+			// Here is your UUID
+			String uuid = hexString.substring(0, 8) + "-" + hexString.substring(8, 12) + "-" + hexString.substring(12, 16) + "-" + hexString.substring(16, 20) + "-" + hexString.substring(20, 32);
+			// Here is your Major value
+			int major = (scanRecord[startByte + 20] & 0xff) * 0x100 + (scanRecord[startByte + 21] & 0xff);
+			// Here is your Minor value
+			int minor = (scanRecord[startByte + 22] & 0xff) * 0x100 + (scanRecord[startByte + 23] & 0xff);
+		}
+	}
+
+	static final char[] hexArray = "0123456789ABCDEF".toCharArray();
+
+	private static String bytesToHex(byte[] bytes) {
+		char[] hexChars = new char[bytes.length * 2];
+		for (int j = 0; j < bytes.length; j++) {
+			int v = bytes[j] & 0xFF;
+			hexChars[j * 2] = hexArray[v >>> 4];
+			hexChars[j * 2 + 1] = hexArray[v & 0x0F];
+		}
+		return new String(hexChars);
 	}
 
 }

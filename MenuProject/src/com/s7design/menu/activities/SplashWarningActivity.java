@@ -1,6 +1,5 @@
 package com.s7design.menu.activities;
 
-import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -10,6 +9,7 @@ import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -52,6 +52,14 @@ public class SplashWarningActivity extends BaseActivity {
 		int start = getIntent().getIntExtra(INTENT_EXTRA_TAG_START, 0);
 
 		setActionBarForwardButtonvisibility(View.INVISIBLE);
+		setActionBarBackButtonOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				finish();
+			}
+		});
 
 		if (start == INTENT_EXTRA_START_LOCATION) {
 
