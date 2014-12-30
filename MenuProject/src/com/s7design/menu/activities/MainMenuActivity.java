@@ -145,7 +145,7 @@ public class MainMenuActivity extends BaseActivity {
 	}
 
 	private void manageYourProfileButtonAction() {
-		startActivity(new Intent(getApplicationContext(), SignUpActivity.class));
+		startActivity(new Intent(getApplicationContext(), ManageAccountActivity.class));
 	}
 
 	private void viewPastReceiptsButtonAction() {

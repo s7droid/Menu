@@ -81,6 +81,16 @@
     <string name="sign_up_show">SHOW</string>
     <string name="sign_up_hide">HIDE</string>
 
+    <!-- Manage account -->
+    <string name="manage_account_name_on_card_hint_text">Name on card</string>
+    <string name="manage_account_new_password_hint_text">New Password</string>
+    <string name="manage_account_email_hint_text">Email</string>
+    <string name="manage_account_repeat_password_hint_text">Repeat password</string>
+    <string name="manage_account_change_credit_card">CHANGE CREDIT CARD</string>
+    <string name="manage_account_confirm_changes_text">CONFIRM CHANGES</string>
+    
+    
+    
     <!-- Receipt -->
     <string name="sendEmail">SEND TO EMAIL</string>
 

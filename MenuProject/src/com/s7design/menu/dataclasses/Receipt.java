@@ -7,10 +7,10 @@ public class Receipt implements Serializable{
 
 	private static final long serialVersionUID = 8549055767470018716L;
 	
-	private String date;
-	private String restaurantName;
-	private String ammount;
-	private String receiptId;
+	public String date;
+	public String restaurantname;
+	public String amount;
+	public String receiptid;
 	
 	public String getDate() {
 		return date;
@@ -19,22 +19,22 @@ public class Receipt implements Serializable{
 		this.date = date;
 	}
 	public String getRestaurantName() {
-		return restaurantName;
+		return restaurantname;
 	}
 	public void setRestaurantName(String restaurantName) {
-		this.restaurantName = restaurantName;
+		this.restaurantname = restaurantName;
 	}
 	public String getAmmount() {
-		return ammount;
+		return amount;
 	}
 	public void setAmmount(String ammount) {
-		this.ammount = ammount;
+		this.amount = ammount;
 	}
 	public String getReceiptId() {
-		return receiptId;
+		return receiptid;
 	}
 	public void setReceiptId(String receiptId) {
-		this.receiptId = receiptId;
+		this.receiptid = receiptId;
 	}
 	
 }

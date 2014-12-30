@@ -1,6 +1,8 @@
 package com.s7design.menu.activities;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +15,14 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.Response.Listener;
 import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
 import com.s7design.menu.dataclasses.Receipt;
+import com.s7design.menu.utils.Settings;
+import com.s7design.menu.volley.VolleySingleton;
+import com.s7design.menu.volley.requests.GetReceiptsRequest;
+import com.s7design.menu.volley.responses.GetReceiptsResponse;
 
 public class ReceiptListActivity extends BaseActivity {
 
@@ -23,8 +30,8 @@ public class ReceiptListActivity extends BaseActivity {
 	private ListView mListViewReceipts;
 
 	// DATA
-	private ArrayList<Receipt> receipts;
 	public static final String RECEIPT_LIST_ITEM_SELECTED = "receipt_selected";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,7 +47,8 @@ public class ReceiptListActivity extends BaseActivity {
 		setActionBarForwardArrowVisibility(null);
 		setActionBarForwardButtonText("RECEIPTS");
 		setActionBarForwardButtonTextColor(getResources().getColor(R.color.menu_main_orange));
-
+		setActionBarMenuButtonVisibility(View.GONE);
+		
 		setActionBarForwardButtonOnClickListener(new OnClickListener() {
 
 			@Override
@@ -64,35 +72,44 @@ public class ReceiptListActivity extends BaseActivity {
 	}
 
 	private void initData() {
-		receipts = new ArrayList<Receipt>();
-		for (int i = 0; i < 5; i++) {
-			Receipt receipt = new Receipt();
-			receipt.setAmmount("14.50");
-			receipt.setDate("22.03.2014");
-			receipt.setReceiptId("sadsadsaaYUDT5361bjdhsaj321bjdsa84131==");
-			receipt.setRestaurantName("Example restaurant name");
+		
+		showProgressDialogLoading();
+		
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("minor", "1");
+		params.put("major", "1");
+		params.put("accesstoken", Settings.getAccessToken(ReceiptListActivity.this));
+		
+		GetReceiptsRequest request = new GetReceiptsRequest(ReceiptListActivity.this, params,new Listener<GetReceiptsResponse>() {
 
-			receipts.add(receipt);
-		}
-		mListViewReceipts.setAdapter(new ReceiptListAdapter(receipts));
+			@Override
+			public void onResponse(GetReceiptsResponse arg0) {
+
+				mListViewReceipts.setAdapter(new ReceiptListAdapter(arg0));
+				dismissProgressDialog();
+			}
+		});
+		
+		VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+		
 	}
 
 	class ReceiptListAdapter extends BaseAdapter {
 
-		private ArrayList<Receipt> items;
+		private GetReceiptsResponse items;
 
-		public ReceiptListAdapter(ArrayList<Receipt> receipts) {
+		public ReceiptListAdapter(GetReceiptsResponse receipts) {
 			items = receipts;
 		}
 
 		@Override
 		public int getCount() {
-			return items.size();
+			return items.receipts.length;
 		}
 
 		@Override
 		public Receipt getItem(int position) {
-			return items.get(position);
+			return items.receipts[position];
 		}
 
 		@Override
@@ -120,15 +137,9 @@ public class ReceiptListActivity extends BaseActivity {
 			ViewHolder holder = (ViewHolder) convertView.getTag();
 			final Receipt item = getItem(position);
 
-			holder.date.setText(item.getDate());
-			holder.price.setText(Menu.getInstance().getDataManager().getCurrency() + item.getAmmount());
-			holder.restaurantName.setText(item.getRestaurantName());
-
-			if (position == (getCount() - 1)) {
-				holder.separator.setVisibility(View.INVISIBLE);
-			} else {
-				holder.separator.setVisibility(View.VISIBLE);
-			}
+			holder.date.setText(item.date);
+			holder.price.setText(Menu.getInstance().getDataManager().getCurrency() +  item.amount);
+			holder.restaurantName.setText(item.restaurantname);
 
 			holder.sendEmail.setOnClickListener(new OnClickListener() {
 
