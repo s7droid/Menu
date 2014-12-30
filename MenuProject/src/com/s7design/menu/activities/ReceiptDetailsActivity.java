@@ -1,8 +1,6 @@
 package com.s7design.menu.activities;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import android.os.Bundle;
@@ -21,12 +19,10 @@ import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
 import com.s7design.menu.dataclasses.Item;
 import com.s7design.menu.dataclasses.Receipt;
-import com.s7design.menu.dataclasses.ReceiptInfo;
 import com.s7design.menu.utils.Settings;
 import com.s7design.menu.views.CircleButtonView;
 import com.s7design.menu.volley.VolleySingleton;
 import com.s7design.menu.volley.requests.GetReceiptInfoRequest;
-import com.s7design.menu.volley.requests.GetReceiptsRequest;
 import com.s7design.menu.volley.responses.GetReceiptInfoResponse;
 
 public class ReceiptDetailsActivity extends BaseActivity {

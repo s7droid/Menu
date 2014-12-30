@@ -1,20 +1,13 @@
 package com.s7design.menu.activities;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-import com.android.volley.Response.Listener;
 import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
-import com.s7design.menu.volley.VolleySingleton;
-import com.s7design.menu.volley.requests.GetRestaurantInfoRequest;
-import com.s7design.menu.volley.responses.GetRestaurantInfoResponse;
 
 /**
  * Activity for presenting main menu of the <i><b>Menu</b></i> application. <br>
@@ -137,7 +130,7 @@ public class MainMenuActivity extends BaseActivity {
 	}
 
 	private void venuMenuButtonAction() {
-		startActivity(new Intent(getApplicationContext(), SignInActivity.class));
+		startActivity(new Intent(getApplicationContext(), CategoryMealsActivity.class));
 	}
 
 	private void tutorialsButtonAction() {

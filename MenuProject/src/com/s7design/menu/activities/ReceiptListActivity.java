@@ -1,6 +1,5 @@
 package com.s7design.menu.activities;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.Response.Listener;
@@ -48,7 +48,7 @@ public class ReceiptListActivity extends BaseActivity {
 		setActionBarForwardButtonText("RECEIPTS");
 		setActionBarForwardButtonTextColor(getResources().getColor(R.color.menu_main_orange));
 		setActionBarMenuButtonVisibility(View.GONE);
-		
+
 		setActionBarForwardButtonOnClickListener(new OnClickListener() {
 
 			@Override
@@ -72,26 +72,36 @@ public class ReceiptListActivity extends BaseActivity {
 	}
 
 	private void initData() {
-		
+
 		showProgressDialogLoading();
-		
+
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("minor", "1");
 		params.put("major", "1");
 		params.put("accesstoken", Settings.getAccessToken(ReceiptListActivity.this));
-		
-		GetReceiptsRequest request = new GetReceiptsRequest(ReceiptListActivity.this, params,new Listener<GetReceiptsResponse>() {
+
+		GetReceiptsRequest request = new GetReceiptsRequest(ReceiptListActivity.this, params, new Listener<GetReceiptsResponse>() {
 
 			@Override
 			public void onResponse(GetReceiptsResponse arg0) {
-
-				mListViewReceipts.setAdapter(new ReceiptListAdapter(arg0));
 				dismissProgressDialog();
+				
+				if(arg0 != null && arg0.receipts != null && arg0.receipts.length > 0){
+					mListViewReceipts.setAdapter(new ReceiptListAdapter(arg0));
+				}else{
+					showAlertDialog("", getResources().getString(R.string.receipt_list_empty_body), new OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+							finish();
+						}
+					});
+				}
 			}
 		});
-		
+
 		VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
-		
+
 	}
 
 	class ReceiptListAdapter extends BaseAdapter {
@@ -130,6 +140,7 @@ public class ReceiptListActivity extends BaseActivity {
 				holder.restaurantName = (TextView) convertView.findViewById(R.id.textviewReceiptListItemRestaurantName);
 				holder.sendEmail = (Button) convertView.findViewById(R.id.buttonReceiptListItemSendMessage);
 				holder.separator = (View) convertView.findViewById(R.id.viewReceiptListItemSeparator);
+				holder.container = (RelativeLayout) convertView.findViewById(R.id.relativelayoutReceiptListItemContainer);
 
 				convertView.setTag(holder);
 			}
@@ -138,14 +149,21 @@ public class ReceiptListActivity extends BaseActivity {
 			final Receipt item = getItem(position);
 
 			holder.date.setText(item.date);
-			holder.price.setText(Menu.getInstance().getDataManager().getCurrency() +  item.amount);
+			holder.price.setText(Menu.getInstance().getDataManager().getCurrency() + item.amount);
 			holder.restaurantName.setText(item.restaurantname);
 
 			holder.sendEmail.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					Intent intent = new Intent(getApplicationContext(),ReceiptDetailsActivity.class);
+				}
+			});
+
+			holder.container.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(getApplicationContext(), ReceiptDetailsActivity.class);
 					intent.putExtra(RECEIPT_LIST_ITEM_SELECTED, item);
 					startActivity(intent);
 				}
@@ -160,7 +178,7 @@ public class ReceiptListActivity extends BaseActivity {
 			TextView restaurantName;
 			Button sendEmail;
 			View separator;
-
+			RelativeLayout container;
 		}
 
 	}

@@ -18,8 +18,6 @@ import com.android.volley.Response.Listener;
 import com.braintreepayments.api.Braintree;
 import com.braintreepayments.api.models.CardBuilder;
 import com.s7design.menu.R;
-import com.s7design.menu.activities.BaseActivity;
-import com.s7design.menu.activities.RestaurantPreviewActivity;
 import com.s7design.menu.app.Menu;
 import com.s7design.menu.utils.Settings;
 import com.s7design.menu.views.MenuEditText;

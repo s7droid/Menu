@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         android:layout_margin="15dp"
         android:divider="@android:color/transparent"
-        android:dividerHeight="5dp" />
+        android:dividerHeight="5dp"
+        android:scrollbars="none" />
 
 </LinearLayout>

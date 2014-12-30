@@ -10,6 +10,7 @@
     <string name="action_bar_add_items">ADD ITEMS</string>
     <string name="action_bar_order_summary">ORDER SUMMARY</string>
     <string name="action_bar_receipt">RECEIPT</string>
+    <string name="action_bar_account_management">ACCOUNT MANAGEMENT</string>
 
     <!-- Splash screen -->
     <string name="splash_screen_welcome_message">Welcome to MENU</string>
@@ -93,6 +94,7 @@
     
     <!-- Receipt -->
     <string name="sendEmail">SEND TO EMAIL</string>
+    <string name="receipt_list_empty_body">Receipt list is empty.</string>
 
     <!-- Misc -->
     <string name="misc_is_small">(S)</string>
