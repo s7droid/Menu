@@ -62,24 +62,30 @@ public class SplashActivity extends BaseActivity implements BeaconConsumer, LeSc
 
 	private static final String TAG = SplashActivity.class.getSimpleName();
 
+	public static final int REQUEST_CODE_LOCATION = 1;
+	public static final int REQUEST_CODE_BLUETOOTH = 2;
+
 	// VIEWS
 	private TextView mTitleText;
 
 	// DATA
-	private static final int SPLASH_SCREEN_TIMEOUT = 1000;
+	private static final int SPLASH_SCREEN_TIMEOUT = 10000;
 
 	private BroadcastReceiver bluetoothReceiver;
 
 	private BeaconManager beaconManager;
 	private BluetoothAdapter bluetoothAdapter;
 
-	private boolean hasBeacon = false;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
 		hideActionBar();
+		initViews();
+		doChecks();
+	}
+
+	private void doChecks() {
 
 		if (!Utils.isNetworkAvailable(this)) {
 			showAlertDialog(R.string.dialog_title_error, R.string.dialog_no_internet_connection, new OnClickListener() {
@@ -94,13 +100,13 @@ public class SplashActivity extends BaseActivity implements BeaconConsumer, LeSc
 
 			Intent intent = new Intent(this, SplashWarningActivity.class);
 			intent.putExtra(SplashWarningActivity.INTENT_EXTRA_TAG_START, SplashWarningActivity.INTENT_EXTRA_START_LOCATION);
-			startActivity(intent);
+			startActivityForResult(intent, REQUEST_CODE_LOCATION);
 
 		} else if (!Utils.isBluetoothEnabled()) {
 
 			Intent intent = new Intent(this, SplashWarningActivity.class);
 			intent.putExtra(SplashWarningActivity.INTENT_EXTRA_TAG_START, SplashWarningActivity.INTENT_EXTRA_START_BLUETOOTH);
-			startActivity(intent);
+			startActivityForResult(intent, REQUEST_CODE_BLUETOOTH);
 
 			// OkCancelDialogFragment okCancelDialog = new
 			// OkCancelDialogFragment();
@@ -156,10 +162,41 @@ public class SplashActivity extends BaseActivity implements BeaconConsumer, LeSc
 			// }
 			// });
 		} else {
-			initViews();
+
 			initData();
 		}
+	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		if (requestCode == REQUEST_CODE_LOCATION) {
+			if (!Utils.isLocationEnabled(this)) {
+				finish();
+			} else {
+				if (!Utils.isBluetoothEnabled()) {
+					Intent intent = new Intent(this, SplashWarningActivity.class);
+					intent.putExtra(SplashWarningActivity.INTENT_EXTRA_TAG_START, SplashWarningActivity.INTENT_EXTRA_START_BLUETOOTH);
+					startActivityForResult(intent, REQUEST_CODE_BLUETOOTH);
+				} else {
+					initData();
+				}
+			}
+		} else if (requestCode == REQUEST_CODE_BLUETOOTH) {
+			if (!Utils.isBluetoothEnabled()) {
+				finish();
+			} else {
+				if (!Utils.isLocationEnabled(this)) {
+					Intent intent = new Intent(this, SplashWarningActivity.class);
+					intent.putExtra(SplashWarningActivity.INTENT_EXTRA_TAG_START, SplashWarningActivity.INTENT_EXTRA_START_LOCATION);
+					startActivityForResult(intent, REQUEST_CODE_LOCATION);
+
+				} else {
+					initData();
+				}
+			}
+		}
 	}
 
 	/**
@@ -189,46 +226,47 @@ public class SplashActivity extends BaseActivity implements BeaconConsumer, LeSc
 	}
 
 	private int searchAtempts = 2;
+	Handler handler = new Handler();
+	private Runnable runnable = new Runnable() {
+		public void run() {
+
+			bluetoothAdapter.stopLeScan(SplashActivity.this);
+			dismissProgressDialog();
+
+			if (searchAtempts > 0) {
+				--searchAtempts;
+				OkCancelDialogFragment dialog = new OkCancelDialogFragment();
+				dialog.showDialog(getFragmentManager(), "", getString(R.string.dialog_no_beacon_found), new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						showProgressDialogLoading();
+						searchForIBeacon();
+
+					}
+				}, new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						handler.removeCallbacks(runnable);
+						startActivity(new Intent(getApplicationContext(), MainMenuActivity.class));
+						finish();
+					}
+				});
+			} else {
+				handler.removeCallbacks(runnable);
+				startActivity(new Intent(getApplicationContext(), MainMenuActivity.class));
+				finish();
+			}
+
+		}
+	};
 
 	private void searchForIBeacon() {
 
 		bluetoothAdapter.startLeScan(this);
 
-		Handler handler = new Handler();
-		handler.postDelayed(new Runnable() {
-			public void run() {
-
-				if (hasBeacon) {
-					// TODO refactor with removing the runnable
-					return;
-				}
-
-				bluetoothAdapter.stopLeScan(SplashActivity.this);
-
-				if (searchAtempts > 0) {
-					--searchAtempts;
-					OkCancelDialogFragment dialog = new OkCancelDialogFragment();
-					dialog.showDialog(getFragmentManager(), "", getString(R.string.dialog_no_beacon_found), new OnClickListener() {
-
-						@Override
-						public void onClick(View v) {
-							showProgressDialogLoading();
-							searchForIBeacon();
-
-						}
-					}, new OnClickListener() {
-
-						@Override
-						public void onClick(View v) {
-							startActivity(new Intent(getApplicationContext(), MainMenuActivity.class));
-						}
-					});
-				} else {
-					startActivity(new Intent(getApplicationContext(), MainMenuActivity.class));
-				}
-
-			}
-		}, 10000);
+		handler.postDelayed(runnable, SPLASH_SCREEN_TIMEOUT);
 	}
 
 	@Override
@@ -242,7 +280,8 @@ public class SplashActivity extends BaseActivity implements BeaconConsumer, LeSc
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		beaconManager.unbind(this);
+		if (beaconManager != null)
+			beaconManager.unbind(this);
 	}
 
 	@Override
@@ -274,8 +313,9 @@ public class SplashActivity extends BaseActivity implements BeaconConsumer, LeSc
 	public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
 
 		Log.d(TAG, "onLeScan");
+		dismissProgressDialog();
 		bluetoothAdapter.stopLeScan(this);
-		hasBeacon = true;
+		handler.removeCallbacks(runnable);
 
 		int startByte = 2;
 		boolean patternFound = false;
@@ -410,6 +450,8 @@ public class SplashActivity extends BaseActivity implements BeaconConsumer, LeSc
 						i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 						startActivity(i);
 					}
+
+					finish();
 				};
 			}.execute();
 		}

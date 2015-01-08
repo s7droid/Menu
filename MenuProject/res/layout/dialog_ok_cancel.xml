@@ -4,14 +4,17 @@
     android:layout_height="match_parent"
     android:background="@drawable/border_square_orange_white_fill"
     android:gravity="center_horizontal"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="10dp" >
 
     <com.s7design.menu.views.MenuTextView
         android:id="@+id/textViewTitleAlertDialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="20sp" />
+        android:textColor="@color/menu_main_gray_light"
+        android:textSize="20sp"
+        android:visibility="gone" />
 
     <com.s7design.menu.views.MenuTextView
         android:id="@+id/textViewbodyAlertDialog"
@@ -22,6 +25,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:gravity="center"
+        android:textColor="@color/menu_main_gray"
         android:textSize="18sp" />
 
     <LinearLayout
@@ -32,20 +36,26 @@
         <com.s7design.menu.views.MenuButton
             android:id="@+id/buttonCancel"
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_margin="5dp"
             android:background="@drawable/rounded_orange_button_selector"
             android:gravity="center"
-            android:text="@android:string/cancel" />
+            android:text="@android:string/cancel"
+            android:textColor="@drawable/orange_text_selector"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <com.s7design.menu.views.MenuButton
             android:id="@+id/buttonOk"
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_margin="5dp"
             android:background="@drawable/rounded_orange_button_selector"
             android:gravity="center"
-            android:text="@android:string/ok" />
+            android:text="@android:string/ok"
+            android:textColor="@drawable/orange_text_selector"
+            android:textSize="16sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </LinearLayout>
