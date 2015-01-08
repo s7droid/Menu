@@ -95,7 +95,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/rounded_orange_button_selector"
-                    android:text="ADD LARGE"
+                    android:text="@string/category_meals_add_large"
                     android:textColor="@drawable/orange_text_selector"
                     android:textSize="12sp" />
 
@@ -106,7 +106,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/rounded_gray_button_selector"
-                    android:text="ADD SMALL"
+                    android:text="@string/category_meals_add_large"
                     android:textColor="@drawable/gray_text_selector"
                     android:textSize="12sp" />
             </LinearLayout>

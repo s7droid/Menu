@@ -61,6 +61,11 @@
     <string name="checkout">CHECKOUT</string>
     <string name="checkout_enjoy">ENJOY YOUR MEAL!</string>
     <string name="checkout_done">DONE</string>
+    
+    <!-- Category meals activity -->
+	<string name="category_meals_add_large">ADD LARGE</string>
+	<string name="category_meals_add_small">ADD SMALL</string>    
+
 
     <!-- Sign in -->
     <string name="sign_in_button_text">SIGN IN</string>
