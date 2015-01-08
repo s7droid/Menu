@@ -14,16 +14,20 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.Response;
 import com.android.volley.Response.Listener;
 import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
 import com.s7design.menu.dataclasses.Item;
 import com.s7design.menu.dataclasses.Receipt;
+import com.s7design.menu.dialogs.ProgressDialogFragment;
 import com.s7design.menu.utils.Settings;
 import com.s7design.menu.views.CircleButtonView;
 import com.s7design.menu.volley.VolleySingleton;
 import com.s7design.menu.volley.requests.GetReceiptInfoRequest;
+import com.s7design.menu.volley.requests.SendReceiptByEmailRequest;
 import com.s7design.menu.volley.responses.GetReceiptInfoResponse;
+import com.s7design.menu.volley.responses.SendReceiptByEmailResponse;
 
 public class ReceiptDetailsActivity extends BaseActivity {
 
@@ -93,7 +97,27 @@ public class ReceiptDetailsActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-
+				showProgressDialogLoading();
+				
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("receiptid", String.valueOf(mReceiptSelected.receiptid));
+				params.put("accesstoken", Settings.getAccessToken(getApplicationContext()));
+				
+				SendReceiptByEmailRequest request = new SendReceiptByEmailRequest(ReceiptDetailsActivity.this, params, new Response.Listener<SendReceiptByEmailResponse>() {
+				
+				@Override
+				public void onResponse(SendReceiptByEmailResponse response) {
+					dismissProgressDialog();
+					
+					if(response.response != null && response.response.equals("success"))
+						showAlertDialog("", getResources().getString(R.string.receipt_list_message_sent_sucess));
+					else
+						showAlertDialog("", getResources().getString(R.string.error_message_basic));
+				}
+					
+				});
+				
+				VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
 			}
 		});
 
@@ -183,8 +207,8 @@ public class ReceiptDetailsActivity extends BaseActivity {
 			Item item = getItem(position);
 
 			holder.name.setText(item.name);
-			holder.price.setText(String.format("%.2f", item.largeprice));
-			holder.quantity.setAsQty(item.quantityLarge);
+			holder.price.setText(String.format("%.2f", item.price));
+			holder.quantity.setAsQty(1);
 			holder.delButton.setVisibility(View.GONE);
 
 			return convertView;

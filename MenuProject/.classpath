@@ -8,5 +8,6 @@
 	<classpathentry exported="true" kind="lib" path="libs/volley.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/braintree-api-1.2.7.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/gson-2.2.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/android-beacon-library/libs/classes.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

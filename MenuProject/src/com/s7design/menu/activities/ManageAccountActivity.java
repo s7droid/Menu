@@ -1,5 +1,8 @@
 package com.s7design.menu.activities;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import io.card.payment.CardIOActivity;
 import io.card.payment.CreditCard;
 import android.content.Intent;
@@ -10,8 +13,14 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.android.volley.Response;
 import com.s7design.menu.R;
+import com.s7design.menu.dialogs.ProgressDialogFragment;
+import com.s7design.menu.utils.Settings;
 import com.s7design.menu.views.MenuEditText;
+import com.s7design.menu.volley.VolleySingleton;
+import com.s7design.menu.volley.requests.FetchAccountRequest;
+import com.s7design.menu.volley.responses.FetchAccountResponse;
 
 public class ManageAccountActivity extends BaseActivity {
 
@@ -31,12 +40,30 @@ public class ManageAccountActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_menage_account);
 
+		final ProgressDialogFragment progressDialog = new ProgressDialogFragment();
+		progressDialog.show(getFragmentManager(), ManageAccountActivity.class.getSimpleName());
+		
 		initActionBar();
-		initViews();
-		initData();
 
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("accesstoken", Settings.getAccessToken(getApplicationContext()));
+		
+		FetchAccountRequest request = new FetchAccountRequest(ManageAccountActivity.this, params, new Response.Listener<FetchAccountResponse>() {
+
+			@Override
+			public void onResponse(FetchAccountResponse response) {
+				setContentView(R.layout.activity_menage_account);
+
+				initViews();
+				mEditTextNameOnCard.setText(response.name);
+				mEditTextEmail.setText(response.email);
+				progressDialog.dismiss();
+			}
+		});
+		
+		VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+		
 	}
 
 	private void initActionBar() {
@@ -122,10 +149,6 @@ public class ManageAccountActivity extends BaseActivity {
 		});
 	}
 
-	private void initData() {
-
-	}
-
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -136,17 +159,17 @@ public class ManageAccountActivity extends BaseActivity {
 			// Never log a raw card number. Avoid displaying it, but if
 			// necessary use getFormattedCardNumber()
 
-//			creditCardNumber = scanResult.getRedactedCardNumber();
-//			mCreditCardNumberEditText.setText(creditCardNumber);
-//
-//			if (scanResult.isExpiryValid()) {
-//				mYearEditText.setText(String.valueOf(scanResult.expiryYear));
-//				mMonthEditText.setText(String.valueOf(scanResult.expiryMonth));
-//			}
-//
-//			if (scanResult.cvv != null) {
-//				mCCVEditText.setText(scanResult.cvv);
-//			}
+			// creditCardNumber = scanResult.getRedactedCardNumber();
+			// mCreditCardNumberEditText.setText(creditCardNumber);
+			//
+			// if (scanResult.isExpiryValid()) {
+			// mYearEditText.setText(String.valueOf(scanResult.expiryYear));
+			// mMonthEditText.setText(String.valueOf(scanResult.expiryMonth));
+			// }
+			//
+			// if (scanResult.cvv != null) {
+			// mCCVEditText.setText(scanResult.cvv);
+			// }
 
 		}
 	}

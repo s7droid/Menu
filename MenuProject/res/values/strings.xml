@@ -94,9 +94,13 @@
     <!-- Receipt -->
     <string name="sendEmail">SEND TO EMAIL</string>
     <string name="receipt_list_empty_body">Receipt list is empty.</string>
+    <string name="receipt_list_message_sent_sucess">Receipt sent successfully to Your email.</string>
 
     <!-- Misc -->
     <string name="misc_is_small">(S)</string>
     <string name="misc_splash">Welcome to MENU</string>
+
+    <!-- Error messages -->
+    <string name="error_message_basic">Some error acquired. We weren\'t able to finish Your request. Pleasem, try again later.</string>
 
 </resources>

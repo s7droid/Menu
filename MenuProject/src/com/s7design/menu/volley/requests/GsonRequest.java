@@ -73,7 +73,6 @@ public class GsonRequest<T> extends Request<T> {
 			try {
 				sb.append(String.format("%s=%s", URLEncoder.encode(entry.getKey(), PROTOCOL_CHARSET), URLEncoder.encode(entry.getValue(), PROTOCOL_CHARSET)));
 			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -127,7 +126,7 @@ public class GsonRequest<T> extends Request<T> {
 	protected Response<T> parseNetworkResponse(NetworkResponse response) {
 		try {
 			String json = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
-			Log.v(TAG, "parseNetworkResponse() " + json);
+			Log.v(outputType.getSimpleName(), "parseNetworkResponse() " + json);
 			return Response.success(gson.fromJson(json, outputType), HttpHeaderParser.parseCacheHeaders(response));
 		} catch (UnsupportedEncodingException e) {
 			return Response.error(new ParseError(e));

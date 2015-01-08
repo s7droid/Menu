@@ -15,14 +15,18 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.Response;
 import com.android.volley.Response.Listener;
 import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
 import com.s7design.menu.dataclasses.Receipt;
+import com.s7design.menu.dialogs.ProgressDialogFragment;
 import com.s7design.menu.utils.Settings;
 import com.s7design.menu.volley.VolleySingleton;
 import com.s7design.menu.volley.requests.GetReceiptsRequest;
+import com.s7design.menu.volley.requests.SendReceiptByEmailRequest;
 import com.s7design.menu.volley.responses.GetReceiptsResponse;
+import com.s7design.menu.volley.responses.SendReceiptByEmailResponse;
 
 public class ReceiptListActivity extends BaseActivity {
 
@@ -85,12 +89,12 @@ public class ReceiptListActivity extends BaseActivity {
 			@Override
 			public void onResponse(GetReceiptsResponse arg0) {
 				dismissProgressDialog();
-				
-				if(arg0 != null && arg0.receipts != null && arg0.receipts.length > 0){
+
+				if (arg0 != null && arg0.receipts != null && arg0.receipts.length > 0) {
 					mListViewReceipts.setAdapter(new ReceiptListAdapter(arg0));
-				}else{
+				} else {
 					showAlertDialog("", getResources().getString(R.string.receipt_list_empty_body), new OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
 							finish();
@@ -156,6 +160,27 @@ public class ReceiptListActivity extends BaseActivity {
 
 				@Override
 				public void onClick(View v) {
+					Map<String, String> params = new HashMap<String, String>();
+					params.put("receiptid", String.valueOf(item.receiptid));
+					params.put("accesstoken", Settings.getAccessToken(getApplicationContext()));
+					
+					showProgressDialogLoading();
+					
+					SendReceiptByEmailRequest request = new SendReceiptByEmailRequest(ReceiptListActivity.this, params, new Response.Listener<SendReceiptByEmailResponse>() {
+
+						@Override
+						public void onResponse(SendReceiptByEmailResponse response) {
+							dismissProgressDialog();
+							
+							if(response.response != null && response.response.equals("success"))
+								showAlertDialog("", getResources().getString(R.string.receipt_list_message_sent_sucess));
+							else
+								showAlertDialog("", getResources().getString(R.string.error_message_basic));
+						}
+
+					});
+					
+					VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
 				}
 			});
 

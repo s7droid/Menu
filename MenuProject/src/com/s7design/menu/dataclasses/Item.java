@@ -14,7 +14,8 @@ public class Item {
 	public String category;
 	public int quantityLarge = 0;
 	public int quantitySmall = 0;
-
+	public double price; 
+	
 	public Item getSmall() {
 		Item item = getCopy();
 		item.quantitySmall = 1;
@@ -40,7 +41,8 @@ public class Item {
 		item.largetag = largetag;
 		item.currency = currency;
 		item.category = category;
-
+		item.price = price;
+		
 		return item;
 	}
 }

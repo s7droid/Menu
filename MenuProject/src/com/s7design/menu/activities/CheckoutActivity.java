@@ -128,14 +128,6 @@ public class CheckoutActivity extends BaseActivity {
 			}
 		});
 
-		setActionBarForwardButtonOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Toast.makeText(getApplicationContext(), "Will intent to order summary activity", Toast.LENGTH_SHORT).show();
-			}
-		});
-
 		listView = (ListView) findViewById(R.id.listView);
 		circleButtonAdd = (CircleButtonView) findViewById(R.id.circleButtonAdd);
 		seekBar = (SeekBar) findViewById(R.id.seekBar);
@@ -302,12 +294,14 @@ public class CheckoutActivity extends BaseActivity {
 							itemParams.put("orderid", response.orderid);
 							itemParams.put("accesstoken", Settings.getAccessToken(CheckoutActivity.this));
 
+							System.out.println("tag= " + String.valueOf(item.quantitySmall > 0 ? item.smalltag : item.largetag));
+							
 							OrderRequest itemRequest = new OrderRequest(CheckoutActivity.this, itemParams, new Listener<OrderResponse>() {
 
 								@Override
 								public void onResponse(OrderResponse response) {
 
-									if (response.response.equals("success"))
+									if (response.response != null && response.response.equals("success"))
 										countDownLatch.countDown();
 								}
 							});
