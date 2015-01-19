@@ -1,20 +1,31 @@
 package com.s7design.menu.activities;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.android.volley.Response.Listener;
+import com.android.volley.toolbox.NetworkImageView;
 import com.s7design.menu.R;
+import com.s7design.menu.dataclasses.Item;
+import com.s7design.menu.volley.VolleySingleton;
+import com.s7design.menu.volley.requests.GetItemInfoRequest;
+import com.s7design.menu.volley.responses.GetItemInfoResponse;
 
 public class MealDetailsActivity extends BaseActivity {
 
+	private static final String TAG = MealDetailsActivity.class.getSimpleName();
+
+	public static final String INTENT_EXTRA_TAG = "tag";
+
 	// VIEWS
-	private ImageView mMealImageImageView;
+	private NetworkImageView mMealImageImageView;
 	private TextView mMealDescriptionTextView;
 	private TextView mMealReceiptTextView;
 	private TextView mMealIngridientsTextView;
@@ -29,6 +40,8 @@ public class MealDetailsActivity extends BaseActivity {
 	private ImageButton mOrderBigMinusImageButton;
 	private ImageButton mGetReceiptImageButton;
 
+	private Item item;
+
 	// DATA
 
 	@Override
@@ -38,6 +51,7 @@ public class MealDetailsActivity extends BaseActivity {
 
 		initActionBar();
 		initViews();
+		initData();
 	}
 
 	private void initActionBar() {
@@ -64,7 +78,7 @@ public class MealDetailsActivity extends BaseActivity {
 
 	private void initViews() {
 
-		mMealImageImageView = (ImageView) findViewById(R.id.imageviewMealsDetailsActivity);
+		mMealImageImageView = (NetworkImageView) findViewById(R.id.imageviewMealsDetailsActivity);
 		mMealDescriptionTextView = (TextView) findViewById(R.id.textviewMealDetailsActivityDescription);
 		mMealReceiptTextView = (TextView) findViewById(R.id.textviewMealDetailsActivityReceiptText);
 		mMealIngridientsTextView = (TextView) findViewById(R.id.textviewMealDetailsActivityIngridients);
@@ -82,7 +96,6 @@ public class MealDetailsActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				removeOneSmallMealOrderAction();
 			}
 		});
 
@@ -90,7 +103,6 @@ public class MealDetailsActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				addOneSmallMealOrderAction();
 			}
 		});
 
@@ -98,7 +110,6 @@ public class MealDetailsActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				removeOneBigOrderAction();
 			}
 		});
 
@@ -106,7 +117,6 @@ public class MealDetailsActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				addOneBigMealOrderAction();
 			}
 		});
 
@@ -114,30 +124,51 @@ public class MealDetailsActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				getReceiptAction();
 			}
 		});
 
 	}
 
-	private void removeOneSmallMealOrderAction() {
-		Toast.makeText(getApplicationContext(), "removeOneSmallMealOrderAction", Toast.LENGTH_SHORT).show();
+	private void initData() {
+
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("major", "1");
+		params.put("minor", "1");
+		params.put("itemtag", String.valueOf(getIntent().getIntExtra(INTENT_EXTRA_TAG, 0)));
+		params.put("lang", "en");
+
+		GetItemInfoRequest request = new GetItemInfoRequest(this, params, new Listener<GetItemInfoResponse>() {
+
+			@Override
+			public void onResponse(GetItemInfoResponse response) {
+
+				if (response != null && response.item.length > 0) {
+					item = response.item[0];
+					setData();
+				}
+
+				dismissProgressDialog();
+
+			}
+		});
+
+		showProgressDialogLoading();
+		VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
 	}
 
-	private void addOneSmallMealOrderAction() {
-		Toast.makeText(getApplicationContext(), "addOneSmallMealOrderAction", Toast.LENGTH_SHORT).show();
-	}
+	private void setData() {
 
-	private void removeOneBigOrderAction() {
-		Toast.makeText(getApplicationContext(), "removeOneBigOrderAction", Toast.LENGTH_SHORT).show();
-	}
+		// "item":[{"category":"BEVERAGES","image":"http:\/\/usemenu.com\/images\/image.png","name":"Mineral
+		// Water without Gas","description":"Fresh mineral water from the swiss
+		// alps.","ingredients":"SWISS ALPINE
+		// WATER","smalltag":"3","largetag":"4","smallprice":"3.50","largeprice":"7.00","smalllabel":"GLASS","largelabel":"BOTTLE","currency":"\u20ac"}],"errordata":"none"}
 
-	private void addOneBigMealOrderAction() {
-		Toast.makeText(getApplicationContext(), "addOneBigMealOrderAction", Toast.LENGTH_SHORT).show();
-	}
+		mMealImageImageView.setImageUrl(item.image, VolleySingleton.getInstance(getApplicationContext()).getImageLoader());
+		mMealDescriptionTextView.setText(item.description);
+		mMealIngridientsTextView.setText(item.ingredients);
+		mOrderSmallPriceTextView.setText(String.valueOf(item.smallprice));
+		mOrderLargePriceTextView.setText(String.valueOf(item.largeprice));
 
-	private void getReceiptAction() {
-		Toast.makeText(getApplicationContext(), "getReceiptAction", Toast.LENGTH_SHORT).show();
 	}
 
 }
