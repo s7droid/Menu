@@ -441,17 +441,29 @@ public class SplashActivity extends BaseActivity implements BeaconConsumer, LeSc
 
 					String accessToken = Settings.getAccessToken(getApplicationContext());
 
-					if (accessToken.length() > 0) {
-						Intent i = new Intent(SplashActivity.this, RestaurantPreviewActivity.class);
-						i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-						startActivity(i);
-					} else {
-						Intent i = new Intent(SplashActivity.this, SignInActivity.class);
-						i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-						startActivity(i);
+//					if (accessToken.length() > 0) {
+//						Intent i = new Intent(SplashActivity.this, RestaurantPreviewActivity.class);
+//						i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//						startActivity(i);
+//					} else {
+//						Intent i = new Intent(SplashActivity.this, MainMenuActivity.class);
+//						i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//						startActivity(i);
+//					}
+					
+					String major = Menu.getInstance().getDataManager().getMajor();
+					String minor = Menu.getInstance().getDataManager().getMinor();
+					
+					if((major != null && minor != null)){
+					    Intent i = new Intent(SplashActivity.this, RestaurantPreviewActivity.class);
+					    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					    startActivity(i);
+					}else if((major == null || minor == null)){
+					    Intent i = new Intent(SplashActivity.this, MainMenuActivity.class);
+					    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					    startActivity(i);
 					}
-
-					finish();
+					
 				};
 			}.execute();
 		}

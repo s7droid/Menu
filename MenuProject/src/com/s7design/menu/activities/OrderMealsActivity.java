@@ -30,6 +30,8 @@ public class OrderMealsActivity extends BaseActivity {
 
 	private ArrayList<Item> items;
 
+	private boolean isOrderListEmpty;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -71,6 +73,8 @@ public class OrderMealsActivity extends BaseActivity {
 	}
 
 	private void initActionBar() {
+    	isOrderListEmpty = Menu.getInstance().getDataManager().getCheckoutList().size() == 0 ? true : false;
+
 		setActionBarForwardButtonText(R.string.action_bar_checkout);
 
 		setActionBarBackButtonOnClickListener(new OnClickListener() {
@@ -85,10 +89,15 @@ public class OrderMealsActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
+			    	isOrderListEmpty = Menu.getInstance().getDataManager().getCheckoutList().size() == 0 ? true : false;
+
+			    	if(isOrderListEmpty){
+			    	    showAlertDialog("", getResources().getString(R.string.error_checkout_list_empty));
+			    	    return;
+			    	}
+			    
 				if (Menu.getInstance().getDataManager().getCheckoutList() != null)
 					startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
-				else
-					showAlertDialog("Alert", "Your checkout list is empty. Add some things to Your chart.");
 			}
 		});
 

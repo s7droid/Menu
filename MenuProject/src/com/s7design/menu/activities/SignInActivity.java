@@ -78,7 +78,6 @@ public class SignInActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(SignInActivity.this, "Go to FORGOT PASSWORD screen.", Toast.LENGTH_SHORT).show();
 			}
 		});
 
@@ -105,16 +104,19 @@ public class SignInActivity extends BaseActivity {
 							@Override
 							public void onResponse(LoginResponse loginResponse) {
 
-								if (loginResponse.response.equals("success")) {
+								if (loginResponse.response != null && loginResponse.response.equals("success")) {
 									Settings.setAccessToken(SignInActivity.this, loginResponse.accesstoken);
-									Intent i = new Intent(SignInActivity.this, RestaurantPreviewActivity.class);
-									i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-									startActivity(i);
+//									Intent i = new Intent(SignInActivity.this, RestaurantPreviewActivity.class);
+//									i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//									startActivity(i);
+									Intent intent = new Intent();
+									setResult(RESULT_OK,intent);
 									dismissProgressDialog();
+									finish();
 								} else {
 									dismissProgressDialog();
 
-									if (loginResponse.response.equals("nouser")) {
+									if (loginResponse.response != null && loginResponse.response.equals("nouser")) {
 										showAlertDialog(R.string.dialog_title_error, R.string.dialog_no_user);
 									} else if (loginResponse.response.equals("passwordfalse")) {
 										showAlertDialog(R.string.dialog_title_error, R.string.dialog_wrong_password);

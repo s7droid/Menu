@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
+import com.s7design.menu.utils.Settings;
 
 /**
  * Activity for presenting main menu of the <i><b>Menu</b></i> application. <br>
@@ -45,6 +46,12 @@ public class MainMenuActivity extends BaseActivity {
 	private Button mViewPastReceiptsButton;
 	private Button mReviewCurrentOrderButton;
 
+	private View mSeparatorPastReceipts;
+	private View mSeparatorManageProfile;
+
+	private boolean isLoggedIn;
+	private boolean isOrderListEmpty;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -57,32 +64,56 @@ public class MainMenuActivity extends BaseActivity {
 	 */
 	private void initViews() {
 
+		isLoggedIn = !Settings.getAccessToken(getApplicationContext()).equals("") ? true : false;
+		isOrderListEmpty = Menu.getInstance().getDataManager().getCheckoutList().size() == 0 ? true : false;
+
 		mVenueMenuButton = (Button) findViewById(R.id.buttonMainMenuActivityViewVenue);
 		mTutorialsButton = (Button) findViewById(R.id.buttonMainMenuActivityViewTutorial);
 		mMenageYourProfileButton = (Button) findViewById(R.id.buttonMainMenuActivityManageYourAccount);
 		mViewPastReceiptsButton = (Button) findViewById(R.id.buttonMainMenuActivityViewPastReceipts);
 		mReviewCurrentOrderButton = (Button) findViewById(R.id.buttonMainMenuActivityCurrentOrderPreview);
 
+		mSeparatorManageProfile = (View) findViewById(R.id.separator4);
+		mSeparatorPastReceipts = (View) findViewById(R.id.separator5);
+
 		setActionBarForwardButtonvisibility(View.INVISIBLE);
 		setActionBarMenuButtonVisibility(View.INVISIBLE);
-		
+
+		if (isLoggedIn) {
+			mMenageYourProfileButton.setVisibility(View.VISIBLE);
+			mViewPastReceiptsButton.setVisibility(View.VISIBLE);
+			mSeparatorManageProfile.setVisibility(View.VISIBLE);
+			mSeparatorPastReceipts.setVisibility(View.VISIBLE);
+		} else {
+			mMenageYourProfileButton.setVisibility(View.GONE);
+			mViewPastReceiptsButton.setVisibility(View.GONE);
+			mSeparatorManageProfile.setVisibility(View.GONE);
+			mSeparatorPastReceipts.setVisibility(View.GONE);
+		}
+
+		if (isOrderListEmpty) {
+			mReviewCurrentOrderButton.setTextColor(getResources().getColor(R.color.menu_main_gray_light));
+		} else {
+			mReviewCurrentOrderButton.setTextColor(getResources().getColor(R.color.menu_main_orange));
+		}
+
 		setActionBarBackButtonText(R.string.action_bar_back);
 		setActionBarBackButtonOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				finish();
 			}
 		});
-		
+
 		setActionBarMenuButtonOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				
+
 			}
 		});
-		
+
 		mVenueMenuButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -123,7 +154,8 @@ public class MainMenuActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				reviewCurrentOrderButtonAction();
+				if (!isOrderListEmpty)
+					reviewCurrentOrderButtonAction();
 			}
 
 		});
@@ -146,7 +178,7 @@ public class MainMenuActivity extends BaseActivity {
 	}
 
 	private void reviewCurrentOrderButtonAction() {
-		if(Menu.getInstance().getDataManager().getCheckoutList() != null)
+		if (Menu.getInstance().getDataManager().getCheckoutList() != null)
 			startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
 		else
 			showAlertDialog("Alert", "Your checkout list is empty. Add some things to Your chart.");
