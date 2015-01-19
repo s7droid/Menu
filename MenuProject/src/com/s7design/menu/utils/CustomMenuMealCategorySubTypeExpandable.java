@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,8 @@ import com.s7design.menu.app.Menu;
 import com.s7design.menu.dataclasses.Item;
 
 public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
+
+	private static final String TAG = CustomMenuMealCategorySubTypeExpandable.class.getSimpleName();
 
 	private Context mGlobalContext;
 	private String mSubclassTitle;
@@ -123,11 +126,14 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 				}
 			});
 
+			imageContainer.setTag(i);
 			imageContainer.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					mGlobalContext.startActivity(new Intent(mGlobalContext, MealDetailsActivity.class));
+					Intent intent = new Intent(mGlobalContext, MealDetailsActivity.class);
+					intent.putExtra(MealDetailsActivity.INTENT_EXTRA_TAG, items.get((Integer) v.getTag()).largetag);
+					mGlobalContext.startActivity(intent);
 				}
 			});
 

@@ -12,10 +12,12 @@ public class Item {
 	public int largetag;
 	public String currency;
 	public String category;
+	public String description;
+	public String ingredients;
 	public int quantityLarge = 0;
 	public int quantitySmall = 0;
-	public double price; 
-	
+	public double price;
+
 	public Item getSmall() {
 		Item item = getCopy();
 		item.quantitySmall = 1;
@@ -42,7 +44,7 @@ public class Item {
 		item.currency = currency;
 		item.category = category;
 		item.price = price;
-		
+
 		return item;
 	}
 }

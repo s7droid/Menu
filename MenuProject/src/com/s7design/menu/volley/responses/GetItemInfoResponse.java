@@ -4,6 +4,6 @@ import com.s7design.menu.dataclasses.Item;
 
 public class GetItemInfoResponse extends GsonResponse {
 
-	public Item item;
+	public Item[] item;
 
 }
