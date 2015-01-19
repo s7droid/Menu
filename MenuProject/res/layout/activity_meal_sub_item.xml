@@ -5,12 +5,11 @@
     android:orientation="vertical" >
 
     <com.s7design.menu.views.MenuButton
-        style="@style/Menu_Button_Orange"
         android:id="@+id/buttonOrderMealActivitySubItem"
+        style="@style/Menu_Button_Orange"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sub category"
-         />
+        android:layout_height="60dp"
+        android:text="Sub category" />
 
     <LinearLayout
         android:id="@+id/listviewOrderMealActivitySubItemsList"

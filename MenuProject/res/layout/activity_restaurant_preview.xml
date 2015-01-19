@@ -63,7 +63,7 @@
             android:id="@+id/buttonRestaurantPreviewActivityMakeOrder"
             style="@style/Menu_Button_Orange"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_alignParentBottom="true"
             android:text="@string/restaurant_preview_activity_make_your_order" />
     </RelativeLayout>

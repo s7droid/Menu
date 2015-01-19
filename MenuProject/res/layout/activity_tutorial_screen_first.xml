@@ -28,7 +28,7 @@
         android:id="@+id/buttonuTutorialScreenFirstContinueButton"
         style="@style/Menu_Button_Orange"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:text="@string/menu_tutorial_screen_button_continue" />
 

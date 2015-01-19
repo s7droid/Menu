@@ -49,28 +49,9 @@ public class TutorialFirstActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				// startActivity(new Intent(getApplicationContext(),
-				// TutorialSecondActivity.class));
-
-				Map<String, String> params = new HashMap<String, String>();
-				params.put("major", "1");
-				params.put("minor", "1");
-				params.put("lang", "en");
-
-				GetCategoriesRequest request = new GetCategoriesRequest(TutorialFirstActivity.this, params, new Listener<GetCategoriesResponse>() {
-
-					@Override
-					public void onResponse(GetCategoriesResponse arg0) {
-
-						Log.d(TAG, "onResponse");
-						Log.d(TAG, arg0.toString());
-					}
-				});
-
-				VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
-				
 				
 				startActivity(new Intent(getApplicationContext(), TutorialSecondActivity.class));
+				finish();
 				
 			}
 		});

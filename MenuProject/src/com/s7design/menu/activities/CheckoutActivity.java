@@ -8,6 +8,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -25,7 +26,6 @@ import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Response.Listener;
 import com.s7design.menu.R;
@@ -91,8 +91,14 @@ public class CheckoutActivity extends BaseActivity {
 
 		initData();
 		initViews();
-		refreshList();
 
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		refreshList();
 	}
 
 	private void refreshList() {
@@ -192,6 +198,15 @@ public class CheckoutActivity extends BaseActivity {
 			public void onClick(View v) {
 
 				checkout();
+			}
+		});
+
+		circleButtonAdd.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				startActivity(new Intent(CheckoutActivity.this, CategoryMealsActivity.class));
 			}
 		});
 
@@ -295,7 +310,7 @@ public class CheckoutActivity extends BaseActivity {
 							itemParams.put("accesstoken", Settings.getAccessToken(CheckoutActivity.this));
 
 							System.out.println("tag= " + String.valueOf(item.quantitySmall > 0 ? item.smalltag : item.largetag));
-							
+
 							OrderRequest itemRequest = new OrderRequest(CheckoutActivity.this, itemParams, new Listener<OrderResponse>() {
 
 								@Override
