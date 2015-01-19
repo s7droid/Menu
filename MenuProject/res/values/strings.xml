@@ -113,15 +113,15 @@
     <string name="error_message_basic">Some error acquired. We weren\'t able to finish Your request. Pleasem, try again later.</string>
     <string name="error_checkout_list_empty">Your chart is empty at the moment. Add some items.</string>
 
-	<!-- About the App -->
-	<string name="about_menu_terms_of_service">Terms of Service</string>
+    <!-- About the App -->
+    <string name="about_menu_terms_of_service">Terms of Service</string>
     <string name="about_menu_aknoledgements">Aknowledgements</string>
-    <string name="about_menu_terms_of_service_description">Lorem ipsum sit doloret.</string>
-    <string name="about_menu_aknowledgements_text1">Some dummy text</string>
+    <string name="about_menu_terms_of_service_description">In quo facer assentior abhorreant, no delicata accommodare has. Sed ad assum appetere. An pri doctus inimicus, eu nec decore expetenda. Ut fabellas deserunt reformidans mea, consequat disputando definitiones ut qui, ut luptatum voluptatibus reprehendunt pri.</string>
+    <string name="about_menu_aknowledgements_text1">Lorem ipsum dolor sit amet, no bonorum commune electram est, vidisse veritus sit at. Per ad dicat salutatus. Ei diam fugit causae sit. Ne tollit invenire usu, at duis pertinacia consetetur nam. Viderer volutpat duo ei, at duo omnis ornatus qualisque.</string>
     <string name="about_menu_aknowledgements_text2"><b>Using our Services</b></string>
-    <string name="about_menu_aknowledgements_text3">Some dummy text 3</string>
-    <string name="about_menu_aknowledgements_text4">Some dummy text 4</string>
-    
+    <string name="about_menu_aknowledgements_text3">Cum ex putent splendide adversarium, id sea probo labores. At duo interesset complectitur, etiam minim eu sea. Everti voluptatum consequuntur ut per, dicat dolor noster eos eu, his case omnis id. Inani quaeque laboramus his et, mel magna delectus et, vero eloquentiam cu ius. Et enim oporteat has, nec sale adipiscing te.</string>
+    <string name="about_menu_aknowledgements_text4">Eirmod civibus propriae eu per, dicit iisque civibus mei in. Eum ea error saepe sensibus, in populo epicurei omittantur vix. Id habeo referrentur delicatissimi duo. Cu velit consul detraxit usu.</string>
+
     <!-- Main Menu strings -->
     <string name="main_menu_category_not_available">You need to be in a restaurant to be able to view a menu</string>
     <string name="main_menu_view_tutorial">VIEW TUTORIAL</string>
@@ -130,5 +130,5 @@
     <string name="main_menu_about_the_app">ABOUT THE APP</string>
     <string name="main_menu_view_venue_menu">VIEW VENUE MENU</string>
     <string name="main_menu_current_order">CURRENT ORDER PREVIEW</string>
-    
+
 </resources>
