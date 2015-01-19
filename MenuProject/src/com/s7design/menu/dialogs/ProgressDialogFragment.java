@@ -20,7 +20,7 @@ public class ProgressDialogFragment extends DialogFragment {
 	private String body;
 	private Context context;
 	private TextView bodyTextView;
-	private boolean isVisible = false;
+	public boolean isVisible = false;
 
 	public ProgressDialogFragment() {
 	}
@@ -67,6 +67,14 @@ public class ProgressDialogFragment extends DialogFragment {
 		show(fm, tag);
 	}
 
+	@Override
+	public void show(FragmentManager manager, String tag) {
+	    if (isVisible) return;
+
+	    super.show(manager, tag);
+	    isVisible = true;
+	}
+	
 	@Override
 	public void onDismiss(DialogInterface dialog) {
 		super.onDismiss(dialog);

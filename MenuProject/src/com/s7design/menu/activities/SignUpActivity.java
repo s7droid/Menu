@@ -204,7 +204,11 @@ public class SignUpActivity extends BaseActivity {
 			// necessary use getFormattedCardNumber()
 
 			creditCardNumber = scanResult.getRedactedCardNumber();
-			mCreditCardNumberEditText.setText(creditCardNumber);
+			System.out.println("credit card number redacted= " + creditCardNumber);
+			System.out.println("credit card number formatted=" + scanResult.getFormattedCardNumber());
+			System.out.println("credit card number=" + scanResult.cardNumber);
+//			mCreditCardNumberEditText.setText(creditCardNumber);
+			mCreditCardNumberEditText.setText(scanResult.getFormattedCardNumber());
 
 			if (scanResult.isExpiryValid()) {
 				mYearEditText.setText(String.valueOf(scanResult.expiryYear));

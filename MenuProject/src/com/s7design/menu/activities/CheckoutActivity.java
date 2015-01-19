@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -81,6 +82,8 @@ public class CheckoutActivity extends BaseActivity {
 	private double totalTax;
 
 	private DataManager data;
+
+	private static final int REQUEST_LOGIN = 123;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -197,7 +200,14 @@ public class CheckoutActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 
-				checkout();
+				if (!Settings.getAccessToken(getApplicationContext()).equals("")) {
+					System.out.println("accesstoken= " + Settings.getAccessToken(getApplicationContext()));
+					checkout();
+				} else {
+					Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+					startActivityForResult(intent, REQUEST_LOGIN);
+				}
+
 			}
 		});
 
@@ -261,6 +271,16 @@ public class CheckoutActivity extends BaseActivity {
 
 			}
 		});
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode == Activity.RESULT_OK) {
+			if (requestCode == REQUEST_LOGIN) {
+				checkout();
+			}
+		}
 	}
 
 	private void checkout() {

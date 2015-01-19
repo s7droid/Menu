@@ -167,12 +167,14 @@ public class BaseActivity extends Activity implements OnVolleyErrorCallback {
 	}
 
 	public void showProgressDialogLoading() {
-		if (!progressDialog.isVisible())
-			progressDialog.showDialog();
+		if (!progressDialog.isVisible){
+			progressDialog.show(getFragmentManager(), BaseActivity.class.getSimpleName());;
+		}
 	}
 
 	public void dismissProgressDialog() {
 		try {
+		    progressDialog.dismiss();
 			progressDialog.dismissAllowingStateLoss();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -152,7 +152,7 @@
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
             android:singleLine="true"
-            android:maxLength="16"
+            android:maxLength="19"
             android:textColor="@color/menu_main_gray" />
 
         <View
