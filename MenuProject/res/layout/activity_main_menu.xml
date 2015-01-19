@@ -27,7 +27,9 @@
         android:layout_below="@+id/separator1"
         android:background="@android:color/transparent"
         android:gravity="left|center_vertical"
-        android:text="VIEW VENUE MENU"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="@string/main_menu_view_venue_menu"
         android:textColor="@color/menu_main_gray"
         android:textSize="15sp" />
 
@@ -45,7 +47,7 @@
         android:layout_below="@+id/separator2"
         android:background="@android:color/transparent"
         android:gravity="left|center_vertical"
-        android:text="VIEW TUTORIAL"
+        android:text="@string/main_menu_view_tutorial"
         android:textColor="@color/menu_main_gray"
         android:textSize="15sp" />
 
@@ -63,7 +65,7 @@
         android:layout_below="@+id/separator3"
         android:background="@android:color/transparent"
         android:gravity="left|center_vertical"
-        android:text="VIEW PAST RECEIPTS"
+        android:text="@string/main_menu_view_past_receipts"
         android:textColor="@color/menu_main_gray"
         android:textSize="15sp" />
 
@@ -81,7 +83,7 @@
         android:layout_below="@+id/separator4"
         android:background="@android:color/transparent"
         android:gravity="left|center_vertical"
-        android:text="MANAGE YOUR ACCOUNT"
+        android:text="@string/main_menu_manage_your_account"
         android:textColor="@color/menu_main_gray"
         android:textSize="15sp" />
 
@@ -90,6 +92,24 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_below="@+id/buttonMainMenuActivityManageYourAccount"
+        android:background="@color/menu_main_orange" />
+
+    <com.s7design.menu.views.MenuButton
+        android:id="@+id/buttonMainMenuActivityAboutTheApp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/separator5"
+        android:background="@android:color/transparent"
+        android:gravity="left|center_vertical"
+        android:text="@string/main_menu_about_the_app"
+        android:textColor="@color/menu_main_gray"
+        android:textSize="15sp" />
+
+    <View
+        android:id="@+id/separator7"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/buttonMainMenuActivityAboutTheApp"
         android:background="@color/menu_main_orange" />
 
     <View
@@ -106,7 +126,7 @@
         android:layout_alignParentBottom="true"
         android:background="@android:color/transparent"
         android:gravity="left|center_vertical"
-        android:text="CURRENT ORDER PREVIEW"
+        android:text="@string/main_menu_current_order"
         android:textColor="@color/menu_main_orange"
         android:textSize="15sp" />
 

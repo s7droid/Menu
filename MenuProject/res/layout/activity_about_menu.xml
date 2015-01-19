@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:orientation="vertical" >
+
+        <com.s7design.menu.views.MenuButton
+            android:id="@+id/buttonAboutMenuActivityTermsOfUse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawablePadding="10dp"
+            android:drawableRight="@drawable/icon_right"
+            android:text="@string/about_menu_terms_of_service"
+            android:textColor="@color/menu_main_orange"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/linearlayoutAboutMenuActivityTermsOfUseContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <com.s7design.menu.views.MenuTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/about_menu_terms_of_service_description"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <com.s7design.menu.views.MenuButton
+            android:id="@+id/buttonAboutMenuActivityAknowledgements"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/transparent"
+            android:drawablePadding="10dp"
+            android:drawableRight="@drawable/icon_right"
+            android:text="@string/about_menu_aknoledgements"
+            android:textColor="@color/menu_main_orange"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/linearlayoutAboutMenuActivityAknowledgementsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <com.s7design.menu.views.MenuTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/about_menu_aknowledgements_text1"
+                android:textSize="14sp" />
+
+            <com.s7design.menu.views.MenuTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/about_menu_aknowledgements_text2"
+                android:textSize="14sp" />
+
+            <com.s7design.menu.views.MenuTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/about_menu_aknowledgements_text3"
+                android:textSize="14sp" />
+
+            <com.s7design.menu.views.MenuTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/about_menu_aknowledgements_text4"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
