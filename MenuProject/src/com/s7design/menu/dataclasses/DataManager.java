@@ -18,8 +18,8 @@ public class DataManager {
 	private double discount;
 	private String currency;
 	private String clientBraintreeToken;
-	private String major = "1";
-	private String minor = "1";
+	private String major;
+	private String minor;
 	private String language = "en";
 
 	public String getMajor() {

@@ -1,7 +1,9 @@
 package com.s7design.menu.activities;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -45,6 +47,7 @@ public class MainMenuActivity extends BaseActivity {
 	private Button mMenageYourProfileButton;
 	private Button mViewPastReceiptsButton;
 	private Button mReviewCurrentOrderButton;
+	private Button mAboutTheAppButton;
 
 	private View mSeparatorPastReceipts;
 	private View mSeparatorManageProfile;
@@ -72,6 +75,7 @@ public class MainMenuActivity extends BaseActivity {
 		mMenageYourProfileButton = (Button) findViewById(R.id.buttonMainMenuActivityManageYourAccount);
 		mViewPastReceiptsButton = (Button) findViewById(R.id.buttonMainMenuActivityViewPastReceipts);
 		mReviewCurrentOrderButton = (Button) findViewById(R.id.buttonMainMenuActivityCurrentOrderPreview);
+		mAboutTheAppButton = (Button) findViewById(R.id.buttonMainMenuActivityAboutTheApp);
 
 		mSeparatorManageProfile = (View) findViewById(R.id.separator4);
 		mSeparatorPastReceipts = (View) findViewById(R.id.separator5);
@@ -95,6 +99,13 @@ public class MainMenuActivity extends BaseActivity {
 			mReviewCurrentOrderButton.setTextColor(getResources().getColor(R.color.menu_main_gray_light));
 		} else {
 			mReviewCurrentOrderButton.setTextColor(getResources().getColor(R.color.menu_main_orange));
+		}
+
+		if (Menu.getInstance().getDataManager().getMajor() != null && Menu.getInstance().getDataManager().getMinor() != null) {
+		} else {
+			mVenueMenuButton.setTextSize(convertDpToPixels(4));
+			mVenueMenuButton.setTextColor(getResources().getColor(R.color.menu_main_gray_light));
+			mVenueMenuButton.setText(getResources().getString(R.string.main_menu_category_not_available));
 		}
 
 		setActionBarBackButtonText(R.string.action_bar_back);
@@ -159,10 +170,20 @@ public class MainMenuActivity extends BaseActivity {
 			}
 
 		});
+
+		mAboutTheAppButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				aboutTheAppButtonAction();
+			}
+		});
 	}
 
 	private void venuMenuButtonAction() {
-		startActivity(new Intent(getApplicationContext(), CategoryMealsActivity.class));
+		if (Menu.getInstance().getDataManager().getMajor() != null && Menu.getInstance().getDataManager().getMinor() != null)
+			startActivity(new Intent(getApplicationContext(), CategoryMealsActivity.class));
+
 	}
 
 	private void tutorialsButtonAction() {
@@ -182,6 +203,15 @@ public class MainMenuActivity extends BaseActivity {
 			startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
 		else
 			showAlertDialog("Alert", "Your checkout list is empty. Add some things to Your chart.");
+	}
+
+	private void aboutTheAppButtonAction() {
+		startActivity(new Intent(getApplicationContext(), AboutTheAppActivity.class));
+	}
+
+	private float convertDpToPixels(int dp) {
+		Resources r = getResources();
+		return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, dp, r.getDisplayMetrics());
 	}
 
 }
