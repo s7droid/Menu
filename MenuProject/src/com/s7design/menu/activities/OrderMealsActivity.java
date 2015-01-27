@@ -16,7 +16,7 @@ import com.android.volley.Response.Listener;
 import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
 import com.s7design.menu.dataclasses.Item;
-import com.s7design.menu.utils.CustomMenuMealCategorySubTypeExpandable;
+import com.s7design.menu.views.CustomMenuMealCategorySubTypeExpandable;
 import com.s7design.menu.volley.VolleySingleton;
 import com.s7design.menu.volley.requests.GetAllItemsInCategoryRequest;
 import com.s7design.menu.volley.responses.GetAllItemsInCategoryResponse;

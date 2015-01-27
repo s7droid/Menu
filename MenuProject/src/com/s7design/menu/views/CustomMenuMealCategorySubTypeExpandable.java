@@ -1,4 +1,4 @@
-package com.s7design.menu.utils;
+package com.s7design.menu.views;
 
 import java.util.ArrayList;
 
