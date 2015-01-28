@@ -84,6 +84,14 @@ public class SplashWarningActivity extends BaseActivity {
 			textViewDesc.setText(ssb2);
 
 			buttonEnableLocationServices.setVisibility(View.VISIBLE);
+			buttonEnableLocationServices.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+
+					startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+				}
+			});
 
 		} else if (start == INTENT_EXTRA_START_BLUETOOTH) {
 

@@ -112,7 +112,7 @@
 
     <!-- Error messages -->
     <string name="error_message_basic">Some error acquired. We weren\'t able to finish Your request. Pleasem, try again later.</string>
-    <string name="error_checkout_list_empty">Your chart is empty at the moment. Add some items.</string>
+    <string name="error_checkout_list_empty">Your cart is empty at the moment. Add some items.</string>
 
     <!-- About the App -->
     <string name="about_menu_terms_of_service">Terms of Service</string>

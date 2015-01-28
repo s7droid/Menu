@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -63,11 +62,7 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 		subCategoryButton.setText(mSubclassTitle);
 
 		for (int i = 0; i < items.size(); i++) {
-			Integer smallMealCounter = 0;
-			Integer largeMealCounter = 0;
 			final Item itemToSend = items.get(i);
-			final double largePrice = items.get(i).largeprice;
-			final double smallPrice = items.get(i).smallprice;
 
 			LinearLayout vi = (LinearLayout) LayoutInflater.from(mGlobalContext).inflate(R.layout.column_meal_subitem, null);
 			Button large = (Button) vi.findViewById(R.id.buttonSubMealOrderLarge);
@@ -81,24 +76,30 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 			bigOrderPriceAndQuantity.setText(String.format("%.2f", items.get(i).largeprice) + currency);
 			smallOrderPriceAndQuantity.setText(String.format("%.2f", items.get(i).smallprice) + currency);
 
-			large.setTag(largeMealCounter);
-			small.setTag(smallMealCounter);
+			Item it = Menu.getInstance().getDataManager().getItemByTag(itemToSend.largetag);
+
+			if (it != null) {
+
+				itemToSend.quantityLarge = it.quantityLarge;
+				itemToSend.quantitySmall = it.quantitySmall;
+
+				if (itemToSend.quantityLarge > 0) {
+					setQuantity(bigOrderPriceAndQuantity, itemToSend.largeprice, itemToSend.quantityLarge);
+				}
+				if (itemToSend.quantitySmall > 0) {
+					setQuantity(smallOrderPriceAndQuantity, itemToSend.smallprice, itemToSend.quantitySmall);
+				}
+			}
+
+			large.setTag(itemToSend.quantityLarge);
+			small.setTag(itemToSend.quantitySmall);
 			large.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
 					int counter = (Integer) v.getTag();
 					counter++;
-					if (counter > 0) {
-						bigOrderPriceAndQuantity.setTextColor(getResources().getColor(R.color.menu_main_orange));
-						bigOrderPriceAndQuantity.setTypeface(null, Typeface.BOLD);
-						bigOrderPriceAndQuantity.setAlpha(1.0f);
-					} else {
-						bigOrderPriceAndQuantity.setTextColor(getResources().getColor(R.color.menu_main_gray));
-						bigOrderPriceAndQuantity.setAlpha(0.5f);
-					}
-
-					bigOrderPriceAndQuantity.setText(String.format("%.2f", largePrice) + currency + " (" + String.valueOf(counter) + ")");
+					setQuantity(bigOrderPriceAndQuantity, itemToSend.largeprice, counter);
 					v.setTag(counter);
 					Menu.getInstance().getDataManager().addCheckoutListItem(itemToSend.getLarge());
 				}
@@ -110,17 +111,7 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 				public void onClick(View v) {
 					int counter = (Integer) v.getTag();
 					counter++;
-
-					if (counter > 0) {
-						smallOrderPriceAndQuantity.setTextColor(getResources().getColor(R.color.menu_main_gray));
-						smallOrderPriceAndQuantity.setTypeface(null, Typeface.BOLD);
-						smallOrderPriceAndQuantity.setAlpha(1.0f);
-					} else {
-						smallOrderPriceAndQuantity.setTextColor(getResources().getColor(R.color.menu_main_gray));
-						smallOrderPriceAndQuantity.setAlpha(0.5f);
-					}
-
-					smallOrderPriceAndQuantity.setText(String.format("%.2f", smallPrice) + currency + " (" + String.valueOf(counter) + ")");
+					setQuantity(smallOrderPriceAndQuantity, itemToSend.smallprice, counter);
 					v.setTag(counter);
 					Menu.getInstance().getDataManager().addCheckoutListItem(itemToSend.getSmall());
 				}
@@ -161,4 +152,11 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 		return this;
 	}
 
+	private void setQuantity(TextView tv, double price, int quantity) {
+
+		tv.setTextColor(getResources().getColor(R.color.menu_main_orange));
+		tv.setTypeface(null, Typeface.BOLD);
+		tv.setAlpha(1.0f);
+		tv.setText(String.format("%.2f", price) + currency + " (" + String.valueOf(quantity) + ")");
+	}
 }

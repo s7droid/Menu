@@ -84,15 +84,33 @@ public class DataManager {
 	}
 
 	public void addCheckoutListItem(Item item) {
+
 		if (checkoutList == null)
 			checkoutList = new ArrayList<Item>();
-		Log.d(TAG, "item qty small " + item.quantitySmall);
-		Log.d(TAG, "item qty large " + item.quantityLarge);
-		checkoutList.add(item);
 
-		for (Item i : checkoutList) {
-			Log.w(TAG, "item qty small " + i.quantitySmall);
-			Log.w(TAG, "item qty large " + i.quantityLarge);
+		Item it = getItemByTag(item.largetag);
+
+		if (it != null) {
+			it.quantityLarge += item.quantityLarge;
+			it.quantitySmall += item.quantitySmall;
+		} else {
+			checkoutList.add(item);
+		}
+
+	}
+
+	public void removeCheckoutListItem(int tag) {
+
+		for (Item item : checkoutList) {
+			if (item.largetag == tag) {
+				if (--item.quantityLarge == 0 && item.quantitySmall == 0) {
+					checkoutList.remove(item);
+				}
+			} else if (item.smalltag == tag) {
+				if (item.quantityLarge == 0 && --item.quantitySmall == 0) {
+					checkoutList.remove(item);
+				}
+			}
 		}
 	}
 
@@ -143,6 +161,16 @@ public class DataManager {
 
 	public void setLanguage(String language) {
 		this.language = language;
+	}
+
+	public Item getItemByTag(int tag) {
+
+		for (Item item : checkoutList) {
+			if (item.largetag == tag || item.smalltag == tag)
+				return item;
+		}
+
+		return null;
 	}
 
 }

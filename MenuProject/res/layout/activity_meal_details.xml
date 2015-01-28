@@ -31,7 +31,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp" >
 
-                <TextView
+                <com.s7design.menu.views.MenuTextView
                     android:id="@+id/tv1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -39,41 +39,48 @@
                     android:layout_centerVertical="true"
                     android:text="@string/meal_details_order_large"
                     android:textColor="@color/menu_main_orange"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <TextView
+                <com.s7design.menu.views.MenuTextView
                     android:id="@+id/textviewMealDetailsActivityOrderLargePrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
                     android:layout_toRightOf="@+id/tv1"
-                    android:textColor="@color/menu_main_orange" />
+                    android:textColor="@color/menu_main_orange"
+                    android:textSize="18sp" />
 
-                <ImageButton
-                    android:id="@+id/imagebuttonMealDetailsActivityOrderLargeRemoveOrder"
+                <com.s7design.menu.views.CircleButtonView
+                    android:id="@+id/circleButtonViewMinusLarge"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@+id/textviewMealDetailsActivityOrderLargeQuantity" />
+                    android:layout_toLeftOf="@+id/textviewMealDetailsActivityOrderLargeQuantity"
+                    android:visibility="invisible" >
+                </com.s7design.menu.views.CircleButtonView>
 
-                <TextView
+                <com.s7design.menu.views.MenuTextView
                     android:id="@+id/textviewMealDetailsActivityOrderLargeQuantity"
-                    android:layout_width="wrap_content"
+                    android:layout_width="20dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_toLeftOf="@+id/imagebuttonMealDetailsActivityOrderLargeAddOrder"
+                    android:layout_toLeftOf="@+id/circleButtonViewPlusLarge"
                     android:gravity="center"
-                    android:textColor="@color/menu_main_orange" />
+                    android:textColor="@color/menu_main_orange"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:visibility="invisible" />
 
-                <ImageButton
-                    android:id="@+id/imagebuttonMealDetailsActivityOrderLargeAddOrder"
+                <com.s7design.menu.views.CircleButtonView
+                    android:id="@+id/circleButtonViewPlusLarge"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true" />
+                    android:visibility="invisible" >
+                </com.s7design.menu.views.CircleButtonView>
             </RelativeLayout>
 
             <View
@@ -88,52 +95,56 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp" >
 
-                <TextView
+                <com.s7design.menu.views.MenuTextView
                     android:id="@+id/tv2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/meal_details_order_large"
+                    android:text="@string/meal_details_order_small"
                     android:textColor="@color/menu_main_gray"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <TextView
+                <com.s7design.menu.views.MenuTextView
                     android:id="@+id/textviewMealDetailsActivityOrderSmallPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
                     android:layout_toRightOf="@+id/tv2"
-                    android:textColor="@color/menu_main_gray" />
+                    android:textColor="@color/menu_main_gray"
+                    android:textSize="18sp" />
 
-                <ImageButton
-                    android:id="@+id/imagebuttonMealDetailsActivityOrderSmallRemoveOrder"
+                <com.s7design.menu.views.CircleButtonView
+                    android:id="@+id/circleButtonViewMinusSmall"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/textviewMealDetailsActivityOrderSmallQuantity"
-                    android:visibility="invisible" />
+                    android:visibility="invisible" >
+                </com.s7design.menu.views.CircleButtonView>
 
                 <TextView
                     android:id="@+id/textviewMealDetailsActivityOrderSmallQuantity"
-                    android:layout_width="wrap_content"
+                    android:layout_width="20dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_toLeftOf="@+id/imagebuttonMealDetailsActivityOrderSmallAddOrder"
+                    android:layout_toLeftOf="@+id/circleButtonViewPlusSmall"
                     android:gravity="center"
-                    android:text="2"
-                    android:textColor="@color/menu_main_orange"
+                    android:textColor="@color/menu_main_gray"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     android:visibility="invisible" />
 
-                <ImageButton
-                    android:id="@+id/imagebuttonMealDetailsActivityOrderSmallAddOrder"
+                <com.s7design.menu.views.CircleButtonView
+                    android:id="@+id/circleButtonViewPlusSmall"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true" />
+                    android:visibility="invisible" >
+                </com.s7design.menu.views.CircleButtonView>
             </RelativeLayout>
 
             <View
@@ -143,12 +154,12 @@
                 android:alpha="0.5"
                 android:background="@color/menu_main_gray" />
 
-            <TextView
+            <com.s7design.menu.views.MenuTextView
                 android:id="@+id/textviewMealDetailsActivityDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/menu_main_gray"
-                android:textSize="17sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <RelativeLayout
@@ -163,7 +174,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true" />
 
-                <TextView
+                <com.s7design.menu.views.MenuTextView
                     android:id="@+id/textviewMealDetailsActivityReceiptText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -174,14 +185,14 @@
                     android:textSize="12sp" />
             </RelativeLayout>
 
-            <TextView
+            <com.s7design.menu.views.MenuTextView
                 android:id="@+id/textviewMealDetailsActivityIngridients"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textAllCaps="true"
                 android:textColor="@color/menu_main_orange"
-                android:textStyle="bold" />
+                android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
 
