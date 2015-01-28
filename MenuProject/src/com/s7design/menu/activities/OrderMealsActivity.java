@@ -16,7 +16,7 @@ import com.android.volley.Response.Listener;
 import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
 import com.s7design.menu.dataclasses.Item;
-import com.s7design.menu.utils.CustomMenuMealCategorySubTypeExpandable;
+import com.s7design.menu.views.CustomMenuMealCategorySubTypeExpandable;
 import com.s7design.menu.volley.VolleySingleton;
 import com.s7design.menu.volley.requests.GetAllItemsInCategoryRequest;
 import com.s7design.menu.volley.responses.GetAllItemsInCategoryResponse;
@@ -66,6 +66,16 @@ public class OrderMealsActivity extends BaseActivity {
 		VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		if (mContainer != null) {
+			mContainer.removeAllViews();
+			initData();
+		}
+	}
+
 	private void initViews() {
 
 		mContainer = (LinearLayout) findViewById(R.id.scrollviewOrderMealsActivityLinearContainer);
@@ -73,7 +83,7 @@ public class OrderMealsActivity extends BaseActivity {
 	}
 
 	private void initActionBar() {
-    	isOrderListEmpty = Menu.getInstance().getDataManager().getCheckoutList().size() == 0 ? true : false;
+		isOrderListEmpty = Menu.getInstance().getDataManager().getCheckoutList().size() == 0 ? true : false;
 
 		setActionBarForwardButtonText(R.string.action_bar_checkout);
 
@@ -89,13 +99,13 @@ public class OrderMealsActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-			    	isOrderListEmpty = Menu.getInstance().getDataManager().getCheckoutList().size() == 0 ? true : false;
+				isOrderListEmpty = Menu.getInstance().getDataManager().getCheckoutList().size() == 0 ? true : false;
 
-			    	if(isOrderListEmpty){
-			    	    showAlertDialog("", getResources().getString(R.string.error_checkout_list_empty));
-			    	    return;
-			    	}
-			    
+				if (isOrderListEmpty) {
+					showAlertDialog("", getResources().getString(R.string.error_checkout_list_empty));
+					return;
+				}
+
 				if (Menu.getInstance().getDataManager().getCheckoutList() != null)
 					startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
 			}

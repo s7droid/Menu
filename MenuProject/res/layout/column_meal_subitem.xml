@@ -70,7 +70,7 @@
                     android:alpha="0.5"
                     android:text=" / "
                     android:textSize="13sp" />
-                
+
                 <com.s7design.menu.views.MenuTextView
                     android:id="@+id/textviewSubMealSmallPrice"
                     android:layout_width="wrap_content"
@@ -106,7 +106,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/rounded_gray_button_selector"
-                    android:text="@string/category_meals_add_large"
+                    android:text="@string/category_meals_add_small"
                     android:textColor="@drawable/gray_text_selector"
                     android:textSize="12sp" />
             </LinearLayout>

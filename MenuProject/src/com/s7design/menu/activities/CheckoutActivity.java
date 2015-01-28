@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -35,10 +36,13 @@ import com.s7design.menu.dataclasses.DataManager;
 import com.s7design.menu.dataclasses.Item;
 import com.s7design.menu.dataclasses.Rate;
 import com.s7design.menu.utils.Settings;
+import com.s7design.menu.utils.Utils;
 import com.s7design.menu.views.CircleButtonView;
 import com.s7design.menu.volley.VolleySingleton;
 import com.s7design.menu.volley.requests.OrderRequest;
+import com.s7design.menu.volley.requests.SendReceiptByEmailRequest;
 import com.s7design.menu.volley.responses.OrderResponse;
+import com.s7design.menu.volley.responses.SendReceiptByEmailResponse;
 
 public class CheckoutActivity extends BaseActivity {
 
@@ -65,7 +69,7 @@ public class CheckoutActivity extends BaseActivity {
 	private TextView textViewSubtotal;
 	private TextView textViewTax;
 	private TextView textViewTip;
-	private TextView textViewSendEmail;
+	private Button buttonReceiptListItemSendMessage;
 	private TextView textViewMinTip;
 	private TextView textViewMaxTip;
 
@@ -84,6 +88,8 @@ public class CheckoutActivity extends BaseActivity {
 	private DataManager data;
 
 	private static final int REQUEST_LOGIN = 123;
+
+	private OrderResponse orderResponse;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -116,10 +122,11 @@ public class CheckoutActivity extends BaseActivity {
 	private void initData() {
 
 		Rate rate = data.getRate();
-		tax = rate.tax;
-		minTip = rate.mintip;
-		maxTip = rate.maxtip;
-		discount = data.getDiscount();
+		tax = Utils.round(rate.tax, 2);
+		minTip = Utils.round(rate.mintip, 2);
+		maxTip = Utils.round(rate.maxtip, 2);
+		discount = Utils.round(data.getDiscount(), 2);
+		Log.d(TAG, "discount 1 " + discount);
 		currency = data.getCurrency();
 	}
 
@@ -157,7 +164,7 @@ public class CheckoutActivity extends BaseActivity {
 		textViewSubtotal = (TextView) findViewById(R.id.textViewSubtotal);
 		textViewTax = (TextView) findViewById(R.id.textViewTax);
 		textViewTip = (TextView) findViewById(R.id.textViewTip);
-		textViewSendEmail = (TextView) findViewById(R.id.buttonSendEmail);
+		buttonReceiptListItemSendMessage = (Button) findViewById(R.id.buttonReceiptListItemSendMessage);
 		textViewMinTip = (TextView) findViewById(R.id.textViewMinTip);
 		textViewMaxTip = (TextView) findViewById(R.id.textViewMaxTip);
 
@@ -224,10 +231,11 @@ public class CheckoutActivity extends BaseActivity {
 
 	private void setData() {
 
-		totalTax = total * tax / 100;
-		totalTip = (total + totalTax) * tip / 100;
-		disc = (total + totalTax + totalTip) * discount / 100;
-		totalPrice = total + totalTax + totalTip - disc;
+		totalTax = Utils.round(total * tax / 100, 2);
+		totalTip = Utils.round(total * tip / 100, 2);
+		disc = Utils.round(total * discount / 100, 2);
+		Log.d(TAG, "disc 1 " + disc);
+		totalPrice = Utils.round(total + totalTip - disc, 2);
 
 		textViewTipPercent.setText(tip + "% - " + currency + String.format("%.2f", totalTip));
 
@@ -246,7 +254,7 @@ public class CheckoutActivity extends BaseActivity {
 	private void onSuccessfulCheckout() {
 
 		textViewDesc.setVisibility(View.VISIBLE);
-		textViewSendEmail.setVisibility(View.VISIBLE);
+		buttonReceiptListItemSendMessage.setVisibility(View.VISIBLE);
 		layoutAddMore.setVisibility(View.GONE);
 		layoutSeekBar.setVisibility(View.GONE);
 		layoutDiscount.setVisibility(View.GONE);
@@ -256,6 +264,13 @@ public class CheckoutActivity extends BaseActivity {
 		textViewTotal.setTextColor(getResources().getColor(R.color.menu_main_gray));
 		setActionBarForwardButtonText(R.string.action_bar_receipt);
 		buttonCheckout.setText(R.string.checkout_enjoy);
+		buttonCheckout.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+			}
+		});
 
 		String thankYou = getString(R.string.checkout_thank_you_for_order);
 		SpannableStringBuilder ssb = new SpannableStringBuilder(thankYou + " " + getString(R.string.checkout_receipt_sent));
@@ -265,10 +280,38 @@ public class CheckoutActivity extends BaseActivity {
 
 		textViewDesc.setText(ssb);
 
-		textViewSendEmail.setOnClickListener(new OnClickListener() {
+		adapter = new Adapter(this, checkoutList);
+		adapter.disableClicks();
+		listView.setAdapter(adapter);
+		listView.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
+
+			@Override
+			public void onGlobalLayout() {
+				checkoutList.clear();
+			}
+		});
+
+		buttonReceiptListItemSendMessage.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 
+				showProgressDialogLoading();
+
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("accesstoken", Settings.getAccessToken(CheckoutActivity.this));
+				params.put("receiptid", orderResponse.receiptid);
+				SendReceiptByEmailRequest sendEmailRequest = new SendReceiptByEmailRequest(CheckoutActivity.this, params, new Listener<SendReceiptByEmailResponse>() {
+
+					@Override
+					public void onResponse(SendReceiptByEmailResponse response) {
+
+						if (response.response != null && response.response.equals("success")) {
+							dismissProgressDialog();
+						}
+					}
+				});
+
+				VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(sendEmailRequest);
 			}
 		});
 	}
@@ -311,79 +354,86 @@ public class CheckoutActivity extends BaseActivity {
 			@Override
 			public void onResponse(final OrderResponse response) {
 
-				new AsyncTask<Void, Void, Boolean>() {
+				if (response.response != null && response.response.equals("success")) {
+					new AsyncTask<Void, Void, Boolean>() {
 
-					@Override
-					protected Boolean doInBackground(Void... params) {
+						@Override
+						protected Boolean doInBackground(Void... params) {
 
-						final CountDownLatch countDownLatch = new CountDownLatch(checkoutList.size());
+							final CountDownLatch countDownLatch = new CountDownLatch(checkoutList.size());
 
-						for (Item item : checkoutList) {
-							Map<String, String> itemParams = new HashMap<String, String>();
-							itemParams.put("type", "addtoorder");
-							itemParams.put("major", data.getMajor());
-							itemParams.put("minor", data.getMinor());
-							itemParams.put("language", data.getLanguage());
-							itemParams.put("tag", String.valueOf(item.quantitySmall > 0 ? item.smalltag : item.largetag));
-							itemParams.put("amount", String.valueOf(item.quantitySmall > 0 ? item.quantitySmall : item.quantityLarge));
-							itemParams.put("orderid", response.orderid);
-							itemParams.put("accesstoken", Settings.getAccessToken(CheckoutActivity.this));
+							for (Item item : checkoutList) {
+								Map<String, String> itemParams = new HashMap<String, String>();
+								itemParams.put("type", "addtoorder");
+								itemParams.put("major", data.getMajor());
+								itemParams.put("minor", data.getMinor());
+								itemParams.put("language", data.getLanguage());
+								itemParams.put("tag", String.valueOf(item.quantitySmall > 0 ? item.smalltag : item.largetag));
+								itemParams.put("amount", String.valueOf(item.quantitySmall > 0 ? item.quantitySmall : item.quantityLarge));
+								itemParams.put("orderid", response.orderid);
+								itemParams.put("accesstoken", Settings.getAccessToken(CheckoutActivity.this));
 
-							System.out.println("tag= " + String.valueOf(item.quantitySmall > 0 ? item.smalltag : item.largetag));
+								System.out.println("tag= " + String.valueOf(item.quantitySmall > 0 ? item.smalltag : item.largetag));
 
-							OrderRequest itemRequest = new OrderRequest(CheckoutActivity.this, itemParams, new Listener<OrderResponse>() {
+								OrderRequest itemRequest = new OrderRequest(CheckoutActivity.this, itemParams, new Listener<OrderResponse>() {
 
-								@Override
-								public void onResponse(OrderResponse response) {
+									@Override
+									public void onResponse(OrderResponse response) {
 
-									if (response.response != null && response.response.equals("success"))
-										countDownLatch.countDown();
-								}
-							});
+										if (response.response != null && response.response.equals("success"))
+											countDownLatch.countDown();
+									}
+								});
 
-							VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(itemRequest);
+								VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(itemRequest);
+							}
+
+							boolean success = false;
+							try {
+								success = countDownLatch.await(20000, TimeUnit.MILLISECONDS);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+
+							return success;
 						}
 
-						boolean success = false;
-						try {
-							success = countDownLatch.await(20000, TimeUnit.MILLISECONDS);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
+						@Override
+						protected void onPostExecute(Boolean result) {
+
+							if (result) {
+
+								Map<String, String> executeParams = new HashMap<String, String>();
+								executeParams.put("type", "execute");
+								executeParams.put("major", data.getMajor());
+								executeParams.put("minor", data.getMinor());
+								executeParams.put("language", data.getLanguage());
+								executeParams.put("orderid", response.orderid);
+								executeParams.put("accesstoken", Settings.getAccessToken(CheckoutActivity.this));
+
+								OrderRequest executeRequest = new OrderRequest(CheckoutActivity.this, executeParams, new Listener<OrderResponse>() {
+
+									@Override
+									public void onResponse(OrderResponse response) {
+
+										if (response.response != null && response.response.equals("success")) {
+											orderResponse = response;
+											dismissProgressDialog();
+											// showAlertDialog(R.string.dialog_title_success,
+											// R.string.dialog_order_successful);
+											onSuccessfulCheckout();
+										}
+									}
+								});
+
+								VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(executeRequest);
+
+							} else {
+								Log.d(TAG, "latch said false");
+							}
 						}
-
-						return success;
-					}
-
-					@Override
-					protected void onPostExecute(Boolean result) {
-
-						if (result) {
-
-							Map<String, String> executeParams = new HashMap<String, String>();
-							executeParams.put("type", "execute");
-							executeParams.put("major", data.getMajor());
-							executeParams.put("minor", data.getMinor());
-							executeParams.put("language", data.getLanguage());
-							executeParams.put("orderid", response.orderid);
-							executeParams.put("accesstoken", Settings.getAccessToken(CheckoutActivity.this));
-
-							OrderRequest executeRequest = new OrderRequest(CheckoutActivity.this, executeParams, new Listener<OrderResponse>() {
-
-								@Override
-								public void onResponse(OrderResponse response) {
-
-									dismissProgressDialog();
-									showAlertDialog(R.string.dialog_title_success, R.string.dialog_order_successful);
-								}
-							});
-
-							VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(executeRequest);
-
-						} else {
-							Log.d(TAG, "latch said false");
-						}
-					}
-				}.execute();
+					}.execute();
+				}
 
 			}
 		});
@@ -395,6 +445,7 @@ public class CheckoutActivity extends BaseActivity {
 
 		private LayoutInflater layoutInflater;
 		private ArrayList<Item> checkoutList;
+		private boolean disableClicks = false;
 
 		public Adapter(Context context, ArrayList<Item> checkoutList) {
 			this.checkoutList = checkoutList;
@@ -459,70 +510,84 @@ public class CheckoutActivity extends BaseActivity {
 			holder.textViewQty.setText(String.valueOf(isSmall ? item.quantitySmall : item.quantityLarge));
 			holder.textViewIsSmall.setVisibility(isSmall ? View.VISIBLE : View.GONE);
 
-			convertView.setOnClickListener(new OnClickListener() {
+			if (!disableClicks) {
+				convertView.setOnClickListener(new OnClickListener() {
 
-				@Override
-				public void onClick(View v) {
-					ViewHolder holder = (ViewHolder) v.getTag();
-					if (holder.layoutName.getVisibility() == View.VISIBLE) {
-						holder.layoutName.setVisibility(View.GONE);
-						holder.layoutMinusPlus.setVisibility(View.VISIBLE);
+					@Override
+					public void onClick(View v) {
+						ViewHolder holder = (ViewHolder) v.getTag();
+						if (holder.layoutName.getVisibility() == View.VISIBLE) {
+							holder.layoutName.setVisibility(View.GONE);
+							holder.layoutMinusPlus.setVisibility(View.VISIBLE);
+						}
 					}
-				}
-			});
+				});
+			}
 
-			holder.buttonDone.setTag(holder);
-			holder.buttonDone.setOnClickListener(new OnClickListener() {
+			if (!disableClicks) {
+				holder.buttonDone.setTag(holder);
+				holder.buttonDone.setOnClickListener(new OnClickListener() {
 
-				@Override
-				public void onClick(View v) {
-					ViewHolder holder = (ViewHolder) v.getTag();
-					holder.layoutMinusPlus.setVisibility(View.GONE);
-					holder.layoutName.setVisibility(View.VISIBLE);
-					holder.circleButtonViewQty.setAsQty(holder.isSmall ? getItem(holder.position).quantitySmall : getItem(holder.position).quantityLarge);
-				}
-			});
+					@Override
+					public void onClick(View v) {
+						ViewHolder holder = (ViewHolder) v.getTag();
+						holder.layoutMinusPlus.setVisibility(View.GONE);
+						holder.layoutName.setVisibility(View.VISIBLE);
+						holder.circleButtonViewQty.setAsQty(holder.isSmall ? getItem(holder.position).quantitySmall : getItem(holder.position).quantityLarge);
+					}
+				});
+			}
 
-			holder.circleButtonViewMinus.setTag(holder);
-			holder.circleButtonViewMinus.setOnClickListener(new OnClickListener() {
+			if (!disableClicks) {
+				holder.circleButtonViewMinus.setTag(holder);
+				holder.circleButtonViewMinus.setOnClickListener(new OnClickListener() {
 
-				@Override
-				public void onClick(View v) {
-					ViewHolder holder = (ViewHolder) v.getTag();
-					int qty = holder.isSmall ? getItem(holder.position).quantitySmall : getItem(holder.position).quantityLarge;
-					if (qty > 1) {
-						holder.textViewQty.setText(String.valueOf(holder.isSmall ? --getItem(holder.position).quantitySmall : --getItem(holder.position).quantityLarge));
+					@Override
+					public void onClick(View v) {
+						ViewHolder holder = (ViewHolder) v.getTag();
+						int qty = holder.isSmall ? getItem(holder.position).quantitySmall : getItem(holder.position).quantityLarge;
+						if (qty > 1) {
+							holder.textViewQty.setText(String.valueOf(holder.isSmall ? --getItem(holder.position).quantitySmall : --getItem(holder.position).quantityLarge));
+							refreshList();
+						}
+					}
+				});
+			}
+
+			if (!disableClicks) {
+				holder.circleButtonViewPlus.setTag(holder);
+				holder.circleButtonViewPlus.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						ViewHolder holder = (ViewHolder) v.getTag();
+						int qty = holder.isSmall ? getItem(holder.position).quantitySmall : getItem(holder.position).quantityLarge;
+						if (qty < 99) {
+							holder.textViewQty.setText(String.valueOf(holder.isSmall ? ++getItem(holder.position).quantitySmall : ++getItem(holder.position).quantityLarge));
+							refreshList();
+						}
+					}
+				});
+			}
+
+			if (!disableClicks) {
+				holder.circleButtonViewDel.setTag(holder);
+				holder.circleButtonViewDel.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						ViewHolder holder = (ViewHolder) v.getTag();
+						checkoutList.remove(holder.position);
 						refreshList();
 					}
-				}
-			});
-
-			holder.circleButtonViewPlus.setTag(holder);
-			holder.circleButtonViewPlus.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					ViewHolder holder = (ViewHolder) v.getTag();
-					int qty = holder.isSmall ? getItem(holder.position).quantitySmall : getItem(holder.position).quantityLarge;
-					if (qty < 99) {
-						holder.textViewQty.setText(String.valueOf(holder.isSmall ? ++getItem(holder.position).quantitySmall : ++getItem(holder.position).quantityLarge));
-						refreshList();
-					}
-				}
-			});
-
-			holder.circleButtonViewDel.setTag(holder);
-			holder.circleButtonViewDel.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					ViewHolder holder = (ViewHolder) v.getTag();
-					checkoutList.remove(holder.position);
-					refreshList();
-				}
-			});
+				});
+			}
 
 			return convertView;
+		}
+
+		public void disableClicks() {
+			disableClicks = true;
 		}
 
 		class ViewHolder {

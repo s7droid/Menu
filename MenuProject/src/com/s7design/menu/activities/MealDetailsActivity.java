@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,7 +14,9 @@ import android.widget.TextView;
 import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.NetworkImageView;
 import com.s7design.menu.R;
+import com.s7design.menu.app.Menu;
 import com.s7design.menu.dataclasses.Item;
+import com.s7design.menu.views.CircleButtonView;
 import com.s7design.menu.volley.VolleySingleton;
 import com.s7design.menu.volley.requests.GetItemInfoRequest;
 import com.s7design.menu.volley.responses.GetItemInfoResponse;
@@ -34,13 +37,15 @@ public class MealDetailsActivity extends BaseActivity {
 	private TextView mOrderLargeQuantityTextView;
 	private TextView mOrderSmallQuantityTextView;
 	private TextView mReceiptTextView;
-	private ImageButton mOrderSmallPlusImageButton;
-	private ImageButton mOrderSmallMinusImageButton;
-	private ImageButton mOrderBigPlusImageButton;
-	private ImageButton mOrderBigMinusImageButton;
 	private ImageButton mGetReceiptImageButton;
+	private CircleButtonView circleButtonViewMinusLarge;
+	private CircleButtonView circleButtonViewPlusLarge;
+	private CircleButtonView circleButtonViewMinusSmall;
+	private CircleButtonView circleButtonViewPlusSmall;
 
 	private Item item;
+
+	private String currency;
 
 	// DATA
 
@@ -86,39 +91,18 @@ public class MealDetailsActivity extends BaseActivity {
 		mOrderSmallPriceTextView = (TextView) findViewById(R.id.textviewMealDetailsActivityOrderSmallPrice);
 		mOrderLargeQuantityTextView = (TextView) findViewById(R.id.textviewMealDetailsActivityOrderLargeQuantity);
 		mOrderSmallQuantityTextView = (TextView) findViewById(R.id.textviewMealDetailsActivityOrderSmallQuantity);
-		mOrderSmallPlusImageButton = (ImageButton) findViewById(R.id.imagebuttonMealDetailsActivityOrderSmallAddOrder);
-		mOrderSmallMinusImageButton = (ImageButton) findViewById(R.id.imagebuttonMealDetailsActivityOrderSmallRemoveOrder);
-		mOrderBigPlusImageButton = (ImageButton) findViewById(R.id.imagebuttonMealDetailsActivityOrderLargeAddOrder);
-		mOrderBigMinusImageButton = (ImageButton) findViewById(R.id.imagebuttonMealDetailsActivityOrderLargeRemoveOrder);
+		circleButtonViewMinusLarge = (CircleButtonView) findViewById(R.id.circleButtonViewMinusLarge);
+		circleButtonViewPlusLarge = (CircleButtonView) findViewById(R.id.circleButtonViewPlusLarge);
+		circleButtonViewMinusSmall = (CircleButtonView) findViewById(R.id.circleButtonViewMinusSmall);
+		circleButtonViewPlusSmall = (CircleButtonView) findViewById(R.id.circleButtonViewPlusSmall);
 		mGetReceiptImageButton = (ImageButton) findViewById(R.id.imagebuttonMealDetailsActivityGetReceipt);
 
-		mOrderSmallMinusImageButton.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-			}
-		});
-
-		mOrderSmallPlusImageButton.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-			}
-		});
-
-		mOrderBigMinusImageButton.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-			}
-		});
-
-		mOrderBigPlusImageButton.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-			}
-		});
+		circleButtonViewMinusLarge.setAsRemove();
+		circleButtonViewMinusLarge.setAsOrange();
+		circleButtonViewPlusLarge.setAsAdd();
+		circleButtonViewPlusLarge.setAsOrange();
+		circleButtonViewMinusSmall.setAsRemove();
+		circleButtonViewPlusSmall.setAsAdd();
 
 		mGetReceiptImageButton.setOnClickListener(new OnClickListener() {
 
@@ -148,12 +132,13 @@ public class MealDetailsActivity extends BaseActivity {
 				}
 
 				dismissProgressDialog();
-
 			}
 		});
 
 		showProgressDialogLoading();
 		VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+
+		currency = Menu.getInstance().getDataManager().getCurrency();
 	}
 
 	private void setData() {
@@ -166,8 +151,89 @@ public class MealDetailsActivity extends BaseActivity {
 		mMealImageImageView.setImageUrl(item.image, VolleySingleton.getInstance(getApplicationContext()).getImageLoader());
 		mMealDescriptionTextView.setText(item.description);
 		mMealIngridientsTextView.setText(item.ingredients);
-		mOrderSmallPriceTextView.setText(String.valueOf(item.smallprice));
-		mOrderLargePriceTextView.setText(String.valueOf(item.largeprice));
+		mOrderSmallPriceTextView.setText(currency + String.valueOf(item.smallprice));
+		mOrderLargePriceTextView.setText(currency + String.valueOf(item.largeprice));
+		circleButtonViewPlusLarge.setVisibility(View.VISIBLE);
+		circleButtonViewPlusSmall.setVisibility(View.VISIBLE);
+
+		Item itemCOL = Menu.getInstance().getDataManager().getItemByTag(getIntent().getIntExtra(INTENT_EXTRA_TAG, 0));
+
+		if (itemCOL != null) {
+
+			item.quantityLarge = itemCOL.quantityLarge;
+			item.quantitySmall = itemCOL.quantitySmall;
+
+			if (item.quantityLarge > 0) {
+				circleButtonViewMinusLarge.setVisibility(View.VISIBLE);
+				mOrderLargeQuantityTextView.setVisibility(View.VISIBLE);
+				mOrderLargeQuantityTextView.setText(String.valueOf(item.quantityLarge));
+			}
+			if (item.quantitySmall > 0) {
+				circleButtonViewMinusSmall.setVisibility(View.VISIBLE);
+				mOrderSmallQuantityTextView.setVisibility(View.VISIBLE);
+				mOrderSmallQuantityTextView.setText(String.valueOf(item.quantitySmall));
+			}
+		}
+
+		circleButtonViewPlusLarge.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				if (item.quantityLarge == 0) {
+					circleButtonViewMinusLarge.setVisibility(View.VISIBLE);
+					mOrderLargeQuantityTextView.setVisibility(View.VISIBLE);
+
+				}
+				mOrderLargeQuantityTextView.setText(String.valueOf((item.quantityLarge) + 1));
+				Menu.getInstance().getDataManager().addCheckoutListItem(item.getLarge());
+			}
+		});
+
+		circleButtonViewPlusSmall.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				if (item.quantitySmall == 0) {
+					circleButtonViewMinusSmall.setVisibility(View.VISIBLE);
+					mOrderSmallQuantityTextView.setVisibility(View.VISIBLE);
+
+				}
+				mOrderSmallQuantityTextView.setText(String.valueOf((item.quantitySmall) + 1));
+				Menu.getInstance().getDataManager().addCheckoutListItem(item.getSmall());
+			}
+		});
+
+		circleButtonViewMinusLarge.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				if (item.quantityLarge == 1) {
+					circleButtonViewMinusLarge.setVisibility(View.INVISIBLE);
+					mOrderLargeQuantityTextView.setVisibility(View.INVISIBLE);
+
+				}
+				mOrderLargeQuantityTextView.setText(String.valueOf((item.quantityLarge)));
+				Menu.getInstance().getDataManager().removeCheckoutListItem(item.largetag);
+			}
+		});
+
+		circleButtonViewMinusSmall.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				if (item.quantitySmall == 1) {
+					circleButtonViewMinusSmall.setVisibility(View.INVISIBLE);
+					mOrderSmallQuantityTextView.setVisibility(View.INVISIBLE);
+
+				}
+				mOrderSmallQuantityTextView.setText(String.valueOf((item.quantitySmall)));
+				Menu.getInstance().getDataManager().removeCheckoutListItem(item.smalltag);
+			}
+		});
 
 	}
 

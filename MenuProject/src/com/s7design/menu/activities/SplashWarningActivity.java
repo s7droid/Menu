@@ -10,6 +10,7 @@ import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ public class SplashWarningActivity extends BaseActivity {
 	private TextView textViewBody;
 	private TextView textViewDesc;
 	private LinearLayout layoutContainer;
+	private Button buttonEnableLocationServices;
 
 	private static final int SWIPE_MIN_DISTANCE = 120;
 	private static final int SWIPE_MAX_OFF_PATH = 250;
@@ -48,6 +50,7 @@ public class SplashWarningActivity extends BaseActivity {
 		textViewBody = (TextView) findViewById(R.id.textViewBody);
 		textViewDesc = (TextView) findViewById(R.id.textViewDesc);
 		layoutContainer = (LinearLayout) findViewById(R.id.layoutContainer);
+		buttonEnableLocationServices = (Button) findViewById(R.id.buttonEnableLocationServices);
 
 		int start = getIntent().getIntExtra(INTENT_EXTRA_TAG_START, 0);
 
@@ -79,6 +82,16 @@ public class SplashWarningActivity extends BaseActivity {
 			ssb2.setSpan(bss2, normal.length(), normal.length() + bold2.length() + 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
 			textViewDesc.setText(ssb2);
+
+			buttonEnableLocationServices.setVisibility(View.VISIBLE);
+			buttonEnableLocationServices.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+
+					startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+				}
+			});
 
 		} else if (start == INTENT_EXTRA_START_BLUETOOTH) {
 

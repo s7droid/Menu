@@ -32,4 +32,18 @@
         android:textColor="@color/white"
         android:textSize="16sp" />
 
+    <com.s7design.menu.views.MenuButton
+        android:id="@+id/buttonEnableLocationServices"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginTop="150dp"
+        android:background="@drawable/rounded_white_button_selector"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="@string/splash_screen_enable_location_services"
+        android:textColor="@drawable/white_text_selector"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
 </LinearLayout>

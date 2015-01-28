@@ -50,7 +50,7 @@ public class CategoryMealsActivity extends BaseActivity {
 		setContentView(R.layout.activity_category_meals);
 
 		initActionBar();
-		
+
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("major", "1");
 		params.put("minor", "1");

@@ -14,18 +14,18 @@
         android:layout_marginTop="20dp"
         android:visibility="gone" />
 
-    <com.s7design.menu.views.MenuTextView
-        android:id="@+id/textViewSendEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+    <com.s7design.menu.views.MenuButton
+        android:id="@+id/buttonReceiptListItemSendMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="5dp"
-        android:text="SEND TO EMAIL"
-        android:textColor="@color/menu_main_orange"
-        android:textSize="15sp"
-        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_orange_button_selector"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/receipt_send_to_email"
+        android:textColor="@drawable/orange_text_selector"
+        android:textSize="12sp"
         android:visibility="gone" />
 
     <ListView

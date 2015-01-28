@@ -179,7 +179,7 @@
         style="@style/Menu_Button_Orange"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/sendEmail"
+        android:text="@string/receipt_send_to_email"
         android:textStyle="bold" />
 
 </LinearLayout>
