@@ -5,262 +5,276 @@
     android:background="@android:color/white"
     android:orientation="vertical" >
 
-    <!-- <ImageView -->
-    <!-- android:id="@+id/iv1" -->
-    <!-- android:layout_width="match_parent" -->
-    <!-- android:layout_height="45dp" -->
-    <!-- android:layout_marginTop="30dp" -->
-    <!-- android:src="@drawable/logo_menu_small" /> -->
-
-    <LinearLayout
-        android:id="@+id/ll1"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/iv1"
-        android:layout_marginBottom="50dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="30dp"
-        android:orientation="vertical" >
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:alpha="0.5"
-            android:background="@color/menu_main_gray" />
-
-        <com.s7design.menu.views.MenuEditText
-            android:id="@+id/edittextSignUpActivityNickname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/sign_in_edittext_shape"
-            android:hint="@string/sign_in_nickname_hint_text"
-            android:inputType="textEmailAddress"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:singleLine="true"
-            android:textColor="@color/menu_main_gray" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:alpha="0.5"
-            android:background="@color/menu_main_gray" />
-
-        <com.s7design.menu.views.MenuEditText
-            android:id="@+id/edittextSignUpActivityEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/sign_in_edittext_shape"
-            android:hint="@string/sign_in_username_hint_text"
-            android:inputType="textEmailAddress"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:singleLine="true"
-            android:textColor="@color/menu_main_gray" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:alpha="0.5"
-            android:background="@color/menu_main_gray" />
+        android:layout_height="wrap_content" >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="match_parent"
+            android:background="@android:color/white" >
 
-            <com.s7design.menu.views.MenuEditText
-                android:id="@+id/edittextSignUpActivityPassword"
+            <LinearLayout
+                android:id="@+id/ll1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/buttonSignUpActivityHide"
-                android:layout_weight="1"
-                android:background="@drawable/sign_in_edittext_shape"
-                android:hint="@string/sign_in_password_hint_text"
-                android:inputType="textPassword"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:singleLine="true"
-                android:textColor="@color/menu_main_gray" />
+                android:layout_below="@+id/iv1"
+                android:layout_marginBottom="50dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical" >
 
-            <com.s7design.menu.views.MenuButton
-                android:id="@+id/buttonSignUpActivityHide"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_weight="1"
-                android:alpha="0.6"
-                android:background="@android:color/transparent"
-                android:gravity="center|right"
-                android:text="@string/sign_up_show_button"
-                android:textColor="@color/menu_main_gray" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:alpha="0.5"
+                    android:background="@color/menu_main_gray" />
+
+                <com.s7design.menu.views.MenuEditText
+                    android:id="@+id/edittextSignUpActivityNameOnCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/sign_in_edittext_shape"
+                    android:hint="@string/sign_in_first_name_hint_text"
+                    android:inputType="textEmailAddress"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:singleLine="true"
+                    android:textColor="@color/menu_main_gray" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:alpha="0.5"
+                    android:background="@color/menu_main_gray" />
+
+                <com.s7design.menu.views.MenuEditText
+                    android:id="@+id/edittextSignUpActivityEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/sign_in_edittext_shape"
+                    android:hint="@string/sign_in_username_hint_text"
+                    android:inputType="textEmailAddress"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:singleLine="true"
+                    android:textColor="@color/menu_main_gray" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:alpha="0.5"
+                    android:background="@color/menu_main_gray" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <com.s7design.menu.views.MenuEditText
+                        android:id="@+id/edittextSignUpActivityPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/buttonSignUpActivityHide"
+                        android:layout_weight="1"
+                        android:background="@drawable/sign_in_edittext_shape"
+                        android:hint="@string/sign_in_password_hint_text"
+                        android:inputType="textPassword"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:singleLine="true"
+                        android:textColor="@color/menu_main_gray" />
+
+                    <com.s7design.menu.views.MenuButton
+                        android:id="@+id/buttonSignUpActivityHide"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_weight="1"
+                        android:alpha="0.6"
+                        android:background="@android:color/transparent"
+                        android:gravity="center|right"
+                        android:text="@string/sign_up_show_button"
+                        android:textColor="@color/menu_main_gray" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:alpha="0.5"
+                    android:background="@color/menu_main_gray" />
+
+                <com.s7design.menu.views.MenuEditText
+                    android:id="@+id/edittextSignUpActivityRepeatPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/sign_in_edittext_shape"
+                    android:hint="@string/sign_up_repeat_password_hint_text"
+                    android:inputType="textPassword"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:singleLine="true"
+                    android:textColor="@color/menu_main_gray" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:alpha="0.5"
+                    android:background="@color/menu_main_gray" />
+
+                <com.s7design.menu.views.MenuTextView
+                    android:id="@+id/textviewSignUpScanTermsOfUse"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/menu_main_gray_light"
+                    android:lineSpacingExtra="2dp"
+                    android:textSize="12sp" />
+
+                <com.s7design.menu.views.MenuButton
+                    android:id="@+id/buttonSignUpScanCreditCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/rounded_orange_button_selector"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="@string/sign_up_scan_credit_card_hint_text"
+                    android:textColor="@drawable/orange_text_selector"
+                    android:textSize="10sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:alpha="0.5"
+                    android:background="@color/menu_main_gray" />
+
+                <com.s7design.menu.views.MenuEditText
+                    android:id="@+id/edittextSignUpActivityCardNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/sign_in_edittext_shape"
+                    android:hint="@string/sign_up_credit_card_number_hint_text"
+                    android:inputType="number"
+                    android:maxLength="19"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:singleLine="true"
+                    android:textColor="@color/menu_main_gray" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:alpha="0.5"
+                    android:background="@color/menu_main_gray" />
+
+                <!-- <com.s7design.menu.views.MenuEditText -->
+                <!-- android:id="@+id/edittextSignUpActivityNameOnCard" -->
+                <!-- android:layout_width="match_parent" -->
+                <!-- android:layout_height="wrap_content" -->
+                <!-- android:background="@drawable/sign_in_edittext_shape" -->
+                <!-- android:hint="@string/sign_up_name_on_card_hint_text" -->
+                <!-- android:inputType="textPersonName" -->
+                <!-- android:paddingBottom="10dp" -->
+                <!-- android:paddingTop="10dp" -->
+                <!-- android:singleLine="true" -->
+                <!-- android:textColor="@color/menu_main_gray" /> -->
+
+
+                <!-- <View -->
+                <!-- android:layout_width="match_parent" -->
+                <!-- android:layout_height="1dp" -->
+                <!-- android:alpha="0.5" -->
+                <!-- android:background="@color/menu_main_gray" /> -->
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <com.s7design.menu.views.MenuEditText
+                        android:id="@+id/edittextSignUpActivityMonth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/edittextSignUpActivityCCV"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignTop="@+id/edittextSignUpActivityCCV"
+                        android:layout_marginRight="15dp"
+                        android:background="@android:color/transparent"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:hint="MM"
+                        android:inputType="number"
+                        android:maxLength="2"
+                        android:singleLine="true"
+                        android:textColor="@color/menu_main_gray" />
+
+                    <com.s7design.menu.views.MenuEditText
+                        android:id="@+id/edittextSignUpActivityYear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/edittextSignUpActivityCCV"
+                        android:layout_alignTop="@+id/edittextSignUpActivityCCV"
+                        android:layout_marginRight="15dp"
+                        android:layout_toRightOf="@+id/edittextSignUpActivityMonth"
+                        android:background="@android:color/transparent"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:hint="YYYY"
+                        android:inputType="number"
+                        android:maxLength="4"
+                        android:singleLine="true"
+                        android:textColor="@color/menu_main_gray" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignLeft="@+id/edittextSignUpActivityMonth"
+                        android:layout_alignRight="@+id/edittextSignUpActivityMonth"
+                        android:layout_below="@+id/edittextSignUpActivityMonth"
+                        android:alpha="0.5"
+                        android:background="@color/menu_main_gray" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignLeft="@+id/edittextSignUpActivityYear"
+                        android:layout_alignRight="@+id/edittextSignUpActivityYear"
+                        android:layout_below="@+id/edittextSignUpActivityYear"
+                        android:alpha="0.5"
+                        android:background="@color/menu_main_gray" />
+
+                    <com.s7design.menu.views.MenuEditText
+                        android:id="@+id/edittextSignUpActivityCCV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/sign_in_edittext_shape"
+                        android:gravity="right"
+                        android:hint="@string/sign_up_ccv_hint_text"
+                        android:inputType="number"
+                        android:maxLength="3"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="10dp"
+                        android:singleLine="true"
+                        android:textColor="@color/menu_main_gray" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignLeft="@+id/edittextSignUpActivityCCV"
+                        android:layout_alignRight="@+id/edittextSignUpActivityCCV"
+                        android:layout_below="@+id/edittextSignUpActivityCCV"
+                        android:alpha="0.5"
+                        android:background="@color/menu_main_gray" />
+                </RelativeLayout>
+            </LinearLayout>
         </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:alpha="0.5"
-            android:background="@color/menu_main_gray" />
-
-        <com.s7design.menu.views.MenuEditText
-            android:id="@+id/edittextSignUpActivityRepeatPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/sign_in_edittext_shape"
-            android:hint="@string/sign_up_repeat_password_hint_text"
-            android:inputType="textPassword"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:singleLine="true"
-            android:textColor="@color/menu_main_gray" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:alpha="0.5"
-            android:background="@color/menu_main_gray" />
-
-        <com.s7design.menu.views.MenuButton
-            android:id="@+id/buttonSignUpScanCreditCard"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/rounded_orange_button_selector"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="@string/sign_up_scan_credit_card_hint_text"
-            android:textColor="@drawable/orange_text_selector"
-            android:textSize="10sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:alpha="0.5"
-            android:background="@color/menu_main_gray" />
-
-        <com.s7design.menu.views.MenuEditText
-            android:id="@+id/edittextSignUpActivityCardNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/sign_in_edittext_shape"
-            android:hint="@string/sign_up_credit_card_number_hint_text"
-            android:inputType="number"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:singleLine="true"
-            android:maxLength="19"
-            android:textColor="@color/menu_main_gray" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:alpha="0.5"
-            android:background="@color/menu_main_gray" />
-
-        <com.s7design.menu.views.MenuEditText
-            android:id="@+id/edittextSignUpActivityNameOnCard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/sign_in_edittext_shape"
-            android:hint="@string/sign_up_name_on_card_hint_text"
-            android:inputType="textPersonName"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:singleLine="true"
-            android:textColor="@color/menu_main_gray" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:alpha="0.5"
-            android:background="@color/menu_main_gray" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <com.s7design.menu.views.MenuEditText
-                android:id="@+id/edittextSignUpActivityMonth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/edittextSignUpActivityCCV"
-                android:layout_alignParentLeft="true"
-                android:layout_alignTop="@+id/edittextSignUpActivityCCV"
-                android:layout_marginRight="15dp"
-                android:background="@android:color/transparent"
-                android:gravity="center_horizontal|center_vertical"
-                android:hint="MM"
-                android:inputType="number"
-                android:maxLength="2"
-                android:singleLine="true"
-                android:textColor="@color/menu_main_gray" />
-
-            <com.s7design.menu.views.MenuEditText
-                android:id="@+id/edittextSignUpActivityYear"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/edittextSignUpActivityCCV"
-                android:layout_alignTop="@+id/edittextSignUpActivityCCV"
-                android:layout_marginRight="15dp"
-                android:layout_toRightOf="@+id/edittextSignUpActivityMonth"
-                android:background="@android:color/transparent"
-                android:gravity="center_horizontal|center_vertical"
-                android:hint="YYYY"
-                android:inputType="number"
-                android:maxLength="4"
-                android:singleLine="true"
-                android:textColor="@color/menu_main_gray" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignLeft="@+id/edittextSignUpActivityMonth"
-                android:layout_alignRight="@+id/edittextSignUpActivityMonth"
-                android:layout_below="@+id/edittextSignUpActivityMonth"
-                android:alpha="0.5"
-                android:background="@color/menu_main_gray" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignLeft="@+id/edittextSignUpActivityYear"
-                android:layout_alignRight="@+id/edittextSignUpActivityYear"
-                android:layout_below="@+id/edittextSignUpActivityYear"
-                android:alpha="0.5"
-                android:background="@color/menu_main_gray" />
-
-            <com.s7design.menu.views.MenuEditText
-                android:id="@+id/edittextSignUpActivityCCV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/sign_in_edittext_shape"
-                android:gravity="right"
-                android:hint="@string/sign_up_ccv_hint_text"
-                android:maxLength="3"
-                android:paddingBottom="10dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="10dp"
-                android:singleLine="true"
-                android:inputType="number"
-                android:textColor="@color/menu_main_gray" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignLeft="@+id/edittextSignUpActivityCCV"
-                android:layout_alignRight="@+id/edittextSignUpActivityCCV"
-                android:layout_below="@+id/edittextSignUpActivityCCV"
-                android:alpha="0.5"
-                android:background="@color/menu_main_gray" />
-        </RelativeLayout>
-    </LinearLayout>
+    </ScrollView>
 
     <com.s7design.menu.views.MenuButton
         android:id="@+id/buttonSignUpActivitySignUp"

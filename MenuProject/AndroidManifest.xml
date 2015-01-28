@@ -80,10 +80,13 @@
         <activity
             android:name="com.s7design.menu.activities.ManageAccountActivity"
             android:screenOrientation="portrait" />
-	   <activity
+        <activity
             android:name="com.s7design.menu.activities.AboutTheAppActivity"
             android:screenOrientation="portrait" />
-        
+        <activity
+            android:name="com.s7design.menu.activities.PickupInfoActivity"
+            android:screenOrientation="portrait" />
+
         <!-- Activities from card.io library -->
         <activity
             android:name="io.card.payment.CardIOActivity"

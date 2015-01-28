@@ -38,9 +38,12 @@ public class SignInActivity extends BaseActivity {
 	}
 
 	private void initActionBar() {
-		setActionBarForwardButtonvisibility(View.INVISIBLE);
 		setActionBarMenuButtonVisibility(View.INVISIBLE);
 
+		setActionBarForwardArrowVisibility(null);
+		setActionBarForwardButtonText(getResources().getString(R.string.action_bar_sign_in));
+		setActionBarForwardButtonTextColor(getResources().getColor(R.color.menu_main_orange));
+		
 		setActionBarMenuButtonOnClickListener(new OnClickListener() {
 
 			@Override

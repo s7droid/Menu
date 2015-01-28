@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.android.volley.Response;
 import com.s7design.menu.R;
@@ -29,10 +30,15 @@ public class ManageAccountActivity extends BaseActivity {
 	private EditText mEditTextEmail;
 	private EditText mEditTextNewPassword;
 	private EditText mEditTextRepeatPassword;
+	private EditText mEditTextCreditCardNumber;
+//	private EditText mEditTextNameOnCardNew;
+	private EditText mEditTextMonth;
+	private EditText mEditTextYear;
+	private EditText mEditTextCCV;
 	private Button mButtonShowPassword;
 	private Button mButtonChangeCreditCard;
 	private Button mButtonConfirmChanges;
-
+	private LinearLayout mLinearLayoutCreditCardDataCOntainer;
 	// DATA
 	private boolean isPasswordShowing = false;
 	private int MY_SCAN_REQUEST_CODE = 124; // arbitrary int
@@ -43,12 +49,12 @@ public class ManageAccountActivity extends BaseActivity {
 
 		final ProgressDialogFragment progressDialog = new ProgressDialogFragment();
 		progressDialog.show(getFragmentManager(), ManageAccountActivity.class.getSimpleName());
-		
+
 		initActionBar();
 
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("accesstoken", Settings.getAccessToken(getApplicationContext()));
-		
+
 		FetchAccountRequest request = new FetchAccountRequest(ManageAccountActivity.this, params, new Response.Listener<FetchAccountResponse>() {
 
 			@Override
@@ -61,9 +67,9 @@ public class ManageAccountActivity extends BaseActivity {
 				progressDialog.dismiss();
 			}
 		});
-		
+
 		VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
-		
+
 	}
 
 	private void initActionBar() {
@@ -89,7 +95,13 @@ public class ManageAccountActivity extends BaseActivity {
 		mButtonShowPassword = (Button) findViewById(R.id.buttonManageAccountActivityHide);
 		mButtonChangeCreditCard = (Button) findViewById(R.id.buttonManageAccountActivityScanCreditCard);
 		mButtonConfirmChanges = (Button) findViewById(R.id.buttonManageAccountCinfirmChanges);
-
+		mEditTextCreditCardNumber = (EditText) findViewById(R.id.edittextManageAccountActivityCardNumber);
+//		mEditTextNameOnCardNew = (EditText) findViewById(R.id.edittextManageAccountActivityNameOnCard);
+		mEditTextMonth = (EditText) findViewById(R.id.edittextManageAccountActivityMonth);
+		mEditTextYear = (EditText) findViewById(R.id.edittextManageAccountActivityYear);
+		mEditTextCCV = (EditText) findViewById(R.id.edittextManageAccountActivityCCV);
+		mLinearLayoutCreditCardDataCOntainer = (LinearLayout) findViewById(R.id.linearlayoutManageAccountActivityCardContainer);
+				
 		mButtonShowPassword.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -156,6 +168,10 @@ public class ManageAccountActivity extends BaseActivity {
 		if (data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT)) {
 			CreditCard scanResult = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
 
+			mLinearLayoutCreditCardDataCOntainer.setAlpha(1.0f);
+			
+			
+			
 			// Never log a raw card number. Avoid displaying it, but if
 			// necessary use getFormattedCardNumber()
 

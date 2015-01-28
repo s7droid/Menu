@@ -9,10 +9,17 @@ import java.util.Map;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response.Listener;
 import com.braintreepayments.api.Braintree;
@@ -35,14 +42,14 @@ public class SignUpActivity extends BaseActivity {
 	private Button mSignUpButton;
 	private EditText mEmailEditText;
 	private EditText mPasswordEditText;
-	private EditText mNicknameEditText;
+	// private EditText mNicknameEditText;
 	private EditText mRepeatPasswordEditText;
 	private EditText mCreditCardNumberEditText;
 	private EditText mNameOnCardEditText;
 	private EditText mMonthEditText;
 	private EditText mYearEditText;
 	private EditText mCCVEditText;
-
+	private TextView mTextViewTermsOfUse;
 	// DATA
 	private boolean isPasswordShowing = false;
 	private int MY_SCAN_REQUEST_CODE = 123; // arbitrary int
@@ -62,8 +69,11 @@ public class SignUpActivity extends BaseActivity {
 	}
 
 	private void initActionBar() {
-		setActionBarForwardButtonvisibility(View.INVISIBLE);
 		setActionBarMenuButtonVisibility(View.INVISIBLE);
+
+		setActionBarForwardArrowVisibility(null);
+		setActionBarForwardButtonText(getResources().getString(R.string.action_bar_sign_up));
+		setActionBarForwardButtonTextColor(getResources().getColor(R.color.menu_main_orange));
 
 		setActionBarMenuButtonOnClickListener(new OnClickListener() {
 
@@ -89,13 +99,17 @@ public class SignUpActivity extends BaseActivity {
 		mScanCreditCardButton = (Button) findViewById(R.id.buttonSignUpScanCreditCard);
 		mEmailEditText = (EditText) findViewById(R.id.edittextSignUpActivityEmail);
 		mPasswordEditText = (EditText) findViewById(R.id.edittextSignUpActivityPassword);
-		mNicknameEditText = (EditText) findViewById(R.id.edittextSignUpActivityNickname);
+		// mNicknameEditText = (EditText)
+		// findViewById(R.id.edittextSignUpActivityNickname);
 		mRepeatPasswordEditText = (EditText) findViewById(R.id.edittextSignUpActivityRepeatPassword);
 		mCreditCardNumberEditText = (EditText) findViewById(R.id.edittextSignUpActivityCardNumber);
 		mNameOnCardEditText = (EditText) findViewById(R.id.edittextSignUpActivityNameOnCard);
 		mMonthEditText = (EditText) findViewById(R.id.edittextSignUpActivityMonth);
 		mYearEditText = (EditText) findViewById(R.id.edittextSignUpActivityYear);
 		mCCVEditText = (EditText) findViewById(R.id.edittextSignUpActivityCCV);
+		mTextViewTermsOfUse = (TextView) findViewById(R.id.textviewSignUpScanTermsOfUse);
+
+		initClicksInTermsText();
 
 		mSignUpButton.setOnClickListener(new OnClickListener() {
 			@Override
@@ -193,6 +207,53 @@ public class SignUpActivity extends BaseActivity {
 		});
 	}
 
+	private void initClicksInTermsText() {
+		String terms_intro = getResources().getString(R.string.sign_up_privacy_terms_intro);
+		String terms_privacy_clickable = " " + getResources().getString(R.string.sign_up_privacy_terms_clickable);
+		String terms_and = " " + getResources().getString(R.string.sign_up_privacy_policy_and);
+		String terms_privacy_policy_clickable = " " + getResources().getString(R.string.sign_up_privacy_policy_clickable);
+		String terms_tokenizer = " " + getResources().getString(R.string.sign_up_privacy_tokenizer);
+		String terms_tokenizer_clickable = " " + getResources().getString(R.string.sign_up_privacy_tokenizer_clickable);
+		
+		SpannableString ss = new SpannableString(terms_intro + terms_privacy_clickable + terms_and + terms_privacy_policy_clickable + terms_tokenizer + terms_tokenizer_clickable);
+		ClickableSpan clickableSpanTermsOfService = new ClickableSpan() {
+			@Override
+			public void onClick(View textView) {
+				startActivity(new Intent(SignUpActivity.this, AboutTheAppActivity.class));
+			}
+		};
+		ss.setSpan(clickableSpanTermsOfService, terms_intro.length() + 1, (terms_intro.length() + 1 + terms_privacy_clickable.length()), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.menu_main_orange)), terms_intro.length() + 1, (terms_intro.length() + 1 + terms_privacy_clickable.length()),
+				Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		
+		ClickableSpan clickableSpanPrivacyPolicy = new ClickableSpan() {
+			@Override
+			public void onClick(View textView) {
+				startActivity(new Intent(SignUpActivity.this, AboutTheAppActivity.class));
+			}
+		};
+		ss.setSpan(clickableSpanPrivacyPolicy, (terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + 1),
+				(terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length()), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.menu_main_orange)), (terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + 1),
+				(terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length()), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+		ClickableSpan clickableSpanTokenizerSeeHow = new ClickableSpan() {
+			@Override
+			public void onClick(View textView) {
+				startActivity(new Intent(SignUpActivity.this, AboutTheAppActivity.class));
+			}
+		};
+		ss.setSpan(clickableSpanTokenizerSeeHow, (terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length() + terms_tokenizer.length() + 1),
+				(terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length() + terms_tokenizer.length() + terms_tokenizer_clickable.length()), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.menu_main_orange)), (terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length() + terms_tokenizer.length() + 1),
+				(terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length() + terms_tokenizer.length() + terms_tokenizer_clickable.length()), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+		
+		mTextViewTermsOfUse.setText(ss);
+		mTextViewTermsOfUse.setMovementMethod(LinkMovementMethod.getInstance());
+
+	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -207,7 +268,7 @@ public class SignUpActivity extends BaseActivity {
 			System.out.println("credit card number redacted= " + creditCardNumber);
 			System.out.println("credit card number formatted=" + scanResult.getFormattedCardNumber());
 			System.out.println("credit card number=" + scanResult.cardNumber);
-//			mCreditCardNumberEditText.setText(creditCardNumber);
+			// mCreditCardNumberEditText.setText(creditCardNumber);
 			mCreditCardNumberEditText.setText(scanResult.getFormattedCardNumber());
 
 			if (scanResult.isExpiryValid()) {

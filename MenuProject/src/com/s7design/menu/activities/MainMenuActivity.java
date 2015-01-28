@@ -54,6 +54,7 @@ public class MainMenuActivity extends BaseActivity {
 
 	private boolean isLoggedIn;
 	private boolean isOrderListEmpty;
+	private boolean isOutsideRestaurant;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,7 @@ public class MainMenuActivity extends BaseActivity {
 
 		isLoggedIn = !Settings.getAccessToken(getApplicationContext()).equals("") ? true : false;
 		isOrderListEmpty = Menu.getInstance().getDataManager().getCheckoutList().size() == 0 ? true : false;
+		isOutsideRestaurant = (Menu.getInstance().getDataManager().getMajor() != null ? false : true) && (Menu.getInstance().getDataManager().getMinor() != null ? false : true);
 
 		mVenueMenuButton = (Button) findViewById(R.id.buttonMainMenuActivityViewVenue);
 		mTutorialsButton = (Button) findViewById(R.id.buttonMainMenuActivityViewTutorial);
@@ -99,6 +101,13 @@ public class MainMenuActivity extends BaseActivity {
 			mReviewCurrentOrderButton.setTextColor(getResources().getColor(R.color.menu_main_gray_light));
 		} else {
 			mReviewCurrentOrderButton.setTextColor(getResources().getColor(R.color.menu_main_orange));
+		}
+
+		if (isOutsideRestaurant) {
+			mReviewCurrentOrderButton.setText(getResources().getString(R.string.main_menu_log_in_or_sign_up));
+			mReviewCurrentOrderButton.setTextColor(getResources().getColor(R.color.menu_main_orange));
+		} else {
+			mReviewCurrentOrderButton.setText(getResources().getString(R.string.main_menu_current_order));
 		}
 
 		if (Menu.getInstance().getDataManager().getMajor() != null && Menu.getInstance().getDataManager().getMinor() != null) {
@@ -165,8 +174,12 @@ public class MainMenuActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				if (!isOrderListEmpty)
+				if (!isOrderListEmpty && !isOutsideRestaurant)
 					reviewCurrentOrderButtonAction();
+
+				if (isOutsideRestaurant)
+					loginOrSignUp();
+
 			}
 
 		});
@@ -203,6 +216,10 @@ public class MainMenuActivity extends BaseActivity {
 			startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
 		else
 			showAlertDialog("Alert", "Your checkout list is empty. Add some things to Your chart.");
+	}
+
+	private void loginOrSignUp() {
+		startActivity(new Intent(getApplicationContext(), SignInActivity.class));
 	}
 
 	private void aboutTheAppButtonAction() {
