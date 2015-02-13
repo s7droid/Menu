@@ -53,7 +53,8 @@
     <string name="dialog_wrong_password">The password provided is incorrect.</string>
     <string name="dialog_order_successful">Your order was successful!</string>
     <string name="dialog_no_beacon_found">No iBeacon found. Search again?</string>
-
+	<string name="dialog_fields_changed">Fields changed successfully.</string>
+	
     <!-- Checkout activity -->
     <string name="checkout_thank_you_for_order">Thank you for your order!</string>
     <string name="checkout_receipt_sent"> A receipt has been sent to your email.</string>
@@ -106,7 +107,7 @@
     <string name="manage_account_repeat_password_hint_text">Repeat password</string>
     <string name="manage_account_change_credit_card">CHANGE CREDIT CARD</string>
     <string name="manage_account_confirm_changes_text">CONFIRM CHANGES</string>
-
+	<string name="manage_account_passwords_not_same">New password and repeated password are not same</string>
     <!-- Meal details -->
     <string name="meal_details_order_large">ORDER LARGE</string>
     <string name="meal_details_order_small">ORDER SMALL</string>
@@ -143,10 +144,19 @@
     <string name="main_menu_view_venue_menu">VIEW VENUE MENU</string>
     <string name="main_menu_current_order">CURRENT ORDER PREVIEW</string>
 	<string name="main_menu_log_in_or_sign_up">LOG IN OR SIGN UP</string>
+    <string name="main_menu_logout">LOGOUT</string>
     
     <!-- Pickup info -->
     <string name="pickup_info_text">Pro an decore accusam, his liber latine ex. Vide nusquam principes at eum, ut causae impetus inimicus his, eu ius doming hendrerit omittantur. Ad vero ridens argumentum duo, te affert meliore facilisis vim. Soleat option intellegebat ex pri, quo congue fabellas delicata ad. Id mel minim vidisse bonorum, ut nominavi recteque mea. Nihil delectus deserunt ut est, corrumpit moderatius in est, mei te dolore lobortis intellegat.</string>
     <string name="pickup_info_country_code">Country code:</string>
     <string name="pickup_info_phone_number">Phone number:</string>
     <string name="pickup_info_confirm">CONFIRM</string>
+    
+    <!-- Tokenization explain -->
+    <string name="tokenization_explanation_action_bar_title">TOKENIZATION</string>
+    <string name="tokenization_explanation_title">We care about your security.</string>
+    <string name="tokenization_explanation_subtitle">Here\'s what happens with your credit card when using MENU:</string>
+    <string name="tokenization_explanation_first_step">1. You enter your credit card information when you sign up for MENU.</string>
+    <string name="tokenization_explanation_second_step">2. Your personal info is then \"tokenized\" - turned into random numbers.</string>
+    <string name="tokenization_explanation_third_step">3. These newly created \"tokens\" are stored in the cloud for safe future payments with MENU.</string>
 </resources>

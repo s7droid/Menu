@@ -63,6 +63,51 @@ public class MainMenuActivity extends BaseActivity {
 		initViews();
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		isLoggedIn = !Settings.getAccessToken(getApplicationContext()).equals("") ? true : false;
+		isOrderListEmpty = Menu.getInstance().getDataManager().getCheckoutList().size() == 0 ? true : false;
+		isOutsideRestaurant = (Menu.getInstance().getDataManager().getMajor() != null ? false : true) && (Menu.getInstance().getDataManager().getMinor() != null ? false : true);
+
+		if (isLoggedIn) {
+			mMenageYourProfileButton.setVisibility(View.VISIBLE);
+			mViewPastReceiptsButton.setVisibility(View.VISIBLE);
+			mSeparatorManageProfile.setVisibility(View.VISIBLE);
+			mSeparatorPastReceipts.setVisibility(View.VISIBLE);
+		} else {
+			mMenageYourProfileButton.setVisibility(View.GONE);
+			mViewPastReceiptsButton.setVisibility(View.GONE);
+			mSeparatorManageProfile.setVisibility(View.GONE);
+			mSeparatorPastReceipts.setVisibility(View.GONE);
+		}
+		
+		if (isOrderListEmpty) {
+			mReviewCurrentOrderButton.setTextColor(getResources().getColor(R.color.menu_main_gray_light));
+		} else {
+			mReviewCurrentOrderButton.setTextColor(getResources().getColor(R.color.menu_main_orange));
+		}
+
+		if (isOutsideRestaurant) {
+			if (Settings.getAccessToken(getApplicationContext()).isEmpty()) {
+				mReviewCurrentOrderButton.setText(getResources().getString(R.string.main_menu_log_in_or_sign_up));
+				mReviewCurrentOrderButton.setTextColor(getResources().getColor(R.color.menu_main_orange));
+			} else {
+				mReviewCurrentOrderButton.setText(getResources().getString(R.string.main_menu_logout));
+				mReviewCurrentOrderButton.setTextColor(getResources().getColor(R.color.menu_main_orange));
+			}
+		} else {
+			mReviewCurrentOrderButton.setText(getResources().getString(R.string.main_menu_current_order));
+		}
+
+		if (Menu.getInstance().getDataManager().getMajor() != null && Menu.getInstance().getDataManager().getMinor() != null) {
+		} else {
+			mVenueMenuButton.setTextSize(convertDpToPixels(4));
+			mVenueMenuButton.setTextColor(getResources().getColor(R.color.menu_main_gray_light));
+			mVenueMenuButton.setText(getResources().getString(R.string.main_menu_category_not_available));
+		}
+	}
+
 	/**
 	 * Method for initalizing all views in class.
 	 */
@@ -104,8 +149,13 @@ public class MainMenuActivity extends BaseActivity {
 		}
 
 		if (isOutsideRestaurant) {
-			mReviewCurrentOrderButton.setText(getResources().getString(R.string.main_menu_log_in_or_sign_up));
-			mReviewCurrentOrderButton.setTextColor(getResources().getColor(R.color.menu_main_orange));
+			if (Settings.getAccessToken(getApplicationContext()).isEmpty()) {
+				mReviewCurrentOrderButton.setText(getResources().getString(R.string.main_menu_log_in_or_sign_up));
+				mReviewCurrentOrderButton.setTextColor(getResources().getColor(R.color.menu_main_orange));
+			} else {
+				mReviewCurrentOrderButton.setText(getResources().getString(R.string.main_menu_logout));
+				mReviewCurrentOrderButton.setTextColor(getResources().getColor(R.color.menu_main_orange));
+			}
 		} else {
 			mReviewCurrentOrderButton.setText(getResources().getString(R.string.main_menu_current_order));
 		}
@@ -177,8 +227,12 @@ public class MainMenuActivity extends BaseActivity {
 				if (!isOrderListEmpty && !isOutsideRestaurant)
 					reviewCurrentOrderButtonAction();
 
-				if (isOutsideRestaurant)
-					loginOrSignUp();
+				if (isOutsideRestaurant) {
+					if (Settings.getAccessToken(getApplicationContext()).isEmpty())
+						loginOrSignUp();
+					else
+						logout();
+				}
 
 			}
 
@@ -220,6 +274,11 @@ public class MainMenuActivity extends BaseActivity {
 
 	private void loginOrSignUp() {
 		startActivity(new Intent(getApplicationContext(), SignInActivity.class));
+	}
+
+	private void logout() {
+		Settings.setAccessToken(getApplicationContext(), null);
+		startActivity(new Intent(getApplicationContext(), SplashActivity.class));
 	}
 
 	private void aboutTheAppButtonAction() {

@@ -240,7 +240,7 @@ public class SignUpActivity extends BaseActivity {
 		ClickableSpan clickableSpanTokenizerSeeHow = new ClickableSpan() {
 			@Override
 			public void onClick(View textView) {
-				startActivity(new Intent(SignUpActivity.this, AboutTheAppActivity.class));
+				startActivity(new Intent(SignUpActivity.this, TokenizationExplainedActivity.class));
 			}
 		};
 		ss.setSpan(clickableSpanTokenizerSeeHow, (terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length() + terms_tokenizer.length() + 1),

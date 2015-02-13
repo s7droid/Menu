@@ -86,6 +86,9 @@
         <activity
             android:name="com.s7design.menu.activities.PickupInfoActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.s7design.menu.activities.TokenizationExplainedActivity"
+            android:screenOrientation="portrait" />
 
         <!-- Activities from card.io library -->
         <activity
