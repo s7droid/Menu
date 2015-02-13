@@ -18,8 +18,8 @@ public class DataManager {
 	private double discount;
 	private String currency;
 	private String clientBraintreeToken;
-	private String major;
-	private String minor;
+	private String major = "1";
+	private String minor = "1";
 	private String language = "en";
 
 	public String getMajor() {
@@ -88,14 +88,29 @@ public class DataManager {
 		if (checkoutList == null)
 			checkoutList = new ArrayList<Item>();
 
-		Item it = getItemByTag(item.largetag);
+		Log.d(TAG, "item large quantity " + item.quantityLarge);
+		Log.d(TAG, "item small quantity " + item.quantitySmall);
 
-		if (it != null) {
-			it.quantityLarge += item.quantityLarge;
-			it.quantitySmall += item.quantitySmall;
-		} else {
+		if (getItemByTag(item.largetag) == null)
 			checkoutList.add(item);
-		}
+
+		// Item it = getItemByTag(item.largetag);
+		//
+		//
+		//
+		// if (it != null) {
+		//
+		// Log.d(TAG, "it large quantity "+it.quantityLarge);
+		// Log.d(TAG, "it small quantity "+it.quantitySmall);
+		//
+		// it.quantityLarge += item.quantityLarge;
+		// it.quantitySmall += item.quantitySmall;
+		//
+		// Log.d(TAG, "it large quantity after "+it.quantityLarge);
+		// Log.d(TAG, "it small quantity after "+it.quantitySmall);
+		// } else {
+		// checkoutList.add(item);
+		// }
 
 	}
 
@@ -107,7 +122,7 @@ public class DataManager {
 					checkoutList.remove(item);
 				}
 			} else if (item.smalltag == tag) {
-				if (item.quantityLarge == 0 && --item.quantitySmall == 0) {
+				if (--item.quantitySmall == 0 && item.quantityLarge == 0) {
 					checkoutList.remove(item);
 				}
 			}

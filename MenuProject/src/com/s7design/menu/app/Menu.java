@@ -29,6 +29,8 @@ public class Menu extends Application {
 
 	private OnVolleyErrorCallback onVolleyErrorCallback;
 
+	public static final Integer DIABLING_MINOR_VALUE = 1;
+
 	public Menu() {
 		instance = this;
 		activityStack = new ArrayList<Activity>();
@@ -126,5 +128,13 @@ public class Menu extends Application {
 
 		if (onVolleyErrorCallback != null)
 			onVolleyErrorCallback.onVolleyError(error);
+	}
+
+	public boolean isOrderEnabled() {
+
+		if ((int) Integer.valueOf(dataManager.getMinor()) == DIABLING_MINOR_VALUE)
+			return false;
+		else
+			return true;
 	}
 }

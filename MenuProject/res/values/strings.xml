@@ -14,8 +14,8 @@
     <string name="action_bar_about_the_app">ABOUT MENU</string>
     <string name="action_bar_sign_in">SIGN IN</string>
     <string name="action_bar_sign_up">SIGN UP</string>
-	<string name="action_bar_pickup_info">ORDER PICK UP INFO</string>
-	
+    <string name="action_bar_pickup_info">ORDER PICK UP INFO</string>
+
     <!-- Splash screen -->
     <string name="splash_screen_welcome_message">Welcome to MENU</string>
     <string name="splash_screen_location_disabled_body_1">Location services</string>
@@ -44,6 +44,7 @@
     <string name="dialog_please_wait">Please wait&#8230;</string>
     <string name="dialog_title_error">Error</string>
     <string name="dialog_title_success">Success</string>
+    <string name="dialog_title_warning">Warning</string>
     <string name="dialog_no_internet_connection">No internet connection</string>
     <string name="dialog_bluetooth_off">Bluetooth is off. Would you like to turn it on?</string>
     <string name="dialog_insert_email_address">Please, insert Your email address.</string>
@@ -53,6 +54,7 @@
     <string name="dialog_wrong_password">The password provided is incorrect.</string>
     <string name="dialog_order_successful">Your order was successful!</string>
     <string name="dialog_no_beacon_found">No iBeacon found. Search again?</string>
+    <string name="dialog_unable_to_order">You are in a part of the restaurant where ordering is disabled, but you can still add items to your order list.</string>
 
     <!-- Checkout activity -->
     <string name="checkout_thank_you_for_order">Thank you for your order!</string>
@@ -91,15 +93,15 @@
     <string name="sign_up_ccv_hint_text">CCV</string>
     <string name="sign_up_show">SHOW</string>
     <string name="sign_up_hide">HIDE</string>
-	<string name="sign_in_first_name_hint_text">First Name</string>
-	<string name="sign_up_privacy_terms_intro">By signing up, you accept our</string>
-	<string name="sign_up_privacy_terms_clickable">terms of service</string>
-	<string name="sign_up_privacy_policy_and">and</string>
-	<string name="sign_up_privacy_policy_clickable">privacy policy.</string>
-	<string name="sign_up_privacy_tokenizer">Your credit card is always safe with us -</string>
-	<string name="sign_up_privacy_tokenizer_clickable">see how.</string>
-  
-	<!-- Manage account -->
+    <string name="sign_in_first_name_hint_text">First Name</string>
+    <string name="sign_up_privacy_terms_intro">By signing up, you accept our</string>
+    <string name="sign_up_privacy_terms_clickable">terms of service</string>
+    <string name="sign_up_privacy_policy_and">and</string>
+    <string name="sign_up_privacy_policy_clickable">privacy policy.</string>
+    <string name="sign_up_privacy_tokenizer">Your credit card is always safe with us -</string>
+    <string name="sign_up_privacy_tokenizer_clickable">see how.</string>
+
+    <!-- Manage account -->
     <string name="manage_account_name_on_card_hint_text">Name on card</string>
     <string name="manage_account_new_password_hint_text">New Password</string>
     <string name="manage_account_email_hint_text">Email</string>
@@ -142,11 +144,12 @@
     <string name="main_menu_about_the_app">ABOUT THE APP</string>
     <string name="main_menu_view_venue_menu">VIEW VENUE MENU</string>
     <string name="main_menu_current_order">CURRENT ORDER PREVIEW</string>
-	<string name="main_menu_log_in_or_sign_up">LOG IN OR SIGN UP</string>
-    
+    <string name="main_menu_log_in_or_sign_up">LOG IN OR SIGN UP</string>
+
     <!-- Pickup info -->
     <string name="pickup_info_text">Pro an decore accusam, his liber latine ex. Vide nusquam principes at eum, ut causae impetus inimicus his, eu ius doming hendrerit omittantur. Ad vero ridens argumentum duo, te affert meliore facilisis vim. Soleat option intellegebat ex pri, quo congue fabellas delicata ad. Id mel minim vidisse bonorum, ut nominavi recteque mea. Nihil delectus deserunt ut est, corrumpit moderatius in est, mei te dolore lobortis intellegat.</string>
     <string name="pickup_info_country_code">Country code:</string>
     <string name="pickup_info_phone_number">Phone number:</string>
     <string name="pickup_info_confirm">CONFIRM</string>
+
 </resources>

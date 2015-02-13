@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.s7design.menu.R;
+import com.s7design.menu.activities.BaseActivity;
 import com.s7design.menu.activities.MealDetailsActivity;
 import com.s7design.menu.app.Menu;
 import com.s7design.menu.dataclasses.Item;
@@ -101,7 +102,10 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 					counter++;
 					setQuantity(bigOrderPriceAndQuantity, itemToSend.largeprice, counter);
 					v.setTag(counter);
-					Menu.getInstance().getDataManager().addCheckoutListItem(itemToSend.getLarge());
+					Menu.getInstance().getDataManager().addCheckoutListItem(Menu.getInstance().getDataManager().getItemByTag(itemToSend.largetag).getLarge());
+
+					if (!Menu.getInstance().isOrderEnabled())
+						((BaseActivity) getContext()).showAlertDialog(R.string.dialog_title_warning, R.string.dialog_unable_to_order);
 				}
 			});
 
@@ -113,7 +117,10 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 					counter++;
 					setQuantity(smallOrderPriceAndQuantity, itemToSend.smallprice, counter);
 					v.setTag(counter);
-					Menu.getInstance().getDataManager().addCheckoutListItem(itemToSend.getSmall());
+					Menu.getInstance().getDataManager().addCheckoutListItem(Menu.getInstance().getDataManager().getItemByTag(itemToSend.smalltag).getSmall());
+
+					if (!Menu.getInstance().isOrderEnabled())
+						((BaseActivity) getContext()).showAlertDialog(R.string.dialog_title_warning, R.string.dialog_unable_to_order);
 				}
 			});
 

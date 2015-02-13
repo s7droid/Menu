@@ -82,144 +82,124 @@ public class SplashActivity extends BaseActivity implements BeaconConsumer, LeSc
 		setContentView(R.layout.activity_splash);
 		hideActionBar();
 		initViews();
-		doChecks();
+		 doChecks();
 
-		// new AsyncTask<Void, Void, Void>() {
-		//
-		// @Override
-		// protected Void doInBackground(Void... pars) {
-		//
-		// final CountDownLatch countDownLatch = new CountDownLatch(6);
-		//
-		// Map<String, String> params = new HashMap<String, String>();
-		// params.put("major", Menu.getInstance().getDataManager().getMajor());
-		// params.put("minor", Menu.getInstance().getDataManager().getMinor());
-		//
-		// GetRestaurantInfoRequest restaurantInfoRequest = new
-		// GetRestaurantInfoRequest(SplashActivity.this, params, new
-		// Listener<GetRestaurantInfoResponse>() {
-		//
-		// @Override
-		// public void onResponse(GetRestaurantInfoResponse restaurantInfo) {
-		//
-		// Menu.getInstance().getDataManager().setRestaurantInfo(restaurantInfo);
-		// countDownLatch.countDown();
-		// }
-		// });
-		//
-		// GetTaxRateRequest taxRequest = new
-		// GetTaxRateRequest(SplashActivity.this, params, new
-		// Listener<GetTaxRateResponse>() {
-		//
-		// @Override
-		// public void onResponse(GetTaxRateResponse taxRate) {
-		//
-		// Menu.getInstance().getDataManager().setTaxRate(taxRate.rate[0].tax);
-		// countDownLatch.countDown();
-		// }
-		// });
-		//
-		// GetTipRequest tipRequest = new GetTipRequest(SplashActivity.this,
-		// params, new Listener<GetTipResponse>() {
-		//
-		// @Override
-		// public void onResponse(GetTipResponse tipRate) {
-		//
-		// Menu.getInstance().getDataManager().setTipRate(tipRate.rate[0].mintip,
-		// tipRate.rate[0].maxtip);
-		// countDownLatch.countDown();
-		// }
-		// });
-		//
-		// GetDiscountRequest discountRequest = new
-		// GetDiscountRequest(SplashActivity.this, params, new
-		// Listener<GetDiscountResponse>() {
-		//
-		// @Override
-		// public void onResponse(GetDiscountResponse discount) {
-		//
-		// Menu.getInstance().getDataManager().setDiscount(discount.discount);
-		// countDownLatch.countDown();
-		// }
-		// });
-		//
-		// GetCurrencyRequest currencyRequest = new
-		// GetCurrencyRequest(SplashActivity.this, params, new
-		// Listener<GetCurrencyResponse>() {
-		//
-		// @Override
-		// public void onResponse(GetCurrencyResponse currency) {
-		//
-		// Menu.getInstance().getDataManager().setCurrency(currency.currency);
-		// countDownLatch.countDown();
-		// }
-		// });
-		//
-		// GetBraintreeTokenRequest tokenRequest = new
-		// GetBraintreeTokenRequest(SplashActivity.this, null, new
-		// Listener<GetBraintreeTokenResponse>() {
-		//
-		// @Override
-		// public void onResponse(GetBraintreeTokenResponse token) {
-		//
-		// Menu.getInstance().getDataManager().setClientBraintreeToken(token.token);
-		// countDownLatch.countDown();
-		// }
-		// });
-		//
-		// VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(restaurantInfoRequest);
-		// VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(taxRequest);
-		// VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(tipRequest);
-		// VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(discountRequest);
-		// VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(currencyRequest);
-		// VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(tokenRequest);
-		//
-		// try {
-		// countDownLatch.await(20000, TimeUnit.MILLISECONDS);
-		// } catch (InterruptedException e) {
-		// e.printStackTrace();
-		// }
-		//
-		// return null;
-		// }
-		//
-		// protected void onPostExecute(Void result) {
-		//
-		// String accessToken =
-		// Settings.getAccessToken(getApplicationContext());
-		//
-		// // if (accessToken.length() > 0) {
-		// // Intent i = new Intent(SplashActivity.this,
-		// RestaurantPreviewActivity.class);
-		// // i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-		// Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		// // startActivity(i);
-		// // } else {
-		// // Intent i = new Intent(SplashActivity.this,
-		// MainMenuActivity.class);
-		// // i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-		// Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		// // startActivity(i);
-		// // }
-		//
-		// String major = Menu.getInstance().getDataManager().getMajor();
-		// String minor = Menu.getInstance().getDataManager().getMinor();
-		//
-		// if((major != null && minor != null)){
-		// Intent i = new Intent(SplashActivity.this,
-		// RestaurantPreviewActivity.class);
-		// i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-		// Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		// startActivity(i);
-		// }else if((major == null || minor == null)){
-		// Intent i = new Intent(SplashActivity.this, MainMenuActivity.class);
-		// i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-		// Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		// startActivity(i);
-		// }
-		//
-		// };
-		// }.execute();
+//		new AsyncTask<Void, Void, Void>() {
+//
+//			@Override
+//			protected Void doInBackground(Void... pars) {
+//
+//				final CountDownLatch countDownLatch = new CountDownLatch(6);
+//
+//				Map<String, String> params = new HashMap<String, String>();
+//				params.put("major", Menu.getInstance().getDataManager().getMajor());
+//				params.put("minor", Menu.getInstance().getDataManager().getMinor());
+//
+//				GetRestaurantInfoRequest restaurantInfoRequest = new GetRestaurantInfoRequest(SplashActivity.this, params, new Listener<GetRestaurantInfoResponse>() {
+//
+//					@Override
+//					public void onResponse(GetRestaurantInfoResponse restaurantInfo) {
+//
+//						Menu.getInstance().getDataManager().setRestaurantInfo(restaurantInfo);
+//						countDownLatch.countDown();
+//					}
+//				});
+//
+//				GetTaxRateRequest taxRequest = new GetTaxRateRequest(SplashActivity.this, params, new Listener<GetTaxRateResponse>() {
+//
+//					@Override
+//					public void onResponse(GetTaxRateResponse taxRate) {
+//
+//						Menu.getInstance().getDataManager().setTaxRate(taxRate.rate[0].tax);
+//						countDownLatch.countDown();
+//					}
+//				});
+//
+//				GetTipRequest tipRequest = new GetTipRequest(SplashActivity.this, params, new Listener<GetTipResponse>() {
+//
+//					@Override
+//					public void onResponse(GetTipResponse tipRate) {
+//
+//						Menu.getInstance().getDataManager().setTipRate(tipRate.rate[0].mintip, tipRate.rate[0].maxtip);
+//						countDownLatch.countDown();
+//					}
+//				});
+//
+//				GetDiscountRequest discountRequest = new GetDiscountRequest(SplashActivity.this, params, new Listener<GetDiscountResponse>() {
+//
+//					@Override
+//					public void onResponse(GetDiscountResponse discount) {
+//
+//						Menu.getInstance().getDataManager().setDiscount(discount.discount);
+//						countDownLatch.countDown();
+//					}
+//				});
+//
+//				GetCurrencyRequest currencyRequest = new GetCurrencyRequest(SplashActivity.this, params, new Listener<GetCurrencyResponse>() {
+//
+//					@Override
+//					public void onResponse(GetCurrencyResponse currency) {
+//
+//						Menu.getInstance().getDataManager().setCurrency(currency.currency);
+//						countDownLatch.countDown();
+//					}
+//				});
+//
+//				GetBraintreeTokenRequest tokenRequest = new GetBraintreeTokenRequest(SplashActivity.this, null, new Listener<GetBraintreeTokenResponse>() {
+//
+//					@Override
+//					public void onResponse(GetBraintreeTokenResponse token) {
+//
+//						Menu.getInstance().getDataManager().setClientBraintreeToken(token.token);
+//						countDownLatch.countDown();
+//					}
+//				});
+//
+//				VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(restaurantInfoRequest);
+//				VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(taxRequest);
+//				VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(tipRequest);
+//				VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(discountRequest);
+//				VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(currencyRequest);
+//				VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(tokenRequest);
+//
+//				try {
+//					countDownLatch.await(20000, TimeUnit.MILLISECONDS);
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+//
+//				return null;
+//			}
+//
+//			protected void onPostExecute(Void result) {
+//
+//				String accessToken = Settings.getAccessToken(getApplicationContext());
+//
+//				if (accessToken.length() > 0) {
+//					Intent i = new Intent(SplashActivity.this, RestaurantPreviewActivity.class);
+//					i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//					startActivity(i);
+//				} else {
+//					Intent i = new Intent(SplashActivity.this, MainMenuActivity.class);
+//					i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//					startActivity(i);
+//				}
+//
+//				String major = Menu.getInstance().getDataManager().getMajor();
+//				String minor = Menu.getInstance().getDataManager().getMinor();
+//
+//				if ((major != null && minor != null)) {
+//					Intent i = new Intent(SplashActivity.this, RestaurantPreviewActivity.class);
+//					i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//					startActivity(i);
+//				} else if ((major == null || minor == null)) {
+//					Intent i = new Intent(SplashActivity.this, MainMenuActivity.class);
+//					i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//					startActivity(i);
+//				}
+//
+//			};
+//		}.execute();
 	}
 
 	private void doChecks() {

@@ -62,7 +62,7 @@
 
                 <com.s7design.menu.views.MenuTextView
                     android:id="@+id/textviewMealDetailsActivityOrderLargeQuantity"
-                    android:layout_width="20dp"
+                    android:layout_width="25dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
@@ -126,7 +126,7 @@
 
                 <TextView
                     android:id="@+id/textviewMealDetailsActivityOrderSmallQuantity"
-                    android:layout_width="20dp"
+                    android:layout_width="25dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
