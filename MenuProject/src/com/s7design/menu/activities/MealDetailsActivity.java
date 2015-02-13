@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -128,6 +127,11 @@ public class MealDetailsActivity extends BaseActivity {
 
 				if (response != null && response.item.length > 0) {
 					item = response.item[0];
+
+					Item tempItem = Menu.getInstance().getDataManager().getItemByTag(item.largetag);
+					if (tempItem != null)
+						item = tempItem;
+
 					setData();
 				}
 
@@ -187,6 +191,9 @@ public class MealDetailsActivity extends BaseActivity {
 				}
 				mOrderLargeQuantityTextView.setText(String.valueOf((item.quantityLarge) + 1));
 				Menu.getInstance().getDataManager().addCheckoutListItem(item.getLarge());
+
+				if (!Menu.getInstance().isOrderEnabled() && (item.quantityLarge + item.quantitySmall < 2))
+					showAlertDialog(R.string.dialog_title_warning, R.string.dialog_unable_to_order);
 			}
 		});
 
@@ -202,6 +209,9 @@ public class MealDetailsActivity extends BaseActivity {
 				}
 				mOrderSmallQuantityTextView.setText(String.valueOf((item.quantitySmall) + 1));
 				Menu.getInstance().getDataManager().addCheckoutListItem(item.getSmall());
+
+				if (!Menu.getInstance().isOrderEnabled() && (item.quantityLarge + item.quantitySmall < 2))
+					showAlertDialog(R.string.dialog_title_warning, R.string.dialog_unable_to_order);
 			}
 		});
 
@@ -215,8 +225,9 @@ public class MealDetailsActivity extends BaseActivity {
 					mOrderLargeQuantityTextView.setVisibility(View.INVISIBLE);
 
 				}
-				mOrderLargeQuantityTextView.setText(String.valueOf((item.quantityLarge)));
 				Menu.getInstance().getDataManager().removeCheckoutListItem(item.largetag);
+				mOrderLargeQuantityTextView.setText(String.valueOf((item.quantityLarge)));
+
 			}
 		});
 
@@ -230,8 +241,9 @@ public class MealDetailsActivity extends BaseActivity {
 					mOrderSmallQuantityTextView.setVisibility(View.INVISIBLE);
 
 				}
-				mOrderSmallQuantityTextView.setText(String.valueOf((item.quantitySmall)));
 				Menu.getInstance().getDataManager().removeCheckoutListItem(item.smalltag);
+				mOrderSmallQuantityTextView.setText(String.valueOf((item.quantitySmall)));
+
 			}
 		});
 

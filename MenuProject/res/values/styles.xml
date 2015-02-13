@@ -14,7 +14,7 @@
     </style>
 
     <style name="Menu_Button_Orange" parent="@android:style/Widget.Button">
-        <item name="android:background">@color/menu_main_orange</item>
+        <item name="android:background">@drawable/square_orange_button_selector</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">25sp</item>

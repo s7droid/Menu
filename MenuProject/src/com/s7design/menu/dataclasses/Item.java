@@ -19,15 +19,15 @@ public class Item {
 	public double price;
 
 	public Item getSmall() {
-		Item item = getCopy();
-		item.quantitySmall = 1;
-		return item;
+//		Item item = getCopy();
+		++quantitySmall;
+		return this;
 	}
 
 	public Item getLarge() {
-		Item item = getCopy();
-		item.quantityLarge = 1;
-		return item;
+//		Item item = getCopy();
+		++quantityLarge;
+		return this;
 	}
 
 	private Item getCopy() {

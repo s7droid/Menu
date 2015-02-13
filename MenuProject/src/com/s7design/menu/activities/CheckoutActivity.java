@@ -117,6 +117,9 @@ public class CheckoutActivity extends BaseActivity {
 		}
 
 		setData();
+
+		if (!Menu.getInstance().isOrderEnabled())
+			buttonCheckout.setEnabled(false);
 	}
 
 	private void initData() {
