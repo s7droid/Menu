@@ -5,9 +5,11 @@ import java.util.Date;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.res.Resources;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.TypedValue;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -18,6 +20,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import com.s7design.menu.app.Menu;
 
 public class Utils {
 
@@ -70,4 +73,12 @@ public class Utils {
 		long tmp = Math.round(value);
 		return (double) tmp / factor;
 	}
+
+	public static float convertDpToPixel(int dp, Context context) {
+
+		Resources r = context.getResources();
+		float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
+		return px;
+	}
+
 }

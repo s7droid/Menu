@@ -15,7 +15,8 @@
     <string name="action_bar_sign_in">SIGN IN</string>
     <string name="action_bar_sign_up">SIGN UP</string>
     <string name="action_bar_pickup_info">ORDER PICK UP INFO</string>
-
+	<string name="action_bar_main_menu">MAIN MENU</string>
+    
     <!-- Splash screen -->
     <string name="splash_screen_welcome_message">Welcome to MENU</string>
     <string name="splash_screen_location_disabled_body_1">Location services</string>
@@ -143,7 +144,7 @@
     <string name="main_menu_view_past_receipts">VIEW PAST RECEIPTS</string>
     <string name="main_menu_manage_your_account">MANAGE YOUR ACCOUNT</string>
     <string name="main_menu_about_the_app">ABOUT THE APP</string>
-    <string name="main_menu_view_venue_menu">VIEW VENUE MENU</string>
+    <string name="main_menu_view_venue_menu">VIEW THE MENU</string>
     <string name="main_menu_current_order">CURRENT ORDER PREVIEW</string>
 	<string name="main_menu_log_in_or_sign_up">LOG IN OR SIGN UP</string>
     <string name="main_menu_logout">LOGOUT</string>
