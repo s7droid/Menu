@@ -58,6 +58,15 @@ public class MealDetailsActivity extends BaseActivity {
 		initData();
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		if (item != null) {
+			setData();
+		}
+	}
+
 	private void initActionBar() {
 		setActionBarForwardButtonText(getResources().getString(R.string.action_bar_checkout));
 		setActionBarBackButtonText(getResources().getString(R.string.action_bar_back));
@@ -128,10 +137,6 @@ public class MealDetailsActivity extends BaseActivity {
 				if (response != null && response.item.length > 0) {
 					item = response.item[0];
 
-					Item tempItem = Menu.getInstance().getDataManager().getItemByTag(item.largetag);
-					if (tempItem != null)
-						item = tempItem;
-
 					setData();
 				}
 
@@ -146,6 +151,14 @@ public class MealDetailsActivity extends BaseActivity {
 	}
 
 	private void setData() {
+
+		Item tempItem = Menu.getInstance().getDataManager().getItemByTag(item.largetag);
+		if (tempItem != null) {
+			item = tempItem;
+		} else {
+			item.quantityLarge = 0;
+			item.quantitySmall = 0;
+		}
 
 		// "item":[{"category":"BEVERAGES","image":"http:\/\/usemenu.com\/images\/image.png","name":"Mineral
 		// Water without Gas","description":"Fresh mineral water from the swiss

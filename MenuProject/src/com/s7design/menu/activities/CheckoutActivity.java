@@ -96,7 +96,17 @@ public class CheckoutActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_checkout);
 		data = Menu.getInstance().getDataManager();
-		checkoutList = data.getCheckoutList();
+		// checkoutList = data.getCheckoutList();
+		checkoutList = new ArrayList<Item>();
+
+		for (Item item : data.getCheckoutList()) {
+			Log.d(TAG, "quantity large " + item.quantityLarge);
+			Log.d(TAG, "quantity small " + item.quantitySmall);
+			if (item.quantityLarge > 0)
+				checkoutList.add(item);
+			if (item.quantitySmall > 0)
+				checkoutList.add(item);
+		}
 
 		initData();
 		initViews();
@@ -112,13 +122,14 @@ public class CheckoutActivity extends BaseActivity {
 
 	private void refreshList() {
 		total = 0;
+
 		for (Item item : checkoutList) {
 			total += item.quantitySmall > 0 ? (item.quantitySmall * item.smallprice) : (item.quantityLarge * item.largeprice);
 		}
 
 		setData();
 
-		if (!Menu.getInstance().isOrderEnabled())
+		if (!Menu.getInstance().isOrderEnabled() || total == 0)
 			buttonCheckout.setEnabled(false);
 	}
 
@@ -499,19 +510,34 @@ public class CheckoutActivity extends BaseActivity {
 
 			holder.position = position;
 
-			boolean isSmall = item.quantitySmall > 0;
-			holder.isSmall = isSmall;
+			if (position == 0) {
+				if (item.quantityLarge > 0) {
+					holder.isSmall = false;
+				} else {
+					holder.isSmall = true;
+				}
+			} else {
+				Item prevItem = getItem(position - 1);
+				if (prevItem.largetag == item.largetag) {
+					holder.isSmall = true;
+				} else {
+					if (item.quantityLarge > 0)
+						holder.isSmall = false;
+					else
+						holder.isSmall = true;
+				}
+			}
 
-			holder.circleButtonViewQty.setAsQty(isSmall ? item.quantitySmall : item.quantityLarge);
+			holder.circleButtonViewQty.setAsQty(holder.isSmall ? item.quantitySmall : item.quantityLarge);
 			holder.circleButtonViewQty.setAsLight();
 			holder.textViewName.setText(item.name);
-			holder.textViewPrice.setText(String.valueOf(isSmall ? (item.smallprice * item.quantitySmall) : (item.largeprice * item.quantityLarge)));
+			holder.textViewPrice.setText(String.valueOf(holder.isSmall ? (item.smallprice * item.quantitySmall) : (item.largeprice * item.quantityLarge)));
 			holder.circleButtonViewDel.setAsDel();
 			holder.circleButtonViewDel.setAsLight();
 			holder.circleButtonViewMinus.setAsRemove();
 			holder.circleButtonViewPlus.setAsAdd();
-			holder.textViewQty.setText(String.valueOf(isSmall ? item.quantitySmall : item.quantityLarge));
-			holder.textViewIsSmall.setVisibility(isSmall ? View.VISIBLE : View.GONE);
+			holder.textViewQty.setText(String.valueOf(holder.isSmall ? item.quantitySmall : item.quantityLarge));
+			holder.textViewIsSmall.setVisibility(holder.isSmall ? View.VISIBLE : View.GONE);
 
 			if (!disableClicks) {
 				convertView.setOnClickListener(new OnClickListener() {
@@ -569,6 +595,9 @@ public class CheckoutActivity extends BaseActivity {
 							holder.textViewQty.setText(String.valueOf(holder.isSmall ? ++getItem(holder.position).quantitySmall : ++getItem(holder.position).quantityLarge));
 							refreshList();
 						}
+
+						Log.d(TAG, "quantity large " + getItem(holder.position).quantityLarge);
+						Log.d(TAG, "quantity small " + getItem(holder.position).quantitySmall);
 					}
 				});
 			}
@@ -580,7 +609,25 @@ public class CheckoutActivity extends BaseActivity {
 					@Override
 					public void onClick(View v) {
 						ViewHolder holder = (ViewHolder) v.getTag();
-						checkoutList.remove(holder.position);
+						Item item = getItem(holder.position);
+						if (holder.isSmall) {
+							if (item.quantityLarge > 0) {
+								item.quantitySmall = 0;
+							} else {
+								item.quantitySmall = 1;
+								Menu.getInstance().getDataManager().removeCheckoutListItem(item.smalltag);
+							}
+							checkoutList.remove(holder.position);
+						} else {
+							if (item.quantitySmall > 0) {
+								item.quantityLarge = 0;
+							} else {
+								item.quantityLarge = 1;
+								Menu.getInstance().getDataManager().removeCheckoutListItem(item.largetag);
+							}
+							checkoutList.remove(holder.position);
+						}
+
 						refreshList();
 					}
 				});
