@@ -40,7 +40,8 @@
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="15dp"
-                android:layout_marginRight="10dp" />
+                android:layout_marginRight="10dp"
+                android:src="@drawable/tokenization_explain_step_one_icon" />
 
             <View
                 android:layout_width="1dp"
@@ -66,7 +67,8 @@
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="5dp"
-                android:layout_marginRight="10dp" />
+                android:layout_marginRight="10dp" 
+                android:src="@drawable/tokenization_explain_down_arrow_icon"/>
 
             <View
                 android:layout_width="1dp"
@@ -91,7 +93,8 @@
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="15dp"
-                android:layout_marginRight="10dp" />
+                android:layout_marginRight="10dp"
+                android:src="@drawable/tokenization_explain_step_2" />
 
             <View
                 android:layout_width="1dp"
@@ -117,7 +120,8 @@
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="5dp"
-                android:layout_marginRight="10dp" />
+                android:layout_marginRight="10dp"
+                android:src="@drawable/tokenization_explain_down_arrow_icon" />
 
             <View
                 android:layout_width="1dp"
@@ -142,7 +146,8 @@
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="15dp"
-                android:layout_marginRight="10dp" />
+                android:layout_marginRight="10dp" 
+                android:src="@drawable/tokenization_explain_step_3"/>
 
             <View
                 android:layout_width="1dp"

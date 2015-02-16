@@ -229,6 +229,8 @@
                         android:inputType="number"
                         android:maxLength="4"
                         android:singleLine="true"
+                        android:drawableRight="@drawable/sign_up_calendar"
+                        android:drawablePadding="10dp"
                         android:textColor="@color/menu_main_gray" />
 
                     <View

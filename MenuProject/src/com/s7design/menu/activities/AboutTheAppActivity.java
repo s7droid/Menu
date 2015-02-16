@@ -79,11 +79,13 @@ public class AboutTheAppActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 
-				if (!isAknwoledgementVisible)
+				if (!isAknwoledgementVisible) {
 					mLinearLayoutAknwoledgementsContainer.setVisibility(View.GONE);
-				else
+					mButtonAcknowledgements.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.about_app_down_arrow_down), null);
+				} else {
 					mLinearLayoutAknwoledgementsContainer.setVisibility(View.VISIBLE);
-
+					mButtonAcknowledgements.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.about_app_down_arrow_up), null);
+				}
 				isAknwoledgementVisible = !isAknwoledgementVisible;
 			}
 		});
@@ -93,11 +95,13 @@ public class AboutTheAppActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 
-				if (!isTOSVisible)
+				if (!isTOSVisible) {
 					mLinearLayoutTOSContainer.setVisibility(View.GONE);
-				else
+					mButtonTermsOfService.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.about_app_down_arrow_down), null);
+				} else {
 					mLinearLayoutTOSContainer.setVisibility(View.VISIBLE);
-
+					mButtonTermsOfService.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.about_app_down_arrow_up), null);
+				}
 				isTOSVisible = !isTOSVisible;
 			}
 		});
@@ -107,10 +111,13 @@ public class AboutTheAppActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 
-				if (!isPrivacyTermsVisible)
+				if (!isPrivacyTermsVisible) {
 					mLinearLayoutPrivacyTerms.setVisibility(View.GONE);
-				else
+					mButtonPrivacyTerms.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.about_app_down_arrow_down), null);
+				} else {
 					mLinearLayoutPrivacyTerms.setVisibility(View.VISIBLE);
+					mButtonPrivacyTerms.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.about_app_down_arrow_up), null);
+				}
 
 				isPrivacyTermsVisible = !isPrivacyTermsVisible;
 
