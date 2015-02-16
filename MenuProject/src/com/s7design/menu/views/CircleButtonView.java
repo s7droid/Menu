@@ -2,6 +2,7 @@ package com.s7design.menu.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -10,6 +11,7 @@ import com.s7design.menu.R;
 public class CircleButtonView extends RelativeLayout {
 
 	private TextView textView;
+	private ImageView imageView;
 
 	public CircleButtonView(Context context) {
 		super(context);
@@ -28,7 +30,7 @@ public class CircleButtonView extends RelativeLayout {
 		inflate(getContext(), R.layout.circle_button_view, this);
 
 		textView = (TextView) findViewById(R.id.textView);
-		setBackgroundResource(R.drawable.border_round_gray);
+		imageView = (ImageView) findViewById(R.id.imageView);
 	}
 
 	@Override
@@ -40,28 +42,37 @@ public class CircleButtonView extends RelativeLayout {
 
 	public void setAsQty(int qty) {
 		textView.setText(String.valueOf(qty));
-	}
-
-	public void setAsDel() {
-		textView.setText("x");
-	}
-
-	public void setAsRemove() {
-		textView.setText("-");
-	}
-
-	public void setAsAdd() {
-		textView.setText("+");
-	}
-
-	public void setAsLight() {
-		textView.setTextColor(getResources().getColor(R.color.menu_main_gray_light));
 		setBackgroundResource(R.drawable.border_round_gray_light);
 	}
 
-	public void setAsOrange() {
-		textView.setTextColor(getResources().getColor(R.color.menu_main_orange));
-		setBackgroundResource(R.drawable.border_round_orange);
+	public void setAsDel() {
+		imageView.setImageResource(R.drawable.button_x_grey);
 	}
+
+	public void setAsRemoveOrange() {
+		imageView.setImageResource(R.drawable.button_minus_orange);
+	}
+
+	public void setAsRemoveGrey() {
+		imageView.setImageResource(R.drawable.button_minus_grey);
+	}
+
+	public void setAsAddOrange() {
+		imageView.setImageResource(R.drawable.button_plus_orange);
+	}
+
+	public void setAsAddGrey() {
+		imageView.setImageResource(R.drawable.button_plus_grey);
+	}
+
+	// public void setAsLight() {
+	// textView.setTextColor(getResources().getColor(R.color.menu_main_gray_light));
+	// setBackgroundResource(R.drawable.border_round_gray_light);
+	// }
+	//
+	// public void setAsOrange() {
+	// textView.setTextColor(getResources().getColor(R.color.menu_main_orange));
+	// setBackgroundResource(R.drawable.border_round_orange);
+	// }
 
 }

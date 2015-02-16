@@ -172,7 +172,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true" />
+                    android:layout_alignParentTop="true"
+                    android:background="@null"
+                    android:src="@drawable/button_pen_paper_icon" />
 
                 <com.s7design.menu.views.MenuTextView
                     android:id="@+id/textviewMealDetailsActivityReceiptText"

@@ -60,8 +60,7 @@ public class ManageAccountActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		final ProgressDialogFragment progressDialog = new ProgressDialogFragment();
-		progressDialog.show(getFragmentManager(), ManageAccountActivity.class.getSimpleName());
+		showProgressDialogLoading();
 
 		initActionBar();
 
@@ -80,7 +79,7 @@ public class ManageAccountActivity extends BaseActivity {
 				initialEmail = response.email;
 				initialName = response.name;
 
-				progressDialog.dismiss();
+				dismissProgressDialog();
 			}
 		});
 
@@ -263,7 +262,7 @@ public class ManageAccountActivity extends BaseActivity {
 
 					@Override
 					public void onResponse(ModifyAccountResponse arg0) {
-						showAlertDialog("",getResources().getString(R.string.dialog_fields_changed),new OnClickListener() {
+						showAlertDialog("", getResources().getString(R.string.dialog_fields_changed), new OnClickListener() {
 							@Override
 							public void onClick(View v) {
 								finish();
@@ -274,7 +273,7 @@ public class ManageAccountActivity extends BaseActivity {
 				});
 
 				VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
-				
+
 			}
 		});
 	}

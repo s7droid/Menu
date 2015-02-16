@@ -4,12 +4,31 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <com.s7design.menu.views.MenuButton
+    <RelativeLayout
         android:id="@+id/buttonOrderMealActivitySubItem"
-        style="@style/Menu_Button_Orange"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="Sub category" />
+        android:layout_height="40dp"
+        android:background="@drawable/square_orange_button_selector" >
+
+        <com.s7design.menu.views.MenuTextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageViewArrow"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/arrow_up" />
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/listviewOrderMealActivitySubItemsList"

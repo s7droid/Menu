@@ -95,18 +95,6 @@ public class CheckoutActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_checkout);
-		data = Menu.getInstance().getDataManager();
-		// checkoutList = data.getCheckoutList();
-		checkoutList = new ArrayList<Item>();
-
-		for (Item item : data.getCheckoutList()) {
-			Log.d(TAG, "quantity large " + item.quantityLarge);
-			Log.d(TAG, "quantity small " + item.quantitySmall);
-			if (item.quantityLarge > 0)
-				checkoutList.add(item);
-			if (item.quantitySmall > 0)
-				checkoutList.add(item);
-		}
 
 		initData();
 		initViews();
@@ -123,9 +111,22 @@ public class CheckoutActivity extends BaseActivity {
 	private void refreshList() {
 		total = 0;
 
-		for (Item item : checkoutList) {
-			total += item.quantitySmall > 0 ? (item.quantitySmall * item.smallprice) : (item.quantityLarge * item.largeprice);
+		checkoutList.clear();
+		for (Item item : data.getCheckoutList()) {
+			if (item.quantityLarge > 0) {
+				checkoutList.add(item);
+				total += item.quantityLarge * item.largeprice;
+			}
+			if (item.quantitySmall > 0) {
+				checkoutList.add(item);
+				total += item.quantitySmall * item.smallprice;
+			}
 		}
+
+		// for (Item item : checkoutList) {
+		// total += item.quantitySmall > 0 ? (item.quantitySmall *
+		// item.smallprice) : (item.quantityLarge * item.largeprice);
+		// }
 
 		setData();
 
@@ -134,6 +135,9 @@ public class CheckoutActivity extends BaseActivity {
 	}
 
 	private void initData() {
+
+		data = Menu.getInstance().getDataManager();
+		checkoutList = new ArrayList<Item>();
 
 		Rate rate = data.getRate();
 		tax = Utils.round(rate.tax, 2);
@@ -182,8 +186,7 @@ public class CheckoutActivity extends BaseActivity {
 		textViewMinTip = (TextView) findViewById(R.id.textViewMinTip);
 		textViewMaxTip = (TextView) findViewById(R.id.textViewMaxTip);
 
-		circleButtonAdd.setAsAdd();
-		circleButtonAdd.setAsOrange();
+		circleButtonAdd.setAsAddOrange();
 
 		adapter = new Adapter(this, checkoutList);
 		listView.setAdapter(adapter);
@@ -529,13 +532,11 @@ public class CheckoutActivity extends BaseActivity {
 			}
 
 			holder.circleButtonViewQty.setAsQty(holder.isSmall ? item.quantitySmall : item.quantityLarge);
-			holder.circleButtonViewQty.setAsLight();
 			holder.textViewName.setText(item.name);
 			holder.textViewPrice.setText(String.valueOf(holder.isSmall ? (item.smallprice * item.quantitySmall) : (item.largeprice * item.quantityLarge)));
 			holder.circleButtonViewDel.setAsDel();
-			holder.circleButtonViewDel.setAsLight();
-			holder.circleButtonViewMinus.setAsRemove();
-			holder.circleButtonViewPlus.setAsAdd();
+			holder.circleButtonViewMinus.setAsRemoveGrey();
+			holder.circleButtonViewPlus.setAsAddGrey();
 			holder.textViewQty.setText(String.valueOf(holder.isSmall ? item.quantitySmall : item.quantityLarge));
 			holder.textViewIsSmall.setVisibility(holder.isSmall ? View.VISIBLE : View.GONE);
 

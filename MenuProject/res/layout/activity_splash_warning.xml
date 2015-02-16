@@ -36,6 +36,7 @@
         android:id="@+id/buttonEnableLocationServices"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
+        android:layout_marginBottom="30dp"
         android:layout_marginTop="150dp"
         android:background="@drawable/rounded_white_button_selector"
         android:paddingLeft="10dp"

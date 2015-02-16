@@ -46,12 +46,16 @@ public class MealDetailsActivity extends BaseActivity {
 
 	private String currency;
 
+	private int itemTag;
+
 	// DATA
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_meal_details);
+
+		itemTag = getIntent().getIntExtra(INTENT_EXTRA_TAG, 0);
 
 		initActionBar();
 		initViews();
@@ -105,12 +109,10 @@ public class MealDetailsActivity extends BaseActivity {
 		circleButtonViewPlusSmall = (CircleButtonView) findViewById(R.id.circleButtonViewPlusSmall);
 		mGetReceiptImageButton = (ImageButton) findViewById(R.id.imagebuttonMealDetailsActivityGetReceipt);
 
-		circleButtonViewMinusLarge.setAsRemove();
-		circleButtonViewMinusLarge.setAsOrange();
-		circleButtonViewPlusLarge.setAsAdd();
-		circleButtonViewPlusLarge.setAsOrange();
-		circleButtonViewMinusSmall.setAsRemove();
-		circleButtonViewPlusSmall.setAsAdd();
+		circleButtonViewMinusLarge.setAsRemoveOrange();
+		circleButtonViewPlusLarge.setAsAddOrange();
+		circleButtonViewMinusSmall.setAsRemoveGrey();
+		circleButtonViewPlusSmall.setAsAddGrey();
 
 		mGetReceiptImageButton.setOnClickListener(new OnClickListener() {
 
@@ -173,7 +175,7 @@ public class MealDetailsActivity extends BaseActivity {
 		circleButtonViewPlusLarge.setVisibility(View.VISIBLE);
 		circleButtonViewPlusSmall.setVisibility(View.VISIBLE);
 
-		Item itemCOL = Menu.getInstance().getDataManager().getItemByTag(getIntent().getIntExtra(INTENT_EXTRA_TAG, 0));
+		Item itemCOL = Menu.getInstance().getDataManager().getItemByTag(itemTag);
 
 		if (itemCOL != null) {
 
@@ -190,6 +192,11 @@ public class MealDetailsActivity extends BaseActivity {
 				mOrderSmallQuantityTextView.setVisibility(View.VISIBLE);
 				mOrderSmallQuantityTextView.setText(String.valueOf(item.quantitySmall));
 			}
+		} else {
+			circleButtonViewMinusLarge.setVisibility(View.INVISIBLE);
+			mOrderLargeQuantityTextView.setVisibility(View.INVISIBLE);
+			circleButtonViewMinusSmall.setVisibility(View.INVISIBLE);
+			mOrderSmallQuantityTextView.setVisibility(View.INVISIBLE);
 		}
 
 		circleButtonViewPlusLarge.setOnClickListener(new OnClickListener() {
@@ -200,7 +207,6 @@ public class MealDetailsActivity extends BaseActivity {
 				if (item.quantityLarge == 0) {
 					circleButtonViewMinusLarge.setVisibility(View.VISIBLE);
 					mOrderLargeQuantityTextView.setVisibility(View.VISIBLE);
-
 				}
 				mOrderLargeQuantityTextView.setText(String.valueOf((item.quantityLarge) + 1));
 				Menu.getInstance().getDataManager().addCheckoutListItem(item.getLarge());
@@ -218,7 +224,6 @@ public class MealDetailsActivity extends BaseActivity {
 				if (item.quantitySmall == 0) {
 					circleButtonViewMinusSmall.setVisibility(View.VISIBLE);
 					mOrderSmallQuantityTextView.setVisibility(View.VISIBLE);
-
 				}
 				mOrderSmallQuantityTextView.setText(String.valueOf((item.quantitySmall) + 1));
 				Menu.getInstance().getDataManager().addCheckoutListItem(item.getSmall());
@@ -236,7 +241,6 @@ public class MealDetailsActivity extends BaseActivity {
 				if (item.quantityLarge == 1) {
 					circleButtonViewMinusLarge.setVisibility(View.INVISIBLE);
 					mOrderLargeQuantityTextView.setVisibility(View.INVISIBLE);
-
 				}
 				Menu.getInstance().getDataManager().removeCheckoutListItem(item.largetag);
 				mOrderLargeQuantityTextView.setText(String.valueOf((item.quantityLarge)));
@@ -252,7 +256,6 @@ public class MealDetailsActivity extends BaseActivity {
 				if (item.quantitySmall == 1) {
 					circleButtonViewMinusSmall.setVisibility(View.INVISIBLE);
 					mOrderSmallQuantityTextView.setVisibility(View.INVISIBLE);
-
 				}
 				Menu.getInstance().getDataManager().removeCheckoutListItem(item.smalltag);
 				mOrderSmallQuantityTextView.setText(String.valueOf((item.quantitySmall)));

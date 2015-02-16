@@ -8,6 +8,7 @@ import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -57,10 +58,12 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 
 		View view = inflate(mGlobalContext, R.layout.activity_meal_sub_item, this);
 
-		final Button subCategoryButton = (Button) view.findViewById(R.id.buttonOrderMealActivitySubItem);
+		final RelativeLayout subCategoryButton = (RelativeLayout) view.findViewById(R.id.buttonOrderMealActivitySubItem);
+		final TextView textViewTitle = (TextView) view.findViewById(R.id.textViewTitle);
+		final ImageView imageViewArrow = (ImageView) view.findViewById(R.id.imageViewArrow);
 		final LinearLayout mealsListView = (LinearLayout) view.findViewById(R.id.listviewOrderMealActivitySubItemsList);
 
-		subCategoryButton.setText(mSubclassTitle);
+		textViewTitle.setText(mSubclassTitle);
 
 		for (int i = 0; i < items.size(); i++) {
 			final Item itemToSend = items.get(i);
@@ -151,10 +154,13 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 
 			@Override
 			public void onClick(View v) {
-				if (!isMealsListOpen)
+				if (!isMealsListOpen) {
 					mealsListView.setVisibility(View.VISIBLE);
-				else
+					imageViewArrow.setImageResource(R.drawable.arrow_up);
+				} else {
 					mealsListView.setVisibility(View.GONE);
+					imageViewArrow.setImageResource(R.drawable.arrow_down);
+				}
 
 				isMealsListOpen = !isMealsListOpen;
 			}

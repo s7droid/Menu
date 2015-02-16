@@ -66,6 +66,8 @@ public class SplashWarningActivity extends BaseActivity {
 
 		if (start == INTENT_EXTRA_START_LOCATION) {
 
+			imageView.setImageResource(R.drawable.notification_location_icon);
+
 			String bold1 = getString(R.string.splash_screen_location_disabled_body_1);
 			SpannableStringBuilder ssb1 = new SpannableStringBuilder(bold1 + " " + getString(R.string.splash_screen_location_disabled_body_2));
 
@@ -94,6 +96,8 @@ public class SplashWarningActivity extends BaseActivity {
 			});
 
 		} else if (start == INTENT_EXTRA_START_BLUETOOTH) {
+
+			imageView.setImageResource(R.drawable.notification_bluetooth_icon);
 
 			String bold1 = getString(R.string.splash_screen_bluetooth_disabled_body_1);
 			SpannableStringBuilder ssb1 = new SpannableStringBuilder(bold1 + " " + getString(R.string.splash_screen_bluetooth_disabled_body_2));
