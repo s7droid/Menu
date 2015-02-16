@@ -13,15 +13,24 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.android.volley.Response;
+import com.android.volley.Response.Listener;
+import com.braintreepayments.api.Braintree;
+import com.braintreepayments.api.models.CardBuilder;
 import com.s7design.menu.R;
+import com.s7design.menu.app.Menu;
 import com.s7design.menu.dialogs.ProgressDialogFragment;
 import com.s7design.menu.utils.Settings;
 import com.s7design.menu.views.MenuEditText;
 import com.s7design.menu.volley.VolleySingleton;
 import com.s7design.menu.volley.requests.FetchAccountRequest;
+import com.s7design.menu.volley.requests.ModifyAccountRequest;
+import com.s7design.menu.volley.requests.SignUpRequest;
 import com.s7design.menu.volley.responses.FetchAccountResponse;
+import com.s7design.menu.volley.responses.ModifyAccountResponse;
+import com.s7design.menu.volley.responses.SignUpResponse;
 
 public class ManageAccountActivity extends BaseActivity {
 
@@ -31,7 +40,7 @@ public class ManageAccountActivity extends BaseActivity {
 	private EditText mEditTextNewPassword;
 	private EditText mEditTextRepeatPassword;
 	private EditText mEditTextCreditCardNumber;
-//	private EditText mEditTextNameOnCardNew;
+	// private EditText mEditTextNameOnCardNew;
 	private EditText mEditTextMonth;
 	private EditText mEditTextYear;
 	private EditText mEditTextCCV;
@@ -39,9 +48,13 @@ public class ManageAccountActivity extends BaseActivity {
 	private Button mButtonChangeCreditCard;
 	private Button mButtonConfirmChanges;
 	private LinearLayout mLinearLayoutCreditCardDataCOntainer;
+
 	// DATA
 	private boolean isPasswordShowing = false;
 	private int MY_SCAN_REQUEST_CODE = 124; // arbitrary int
+	private String initialName;
+	private String initialEmail;
+	Map<String, String> params = new HashMap<String, String>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +77,9 @@ public class ManageAccountActivity extends BaseActivity {
 				initViews();
 				mEditTextNameOnCard.setText(response.name);
 				mEditTextEmail.setText(response.email);
+				initialEmail = response.email;
+				initialName = response.name;
+
 				progressDialog.dismiss();
 			}
 		});
@@ -96,12 +112,13 @@ public class ManageAccountActivity extends BaseActivity {
 		mButtonChangeCreditCard = (Button) findViewById(R.id.buttonManageAccountActivityScanCreditCard);
 		mButtonConfirmChanges = (Button) findViewById(R.id.buttonManageAccountCinfirmChanges);
 		mEditTextCreditCardNumber = (EditText) findViewById(R.id.edittextManageAccountActivityCardNumber);
-//		mEditTextNameOnCardNew = (EditText) findViewById(R.id.edittextManageAccountActivityNameOnCard);
+		// mEditTextNameOnCardNew = (EditText)
+		// findViewById(R.id.edittextManageAccountActivityNameOnCard);
 		mEditTextMonth = (EditText) findViewById(R.id.edittextManageAccountActivityMonth);
 		mEditTextYear = (EditText) findViewById(R.id.edittextManageAccountActivityYear);
 		mEditTextCCV = (EditText) findViewById(R.id.edittextManageAccountActivityCCV);
 		mLinearLayoutCreditCardDataCOntainer = (LinearLayout) findViewById(R.id.linearlayoutManageAccountActivityCardContainer);
-				
+
 		mButtonShowPassword.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -156,7 +173,108 @@ public class ManageAccountActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
+				if (!mEditTextNewPassword.getText().toString().isEmpty() && !mEditTextRepeatPassword.getText().toString().isEmpty()
+						&& mEditTextNewPassword.getText().toString().equals(mEditTextRepeatPassword.getText().toString())) {
+					// TODO: do something smart :)
+				} else if (!mEditTextNewPassword.getText().toString().equals(mEditTextRepeatPassword.getText().toString())) {
+					showAlertDialog("", getResources().getString(R.string.manage_account_passwords_not_same));
+					// Toast.makeText(getApplicationContext(),
+					// "New password and repeated password are not same",
+					// Toast.LENGTH_SHORT).show();
+					return;
+				}
 
+				// Braintree braintree =
+				// Braintree.getInstance(ManageAccountActivity.this,
+				// Menu.getInstance().getDataManager().getClientBraintreeToken());
+				// braintree.addListener(new
+				// Braintree.PaymentMethodNonceListener() {
+				// public void onPaymentMethodNonce(String paymentMethodNonce) {
+				//
+				// showProgressDialogLoading();
+				//
+				// params.put("accesstoken",
+				// Settings.getAccessToken(getApplicationContext()));
+				// params.put("name", mEditTextNameOnCard.getText().toString());
+				// params.put("email", mEditTextEmail.getText().toString());
+				//
+				// if(mEditTextNewPassword.getText().toString().isEmpty())
+				// params.put("password",
+				// mEditTextNewPassword.getText().toString());
+				//
+				// params.put("nonce", paymentMethodNonce);
+				//
+				// ModifyAccountRequest request = new
+				// ModifyAccountRequest(ManageAccountActivity.this, params, new
+				// Listener<ModifyAccountResponse>() {
+				//
+				// @Override
+				// public void onResponse(ModifyAccountResponse arg0) {
+				// // TODO Auto-ge nerated method stub
+				//
+				// }
+				// });
+				//
+				// VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+				//
+				// SignUpRequest signUpRequest = new
+				// SignUpRequest(ManageAccountActivity.this, params, new
+				// Listener<SignUpResponse>() {
+				//
+				// @Override
+				// public void onResponse(SignUpResponse signUpResponse) {
+				//
+				// if (signUpResponse.response.equals("success")) {
+				// Settings.setAccessToken(ManageAccountActivity.this,
+				// signUpResponse.accesstoken);
+				// Intent i = new Intent(ManageAccountActivity.this,
+				// RestaurantPreviewActivity.class);
+				// i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+				// Intent.FLAG_ACTIVITY_CLEAR_TASK |
+				// Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				// startActivity(i);
+				// dismissProgressDialog();
+				// }
+				//
+				// dismissProgressDialog();
+				// }
+				// });
+				//
+				// VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(signUpRequest);
+				// }
+				// });
+
+				// CardBuilder cardBuilder = new
+				// CardBuilder().cardNumber(mCreditCardNumberEditText.getText().toString()).expirationDate(
+				// mMonthEditText.getText().toString() + "/" +
+				// mYearEditText.getText().toString());
+				// braintree.tokenize(cardBuilder);
+
+				showProgressDialogLoading();
+
+				params.put("accesstoken", Settings.getAccessToken(getApplicationContext()));
+				params.put("name", mEditTextNameOnCard.getText().toString());
+				params.put("email", mEditTextEmail.getText().toString());
+
+				if (mEditTextNewPassword.getText().toString().isEmpty())
+					params.put("password", mEditTextNewPassword.getText().toString());
+
+				ModifyAccountRequest request = new ModifyAccountRequest(ManageAccountActivity.this, params, new Listener<ModifyAccountResponse>() {
+
+					@Override
+					public void onResponse(ModifyAccountResponse arg0) {
+						showAlertDialog("",getResources().getString(R.string.dialog_fields_changed),new OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								finish();
+							}
+						});
+						dismissProgressDialog();
+					}
+				});
+
+				VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+				
 			}
 		});
 	}
@@ -169,9 +287,7 @@ public class ManageAccountActivity extends BaseActivity {
 			CreditCard scanResult = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
 
 			mLinearLayoutCreditCardDataCOntainer.setAlpha(1.0f);
-			
-			
-			
+
 			// Never log a raw card number. Avoid displaying it, but if
 			// necessary use getFormattedCardNumber()
 
