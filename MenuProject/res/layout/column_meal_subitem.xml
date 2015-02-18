@@ -17,11 +17,10 @@
             android:layout_margin="10dp"
             android:orientation="vertical" >
 
-            <ImageView
+            <com.android.volley.toolbox.NetworkImageView
                 android:id="@+id/imageviewSubMealImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/meal_category_01"
                 android:scaleType="centerInside" />
 
             <ImageView
@@ -65,6 +64,7 @@
                     android:textSize="13sp" />
 
                 <com.s7design.menu.views.MenuTextView
+                    android:id="@+id/textViewDash"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:alpha="0.5"

@@ -74,6 +74,11 @@ public class OrderMealsActivity extends BaseActivity {
 			mContainer.removeAllViews();
 			initData();
 		}
+
+		if (Menu.getInstance().getDataManager().isCheckoutListEmpty())
+			hideRightActionBarButton();
+		else
+			showRightActionBarButton();
 	}
 
 	private void initViews() {

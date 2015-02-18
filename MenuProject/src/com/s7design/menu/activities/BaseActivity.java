@@ -167,14 +167,15 @@ public class BaseActivity extends Activity implements OnVolleyErrorCallback {
 	}
 
 	public void showProgressDialogLoading() {
-		if (!progressDialog.isVisible){
-			progressDialog.show(getFragmentManager(), BaseActivity.class.getSimpleName());;
+		if (!progressDialog.isVisible) {
+			progressDialog.show(getFragmentManager(), BaseActivity.class.getSimpleName());
+			;
 		}
 	}
 
 	public void dismissProgressDialog() {
 		try {
-		    progressDialog.dismiss();
+			progressDialog.dismiss();
 			progressDialog.dismissAllowingStateLoss();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -191,6 +192,14 @@ public class BaseActivity extends Activity implements OnVolleyErrorCallback {
 	public void onVolleyError(VolleyError volleyError) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public void hideRightActionBarButton() {
+		buttonActionBarForward.setVisibility(View.INVISIBLE);
+	}
+
+	public void showRightActionBarButton() {
+		buttonActionBarForward.setVisibility(View.VISIBLE);
 	}
 
 }

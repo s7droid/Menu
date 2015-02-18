@@ -13,11 +13,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.s7design.menu.R;
 import com.s7design.menu.activities.BaseActivity;
 import com.s7design.menu.activities.MealDetailsActivity;
 import com.s7design.menu.app.Menu;
 import com.s7design.menu.dataclasses.Item;
+import com.s7design.menu.volley.VolleySingleton;
 
 public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 
@@ -28,6 +31,7 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 	private boolean isMealsListOpen = true;
 	private ArrayList<Item> items;
 	private String currency;
+	private ImageLoader imageLoader;
 
 	public CustomMenuMealCategorySubTypeExpandable(Context context) {
 		super(context);
@@ -36,6 +40,8 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 
 		mGlobalContext = context;
 		currency = Menu.getInstance().getDataManager().getCurrency();
+
+		imageLoader = VolleySingleton.getInstance(context).getImageLoader();
 
 		// init();
 
@@ -69,16 +75,18 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 			final Item itemToSend = items.get(i);
 
 			LinearLayout vi = (LinearLayout) LayoutInflater.from(mGlobalContext).inflate(R.layout.column_meal_subitem, null);
+			NetworkImageView imageView = (NetworkImageView) vi.findViewById(R.id.imageviewSubMealImage);
 			Button large = (Button) vi.findViewById(R.id.buttonSubMealOrderLarge);
 			Button small = (Button) vi.findViewById(R.id.buttonSubMealOrderSmall);
 			final TextView bigOrderPriceAndQuantity = (TextView) vi.findViewById(R.id.textviewSubMealBigPrice);
+			TextView textViewDash = (TextView) vi.findViewById(R.id.textViewDash);
 			final TextView smallOrderPriceAndQuantity = (TextView) vi.findViewById(R.id.textviewSubMealSmallPrice);
 			TextView mealName = (TextView) vi.findViewById(R.id.textviewSubMealTitle);
 			RelativeLayout imageContainer = (RelativeLayout) vi.findViewById(R.id.linearlayoutSubMealImageContainer);
 
+			imageView.setImageUrl(itemToSend.image, imageLoader);
+
 			mealName.setText(items.get(i).name);
-			bigOrderPriceAndQuantity.setText(String.format("%.2f", items.get(i).largeprice) + currency);
-			smallOrderPriceAndQuantity.setText(String.format("%.2f", items.get(i).smallprice) + currency);
 
 			Item it = Menu.getInstance().getDataManager().getItemByTag(itemToSend.largetag);
 
@@ -95,12 +103,17 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 				}
 			}
 
+			bigOrderPriceAndQuantity.setText(currency + String.format("%.2f", items.get(i).largeprice));
+			large.setText(mGlobalContext.getString(R.string.category_meals_add) + " " + itemToSend.largelabel);
 			large.setTag(itemToSend.quantityLarge);
-			small.setTag(itemToSend.quantitySmall);
 			large.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
+
+					if (Menu.getInstance().getDataManager().isCheckoutListEmpty())
+						((BaseActivity) getContext()).showRightActionBarButton();
+
 					int counter = (Integer) v.getTag();
 					counter++;
 					setQuantity(bigOrderPriceAndQuantity, itemToSend.largeprice, counter);
@@ -112,26 +125,36 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 
 					if (!Menu.getInstance().isOrderEnabled())
 						((BaseActivity) getContext()).showAlertDialog(R.string.dialog_title_warning, R.string.dialog_unable_to_order);
+
 				}
 			});
 
-			small.setOnClickListener(new OnClickListener() {
+			if (itemToSend.smalllabel.length() > 0) {
+				smallOrderPriceAndQuantity.setText(currency + String.format("%.2f", items.get(i).smallprice));
+				small.setText(mGlobalContext.getString(R.string.category_meals_add) + " " + itemToSend.smalllabel);
+				small.setTag(itemToSend.quantitySmall);
+				small.setOnClickListener(new OnClickListener() {
 
-				@Override
-				public void onClick(View v) {
-					int counter = (Integer) v.getTag();
-					counter++;
-					setQuantity(smallOrderPriceAndQuantity, itemToSend.smallprice, counter);
-					v.setTag(counter);
-					Item item = Menu.getInstance().getDataManager().getItemByTag(itemToSend.smalltag);
-					if (item == null)
-						item = itemToSend;
-					Menu.getInstance().getDataManager().addCheckoutListItem(item.getSmall());
+					@Override
+					public void onClick(View v) {
+						int counter = (Integer) v.getTag();
+						counter++;
+						setQuantity(smallOrderPriceAndQuantity, itemToSend.smallprice, counter);
+						v.setTag(counter);
+						Item item = Menu.getInstance().getDataManager().getItemByTag(itemToSend.smalltag);
+						if (item == null)
+							item = itemToSend;
+						Menu.getInstance().getDataManager().addCheckoutListItem(item.getSmall());
 
-					if (!Menu.getInstance().isOrderEnabled())
-						((BaseActivity) getContext()).showAlertDialog(R.string.dialog_title_warning, R.string.dialog_unable_to_order);
-				}
-			});
+						if (!Menu.getInstance().isOrderEnabled())
+							((BaseActivity) getContext()).showAlertDialog(R.string.dialog_title_warning, R.string.dialog_unable_to_order);
+					}
+				});
+			} else {
+				smallOrderPriceAndQuantity.setVisibility(View.INVISIBLE);
+				small.setVisibility(View.INVISIBLE);
+				textViewDash.setVisibility(View.INVISIBLE);
+			}
 
 			imageContainer.setTag(i);
 			imageContainer.setOnClickListener(new OnClickListener() {

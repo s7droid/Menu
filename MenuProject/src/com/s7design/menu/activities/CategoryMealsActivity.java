@@ -75,6 +75,16 @@ public class CategoryMealsActivity extends BaseActivity {
 
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		if (Menu.getInstance().getDataManager().isCheckoutListEmpty())
+			hideRightActionBarButton();
+		else
+			showRightActionBarButton();
+	}
+
 	/**
 	 * Method for initializing all views in {@link CategoryMealsActivity}
 	 */

@@ -533,7 +533,7 @@ public class CheckoutActivity extends BaseActivity {
 
 			holder.circleButtonViewQty.setAsQty(holder.isSmall ? item.quantitySmall : item.quantityLarge);
 			holder.textViewName.setText(item.name);
-			holder.textViewPrice.setText(String.valueOf(holder.isSmall ? (item.smallprice * item.quantitySmall) : (item.largeprice * item.quantityLarge)));
+			holder.textViewPrice.setText(String.format("%.2f", holder.isSmall ? (item.smallprice * item.quantitySmall) : (item.largeprice * item.quantityLarge)));
 			holder.circleButtonViewDel.setAsDel();
 			holder.circleButtonViewMinus.setAsRemoveGrey();
 			holder.circleButtonViewPlus.setAsAddGrey();

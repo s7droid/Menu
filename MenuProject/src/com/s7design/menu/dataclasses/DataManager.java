@@ -135,6 +135,14 @@ public class DataManager {
 		checkoutList.addAll(items);
 	}
 
+	public boolean isCheckoutListEmpty() {
+
+		if (checkoutList == null)
+			checkoutList = new ArrayList<Item>();
+
+		return checkoutList.size() == 0;
+	}
+
 	public void setRestaurantInfo(GetRestaurantInfoResponse restaurantInfo) {
 		this.restaurantInfo = restaurantInfo;
 	}

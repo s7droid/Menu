@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.Response.Listener;
@@ -41,6 +42,10 @@ public class MealDetailsActivity extends BaseActivity {
 	private CircleButtonView circleButtonViewPlusLarge;
 	private CircleButtonView circleButtonViewMinusSmall;
 	private CircleButtonView circleButtonViewPlusSmall;
+	private TextView textViewLabelLarge;
+	private TextView textViewLabelSmall;
+	private View viewSeparator;
+	private RelativeLayout layoutSmall;
 
 	private Item item;
 
@@ -69,6 +74,11 @@ public class MealDetailsActivity extends BaseActivity {
 		if (item != null) {
 			setData();
 		}
+
+		if (Menu.getInstance().getDataManager().isCheckoutListEmpty())
+			hideRightActionBarButton();
+		else
+			showRightActionBarButton();
 	}
 
 	private void initActionBar() {
@@ -108,6 +118,10 @@ public class MealDetailsActivity extends BaseActivity {
 		circleButtonViewMinusSmall = (CircleButtonView) findViewById(R.id.circleButtonViewMinusSmall);
 		circleButtonViewPlusSmall = (CircleButtonView) findViewById(R.id.circleButtonViewPlusSmall);
 		mGetReceiptImageButton = (ImageButton) findViewById(R.id.imagebuttonMealDetailsActivityGetReceipt);
+		textViewLabelLarge = (TextView) findViewById(R.id.tv1);
+		textViewLabelSmall = (TextView) findViewById(R.id.tv2);
+		viewSeparator = (View) findViewById(R.id.viewSeparator);
+		layoutSmall = (RelativeLayout) findViewById(R.id.layoutSmall);
 
 		circleButtonViewMinusLarge.setAsRemoveOrange();
 		circleButtonViewPlusLarge.setAsAddOrange();
@@ -170,8 +184,7 @@ public class MealDetailsActivity extends BaseActivity {
 		mMealImageImageView.setImageUrl(item.image, VolleySingleton.getInstance(getApplicationContext()).getImageLoader());
 		mMealDescriptionTextView.setText(item.description);
 		mMealIngridientsTextView.setText(item.ingredients);
-		mOrderSmallPriceTextView.setText(currency + String.valueOf(item.smallprice));
-		mOrderLargePriceTextView.setText(currency + String.valueOf(item.largeprice));
+		mOrderLargePriceTextView.setText(currency + String.format("%.2f", item.largeprice));
 		circleButtonViewPlusLarge.setVisibility(View.VISIBLE);
 		circleButtonViewPlusSmall.setVisibility(View.VISIBLE);
 
@@ -199,10 +212,15 @@ public class MealDetailsActivity extends BaseActivity {
 			mOrderSmallQuantityTextView.setVisibility(View.INVISIBLE);
 		}
 
+		textViewLabelLarge.setText(getString(R.string.meal_details_order) + " " + item.largelabel);
+
 		circleButtonViewPlusLarge.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
+
+				if (Menu.getInstance().getDataManager().isCheckoutListEmpty())
+					showRightActionBarButton();
 
 				if (item.quantityLarge == 0) {
 					circleButtonViewMinusLarge.setVisibility(View.VISIBLE);
@@ -210,23 +228,6 @@ public class MealDetailsActivity extends BaseActivity {
 				}
 				mOrderLargeQuantityTextView.setText(String.valueOf((item.quantityLarge) + 1));
 				Menu.getInstance().getDataManager().addCheckoutListItem(item.getLarge());
-
-				if (!Menu.getInstance().isOrderEnabled() && (item.quantityLarge + item.quantitySmall < 2))
-					showAlertDialog(R.string.dialog_title_warning, R.string.dialog_unable_to_order);
-			}
-		});
-
-		circleButtonViewPlusSmall.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-
-				if (item.quantitySmall == 0) {
-					circleButtonViewMinusSmall.setVisibility(View.VISIBLE);
-					mOrderSmallQuantityTextView.setVisibility(View.VISIBLE);
-				}
-				mOrderSmallQuantityTextView.setText(String.valueOf((item.quantitySmall) + 1));
-				Menu.getInstance().getDataManager().addCheckoutListItem(item.getSmall());
 
 				if (!Menu.getInstance().isOrderEnabled() && (item.quantityLarge + item.quantitySmall < 2))
 					showAlertDialog(R.string.dialog_title_warning, R.string.dialog_unable_to_order);
@@ -245,23 +246,57 @@ public class MealDetailsActivity extends BaseActivity {
 				Menu.getInstance().getDataManager().removeCheckoutListItem(item.largetag);
 				mOrderLargeQuantityTextView.setText(String.valueOf((item.quantityLarge)));
 
+				if (Menu.getInstance().getDataManager().isCheckoutListEmpty())
+					hideRightActionBarButton();
 			}
 		});
 
-		circleButtonViewMinusSmall.setOnClickListener(new OnClickListener() {
+		if (item.smalllabel.length() > 0) {
 
-			@Override
-			public void onClick(View v) {
+			textViewLabelSmall.setText(getString(R.string.meal_details_order) + " " + item.smalllabel);
+			mOrderSmallPriceTextView.setText(currency + String.format("%.2f", item.smallprice));
 
-				if (item.quantitySmall == 1) {
-					circleButtonViewMinusSmall.setVisibility(View.INVISIBLE);
-					mOrderSmallQuantityTextView.setVisibility(View.INVISIBLE);
+			circleButtonViewPlusSmall.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+
+					if (Menu.getInstance().getDataManager().isCheckoutListEmpty())
+						showRightActionBarButton();
+
+					if (item.quantitySmall == 0) {
+						circleButtonViewMinusSmall.setVisibility(View.VISIBLE);
+						mOrderSmallQuantityTextView.setVisibility(View.VISIBLE);
+					}
+					mOrderSmallQuantityTextView.setText(String.valueOf((item.quantitySmall) + 1));
+					Menu.getInstance().getDataManager().addCheckoutListItem(item.getSmall());
+
+					if (!Menu.getInstance().isOrderEnabled() && (item.quantityLarge + item.quantitySmall < 2))
+						showAlertDialog(R.string.dialog_title_warning, R.string.dialog_unable_to_order);
 				}
-				Menu.getInstance().getDataManager().removeCheckoutListItem(item.smalltag);
-				mOrderSmallQuantityTextView.setText(String.valueOf((item.quantitySmall)));
+			});
 
-			}
-		});
+			circleButtonViewMinusSmall.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+
+					if (item.quantitySmall == 1) {
+						circleButtonViewMinusSmall.setVisibility(View.INVISIBLE);
+						mOrderSmallQuantityTextView.setVisibility(View.INVISIBLE);
+					}
+					Menu.getInstance().getDataManager().removeCheckoutListItem(item.smalltag);
+					mOrderSmallQuantityTextView.setText(String.valueOf((item.quantitySmall)));
+
+					if (Menu.getInstance().getDataManager().isCheckoutListEmpty())
+						hideRightActionBarButton();
+
+				}
+			});
+		} else {
+			layoutSmall.setVisibility(View.GONE);
+			viewSeparator.setVisibility(View.GONE);
+		}
 
 	}
 
