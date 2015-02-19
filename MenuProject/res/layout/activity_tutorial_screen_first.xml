@@ -29,6 +29,7 @@
         style="@style/Menu_Button_Orange"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:textStyle="bold"
         android:layout_alignParentBottom="true"
         android:text="@string/menu_tutorial_screen_button_continue" />
 

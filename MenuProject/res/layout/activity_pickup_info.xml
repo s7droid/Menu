@@ -105,9 +105,9 @@
             android:layout_alignLeft="@+id/textview1"
             android:layout_marginTop="5dp"
             android:background="@drawable/sign_in_edittext_shape"
+            android:ems="40"
             android:inputType="number"
             android:singleLine="true"
-            android:ems="40"
             android:textColor="@color/menu_main_gray" />
 
         <View
@@ -126,6 +126,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="@string/pickup_info_confirm" />
+        android:text="@string/pickup_info_confirm"
+        android:textStyle="bold" />
 
 </RelativeLayout>

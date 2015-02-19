@@ -30,6 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:text="@string/menu_tutorial_screen_button_make_your_choice" />
+        android:text="@string/menu_tutorial_screen_button_make_your_choice"
+        android:textStyle="bold" />
 
 </RelativeLayout>

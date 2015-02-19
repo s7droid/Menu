@@ -21,12 +21,14 @@
                 android:id="@+id/imageviewSubMealImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerInside" />
+                android:scaleType="centerCrop" />
 
-            <ImageView
+            <View
+                android:id="@+id/imageViewOrangeBorder"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/image_meals_list_selector" />
+                android:background="@drawable/image_meals_list_shape_selected"
+                android:visibility="invisible" />
         </RelativeLayout>
 
         <LinearLayout

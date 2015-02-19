@@ -129,8 +129,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:textColor="@color/menu_main_gray_light"
                     android:lineSpacingExtra="3dp"
+                    android:textColor="@color/menu_main_gray_light"
                     android:textSize="12sp" />
 
                 <com.s7design.menu.views.MenuButton
@@ -220,13 +220,13 @@
                         android:layout_marginRight="15dp"
                         android:layout_toRightOf="@+id/edittextSignUpActivityMonth"
                         android:background="@android:color/transparent"
+                        android:drawablePadding="10dp"
+                        android:drawableRight="@drawable/sign_up_calendar"
                         android:gravity="center_horizontal|center_vertical"
                         android:hint="YYYY"
                         android:inputType="number"
                         android:maxLength="4"
                         android:singleLine="true"
-                        android:drawableRight="@drawable/sign_up_calendar"
-                        android:drawablePadding="10dp"
                         android:textColor="@color/menu_main_gray" />
 
                     <View
@@ -255,7 +255,7 @@
                         android:layout_centerVertical="true"
                         android:background="@drawable/sign_in_edittext_shape"
                         android:gravity="right"
-                        android:hint="@string/sign_up_ccv_hint_text"
+                        android:hint="@string/sign_up_cvv_hint_text"
                         android:inputType="number"
                         android:maxLength="3"
                         android:paddingBottom="10dp"
@@ -284,6 +284,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="@string/sign_up_button_text" />
+        android:text="@string/sign_up_button_text"
+        android:textStyle="bold" />
 
 </RelativeLayout>

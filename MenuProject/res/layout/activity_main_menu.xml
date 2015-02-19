@@ -24,7 +24,7 @@
     <com.s7design.menu.views.MenuButton
         android:id="@+id/buttonMainMenuActivityViewVenue"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="52dp"
         android:layout_below="@+id/separator1"
         android:background="@android:color/transparent"
         android:drawableLeft="@drawable/main_menu_view_menu_orange"
@@ -34,7 +34,7 @@
         android:paddingTop="5dp"
         android:text="@string/main_menu_view_venue_menu"
         android:textColor="@color/menu_main_gray"
-        android:textSize="15sp" />
+        android:textSize="17sp" />
 
     <View
         android:id="@+id/separator2"
@@ -46,7 +46,7 @@
     <com.s7design.menu.views.MenuButton
         android:id="@+id/buttonMainMenuActivityViewTutorial"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="52dp"
         android:layout_below="@+id/separator2"
         android:background="@android:color/transparent"
         android:drawableLeft="@drawable/main_menu_view_tutorial_orange"
@@ -54,7 +54,7 @@
         android:gravity="left|center_vertical"
         android:text="@string/main_menu_view_tutorial"
         android:textColor="@color/menu_main_gray"
-        android:textSize="15sp" />
+        android:textSize="17sp" />
 
     <View
         android:id="@+id/separator3"
@@ -66,13 +66,13 @@
     <com.s7design.menu.views.MenuButton
         android:id="@+id/buttonMainMenuActivityViewPastReceipts"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="52dp"
         android:layout_below="@+id/separator3"
         android:background="@android:color/transparent"
         android:gravity="left|center_vertical"
         android:text="@string/main_menu_view_past_receipts"
         android:textColor="@color/menu_main_gray"
-        android:textSize="15sp" />
+        android:textSize="17sp" />
 
     <View
         android:id="@+id/separator4"
@@ -84,13 +84,13 @@
     <com.s7design.menu.views.MenuButton
         android:id="@+id/buttonMainMenuActivityManageYourAccount"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="52dp"
         android:layout_below="@+id/separator4"
         android:background="@android:color/transparent"
         android:gravity="left|center_vertical"
         android:text="@string/main_menu_manage_your_account"
         android:textColor="@color/menu_main_gray"
-        android:textSize="15sp" />
+        android:textSize="17sp" />
 
     <View
         android:id="@+id/separator5"
@@ -102,7 +102,7 @@
     <com.s7design.menu.views.MenuButton
         android:id="@+id/buttonMainMenuActivityAboutTheApp"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="52dp"
         android:layout_below="@+id/separator5"
         android:background="@android:color/transparent"
         android:drawableLeft="@drawable/main_menu_about_app_orange"
@@ -110,7 +110,7 @@
         android:gravity="left|center_vertical"
         android:text="@string/main_menu_about_the_app"
         android:textColor="@color/menu_main_gray"
-        android:textSize="15sp" />
+        android:textSize="17sp" />
 
     <View
         android:id="@+id/separator7"
@@ -129,12 +129,12 @@
     <com.s7design.menu.views.MenuButton
         android:id="@+id/buttonMainMenuActivityCurrentOrderPreview"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="52dp"
         android:layout_alignParentBottom="true"
         android:background="@android:color/transparent"
         android:gravity="left|center_vertical"
         android:text="@string/main_menu_current_order"
         android:textColor="@color/menu_main_gray"
-        android:textSize="15sp" />
+        android:textSize="17sp" />
 
 </RelativeLayout>

@@ -144,8 +144,8 @@ public class CheckoutActivity extends BaseActivity {
 		minTip = Utils.round(rate.mintip, 2);
 		maxTip = Utils.round(rate.maxtip, 2);
 		discount = Utils.round(data.getDiscount(), 2);
-		Log.d(TAG, "discount 1 " + discount);
 		currency = data.getCurrency();
+		tip = Utils.round((maxTip + minTip) / 2, 2);
 	}
 
 	private void initViews() {
@@ -194,6 +194,7 @@ public class CheckoutActivity extends BaseActivity {
 		int tipRange = (int) ((maxTip - minTip) * 100);
 
 		seekBar.setMax(tipRange);
+		seekBar.setProgress((int) (tip - minTip) * 100);
 
 		textViewTaxPercent.setText(String.valueOf(tax) + "%");
 		textViewDiscountPercent.setText(String.valueOf(discount) + "%");
@@ -305,6 +306,7 @@ public class CheckoutActivity extends BaseActivity {
 			@Override
 			public void onGlobalLayout() {
 				checkoutList.clear();
+				Menu.getInstance().getDataManager().clearCheckoutList();
 			}
 		});
 

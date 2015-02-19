@@ -143,6 +143,10 @@ public class DataManager {
 		return checkoutList.size() == 0;
 	}
 
+	public void clearCheckoutList() {
+		checkoutList.clear();
+	}
+
 	public void setRestaurantInfo(GetRestaurantInfoResponse restaurantInfo) {
 		this.restaurantInfo = restaurantInfo;
 	}

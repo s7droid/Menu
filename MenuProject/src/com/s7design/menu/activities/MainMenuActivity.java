@@ -115,12 +115,10 @@ public class MainMenuActivity extends BaseActivity {
 		}
 
 		if (Menu.getInstance().getDataManager().getMajor().isEmpty() && Menu.getInstance().getDataManager().getMinor().isEmpty()) {
-			mVenueMenuButton.setTextSize(Utils.convertDpToPixel(4, MainMenuActivity.this));
 			mVenueMenuButton.setTextColor(getResources().getColor(R.color.menu_main_gray_light));
 			mVenueMenuButton.setText(getResources().getString(R.string.main_menu_category_not_available));
 			mVenueMenuButton.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
 		} else {
-			mVenueMenuButton.setTextSize(Utils.convertDpToPixel(5, MainMenuActivity.this));
 			mVenueMenuButton.setTextColor(getResources().getColor(R.color.menu_main_gray));
 			mVenueMenuButton.setText(getResources().getString(R.string.main_menu_view_venue_menu));
 			mVenueMenuButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_view_menu_orange), null, null, null);

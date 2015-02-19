@@ -93,7 +93,7 @@
     <string name="sign_up_credit_card_number_hint_text">Credit card number</string>
     <string name="sign_up_name_on_card_hint_text">Name on card</string>
     <string name="sign_up_date_hint_text">MM / YYYY</string>
-    <string name="sign_up_ccv_hint_text">CCV</string>
+    <string name="sign_up_cvv_hint_text">CVV</string>
     <string name="sign_up_show">SHOW</string>
     <string name="sign_up_hide">HIDE</string>
     <string name="sign_in_first_name_hint_text">First Name</string>

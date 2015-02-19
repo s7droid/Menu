@@ -76,6 +76,7 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 
 			LinearLayout vi = (LinearLayout) LayoutInflater.from(mGlobalContext).inflate(R.layout.column_meal_subitem, null);
 			NetworkImageView imageView = (NetworkImageView) vi.findViewById(R.id.imageviewSubMealImage);
+			final View imageViewOrangeBorder = (View) vi.findViewById(R.id.imageViewOrangeBorder);
 			Button large = (Button) vi.findViewById(R.id.buttonSubMealOrderLarge);
 			Button small = (Button) vi.findViewById(R.id.buttonSubMealOrderSmall);
 			final TextView bigOrderPriceAndQuantity = (TextView) vi.findViewById(R.id.textviewSubMealBigPrice);
@@ -101,7 +102,15 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 				if (itemToSend.quantitySmall > 0) {
 					setQuantity(smallOrderPriceAndQuantity, itemToSend.smallprice, itemToSend.quantitySmall);
 				}
+			} else {
+				itemToSend.quantityLarge = 0;
+				itemToSend.quantitySmall = 0;
 			}
+
+			if (itemToSend.quantityLarge > 0 || itemToSend.quantitySmall > 0)
+				imageViewOrangeBorder.setVisibility(View.VISIBLE);
+			else
+				imageViewOrangeBorder.setVisibility(View.INVISIBLE);
 
 			bigOrderPriceAndQuantity.setText(currency + String.format("%.2f", items.get(i).largeprice));
 			large.setText(mGlobalContext.getString(R.string.category_meals_add) + " " + itemToSend.largelabel);
@@ -126,6 +135,8 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 					if (!Menu.getInstance().isOrderEnabled())
 						((BaseActivity) getContext()).showAlertDialog(R.string.dialog_title_warning, R.string.dialog_unable_to_order);
 
+					imageViewOrangeBorder.setVisibility(View.VISIBLE);
+
 				}
 			});
 
@@ -148,6 +159,8 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 
 						if (!Menu.getInstance().isOrderEnabled())
 							((BaseActivity) getContext()).showAlertDialog(R.string.dialog_title_warning, R.string.dialog_unable_to_order);
+
+						imageViewOrangeBorder.setVisibility(View.VISIBLE);
 					}
 				});
 			} else {

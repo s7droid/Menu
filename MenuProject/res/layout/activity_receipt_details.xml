@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearlayoutReceiptDetailsActivityContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:id="@+id/linearlayoutReceiptDetailsActivityContainer"
     android:orientation="vertical" >
 
     <com.s7design.menu.views.MenuTextView
@@ -13,7 +13,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
-                android:textColor="@color/menu_main_gray_light"
+        android:textColor="@color/menu_main_gray_light"
         android:visibility="visible" />
 
     <com.s7design.menu.views.MenuTextView
@@ -34,8 +34,8 @@
         android:layout_height="0dp"
         android:layout_margin="20dp"
         android:layout_weight="1"
-        android:listSelector="@android:color/transparent" 
-        android:scrollbars="none">
+        android:listSelector="@android:color/transparent"
+        android:scrollbars="none" >
     </ListView>
 
     <LinearLayout
@@ -100,7 +100,6 @@
                     android:textColor="@color/menu_main_gray_light"
                     android:textSize="16sp" />
             </LinearLayout>
-
         </LinearLayout>
 
         <LinearLayout
@@ -134,7 +133,6 @@
                 android:textColor="@color/menu_main_gray"
                 android:textSize="16sp"
                 android:textStyle="bold" />
-
         </LinearLayout>
 
         <RelativeLayout

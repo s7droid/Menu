@@ -174,24 +174,25 @@
                     android:layout_height="1dp"
                     android:background="@color/menu_main_gray_light" />
 
-<!--                 <com.s7design.menu.views.MenuEditText -->
-<!--                     android:id="@+id/edittextManageAccountActivityNameOnCard" -->
-<!--                     android:layout_width="match_parent" -->
-<!--                     android:layout_height="wrap_content" -->
-<!--                     android:background="@drawable/sign_in_edittext_shape" -->
-<!--                     android:focusable="false" -->
-<!--                     android:hint="@string/sign_up_name_on_card_hint_text" -->
-<!--                     android:inputType="textPersonName" -->
-<!--                     android:paddingBottom="10dp" -->
-<!--                     android:paddingTop="10dp" -->
-<!--                     android:singleLine="true" -->
-<!--                     android:textColor="@color/menu_main_gray" /> -->
+                <!-- <com.s7design.menu.views.MenuEditText -->
+                <!-- android:id="@+id/edittextManageAccountActivityNameOnCard" -->
+                <!-- android:layout_width="match_parent" -->
+                <!-- android:layout_height="wrap_content" -->
+                <!-- android:background="@drawable/sign_in_edittext_shape" -->
+                <!-- android:focusable="false" -->
+                <!-- android:hint="@string/sign_up_name_on_card_hint_text" -->
+                <!-- android:inputType="textPersonName" -->
+                <!-- android:paddingBottom="10dp" -->
+                <!-- android:paddingTop="10dp" -->
+                <!-- android:singleLine="true" -->
+                <!-- android:textColor="@color/menu_main_gray" /> -->
 
-<!--                 <View -->
-<!--                     android:layout_width="match_parent" -->
-<!--                     android:layout_height="1dp" -->
-<!--                     android:alpha="0.5" -->
-<!--                     android:background="@color/menu_main_gray" /> -->
+
+                <!-- <View -->
+                <!-- android:layout_width="match_parent" -->
+                <!-- android:layout_height="1dp" -->
+                <!-- android:alpha="0.5" -->
+                <!-- android:background="@color/menu_main_gray" /> -->
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -223,14 +224,14 @@
                         android:layout_marginRight="15dp"
                         android:layout_toRightOf="@+id/edittextManageAccountActivityMonth"
                         android:background="@android:color/transparent"
+                        android:drawablePadding="10dp"
+                        android:drawableRight="@drawable/sign_up_calendar"
                         android:focusable="false"
                         android:gravity="center_horizontal|center_vertical"
                         android:hint="YYYY"
                         android:inputType="number"
                         android:maxLength="4"
                         android:singleLine="true"
-                        android:drawableRight="@drawable/sign_up_calendar"
-                        android:drawablePadding="10dp"
                         android:textColor="@color/menu_main_gray" />
 
                     <View
@@ -258,7 +259,7 @@
                         android:background="@drawable/sign_in_edittext_shape"
                         android:focusable="false"
                         android:gravity="right"
-                        android:hint="@string/sign_up_ccv_hint_text"
+                        android:hint="@string/sign_up_cvv_hint_text"
                         android:inputType="number"
                         android:maxLength="3"
                         android:paddingBottom="10dp"
@@ -286,6 +287,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="@string/manage_account_confirm_changes_text" />
+        android:text="@string/manage_account_confirm_changes_text"
+        android:textStyle="bold" />
 
 </RelativeLayout>
