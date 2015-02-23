@@ -38,6 +38,7 @@ public class ReceiptDetailsActivity extends BaseActivity {
 	private TextView mTextViewTax;
 	private TextView mTextViewTip;
 	private TextView mTextViewTotal;
+	private TextView mTextViewDiscount;
 	private ListView mListViewItems;
 	private Button mButtonSendEmail;
 	private LinearLayout mContainer;
@@ -76,7 +77,7 @@ public class ReceiptDetailsActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-
+				
 			}
 		});
 
@@ -86,6 +87,7 @@ public class ReceiptDetailsActivity extends BaseActivity {
 		mTextViewReceiptTime = (TextView) findViewById(R.id.textViewDesc);
 		mTextViewRestaurantName = (TextView) findViewById(R.id.textViewRestaurantName);
 		mTextViewSubtotal = (TextView) findViewById(R.id.textViewSubtotal);
+		mTextViewDiscount = (TextView) findViewById(R.id.textViewDiscount);
 		mTextViewTax = (TextView) findViewById(R.id.textViewTax);
 		mTextViewTip = (TextView) findViewById(R.id.textViewTip);
 		mTextViewTotal = (TextView) findViewById(R.id.textViewTotal);
@@ -152,7 +154,8 @@ public class ReceiptDetailsActivity extends BaseActivity {
 				mTextViewTax.setText(String.format("%.2f", arg0.tax));
 				mTextViewTip.setText(String.format("%.2f", arg0.tip));
 				mTextViewTotal.setText(Menu.getInstance().getDataManager().getCurrency() + mReceiptSelected.getAmmount());
-
+				mTextViewDiscount.setText(String.format("%.2f", arg0.discount));
+				
 				mListViewItems.setAdapter(new ItemListAdapter(arg0));
 				mContainer.setVisibility(View.VISIBLE);
 				dismissProgressDialog();

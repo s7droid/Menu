@@ -150,7 +150,7 @@ public class MealDetailsActivity extends BaseActivity {
 			@Override
 			public void onResponse(GetItemInfoResponse response) {
 
-				if (response != null && response.item.length > 0) {
+				if (response != null && response.item != null && response.item.length > 0) {
 					item = response.item[0];
 
 					setData();
