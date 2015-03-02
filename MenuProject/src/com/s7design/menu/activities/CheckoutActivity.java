@@ -39,8 +39,10 @@ import com.s7design.menu.utils.Settings;
 import com.s7design.menu.utils.Utils;
 import com.s7design.menu.views.CircleButtonView;
 import com.s7design.menu.volley.VolleySingleton;
+import com.s7design.menu.volley.requests.CheckIfPhoneNeededRequest;
 import com.s7design.menu.volley.requests.OrderRequest;
 import com.s7design.menu.volley.requests.SendReceiptByEmailRequest;
+import com.s7design.menu.volley.responses.CheckIfPhoneNeededResponse;
 import com.s7design.menu.volley.responses.OrderResponse;
 import com.s7design.menu.volley.responses.SendReceiptByEmailResponse;
 
@@ -88,7 +90,8 @@ public class CheckoutActivity extends BaseActivity {
 	private DataManager data;
 
 	private static final int REQUEST_LOGIN = 123;
-
+	private static final int REQUEST_PHONE_NUMBER = 122;
+	
 	private OrderResponse orderResponse;
 
 	@Override
@@ -227,7 +230,25 @@ public class CheckoutActivity extends BaseActivity {
 
 				if (!Settings.getAccessToken(getApplicationContext()).equals("")) {
 					System.out.println("accesstoken= " + Settings.getAccessToken(getApplicationContext()));
-					checkout();
+					
+					Map<String, String> params = new HashMap<String, String>();
+					params.put("accesstoken", Settings.getAccessToken(CheckoutActivity.this));
+					params.put("major", Menu.getInstance().getDataManager().getMajor());
+					params.put("minor", Menu.getInstance().getDataManager().getMinor());
+					
+					CheckIfPhoneNeededRequest request = new CheckIfPhoneNeededRequest(CheckoutActivity.this, params, new Listener<CheckIfPhoneNeededResponse>() {
+
+						@Override
+						public void onResponse(CheckIfPhoneNeededResponse arg0) {
+							if(arg0.response != null && arg0.response.equals("numberneeded")){
+								Intent intent = new Intent(CheckoutActivity.this,PickupInfoActivity.class);
+								startActivityForResult(intent, REQUEST_PHONE_NUMBER);
+							}
+						}
+					});
+					
+					VolleySingleton.getInstance(CheckoutActivity.this).addToRequestQueue(request);
+					
 				} else {
 					Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
 					startActivityForResult(intent, REQUEST_LOGIN);
@@ -340,6 +361,26 @@ public class CheckoutActivity extends BaseActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == Activity.RESULT_OK) {
 			if (requestCode == REQUEST_LOGIN) {
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("accesstoken", Settings.getAccessToken(CheckoutActivity.this));
+				params.put("major", Menu.getInstance().getDataManager().getMajor());
+				params.put("minor", Menu.getInstance().getDataManager().getMinor());
+				
+				CheckIfPhoneNeededRequest request = new CheckIfPhoneNeededRequest(CheckoutActivity.this, params, new Listener<CheckIfPhoneNeededResponse>() {
+
+					@Override
+					public void onResponse(CheckIfPhoneNeededResponse arg0) {
+						if(arg0.response != null && arg0.response.equals("numberneeded")){
+							Intent intent = new Intent(CheckoutActivity.this,PickupInfoActivity.class);
+							startActivityForResult(intent, REQUEST_PHONE_NUMBER);
+						}
+					}
+				});
+				
+				VolleySingleton.getInstance(CheckoutActivity.this).addToRequestQueue(request);
+			}
+			
+			if(requestCode == REQUEST_PHONE_NUMBER){
 				checkout();
 			}
 		}

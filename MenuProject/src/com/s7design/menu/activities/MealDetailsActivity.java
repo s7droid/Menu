@@ -132,6 +132,7 @@ public class MealDetailsActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
+				showEditTextDialog("", null);
 			}
 		});
 
@@ -300,4 +301,7 @@ public class MealDetailsActivity extends BaseActivity {
 
 	}
 
+	
+	
+	
 }

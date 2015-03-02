@@ -9,6 +9,11 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.s7design.menu.volley.responses.CheckIfPhoneNeededResponse;
 
+/**
+ *  !!!! Params mandatory - "accesstoken" and "phonenumber" (e.g +41791234567) 
+ * @author S7 Design
+ *
+ */
 public class CheckIfPhoneNeededRequest extends GsonRequest<CheckIfPhoneNeededResponse> {
 
 	public CheckIfPhoneNeededRequest(Activity context, Map<String, String> params, Listener<CheckIfPhoneNeededResponse> listener) {

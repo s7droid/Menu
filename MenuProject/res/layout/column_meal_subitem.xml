@@ -12,9 +12,11 @@
 
         <RelativeLayout
             android:id="@+id/linearlayoutSubMealImageContainer"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="10dp"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
             android:orientation="vertical" >
 
             <com.android.volley.toolbox.NetworkImageView
@@ -36,7 +38,7 @@
             android:layout_height="match_parent"
             android:layout_alignBottom="@+id/imageviewSubMealImage"
             android:layout_alignTop="@+id/imageviewSubMealImage"
-            android:layout_margin="10dp"
+            android:layout_margin="20dp"
             android:layout_toRightOf="@+id/imageviewSubMealImage"
             android:background="@android:color/white"
             android:orientation="vertical" >
@@ -46,10 +48,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:includeFontPadding="false"
                 android:singleLine="true"
                 android:text="Garlic Soup"
                 android:textColor="@color/menu_main_gray"
-                android:textSize="15sp"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -63,6 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:alpha="0.5"
+                    android:includeFontPadding="false"
                     android:textSize="13sp" />
 
                 <com.s7design.menu.views.MenuTextView
@@ -86,17 +90,21 @@
                 android:layout_height="0dp"
                 android:layout_alignParentBottom="true"
                 android:layout_below="@+id/textviewSubMealPrice"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="2dp"
                 android:layout_weight="1"
                 android:gravity="center" >
 
                 <com.s7design.menu.views.MenuButton
                     android:id="@+id/buttonSubMealOrderLarge"
                     android:layout_width="0dp"
-                    android:layout_height="25dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_height="24dp"
+                    android:layout_marginRight="10dp"
                     android:layout_weight="1"
                     android:background="@drawable/rounded_orange_button_selector"
+                    android:includeFontPadding="false"
+                    android:paddingBottom="7dp"
+                    android:paddingTop="7dp"
+                    android:textStyle="bold"
                     android:text="@string/category_meals_add_large"
                     android:textColor="@drawable/orange_text_selector"
                     android:textSize="12sp" />
@@ -104,10 +112,14 @@
                 <com.s7design.menu.views.MenuButton
                     android:id="@+id/buttonSubMealOrderSmall"
                     android:layout_width="0dp"
-                    android:layout_height="25dp"
+                    android:layout_height="24dp"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/rounded_gray_button_selector"
+                    android:includeFontPadding="false"
+                    android:paddingBottom="7dp"
+                    android:paddingTop="7dp"
+                    android:textStyle="bold"
                     android:text="@string/category_meals_add_small"
                     android:textColor="@drawable/gray_text_selector"
                     android:textSize="12sp" />
@@ -120,8 +132,9 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@+id/imageviewSubMealImage"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/menu_main_gray" />
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:alpha="0.5"
+        android:background="@color/menu_main_gray_light" />
 
 </LinearLayout>

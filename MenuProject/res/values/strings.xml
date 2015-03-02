@@ -75,8 +75,9 @@
     <string name="category_meals_add_large">ADD LARGE</string>
     <string name="category_meals_add_small">ADD SMALL</string>
     <string name="category_meals_add">ADD</string>
-
-    <!-- Sign in -->
+	<string name="category_meals_out_of_stock">OUT OF STOCK TODAY</string>
+  
+	<!-- Sign in -->
     <string name="sign_in_button_text">SIGN IN</string>
     <string name="sign_in_username_hint_text">Email address</string>
     <string name="sign_in_password_hint_text">Password</string>
@@ -112,6 +113,7 @@
     <string name="manage_account_change_credit_card">CHANGE CREDIT CARD</string>
     <string name="manage_account_confirm_changes_text">CONFIRM CHANGES</string>
 	<string name="manage_account_passwords_not_same">New password and repeated password are not same</string>
+	
     <!-- Meal details -->
     <string name="meal_details_order_large">ORDER LARGE</string>
     <string name="meal_details_order_small">ORDER SMALL</string>
@@ -156,6 +158,8 @@
     <string name="pickup_info_country_code">Country code:</string>
     <string name="pickup_info_phone_number">Phone number:</string>
     <string name="pickup_info_confirm">CONFIRM</string>
+    <string name="pickup_info_phone_number_added">You have successfully added Your phone number.</string>
+    <string name="pickup_info_add_phone">Please, enter Your country code and phone number.</string>
     
     <!-- Tokenization explain -->
     <string name="tokenization_explanation_action_bar_title">TOKENIZATION</string>

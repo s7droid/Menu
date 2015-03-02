@@ -11,8 +11,7 @@ import com.s7design.menu.volley.responses.AddPhoneNumberResponse;
 
 public class AddPhoneNumberRequest extends GsonRequest<AddPhoneNumberResponse> {
 
-	public AddPhoneNumberRequest(Activity context, int method, String url, Map<String, String> params, Listener<AddPhoneNumberResponse> listener,
-			ErrorListener errorListener) {
+	public AddPhoneNumberRequest(Activity context, Map<String, String> params, Listener<AddPhoneNumberResponse> listener) {
 		super(context, Method.POST, "addphonenumber", params, AddPhoneNumberResponse.class, listener, new ErrorListener() {
 
 			@Override

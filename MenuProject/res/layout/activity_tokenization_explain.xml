@@ -2,13 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
-    android:orientation="vertical" >
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:padding="20dp" >
 
     <com.s7design.menu.views.MenuTextView
         android:id="@+id/textviewTokenizationActivityTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:lineSpacingExtra="10dp"
         android:text="@string/tokenization_explanation_title"
         android:textColor="@color/menu_main_orange"
         android:textSize="19sp"
@@ -19,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:lineSpacingExtra="10dp"
         android:text="@string/tokenization_explanation_subtitle"
         android:textColor="@color/menu_main_orange"
         android:textSize="16sp" />
@@ -39,8 +42,8 @@
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="15dp"
                 android:layout_marginRight="10dp"
+                android:paddingBottom="20dp"
                 android:src="@drawable/tokenization_explain_step_one_icon" />
 
             <View
@@ -52,7 +55,11 @@
                 android:id="@+id/textviewTokenizationActivityFirstStep"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="15dp"
+                android:gravity="left|top"
+                android:includeFontPadding="false"
+                android:lineSpacingExtra="10dp"
+                android:paddingTop="0dp"
                 android:textColor="@color/menu_main_gray"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -60,59 +67,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal" >
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="5dp"
-                android:layout_marginRight="10dp" 
-                android:src="@drawable/tokenization_explain_down_arrow_icon"/>
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent" />
-
-            <com.s7design.menu.views.MenuTextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:alpha="0"
-                android:textColor="@color/menu_main_gray"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:orientation="horizontal" >
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="15dp"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/tokenization_explain_step_2" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/menu_main_gray_light" />
-
-            <com.s7design.menu.views.MenuTextView
-                android:id="@+id/textviewTokenizationActivitySecondStep"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:textColor="@color/menu_main_gray"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_marginBottom="5dp"
             android:layout_weight="1"
             android:orientation="horizontal" >
 
@@ -121,6 +76,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="5dp"
                 android:layout_marginRight="10dp"
+                android:padding="3dp"
                 android:src="@drawable/tokenization_explain_down_arrow_icon" />
 
             <View
@@ -132,6 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:alpha="0"
+                android:lineSpacingExtra="10dp"
                 android:textColor="@color/menu_main_gray"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -145,9 +102,70 @@
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="15dp"
-                android:layout_marginRight="10dp" 
-                android:src="@drawable/tokenization_explain_step_3"/>
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:src="@drawable/tokenization_explain_step_2" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/menu_main_gray_light" />
+
+            <com.s7design.menu.views.MenuTextView
+                android:id="@+id/textviewTokenizationActivitySecondStep"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:gravity="left|top"
+                android:includeFontPadding="false"
+                android:lineSpacingExtra="10dp"
+                android:paddingTop="0dp"
+                android:textColor="@color/menu_main_gray"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="10dp"
+                android:padding="3dp"
+                android:src="@drawable/tokenization_explain_down_arrow_icon" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent" />
+
+            <com.s7design.menu.views.MenuTextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0"
+                android:lineSpacingExtra="10dp"
+                android:textColor="@color/menu_main_gray"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/tokenization_explain_step_3" />
 
             <View
                 android:layout_width="1dp"
@@ -158,7 +176,11 @@
                 android:id="@+id/textviewTokenizationActivityThirdStep"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="15dp"
+                android:gravity="left|top"
+                android:includeFontPadding="false"
+                android:lineSpacingExtra="10dp"
+                android:paddingTop="0dp"
                 android:textColor="@color/menu_main_gray"
                 android:textSize="16sp" />
         </LinearLayout>
