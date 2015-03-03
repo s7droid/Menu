@@ -278,6 +278,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:textColor="@color/menu_main_orange"
+                android:gravity="right"
                 android:textSize="24sp"
                 android:textStyle="bold" />
         </RelativeLayout>

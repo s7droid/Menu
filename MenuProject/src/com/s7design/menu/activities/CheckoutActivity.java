@@ -233,8 +233,10 @@ public class CheckoutActivity extends BaseActivity {
 					
 					Map<String, String> params = new HashMap<String, String>();
 					params.put("accesstoken", Settings.getAccessToken(CheckoutActivity.this));
-					params.put("major", Menu.getInstance().getDataManager().getMajor());
-					params.put("minor", Menu.getInstance().getDataManager().getMinor());
+//					params.put("major", Menu.getInstance().getDataManager().getMajor());
+//					params.put("minor", Menu.getInstance().getDataManager().getMinor());
+					params.put("major", Settings.getMajor(CheckoutActivity.this));
+					params.put("minor", Settings.getMinor(CheckoutActivity.this));
 					
 					CheckIfPhoneNeededRequest request = new CheckIfPhoneNeededRequest(CheckoutActivity.this, params, new Listener<CheckIfPhoneNeededResponse>() {
 
@@ -363,8 +365,10 @@ public class CheckoutActivity extends BaseActivity {
 			if (requestCode == REQUEST_LOGIN) {
 				Map<String, String> params = new HashMap<String, String>();
 				params.put("accesstoken", Settings.getAccessToken(CheckoutActivity.this));
-				params.put("major", Menu.getInstance().getDataManager().getMajor());
-				params.put("minor", Menu.getInstance().getDataManager().getMinor());
+//				params.put("major", Menu.getInstance().getDataManager().getMajor());
+//				params.put("minor", Menu.getInstance().getDataManager().getMinor());
+				params.put("major", Settings.getMajor(CheckoutActivity.this));
+				params.put("minor", Settings.getMinor(CheckoutActivity.this));
 				
 				CheckIfPhoneNeededRequest request = new CheckIfPhoneNeededRequest(CheckoutActivity.this, params, new Listener<CheckIfPhoneNeededResponse>() {
 
@@ -394,8 +398,8 @@ public class CheckoutActivity extends BaseActivity {
 
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("type", "neworder");
-		params.put("major", data.getMajor());
-		params.put("minor", data.getMinor());
+		params.put("major", Settings.getMajor(CheckoutActivity.this));
+		params.put("minor", Settings.getMinor(CheckoutActivity.this));
 		params.put("language", data.getLanguage());
 		params.put("accesstoken", Settings.getAccessToken(this));
 		params.put("itemcount", String.valueOf(checkoutList.size()));
@@ -425,8 +429,8 @@ public class CheckoutActivity extends BaseActivity {
 							for (Item item : checkoutList) {
 								Map<String, String> itemParams = new HashMap<String, String>();
 								itemParams.put("type", "addtoorder");
-								itemParams.put("major", data.getMajor());
-								itemParams.put("minor", data.getMinor());
+								itemParams.put("major", Settings.getMajor(CheckoutActivity.this));
+								itemParams.put("minor", Settings.getMinor(CheckoutActivity.this));
 								itemParams.put("language", data.getLanguage());
 								itemParams.put("tag", String.valueOf(item.quantitySmall > 0 ? item.smalltag : item.largetag));
 								itemParams.put("amount", String.valueOf(item.quantitySmall > 0 ? item.quantitySmall : item.quantityLarge));
@@ -465,8 +469,8 @@ public class CheckoutActivity extends BaseActivity {
 
 								Map<String, String> executeParams = new HashMap<String, String>();
 								executeParams.put("type", "execute");
-								executeParams.put("major", data.getMajor());
-								executeParams.put("minor", data.getMinor());
+								executeParams.put("major", Settings.getMajor(CheckoutActivity.this));
+								executeParams.put("minor", Settings.getMinor(CheckoutActivity.this));
 								executeParams.put("language", data.getLanguage());
 								executeParams.put("orderid", response.orderid);
 								executeParams.put("accesstoken", Settings.getAccessToken(CheckoutActivity.this));

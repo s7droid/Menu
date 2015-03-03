@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
+import com.s7design.menu.utils.Settings;
 
 /**
  * Activity for showing second screen of the two screens tutorial. <br>
@@ -40,7 +41,7 @@ public class TutorialSecondActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				if(Menu.getInstance().getDataManager().getMajor() != null || Menu.getInstance().getDataManager().getMinor() != null){
+				if(Settings.getMajor(TutorialSecondActivity.this) != null || Settings.getMinor(TutorialSecondActivity.this) != null){
 					Intent intent = new Intent(getApplicationContext(), CategoryMealsActivity.class);
 					startActivity(intent);
 				}else {

@@ -16,6 +16,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
 import com.s7design.menu.dataclasses.Item;
+import com.s7design.menu.utils.Settings;
 import com.s7design.menu.views.CircleButtonView;
 import com.s7design.menu.volley.VolleySingleton;
 import com.s7design.menu.volley.requests.GetItemInfoRequest;
@@ -141,8 +142,8 @@ public class MealDetailsActivity extends BaseActivity {
 	private void initData() {
 
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("major", "1");
-		params.put("minor", "1");
+		params.put("major", Settings.getMajor(MealDetailsActivity.this));
+		params.put("minor", Settings.getMinor(MealDetailsActivity.this));
 		params.put("itemtag", String.valueOf(getIntent().getIntExtra(INTENT_EXTRA_TAG, 0)));
 		params.put("lang", "en");
 

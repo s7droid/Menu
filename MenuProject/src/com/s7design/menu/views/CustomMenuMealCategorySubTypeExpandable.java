@@ -112,7 +112,7 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 			else
 				imageViewOrangeBorder.setVisibility(View.INVISIBLE);
 
-			bigOrderPriceAndQuantity.setText(currency + String.format("%.2f", items.get(i).largeprice));
+			bigOrderPriceAndQuantity.setText(String.format("%.2f", items.get(i).largeprice) + currency + (itemToSend.quantityLarge > 0 ? " (" + itemToSend.quantityLarge + ")" : ""));
 			large.setText(mGlobalContext.getString(R.string.category_meals_add) + " " + itemToSend.largelabel);
 			large.setTag(itemToSend.quantityLarge);
 			large.setOnClickListener(new OnClickListener() {
@@ -141,7 +141,7 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 			});
 
 			if (itemToSend.smalllabel.length() > 0) {
-				smallOrderPriceAndQuantity.setText(currency + String.format("%.2f", items.get(i).smallprice));
+				smallOrderPriceAndQuantity.setText(String.format("%.2f", items.get(i).smallprice) + currency +(itemToSend.quantitySmall > 0 ? " (" + itemToSend.quantitySmall + ")" : ""));
 				small.setText(mGlobalContext.getString(R.string.category_meals_add) + " " + itemToSend.smalllabel);
 				small.setTag(itemToSend.quantitySmall);
 				small.setOnClickListener(new OnClickListener() {

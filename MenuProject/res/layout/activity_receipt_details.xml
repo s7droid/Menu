@@ -183,12 +183,13 @@
                 android:layout_alignParentRight="true"
                 android:text="@string/checkout_total"
                 android:textColor="@color/menu_main_gray"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <View
                 android:id="@+id/viewDivider"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="2dp"
                 android:layout_above="@+id/textViewTotal"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
@@ -201,6 +202,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:textColor="@color/menu_main_gray"
+                android:gravity="right"
                 android:textSize="24sp"
                 android:textStyle="bold" />
         </RelativeLayout>

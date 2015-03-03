@@ -92,8 +92,8 @@ public class SplashActivity extends BaseActivity implements BeaconConsumer, LeSc
 //				final CountDownLatch countDownLatch = new CountDownLatch(6);
 //
 //				Map<String, String> params = new HashMap<String, String>();
-//				params.put("major", Menu.getInstance().getDataManager().getMajor());
-//				params.put("minor", Menu.getInstance().getDataManager().getMinor());
+//				params.put("major", Settings.getMajor(SplashActivity.this));
+//				params.put("minor", Settings.getMinor(SplashActivity.this));
 //
 //				GetRestaurantInfoRequest restaurantInfoRequest = new GetRestaurantInfoRequest(SplashActivity.this, params, new Listener<GetRestaurantInfoResponse>() {
 //
@@ -185,8 +185,8 @@ public class SplashActivity extends BaseActivity implements BeaconConsumer, LeSc
 //					startActivity(i);
 //				}
 //
-//				String major = Menu.getInstance().getDataManager().getMajor();
-//				String minor = Menu.getInstance().getDataManager().getMinor();
+//				String major = Settings.getMajor(SplashActivity.this);
+//				String minor = Settings.getMinor(SplashActivity.this);
 //
 //				if ((major != null && minor != null)) {
 //					Intent i = new Intent(SplashActivity.this, RestaurantPreviewActivity.class);
@@ -464,9 +464,15 @@ public class SplashActivity extends BaseActivity implements BeaconConsumer, LeSc
 			Log.d(TAG, "major " + major);
 			Log.d(TAG, "minor " + minor);
 
-			Menu.getInstance().getDataManager().setMajor(String.valueOf(major));
-			Menu.getInstance().getDataManager().setMinor(String.valueOf(minor));
-
+			Settings.setMajor(SplashActivity.this, String.valueOf(major));
+			Settings.setMinor(SplashActivity.this, String.valueOf(minor));
+			/*
+			 * Changed with setting major and minor in preferences, due to bug
+			 * Menu
+			 * .getInstance().getDataManager().setMajor(String.valueOf(major));
+			 * Menu
+			 * .getInstance().getDataManager().setMinor(String.valueOf(minor));
+			 */
 			new AsyncTask<Void, Void, Void>() {
 
 				@Override
@@ -475,8 +481,8 @@ public class SplashActivity extends BaseActivity implements BeaconConsumer, LeSc
 					final CountDownLatch countDownLatch = new CountDownLatch(6);
 
 					Map<String, String> params = new HashMap<String, String>();
-					params.put("major", Menu.getInstance().getDataManager().getMajor());
-					params.put("minor", Menu.getInstance().getDataManager().getMinor());
+					params.put("major", Settings.getMajor(SplashActivity.this));
+					params.put("minor", Settings.getMinor(SplashActivity.this));
 
 					GetRestaurantInfoRequest restaurantInfoRequest = new GetRestaurantInfoRequest(SplashActivity.this, params, new Listener<GetRestaurantInfoResponse>() {
 
@@ -574,8 +580,8 @@ public class SplashActivity extends BaseActivity implements BeaconConsumer, LeSc
 					// startActivity(i);
 					// }
 
-					String major = Menu.getInstance().getDataManager().getMajor();
-					String minor = Menu.getInstance().getDataManager().getMinor();
+					String major = Settings.getMajor(SplashActivity.this);
+					String minor = Settings.getMinor(SplashActivity.this);
 
 					if ((major != null && minor != null)) {
 						Intent i = new Intent(SplashActivity.this, RestaurantPreviewActivity.class);

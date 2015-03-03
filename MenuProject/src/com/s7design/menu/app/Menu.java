@@ -13,6 +13,7 @@ import android.support.v4.util.Pair;
 import com.android.volley.VolleyError;
 import com.s7design.menu.callbacks.OnVolleyErrorCallback;
 import com.s7design.menu.dataclasses.DataManager;
+import com.s7design.menu.utils.Settings;
 
 public class Menu extends Application {
 
@@ -59,7 +60,6 @@ public class Menu extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		System.out.println("DroveU.onCreate()");
 		this.context = getApplicationContext();
 	}
 
@@ -132,7 +132,7 @@ public class Menu extends Application {
 
 	public boolean isOrderEnabled() {
 
-		if ((int) Integer.valueOf(dataManager.getMinor()) == DIABLING_MINOR_VALUE)
+		if ((int) Integer.valueOf(Settings.getMinor(Menu.getContext())) == DIABLING_MINOR_VALUE)
 			return false;
 		else
 			return true;
