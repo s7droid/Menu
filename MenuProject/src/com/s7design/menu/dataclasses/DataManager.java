@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.util.Log;
 
+import com.s7design.menu.utils.Settings;
 import com.s7design.menu.volley.responses.GetRestaurantInfoResponse;
 
 public class DataManager {
