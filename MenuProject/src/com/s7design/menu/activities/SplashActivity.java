@@ -227,8 +227,8 @@ public class SplashActivity extends BaseActivity {
 							final CountDownLatch countDownLatch = new CountDownLatch(6);
 
 							Map<String, String> params = new HashMap<String, String>();
-							params.put("major", Menu.getInstance().getDataManager().getMajor());
-							params.put("minor", Menu.getInstance().getDataManager().getMinor());
+							params.put("major", Menu.getInstance().getDataManager().getMajor(SplashActivity.this));
+							params.put("minor", Menu.getInstance().getDataManager().getMinor(SplashActivity.this));
 
 							GetRestaurantInfoRequest restaurantInfoRequest = new GetRestaurantInfoRequest(SplashActivity.this, params, new Listener<GetRestaurantInfoResponse>() {
 
@@ -326,8 +326,8 @@ public class SplashActivity extends BaseActivity {
 							// startActivity(i);
 							// }
 
-							String major = Menu.getInstance().getDataManager().getMajor();
-							String minor = Menu.getInstance().getDataManager().getMinor();
+							String major = Menu.getInstance().getDataManager().getMajor(SplashActivity.this);
+							String minor = Menu.getInstance().getDataManager().getMinor(SplashActivity.this);
 
 							if ((major != null && minor != null)) {
 								Intent i = new Intent(SplashActivity.this, RestaurantPreviewActivity.class);

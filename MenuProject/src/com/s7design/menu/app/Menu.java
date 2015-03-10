@@ -162,10 +162,18 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 
 	public boolean isOrderEnabled() {
 
-		if ((int) Integer.valueOf(dataManager.getMinor()) == DISABLING_MINOR_VALUE)
+		if ((int) Integer.valueOf(dataManager.getMinor(getApplicationContext())) == DISABLING_MINOR_VALUE)
 			return false;
 		else
 			return true;
+	}
+
+	public boolean isInARestaurant() {
+
+		if (dataManager.getMinor(getApplicationContext()).length() > 0)
+			return true;
+		else
+			return false;
 	}
 
 	Handler handler = new Handler();
@@ -263,8 +271,8 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 			Log.d(TAG, "major " + major);
 			Log.d(TAG, "minor " + minor);
 
-			Menu.getInstance().getDataManager().setMajor(String.valueOf(major));
-			Menu.getInstance().getDataManager().setMinor(String.valueOf(minor));
+			Menu.getInstance().getDataManager().setMajor(getApplicationContext(), String.valueOf(major));
+			Menu.getInstance().getDataManager().setMinor(getApplicationContext(), String.valueOf(minor));
 
 			onIBeaconSearchResult(OnIBeaconSearchResultCallback.SEARCH_RESULT_BEACON_FOUND);
 		}
@@ -289,8 +297,8 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 
 		} else if (result == OnIBeaconSearchResultCallback.SEARCH_RESULT_BEACON_NOT_FOUND) {
 
-			Menu.getInstance().getDataManager().setMajor(String.valueOf(""));
-			Menu.getInstance().getDataManager().setMinor(String.valueOf(""));
+			Menu.getInstance().getDataManager().setMajor(getApplicationContext(), String.valueOf(""));
+			Menu.getInstance().getDataManager().setMinor(getApplicationContext(), String.valueOf(""));
 		}
 
 		if (onIBeaconSearchResultCallback != null) {

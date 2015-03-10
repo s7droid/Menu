@@ -2,6 +2,7 @@ package com.s7design.menu.dataclasses;
 
 import java.util.ArrayList;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.s7design.menu.utils.Settings;
@@ -19,24 +20,22 @@ public class DataManager {
 	private double discount;
 	private String currency;
 	private String clientBraintreeToken;
-	private String major = "";
-	private String minor = "";
 	private String language = "en";
 
-	public String getMajor() {
-		return major;
+	public String getMajor(Context context) {
+		return Settings.getMajor(context);
 	}
 
-	public void setMajor(String major) {
-		this.major = major;
+	public void setMajor(Context context, String major) {
+		Settings.setMajor(context, major);
 	}
 
-	public String getMinor() {
-		return minor;
+	public String getMinor(Context context) {
+		return Settings.getMinor(context);
 	}
 
-	public void setMinor(String minor) {
-		this.minor = minor;
+	public void setMinor(Context context, String minor) {
+		Settings.setMinor(context, minor);
 	}
 
 	public String getClientBraintreeToken() {
