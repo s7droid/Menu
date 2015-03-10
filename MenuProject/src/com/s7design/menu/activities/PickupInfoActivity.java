@@ -1,12 +1,21 @@
 package com.s7design.menu.activities;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.android.volley.Response.Listener;
 import com.s7design.menu.R;
+import com.s7design.menu.utils.Settings;
+import com.s7design.menu.volley.VolleySingleton;
+import com.s7design.menu.volley.requests.AddPhoneNumberRequest;
+import com.s7design.menu.volley.responses.AddPhoneNumberResponse;
 
 public class PickupInfoActivity extends BaseActivity {
 
@@ -48,6 +57,47 @@ public class PickupInfoActivity extends BaseActivity {
 		mButtonConfirm = (Button) findViewById(R.id.buttonPickupInfoActivityConfirm);
 		mEditTextCountryCode = (EditText) findViewById(R.id.edittextPickupInfoActivityCountryCodeValue);
 		mEditTextPhoneNumber = (EditText) findViewById(R.id.edittextPickupInfoActivityPhoneNumberValue);
+		
+		mButtonConfirm.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("accesstoken", Settings.getAccessToken(PickupInfoActivity.this));
+				
+				if(mEditTextCountryCode.getText().toString().isEmpty() && mEditTextPhoneNumber.getText().toString().isEmpty()){
+					showAlertDialog("", getResources().getString(R.string.pickup_info_add_phone));
+					return;
+				}
+					
+				String phonenumber = "+" + mEditTextCountryCode.getText().toString() + mEditTextPhoneNumber.getText().toString();
+				
+				params.put("phonenumber", phonenumber);
+				AddPhoneNumberRequest request = new AddPhoneNumberRequest(PickupInfoActivity.this, params, new Listener<AddPhoneNumberResponse>() {
+
+					@Override
+					public void onResponse(AddPhoneNumberResponse arg0) {
+						
+						showAlertDialog("", getResources().getString(R.string.pickup_info_phone_number_added), new OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								Intent intent = new Intent();
+								setResult(RESULT_OK,intent);
+								finish();
+							}
+						});
+						
+					}
+				});
+				
+				VolleySingleton.getInstance(PickupInfoActivity.this).addToRequestQueue(request);
+				
+			}
+		});
+		
+		
 	}
 
 }

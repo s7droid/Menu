@@ -24,6 +24,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
 import com.s7design.menu.dataclasses.Category;
+import com.s7design.menu.utils.Settings;
 import com.s7design.menu.volley.VolleySingleton;
 import com.s7design.menu.volley.requests.GetCategoriesRequest;
 import com.s7design.menu.volley.responses.GetCategoriesResponse;
@@ -52,8 +53,8 @@ public class CategoryMealsActivity extends BaseActivity {
 		initActionBar();
 
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("major", "1");
-		params.put("minor", "1");
+		params.put("major", Settings.getMajor(CategoryMealsActivity.this));
+		params.put("minor", Settings.getMinor(CategoryMealsActivity.this));
 		params.put("lang", "en");
 
 		GetCategoriesRequest request = new GetCategoriesRequest(this, params, new Listener<GetCategoriesResponse>() {

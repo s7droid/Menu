@@ -16,14 +16,17 @@ import com.android.volley.VolleyError;
 import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
 import com.s7design.menu.callbacks.OnVolleyErrorCallback;
+import com.s7design.menu.dialogs.AlertDialogEditTextFragment;
 import com.s7design.menu.dialogs.AlertDialogFragment;
 import com.s7design.menu.dialogs.ProgressDialogFragment;
+import com.s7design.menu.utils.Utils;
 import com.s7design.menu.volley.responses.GsonResponse;
 
 public class BaseActivity extends Activity implements OnVolleyErrorCallback {
 
 	private ActionBar actionBar;
 
+	private AlertDialogEditTextFragment edittextDialog;
 	private AlertDialogFragment alertDialog;
 	private ProgressDialogFragment progressDialog;
 	private Button buttonActionBarBack;
@@ -52,6 +55,9 @@ public class BaseActivity extends Activity implements OnVolleyErrorCallback {
 		progressDialog = new ProgressDialogFragment();
 		progressDialog.setFragmentManager(getFragmentManager(), this);
 
+		edittextDialog = new AlertDialogEditTextFragment();
+		edittextDialog.setFragmentManager(getFragmentManager(), this);
+		
 		buttonActionBarBack = (Button) findViewById(R.id.buttonActionBarBack);
 		buttonActionBarForward = (Button) findViewById(R.id.buttonActionBarForward);
 		imageButtonActionBarMenu = (ImageButton) findViewById(R.id.imageButtonActionBarMenu);
@@ -140,6 +146,8 @@ public class BaseActivity extends Activity implements OnVolleyErrorCallback {
 	public void setActionBarForwardArrowVisibility(Drawable drawable) {
 		buttonActionBarForward.setCompoundDrawables(null, null, drawable, null);
 		buttonActionBarForward.setPadding(buttonActionBarForward.getPaddingLeft(), buttonActionBarForward.getPaddingTop(), 30, buttonActionBarForward.getPaddingBottom());
+		if(drawable == null)
+			buttonActionBarForward.setPadding(buttonActionBarForward.getPaddingLeft(), buttonActionBarForward.getPaddingTop(), (int) Utils.convertDpToPixel(20, BaseActivity.this), buttonActionBarForward.getPaddingBottom());
 	}
 
 	public void showAlertDialog(int title, int body) {
@@ -182,15 +190,17 @@ public class BaseActivity extends Activity implements OnVolleyErrorCallback {
 		}
 	}
 
+	public void showEditTextDialog(String title, OnClickListener listener){
+		edittextDialog.showDialog(title, listener);
+	}
+	
 	@Override
 	public void onResponseError(GsonResponse response) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void onVolleyError(VolleyError volleyError) {
-		// TODO Auto-generated method stub
 
 	}
 

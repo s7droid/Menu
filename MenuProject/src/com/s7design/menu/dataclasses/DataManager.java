@@ -117,16 +117,20 @@ public class DataManager {
 
 	public void removeCheckoutListItem(int tag) {
 
-		for (Item item : checkoutList) {
-			if (item.largetag == tag) {
-				if (--item.quantityLarge == 0 && item.quantitySmall == 0) {
-					checkoutList.remove(item);
-				}
-			} else if (item.smalltag == tag) {
-				if (--item.quantitySmall == 0 && item.quantityLarge == 0) {
-					checkoutList.remove(item);
+		try {
+			for (Item item : checkoutList) {
+				if (item.largetag == tag) {
+					if (--item.quantityLarge == 0 && item.quantitySmall == 0) {
+						checkoutList.remove(item);
+					}
+				} else if (item.smalltag == tag) {
+					if (--item.quantitySmall == 0 && item.quantityLarge == 0) {
+						checkoutList.remove(item);
+					}
 				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

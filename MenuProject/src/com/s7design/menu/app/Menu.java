@@ -28,6 +28,7 @@ import com.android.volley.VolleyError;
 import com.s7design.menu.callbacks.OnIBeaconSearchResultCallback;
 import com.s7design.menu.callbacks.OnVolleyErrorCallback;
 import com.s7design.menu.dataclasses.DataManager;
+import com.s7design.menu.utils.Settings;
 
 public class Menu extends Application implements BeaconConsumer, LeScanCallback, OnIBeaconSearchResultCallback {
 

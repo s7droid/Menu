@@ -80,8 +80,6 @@ public class ReceiptListActivity extends BaseActivity {
 		showProgressDialogLoading();
 
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("minor", "1");
-		params.put("major", "1");
 		params.put("accesstoken", Settings.getAccessToken(ReceiptListActivity.this));
 
 		GetReceiptsRequest request = new GetReceiptsRequest(ReceiptListActivity.this, params, new Listener<GetReceiptsResponse>() {

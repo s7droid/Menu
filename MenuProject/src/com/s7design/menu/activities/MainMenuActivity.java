@@ -69,7 +69,7 @@ public class MainMenuActivity extends BaseActivity {
 		super.onResume();
 		isLoggedIn = !Settings.getAccessToken(getApplicationContext()).equals("") ? true : false;
 		isOrderListEmpty = Menu.getInstance().getDataManager().getCheckoutList().size() == 0 ? true : false;
-		isOutsideRestaurant = (!Menu.getInstance().getDataManager().getMajor().isEmpty() ? false : true) && (!Menu.getInstance().getDataManager().getMinor().isEmpty() ? false : true);
+		isOutsideRestaurant = (!Settings.getMajor(MainMenuActivity.this).isEmpty() ? false : true) && (!Settings.getMinor(MainMenuActivity.this).isEmpty() ? false : true);
 
 		if (isLoggedIn) {
 			mMenageYourProfileButton.setEnabled(true);
@@ -90,14 +90,6 @@ public class MainMenuActivity extends BaseActivity {
 
 		}
 
-		if (isOrderListEmpty) {
-			mReviewCurrentOrderButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_view_current_order_gray), null, null, null);
-			mReviewCurrentOrderButton.setCompoundDrawablePadding((int) Utils.convertDpToPixel(15, MainMenuActivity.this));
-		} else {
-			mReviewCurrentOrderButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_view_current_order_orange), null, null, null);
-			mReviewCurrentOrderButton.setCompoundDrawablePadding((int) Utils.convertDpToPixel(15, MainMenuActivity.this));
-		}
-
 		if (isOutsideRestaurant) {
 			if (Settings.getAccessToken(getApplicationContext()).isEmpty()) {
 				mReviewCurrentOrderButton.setText(getResources().getString(R.string.main_menu_log_in_or_sign_up));
@@ -114,7 +106,15 @@ public class MainMenuActivity extends BaseActivity {
 			mReviewCurrentOrderButton.setCompoundDrawablePadding((int) Utils.convertDpToPixel(15, MainMenuActivity.this));
 		}
 
-		if (Menu.getInstance().getDataManager().getMajor().isEmpty() && Menu.getInstance().getDataManager().getMinor().isEmpty()) {
+		if (isOrderListEmpty) {
+			mReviewCurrentOrderButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_view_current_order_gray), null, null, null);
+			mReviewCurrentOrderButton.setCompoundDrawablePadding((int) Utils.convertDpToPixel(15, MainMenuActivity.this));
+		} else {
+			mReviewCurrentOrderButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_view_current_order_orange), null, null, null);
+			mReviewCurrentOrderButton.setCompoundDrawablePadding((int) Utils.convertDpToPixel(15, MainMenuActivity.this));
+		}
+		
+		if (Settings.getMajor(MainMenuActivity.this).isEmpty() && Settings.getMinor(MainMenuActivity.this).isEmpty()) {
 			mVenueMenuButton.setTextColor(getResources().getColor(R.color.menu_main_gray_light));
 			mVenueMenuButton.setText(getResources().getString(R.string.main_menu_category_not_available));
 			mVenueMenuButton.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
@@ -123,6 +123,18 @@ public class MainMenuActivity extends BaseActivity {
 			mVenueMenuButton.setText(getResources().getString(R.string.main_menu_view_venue_menu));
 			mVenueMenuButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_view_menu_orange), null, null, null);
 			mVenueMenuButton.setCompoundDrawablePadding((int) Utils.convertDpToPixel(15, MainMenuActivity.this));
+		}
+
+		if (isOrderListEmpty) {
+			if (Settings.getAccessToken(getApplicationContext()).isEmpty()) {
+				mReviewCurrentOrderButton.setText(getResources().getString(R.string.main_menu_log_in_or_sign_up));
+				mReviewCurrentOrderButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_log_in_sign_up_orange), null, null, null);
+				mReviewCurrentOrderButton.setCompoundDrawablePadding((int) Utils.convertDpToPixel(15, MainMenuActivity.this));
+			} else {
+				mReviewCurrentOrderButton.setText(getResources().getString(R.string.main_menu_logout));
+				mReviewCurrentOrderButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_log_in_sign_up_gray), null, null, null);
+				mReviewCurrentOrderButton.setCompoundDrawablePadding((int) Utils.convertDpToPixel(15, MainMenuActivity.this));
+			}
 		}
 
 	}
@@ -134,7 +146,7 @@ public class MainMenuActivity extends BaseActivity {
 
 		isLoggedIn = !Settings.getAccessToken(getApplicationContext()).equals("") ? true : false;
 		isOrderListEmpty = Menu.getInstance().getDataManager().getCheckoutList().size() == 0 ? true : false;
-		isOutsideRestaurant = (!Menu.getInstance().getDataManager().getMajor().isEmpty() ? false : true) && (!Menu.getInstance().getDataManager().getMinor().isEmpty() ? false : true);
+		isOutsideRestaurant = (!Settings.getMajor(MainMenuActivity.this).isEmpty() ? false : true) && (!Settings.getMinor(MainMenuActivity.this).isEmpty() ? false : true);
 
 		mVenueMenuButton = (Button) findViewById(R.id.buttonMainMenuActivityViewVenue);
 		mTutorialsButton = (Button) findViewById(R.id.buttonMainMenuActivityViewTutorial);
@@ -152,44 +164,6 @@ public class MainMenuActivity extends BaseActivity {
 		setActionBarForwardButtonTextColor(getResources().getColor(R.color.menu_main_orange));
 
 		setActionBarMenuButtonVisibility(View.INVISIBLE);
-
-		// if (isLoggedIn) {
-		// mMenageYourProfileButton.setVisibility(View.VISIBLE);
-		// mViewPastReceiptsButton.setVisibility(View.VISIBLE);
-		// mSeparatorManageProfile.setVisibility(View.VISIBLE);
-		// mSeparatorPastReceipts.setVisibility(View.VISIBLE);
-		// } else {
-		// mMenageYourProfileButton.setVisibility(View.GONE);
-		// mViewPastReceiptsButton.setVisibility(View.GONE);
-		// mSeparatorManageProfile.setVisibility(View.GONE);
-		// mSeparatorPastReceipts.setVisibility(View.GONE);
-		// }
-		//
-		// if (isOrderListEmpty) {
-		// mReviewCurrentOrderButton.setTextColor(getResources().getColor(R.color.menu_main_gray_light));
-		// } else {
-		// mReviewCurrentOrderButton.setTextColor(getResources().getColor(R.color.menu_main_orange));
-		// }
-		//
-		// if (isOutsideRestaurant) {
-		// if (Settings.getAccessToken(getApplicationContext()).isEmpty()) {
-		// mReviewCurrentOrderButton.setText(getResources().getString(R.string.main_menu_log_in_or_sign_up));
-		// mReviewCurrentOrderButton.setTextColor(getResources().getColor(R.color.menu_main_orange));
-		// } else {
-		// mReviewCurrentOrderButton.setText(getResources().getString(R.string.main_menu_logout));
-		// mReviewCurrentOrderButton.setTextColor(getResources().getColor(R.color.menu_main_orange));
-		// }
-		// } else {
-		// mReviewCurrentOrderButton.setText(getResources().getString(R.string.main_menu_current_order));
-		// }
-		//
-		// if (Menu.getInstance().getDataManager().getMajor() != null &&
-		// Menu.getInstance().getDataManager().getMinor() != null) {
-		// } else {
-		// mVenueMenuButton.setTextSize(convertDpToPixels(4));
-		// mVenueMenuButton.setTextColor(getResources().getColor(R.color.menu_main_gray_light));
-		// mVenueMenuButton.setText(getResources().getString(R.string.main_menu_category_not_available));
-		// }
 
 		setActionBarBackButtonText(R.string.action_bar_back);
 		setActionBarBackButtonOnClickListener(new OnClickListener() {
@@ -248,6 +222,7 @@ public class MainMenuActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
+				// TODO: uncomment
 				if (!isOrderListEmpty && !isOutsideRestaurant)
 					reviewCurrentOrderButtonAction();
 
@@ -258,6 +233,12 @@ public class MainMenuActivity extends BaseActivity {
 						logout();
 				}
 
+				if (isOrderListEmpty) {
+					if (Settings.getAccessToken(getApplicationContext()).isEmpty())
+						loginOrSignUp();
+					else
+						logout();
+				}
 			}
 
 		});
@@ -272,7 +253,7 @@ public class MainMenuActivity extends BaseActivity {
 	}
 
 	private void venuMenuButtonAction() {
-		if (!Menu.getInstance().getDataManager().getMajor().isEmpty() && !Menu.getInstance().getDataManager().getMinor().isEmpty())
+		if (!Settings.getMajor(MainMenuActivity.this).isEmpty() && !Settings.getMinor(MainMenuActivity.this).isEmpty())
 			startActivity(new Intent(getApplicationContext(), CategoryMealsActivity.class));
 
 	}

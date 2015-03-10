@@ -22,6 +22,7 @@ import com.s7design.menu.dataclasses.Item;
 import com.s7design.menu.dataclasses.Receipt;
 import com.s7design.menu.dialogs.ProgressDialogFragment;
 import com.s7design.menu.utils.Settings;
+import com.s7design.menu.utils.Utils;
 import com.s7design.menu.views.CircleButtonView;
 import com.s7design.menu.volley.VolleySingleton;
 import com.s7design.menu.volley.requests.GetReceiptInfoRequest;
@@ -38,6 +39,11 @@ public class ReceiptDetailsActivity extends BaseActivity {
 	private TextView mTextViewTax;
 	private TextView mTextViewTip;
 	private TextView mTextViewTotal;
+	private TextView mTextViewDiscount;
+	private TextView mTextViewTaxPercentage;
+	private TextView mTextViewTipPercentage;
+	private TextView mTextViewDiscountPercentage;
+	
 	private ListView mListViewItems;
 	private Button mButtonSendEmail;
 	private LinearLayout mContainer;
@@ -76,7 +82,7 @@ public class ReceiptDetailsActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-
+				
 			}
 		});
 
@@ -86,9 +92,13 @@ public class ReceiptDetailsActivity extends BaseActivity {
 		mTextViewReceiptTime = (TextView) findViewById(R.id.textViewDesc);
 		mTextViewRestaurantName = (TextView) findViewById(R.id.textViewRestaurantName);
 		mTextViewSubtotal = (TextView) findViewById(R.id.textViewSubtotal);
+		mTextViewDiscount = (TextView) findViewById(R.id.textViewDiscount);
 		mTextViewTax = (TextView) findViewById(R.id.textViewTax);
 		mTextViewTip = (TextView) findViewById(R.id.textViewTip);
 		mTextViewTotal = (TextView) findViewById(R.id.textViewTotal);
+		mTextViewTaxPercentage = (TextView) findViewById(R.id.textViewTaxPercent);
+		mTextViewTipPercentage= (TextView) findViewById(R.id.textViewTipTotalPercent);
+		mTextViewDiscountPercentage = (TextView) findViewById(R.id.textViewDiscountPercent);
 		mListViewItems = (ListView) findViewById(R.id.listViewReceipts);
 		mButtonSendEmail = (Button) findViewById(R.id.buttonSendEmail);
 		mContainer = (LinearLayout) findViewById(R.id.linearlayoutReceiptDetailsActivityContainer);
@@ -130,8 +140,6 @@ public class ReceiptDetailsActivity extends BaseActivity {
 		showProgressDialogLoading();
 		
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("minor", "1");
-		params.put("major", "1");
 		params.put("accesstoken", Settings.getAccessToken(ReceiptDetailsActivity.this));
 		params.put("receiptid", mReceiptSelected.getReceiptId());
 
@@ -152,7 +160,18 @@ public class ReceiptDetailsActivity extends BaseActivity {
 				mTextViewTax.setText(String.format("%.2f", arg0.tax));
 				mTextViewTip.setText(String.format("%.2f", arg0.tip));
 				mTextViewTotal.setText(Menu.getInstance().getDataManager().getCurrency() + mReceiptSelected.getAmmount());
-
+				mTextViewDiscount.setText(String.format("%.2f", arg0.discount));
+				
+				double ammount = arg0.orderprice + arg0.tip + arg0.discount;
+				
+				double tipPercentage = (double) (arg0.tip/ammount)*100; 
+				double discountPercentage = (double) (arg0.discount/ammount)*100;
+				double taxPercentage = (double) (arg0.tax/arg0.orderprice)*100;
+				
+				mTextViewDiscountPercentage.setText(" " + String.valueOf(Utils.round(discountPercentage, 2)) + "%");
+				mTextViewTaxPercentage.setText(" " + String.valueOf(Utils.round(taxPercentage, 2)) + "%");
+				mTextViewTipPercentage.setText(" " + String.valueOf(Utils.round(tipPercentage, 2)) + "%");
+				
 				mListViewItems.setAdapter(new ItemListAdapter(arg0));
 				mContainer.setVisibility(View.VISIBLE);
 				dismissProgressDialog();

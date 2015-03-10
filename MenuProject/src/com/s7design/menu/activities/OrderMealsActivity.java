@@ -16,6 +16,7 @@ import com.android.volley.Response.Listener;
 import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
 import com.s7design.menu.dataclasses.Item;
+import com.s7design.menu.utils.Settings;
 import com.s7design.menu.views.CustomMenuMealCategorySubTypeExpandable;
 import com.s7design.menu.volley.VolleySingleton;
 import com.s7design.menu.volley.requests.GetAllItemsInCategoryRequest;
@@ -42,8 +43,8 @@ public class OrderMealsActivity extends BaseActivity {
 		int tag = getIntent().getIntExtra(CategoryMealsActivity.INTENT_EXTRA_CATEGORY_TAG, 0);
 
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("major", "1");
-		params.put("minor", "1");
+		params.put("major", Settings.getMajor(OrderMealsActivity.this));
+		params.put("minor", Settings.getMinor(OrderMealsActivity.this));
 		params.put("lang", "en");
 		params.put("cat", String.valueOf(tag));
 

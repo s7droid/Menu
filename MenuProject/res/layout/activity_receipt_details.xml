@@ -100,6 +100,31 @@
                     android:textColor="@color/menu_main_gray_light"
                     android:textSize="16sp" />
             </LinearLayout>
+            
+            
+            
+             <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <com.s7design.menu.views.MenuTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/checkout_discount"
+                    android:textColor="@color/menu_main_gray"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <com.s7design.menu.views.MenuTextView
+                    android:id="@+id/textViewDiscountPercent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:textColor="@color/menu_main_gray_light"
+                    android:textSize="16sp" />
+            </LinearLayout>
+            
         </LinearLayout>
 
         <LinearLayout
@@ -133,6 +158,15 @@
                 android:textColor="@color/menu_main_gray"
                 android:textSize="16sp"
                 android:textStyle="bold" />
+            
+             <com.s7design.menu.views.MenuTextView
+                android:id="@+id/textViewDiscount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/menu_main_gray"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+            
         </LinearLayout>
 
         <RelativeLayout
@@ -149,12 +183,13 @@
                 android:layout_alignParentRight="true"
                 android:text="@string/checkout_total"
                 android:textColor="@color/menu_main_gray"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <View
                 android:id="@+id/viewDivider"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="2dp"
                 android:layout_above="@+id/textViewTotal"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
@@ -167,9 +202,12 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:textColor="@color/menu_main_gray"
+                android:gravity="right"
                 android:textSize="24sp"
                 android:textStyle="bold" />
         </RelativeLayout>
+        
+        
     </LinearLayout>
 
     <com.s7design.menu.views.MenuButton

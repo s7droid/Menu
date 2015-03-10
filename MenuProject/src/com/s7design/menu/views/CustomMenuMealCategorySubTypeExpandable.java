@@ -80,7 +80,7 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 			Button large = (Button) vi.findViewById(R.id.buttonSubMealOrderLarge);
 			Button small = (Button) vi.findViewById(R.id.buttonSubMealOrderSmall);
 			final TextView bigOrderPriceAndQuantity = (TextView) vi.findViewById(R.id.textviewSubMealBigPrice);
-			TextView textViewDash = (TextView) vi.findViewById(R.id.textViewDash);
+			final TextView textViewDash = (TextView) vi.findViewById(R.id.textViewDash);
 			final TextView smallOrderPriceAndQuantity = (TextView) vi.findViewById(R.id.textviewSubMealSmallPrice);
 			TextView mealName = (TextView) vi.findViewById(R.id.textviewSubMealTitle);
 			RelativeLayout imageContainer = (RelativeLayout) vi.findViewById(R.id.linearlayoutSubMealImageContainer);
@@ -100,7 +100,7 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 					setQuantity(bigOrderPriceAndQuantity, itemToSend.largeprice, itemToSend.quantityLarge);
 				}
 				if (itemToSend.quantitySmall > 0) {
-					setQuantity(smallOrderPriceAndQuantity, itemToSend.smallprice, itemToSend.quantitySmall);
+					setQuantitySmall(smallOrderPriceAndQuantity, itemToSend.smallprice, itemToSend.quantitySmall);
 				}
 			} else {
 				itemToSend.quantityLarge = 0;
@@ -112,7 +112,7 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 			else
 				imageViewOrangeBorder.setVisibility(View.INVISIBLE);
 
-			bigOrderPriceAndQuantity.setText(currency + String.format("%.2f", items.get(i).largeprice));
+			bigOrderPriceAndQuantity.setText(String.format("%.2f", items.get(i).largeprice) + currency + (itemToSend.quantityLarge > 0 ? " (" + itemToSend.quantityLarge + ")" : ""));
 			large.setText(mGlobalContext.getString(R.string.category_meals_add) + " " + itemToSend.largelabel);
 			large.setTag(itemToSend.quantityLarge);
 			large.setOnClickListener(new OnClickListener() {
@@ -141,7 +141,7 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 			});
 
 			if (itemToSend.smalllabel.length() > 0) {
-				smallOrderPriceAndQuantity.setText(currency + String.format("%.2f", items.get(i).smallprice));
+				smallOrderPriceAndQuantity.setText(String.format("%.2f", items.get(i).smallprice) + currency +(itemToSend.quantitySmall > 0 ? " (" + itemToSend.quantitySmall + ")" : ""));
 				small.setText(mGlobalContext.getString(R.string.category_meals_add) + " " + itemToSend.smalllabel);
 				small.setTag(itemToSend.quantitySmall);
 				small.setOnClickListener(new OnClickListener() {
@@ -150,7 +150,7 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 					public void onClick(View v) {
 						int counter = (Integer) v.getTag();
 						counter++;
-						setQuantity(smallOrderPriceAndQuantity, itemToSend.smallprice, counter);
+						setQuantitySmall(smallOrderPriceAndQuantity, itemToSend.smallprice, counter);
 						v.setTag(counter);
 						Item item = Menu.getInstance().getDataManager().getItemByTag(itemToSend.smalltag);
 						if (item == null)
@@ -174,6 +174,9 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 
 				@Override
 				public void onClick(View v) {
+					if(itemToSend.largelabel.equalsIgnoreCase("disabled") && itemToSend.smalllabel.equalsIgnoreCase("disabled"))
+						return;
+					
 					Intent intent = new Intent(mGlobalContext, MealDetailsActivity.class);
 					intent.putExtra(MealDetailsActivity.INTENT_EXTRA_TAG, items.get((Integer) v.getTag()).largetag);
 					mGlobalContext.startActivity(intent);
@@ -183,6 +186,17 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 			if (i == items.size() - 1)
 				vi.findViewById(R.id.viewDivider).setVisibility(View.GONE);
 
+			
+			if(itemToSend.largelabel.equalsIgnoreCase("disabled") && itemToSend.smalllabel.equalsIgnoreCase("disabled")){
+				large.setVisibility(View.GONE);
+				small.setVisibility(View.GONE);
+				
+				textViewDash.setVisibility(View.INVISIBLE);
+				smallOrderPriceAndQuantity.setVisibility(View.INVISIBLE);
+				
+				bigOrderPriceAndQuantity.setText(getResources().getString(R.string.category_meals_out_of_stock));
+			}
+			
 			mealsListView.addView(vi);
 		}
 
@@ -201,6 +215,7 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 				isMealsListOpen = !isMealsListOpen;
 			}
 		});
+		
 		invalidate();
 		requestLayout();
 
@@ -214,4 +229,13 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 		tv.setAlpha(1.0f);
 		tv.setText(String.format("%.2f", price) + currency + " (" + String.valueOf(quantity) + ")");
 	}
+	
+	private void setQuantitySmall(TextView tv,double price,int quantity){
+
+		tv.setTextColor(getResources().getColor(R.color.menu_main_gray));
+		tv.setTypeface(null, Typeface.BOLD);
+		tv.setAlpha(1.0f);
+		tv.setText(String.format("%.2f", price) + currency + " (" + String.valueOf(quantity) + ")");
+	}
+	
 }
