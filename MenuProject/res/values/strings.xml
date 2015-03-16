@@ -55,6 +55,7 @@
     <string name="dialog_wrong_password">The password provided is incorrect.</string>
     <string name="dialog_order_successful">Your order was successful!</string>
     <string name="dialog_no_beacon_found">No iBeacon found. Search again?</string>
+    <string name="dialog_no_restaurants_found">No restaurants found nearby. Search again?</string>
 	<string name="dialog_fields_changed">Fields changed successfully.</string>
     <string name="dialog_unable_to_order">You are in a part of the restaurant where ordering is disabled, but you can still add items to your order list.</string>
 

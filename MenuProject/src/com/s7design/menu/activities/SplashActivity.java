@@ -308,8 +308,9 @@ public class SplashActivity extends BaseActivity {
 
 						protected void onPostExecute(Void result) {
 
-							String accessToken = Settings.getAccessToken(getApplicationContext());
-
+							// String accessToken =
+							// Settings.getAccessToken(getApplicationContext());
+							//
 							// if (accessToken.length() > 0) {
 							// Intent i = new Intent(SplashActivity.this,
 							// RestaurantPreviewActivity.class);
@@ -349,7 +350,7 @@ public class SplashActivity extends BaseActivity {
 					if (searchAtempts > 0) {
 						--searchAtempts;
 						OkCancelDialogFragment dialog = new OkCancelDialogFragment();
-						dialog.showDialog(getFragmentManager(), "", getString(R.string.dialog_no_beacon_found), new OnClickListener() {
+						dialog.showDialog(getFragmentManager(), "", getString(R.string.dialog_no_restaurants_found), new OnClickListener() {
 
 							@Override
 							public void onClick(View v) {
