@@ -17,7 +17,8 @@ public class Item {
 	public int quantityLarge = 0;
 	public int quantitySmall = 0;
 	public double price;
-
+	public int amount = 1;
+	
 	public Item getSmall() {
 //		Item item = getCopy();
 		++quantitySmall;
@@ -44,7 +45,8 @@ public class Item {
 		item.currency = currency;
 		item.category = category;
 		item.price = price;
-
+		item.amount = amount;
+		
 		return item;
 	}
 }

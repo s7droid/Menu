@@ -11,6 +11,7 @@ public class Receipt implements Serializable{
 	public String restaurantname;
 	public String amount;
 	public String receiptid;
+	public String currency;
 	
 	public String getDate() {
 		return date;
@@ -35,6 +36,12 @@ public class Receipt implements Serializable{
 	}
 	public void setReceiptId(String receiptId) {
 		this.receiptid = receiptId;
+	}
+	public String getCurrency() {
+		return currency;
+	}
+	public void setCurrency(String currency) {
+		this.currency = currency;
 	}
 	
 }

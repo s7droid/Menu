@@ -159,7 +159,7 @@ public class ReceiptDetailsActivity extends BaseActivity {
 				mTextViewSubtotal.setText(String.format("%.2f", arg0.orderprice));
 				mTextViewTax.setText(String.format("%.2f", arg0.tax));
 				mTextViewTip.setText(String.format("%.2f", arg0.tip));
-				mTextViewTotal.setText(Menu.getInstance().getDataManager().getCurrency() + mReceiptSelected.getAmmount());
+				mTextViewTotal.setText(arg0.currency + mReceiptSelected.getAmmount());
 				mTextViewDiscount.setText(String.format("%.2f", arg0.discount));
 				
 				double ammount = arg0.orderprice + arg0.tip + arg0.discount;
@@ -227,7 +227,7 @@ public class ReceiptDetailsActivity extends BaseActivity {
 
 			holder.name.setText(item.name);
 			holder.price.setText(String.format("%.2f", item.price));
-			holder.quantity.setAsQty(1);
+			holder.quantity.setAsQty(item.amount);
 			holder.delButton.setVisibility(View.GONE);
 
 			return convertView;
