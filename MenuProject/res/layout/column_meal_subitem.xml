@@ -14,9 +14,9 @@
             android:id="@+id/linearlayoutSubMealImageContainer"
             android:layout_width="75dp"
             android:layout_height="75dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
             android:orientation="vertical" >
 
             <com.android.volley.toolbox.NetworkImageView
@@ -38,7 +38,7 @@
             android:layout_height="match_parent"
             android:layout_alignBottom="@+id/imageviewSubMealImage"
             android:layout_alignTop="@+id/imageviewSubMealImage"
-            android:layout_margin="20dp"
+            android:layout_margin="15dp"
             android:layout_toRightOf="@+id/imageviewSubMealImage"
             android:background="@android:color/white"
             android:orientation="vertical" >
@@ -104,10 +104,10 @@
                     android:includeFontPadding="false"
                     android:paddingBottom="7dp"
                     android:paddingTop="7dp"
-                    android:textStyle="bold"
                     android:text="@string/category_meals_add_large"
                     android:textColor="@drawable/orange_text_selector"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
                 <com.s7design.menu.views.MenuButton
                     android:id="@+id/buttonSubMealOrderSmall"
@@ -119,10 +119,10 @@
                     android:includeFontPadding="false"
                     android:paddingBottom="7dp"
                     android:paddingTop="7dp"
-                    android:textStyle="bold"
                     android:text="@string/category_meals_add_small"
                     android:textColor="@drawable/gray_text_selector"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -132,8 +132,8 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@+id/imageviewSubMealImage"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:alpha="0.5"
         android:background="@color/menu_main_gray_light" />
 

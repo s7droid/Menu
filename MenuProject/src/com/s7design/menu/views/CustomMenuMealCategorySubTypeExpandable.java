@@ -141,7 +141,7 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 			});
 
 			if (itemToSend.smalllabel.length() > 0) {
-				smallOrderPriceAndQuantity.setText(String.format("%.2f", items.get(i).smallprice) + currency +(itemToSend.quantitySmall > 0 ? " (" + itemToSend.quantitySmall + ")" : ""));
+				smallOrderPriceAndQuantity.setText(String.format("%.2f", items.get(i).smallprice) + currency + (itemToSend.quantitySmall > 0 ? " (" + itemToSend.quantitySmall + ")" : ""));
 				small.setText(mGlobalContext.getString(R.string.category_meals_add) + " " + itemToSend.smalllabel);
 				small.setTag(itemToSend.quantitySmall);
 				small.setOnClickListener(new OnClickListener() {
@@ -174,9 +174,9 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 
 				@Override
 				public void onClick(View v) {
-					if(itemToSend.largelabel.equalsIgnoreCase("disabled") && itemToSend.smalllabel.equalsIgnoreCase("disabled"))
+					if (itemToSend.largelabel.equalsIgnoreCase("disabled") && itemToSend.smalllabel.equalsIgnoreCase("disabled"))
 						return;
-					
+
 					Intent intent = new Intent(mGlobalContext, MealDetailsActivity.class);
 					intent.putExtra(MealDetailsActivity.INTENT_EXTRA_TAG, items.get((Integer) v.getTag()).largetag);
 					mGlobalContext.startActivity(intent);
@@ -186,17 +186,16 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 			if (i == items.size() - 1)
 				vi.findViewById(R.id.viewDivider).setVisibility(View.GONE);
 
-			
-			if(itemToSend.largelabel.equalsIgnoreCase("disabled") && itemToSend.smalllabel.equalsIgnoreCase("disabled")){
+			if (itemToSend.largelabel.equalsIgnoreCase("disabled") && itemToSend.smalllabel.equalsIgnoreCase("disabled")) {
 				large.setVisibility(View.GONE);
 				small.setVisibility(View.GONE);
-				
+
 				textViewDash.setVisibility(View.INVISIBLE);
 				smallOrderPriceAndQuantity.setVisibility(View.INVISIBLE);
-				
+
 				bigOrderPriceAndQuantity.setText(getResources().getString(R.string.category_meals_out_of_stock));
 			}
-			
+
 			mealsListView.addView(vi);
 		}
 
@@ -215,7 +214,7 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 				isMealsListOpen = !isMealsListOpen;
 			}
 		});
-		
+
 		invalidate();
 		requestLayout();
 
@@ -225,17 +224,17 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 	private void setQuantity(TextView tv, double price, int quantity) {
 
 		tv.setTextColor(getResources().getColor(R.color.menu_main_orange));
-		tv.setTypeface(null, Typeface.BOLD);
+		tv.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "fonts/GothamRounded-Medium.otf"));
 		tv.setAlpha(1.0f);
 		tv.setText(String.format("%.2f", price) + currency + " (" + String.valueOf(quantity) + ")");
 	}
-	
-	private void setQuantitySmall(TextView tv,double price,int quantity){
+
+	private void setQuantitySmall(TextView tv, double price, int quantity) {
 
 		tv.setTextColor(getResources().getColor(R.color.menu_main_gray));
-		tv.setTypeface(null, Typeface.BOLD);
+		tv.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "fonts/GothamRounded-Medium.otf"));
 		tv.setAlpha(1.0f);
 		tv.setText(String.format("%.2f", price) + currency + " (" + String.valueOf(quantity) + ")");
 	}
-	
+
 }
