@@ -155,7 +155,7 @@
     <string name="main_menu_logout">LOGOUT</string>
    
     <!-- Pickup info -->
-    <string name="pickup_info_text">Pro an decore accusam, his liber latine ex. Vide nusquam principes at eum, ut causae impetus inimicus his, eu ius doming hendrerit omittantur. Ad vero ridens argumentum duo, te affert meliore facilisis vim. Soleat option intellegebat ex pri, quo congue fabellas delicata ad. Id mel minim vidisse bonorum, ut nominavi recteque mea. Nihil delectus deserunt ut est, corrumpit moderatius in est, mei te dolore lobortis intellegat.</string>
+    <string name="pickup_info_text">Please provide us with your cell phone number so that we can send you an SMS notification when your order is ready:</string>
     <string name="pickup_info_country_code">Country code:</string>
     <string name="pickup_info_phone_number">Phone number:</string>
     <string name="pickup_info_confirm">CONFIRM</string>
