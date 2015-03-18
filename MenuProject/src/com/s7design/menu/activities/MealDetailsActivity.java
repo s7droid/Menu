@@ -4,12 +4,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.RelativeLayout.LayoutParams;
 
 import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.NetworkImageView;
@@ -17,6 +21,7 @@ import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
 import com.s7design.menu.dataclasses.Item;
 import com.s7design.menu.utils.Settings;
+import com.s7design.menu.utils.Utils;
 import com.s7design.menu.views.CircleButtonView;
 import com.s7design.menu.volley.VolleySingleton;
 import com.s7design.menu.volley.requests.GetItemInfoRequest;
@@ -136,6 +141,15 @@ public class MealDetailsActivity extends BaseActivity {
 				showEditTextDialog("", null);
 			}
 		});
+
+		Display display = getWindowManager().getDefaultDisplay();
+		Point size = new Point();
+		display.getSize(size);
+		int width = (int) ((float) size.x * 2.f / 3.f);
+
+		LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mMealImageImageView.getLayoutParams();
+		params.height = width;
+		mMealImageImageView.setLayoutParams(params);
 
 	}
 
@@ -302,7 +316,4 @@ public class MealDetailsActivity extends BaseActivity {
 
 	}
 
-	
-	
-	
 }
