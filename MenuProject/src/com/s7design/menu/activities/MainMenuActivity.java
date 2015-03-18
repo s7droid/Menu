@@ -113,7 +113,7 @@ public class MainMenuActivity extends BaseActivity {
 			mReviewCurrentOrderButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_view_current_order_orange), null, null, null);
 			mReviewCurrentOrderButton.setCompoundDrawablePadding((int) Utils.convertDpToPixel(15, MainMenuActivity.this));
 		}
-		
+
 		if (Settings.getMajor(MainMenuActivity.this).isEmpty() && Settings.getMinor(MainMenuActivity.this).isEmpty()) {
 			mVenueMenuButton.setTextColor(getResources().getColor(R.color.menu_main_gray_light));
 			mVenueMenuButton.setText(getResources().getString(R.string.main_menu_category_not_available));
@@ -227,17 +227,23 @@ public class MainMenuActivity extends BaseActivity {
 					reviewCurrentOrderButtonAction();
 
 				if (isOutsideRestaurant) {
-					if (Settings.getAccessToken(getApplicationContext()).isEmpty())
+					if (Settings.getAccessToken(getApplicationContext()).isEmpty()) {
 						loginOrSignUp();
-					else
+						return;
+					} else {
 						logout();
+						return;
+					}
 				}
 
 				if (isOrderListEmpty) {
-					if (Settings.getAccessToken(getApplicationContext()).isEmpty())
+					if (Settings.getAccessToken(getApplicationContext()).isEmpty()) {
 						loginOrSignUp();
-					else
+						return;
+					} else {
 						logout();
+						return;
+					}
 				}
 			}
 

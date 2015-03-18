@@ -151,7 +151,7 @@ public class ReceiptListActivity extends BaseActivity {
 			final Receipt item = getItem(position);
 
 			holder.date.setText(item.date);
-			holder.price.setText(Menu.getInstance().getDataManager().getCurrency() + item.amount);
+			holder.price.setText(item.currency + item.amount);
 			holder.restaurantName.setText(item.restaurantname);
 
 			holder.sendEmail.setOnClickListener(new OnClickListener() {

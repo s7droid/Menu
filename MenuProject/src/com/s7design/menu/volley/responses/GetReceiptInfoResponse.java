@@ -12,5 +12,6 @@ public class GetReceiptInfoResponse extends GsonResponse {
 	public String date;
 	public String time;
 	public Item[] items;
+	public String currency;
 
 }

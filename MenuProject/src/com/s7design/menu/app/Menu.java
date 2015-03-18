@@ -49,7 +49,7 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 
 	private static final int SPLASH_SCREEN_TIMEOUT = 10000;
 
-	private static final int SCAN_PERIOD = 60000;
+	private static final int SCAN_PERIOD = 300000;
 
 	private BeaconManager beaconManager;
 	private BluetoothAdapter bluetoothAdapter;
@@ -187,17 +187,8 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 	};
 
 	private OnIBeaconSearchResultCallback onIBeaconSearchResultCallback;
-	private TimerTask timerTask = new TimerTask() {
-
-		@Override
-		public void run() {
-
-			Log.w(TAG, "timer run!!!");
-
-			bluetoothAdapter.startLeScan(Menu.this);
-			handler.postDelayed(runnable, SPLASH_SCREEN_TIMEOUT);
-		}
-	};
+	
+	private TimerTask timerTask;
 
 	public void searchForIBeacon(OnIBeaconSearchResultCallback callback) {
 
@@ -206,7 +197,29 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 		bluetoothAdapter.startLeScan(this);
 		handler.postDelayed(runnable, SPLASH_SCREEN_TIMEOUT);
 
-		timer.schedule(timerTask, SCAN_PERIOD, SCAN_PERIOD);
+		if(timerTask != null){ 
+			timer.cancel();
+			timer = new Timer();
+		}
+		
+		timerTask = new TimerTask() {
+
+			@Override
+			public void run() {
+
+				Log.w(TAG, "timer run!!!");
+
+				bluetoothAdapter.startLeScan(Menu.this);
+				handler.postDelayed(runnable, SPLASH_SCREEN_TIMEOUT);
+			}
+		};
+
+		
+		try {
+			timer.schedule(timerTask, SCAN_PERIOD, SCAN_PERIOD);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
