@@ -9,12 +9,12 @@
         android:id="@+id/gridviewCategoryMealsActivity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:horizontalSpacing="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:horizontalSpacing="15dp"
         android:listSelector="@android:color/transparent"
         android:numColumns="2"
-        android:smoothScrollbar="true"
-        android:verticalSpacing="10dp" />
+        android:scrollbars="none"
+        android:smoothScrollbar="true" />
 
 </LinearLayout>

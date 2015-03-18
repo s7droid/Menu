@@ -7,7 +7,9 @@ import java.util.Map;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,6 +18,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.android.volley.Response.Listener;
@@ -25,6 +29,7 @@ import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
 import com.s7design.menu.dataclasses.Category;
 import com.s7design.menu.utils.Settings;
+import com.s7design.menu.utils.Utils;
 import com.s7design.menu.volley.VolleySingleton;
 import com.s7design.menu.volley.requests.GetCategoriesRequest;
 import com.s7design.menu.volley.responses.GetCategoriesResponse;
@@ -44,6 +49,8 @@ public class CategoryMealsActivity extends BaseActivity {
 	private GridView mCategoryGridView;
 	// DATA
 	private ArrayList<Category> categories;
+
+	private int width = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +80,11 @@ public class CategoryMealsActivity extends BaseActivity {
 
 		showProgressDialogLoading();
 		VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+
+		Display display = getWindowManager().getDefaultDisplay();
+		Point size = new Point();
+		display.getSize(size);
+		width = (int) (size.x - Utils.convertDpToPixel(45, this)) / 2;
 
 	}
 
@@ -171,6 +183,11 @@ public class CategoryMealsActivity extends BaseActivity {
 			}
 
 			ViewHolder holder = (ViewHolder) convertView.getTag();
+
+			RelativeLayout.LayoutParams params = (LayoutParams) holder.categoryImage.getLayoutParams();
+			params.width = width;
+			params.height = width;
+			holder.categoryImage.setLayoutParams(params);
 
 			holder.categoryImage.setImageUrl(getItem(position).image, imageLoader);
 			holder.categoryTitle.setText(getItem(position).name);

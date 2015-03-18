@@ -45,7 +45,7 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 
 	private OnVolleyErrorCallback onVolleyErrorCallback;
 
-	public static final Integer DISABLING_MINOR_VALUE = 1;
+	public static final Integer DISABLING_MINOR_VALUE = 0;
 
 	private static final int SPLASH_SCREEN_TIMEOUT = 10000;
 
