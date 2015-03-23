@@ -75,23 +75,23 @@ public class CheckoutActivity extends BaseActivity {
 	private TextView textViewMinTip;
 	private TextView textViewMaxTip;
 
-	private double total;
-	private double tax;
-	private double minTip;
-	private double maxTip;
-	private double tip = 0;
-	private double discount;
+	private float total;
+	private float tax;
+	private float minTip;
+	private float maxTip;
+	private float tip = 0;
+	private float discount;
 	private String currency;
-	private double totalPrice;
-	private double disc;
-	private double totalTip;
-	private double totalTax;
+	private float totalPrice;
+	private float disc;
+	private float totalTip;
+	private float totalTax;
 
 	private DataManager data;
 
 	private static final int REQUEST_LOGIN = 123;
 	private static final int REQUEST_PHONE_NUMBER = 122;
-	
+
 	private OrderResponse orderResponse;
 
 	@Override
@@ -148,7 +148,7 @@ public class CheckoutActivity extends BaseActivity {
 		maxTip = Utils.round(rate.maxtip, 2);
 		discount = Utils.round(data.getDiscount(), 2);
 		currency = data.getCurrency();
-		tip = Utils.round((maxTip + minTip) / 2, 2);
+		tip = Utils.round((maxTip + minTip) / 2.f, 1);
 	}
 
 	private void initViews() {
@@ -194,10 +194,10 @@ public class CheckoutActivity extends BaseActivity {
 		adapter = new Adapter(this, checkoutList);
 		listView.setAdapter(adapter);
 
-		int tipRange = (int) ((maxTip - minTip) * 100);
+		int tipRange = (int) ((maxTip - minTip) * 10);
 
 		seekBar.setMax(tipRange);
-		seekBar.setProgress((int) (tip - minTip) * 100);
+		seekBar.setProgress((int) ((tip - minTip) * 10));
 
 		textViewTaxPercent.setText(String.valueOf(tax) + "%");
 		textViewDiscountPercent.setText(String.valueOf(discount) + "%");
@@ -218,7 +218,7 @@ public class CheckoutActivity extends BaseActivity {
 
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-				tip = progress / 100 + minTip;
+				tip = ((float) progress) / 10.f + minTip;
 				setData();
 			}
 		});
@@ -230,27 +230,29 @@ public class CheckoutActivity extends BaseActivity {
 
 				if (!Settings.getAccessToken(getApplicationContext()).equals("")) {
 					System.out.println("accesstoken= " + Settings.getAccessToken(getApplicationContext()));
-					
+
 					Map<String, String> params = new HashMap<String, String>();
 					params.put("accesstoken", Settings.getAccessToken(CheckoutActivity.this));
-//					params.put("major", Menu.getInstance().getDataManager().getMajor());
-//					params.put("minor", Menu.getInstance().getDataManager().getMinor());
+					// params.put("major",
+					// Menu.getInstance().getDataManager().getMajor());
+					// params.put("minor",
+					// Menu.getInstance().getDataManager().getMinor());
 					params.put("major", Settings.getMajor(CheckoutActivity.this));
 					params.put("minor", Settings.getMinor(CheckoutActivity.this));
-					
+
 					CheckIfPhoneNeededRequest request = new CheckIfPhoneNeededRequest(CheckoutActivity.this, params, new Listener<CheckIfPhoneNeededResponse>() {
 
 						@Override
 						public void onResponse(CheckIfPhoneNeededResponse arg0) {
-							if(arg0.response != null && arg0.response.equals("numberneeded")){
-								Intent intent = new Intent(CheckoutActivity.this,PickupInfoActivity.class);
+							if (arg0.response != null && arg0.response.equals("numberneeded")) {
+								Intent intent = new Intent(CheckoutActivity.this, PickupInfoActivity.class);
 								startActivityForResult(intent, REQUEST_PHONE_NUMBER);
 							}
 						}
 					});
-					
+
 					VolleySingleton.getInstance(CheckoutActivity.this).addToRequestQueue(request);
-					
+
 				} else {
 					Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
 					startActivityForResult(intent, REQUEST_LOGIN);
@@ -286,7 +288,8 @@ public class CheckoutActivity extends BaseActivity {
 		textViewTax.setText(String.format("%.2f", totalTax));
 		textViewTip.setText(String.format("%.2f", totalTip));
 		textViewDiscount.setText(String.format("%.2f", disc));
-		textViewTotal.setText(currency + String.format("%.2f", totalPrice));
+		textViewTotalLabel.setText(getString(R.string.checkout_total) + " " + currency);
+		textViewTotal.setText(String.format("%.2f", totalPrice));
 
 		adapter.notifyDataSetChanged();
 
@@ -365,26 +368,28 @@ public class CheckoutActivity extends BaseActivity {
 			if (requestCode == REQUEST_LOGIN) {
 				Map<String, String> params = new HashMap<String, String>();
 				params.put("accesstoken", Settings.getAccessToken(CheckoutActivity.this));
-//				params.put("major", Menu.getInstance().getDataManager().getMajor());
-//				params.put("minor", Menu.getInstance().getDataManager().getMinor());
+				// params.put("major",
+				// Menu.getInstance().getDataManager().getMajor());
+				// params.put("minor",
+				// Menu.getInstance().getDataManager().getMinor());
 				params.put("major", Settings.getMajor(CheckoutActivity.this));
 				params.put("minor", Settings.getMinor(CheckoutActivity.this));
-				
+
 				CheckIfPhoneNeededRequest request = new CheckIfPhoneNeededRequest(CheckoutActivity.this, params, new Listener<CheckIfPhoneNeededResponse>() {
 
 					@Override
 					public void onResponse(CheckIfPhoneNeededResponse arg0) {
-						if(arg0.response != null && arg0.response.equals("numberneeded")){
-							Intent intent = new Intent(CheckoutActivity.this,PickupInfoActivity.class);
+						if (arg0.response != null && arg0.response.equals("numberneeded")) {
+							Intent intent = new Intent(CheckoutActivity.this, PickupInfoActivity.class);
 							startActivityForResult(intent, REQUEST_PHONE_NUMBER);
 						}
 					}
 				});
-				
+
 				VolleySingleton.getInstance(CheckoutActivity.this).addToRequestQueue(request);
 			}
-			
-			if(requestCode == REQUEST_PHONE_NUMBER){
+
+			if (requestCode == REQUEST_PHONE_NUMBER) {
 				checkout();
 			}
 		}

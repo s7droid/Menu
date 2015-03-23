@@ -5,7 +5,7 @@
     <solid android:color="@color/menu_main_orange" />
 
     <size
-        android:height="30dp"
-        android:width="30dp" />
+        android:height="28dp"
+        android:width="28dp" />
 
 </shape>

@@ -58,6 +58,8 @@
     <string name="dialog_no_restaurants_found">No restaurants found nearby. Search again?</string>
 	<string name="dialog_fields_changed">Fields changed successfully.</string>
     <string name="dialog_unable_to_order">You are in a part of the restaurant where ordering is disabled, but you can still add items to your order list.</string>
+    <string name="dialog_email_in_use">The entered email is already in use. Please try again.</string>
+    <string name="dialog_card_declined">Credit card has been declined. Please try again.</string>
 
     <!-- Checkout activity -->
     <string name="checkout_thank_you_for_order">Thank you for your order!</string>

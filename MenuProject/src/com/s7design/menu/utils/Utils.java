@@ -64,14 +64,14 @@ public class Utils {
 		return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 	}
 
-	public static double round(double value, int places) {
+	public static float round(float value, int places) {
 		if (places < 0)
 			throw new IllegalArgumentException();
 
 		long factor = (long) Math.pow(10, places);
 		value = value * factor;
 		long tmp = Math.round(value);
-		return (double) tmp / factor;
+		return (float) tmp / factor;
 	}
 
 	public static float convertDpToPixel(int dp, Context context) {

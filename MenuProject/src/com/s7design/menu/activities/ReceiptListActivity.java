@@ -45,7 +45,7 @@ public class ReceiptListActivity extends BaseActivity {
 		initViews();
 		initData();
 	}
-
+		
 	private void initActionBar() {
 
 		setActionBarForwardArrowVisibility(null);
@@ -141,7 +141,6 @@ public class ReceiptListActivity extends BaseActivity {
 				holder.price = (TextView) convertView.findViewById(R.id.textviewReceiptListItemPrice);
 				holder.restaurantName = (TextView) convertView.findViewById(R.id.textviewReceiptListItemRestaurantName);
 				holder.sendEmail = (Button) convertView.findViewById(R.id.buttonReceiptListItemSendMessage);
-				holder.separator = (View) convertView.findViewById(R.id.viewReceiptListItemSeparator);
 				holder.container = (RelativeLayout) convertView.findViewById(R.id.relativelayoutReceiptListItemContainer);
 
 				convertView.setTag(holder);
@@ -161,23 +160,23 @@ public class ReceiptListActivity extends BaseActivity {
 					Map<String, String> params = new HashMap<String, String>();
 					params.put("receiptid", String.valueOf(item.receiptid));
 					params.put("accesstoken", Settings.getAccessToken(getApplicationContext()));
-					
+
 					showProgressDialogLoading();
-					
+
 					SendReceiptByEmailRequest request = new SendReceiptByEmailRequest(ReceiptListActivity.this, params, new Response.Listener<SendReceiptByEmailResponse>() {
 
 						@Override
 						public void onResponse(SendReceiptByEmailResponse response) {
 							dismissProgressDialog();
-							
-							if(response.response != null && response.response.equals("success"))
+
+							if (response.response != null && response.response.equals("success"))
 								showAlertDialog("", getResources().getString(R.string.receipt_list_message_sent_sucess));
 							else
 								showAlertDialog("", getResources().getString(R.string.error_message_basic));
 						}
 
 					});
-					
+
 					VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
 				}
 			});
@@ -200,7 +199,6 @@ public class ReceiptListActivity extends BaseActivity {
 			TextView price;
 			TextView restaurantName;
 			Button sendEmail;
-			View separator;
 			RelativeLayout container;
 		}
 

@@ -9,9 +9,9 @@
         android:id="@+id/listviewReceiptListActivityList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="15dp"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="5dp"
+        android:layout_margin="20dp"
+        android:divider="@color/menu_main_divider_color"
+        android:dividerHeight="1dp"
         android:scrollbars="none" />
 
 </LinearLayout>

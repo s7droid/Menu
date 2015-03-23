@@ -17,7 +17,7 @@ public class DataManager {
 	private ArrayList<Category> categoriesList;
 	private ArrayList<Item> itemsList;
 	private Rate rate;
-	private double discount;
+	private float discount;
 	private String currency;
 	private String clientBraintreeToken;
 	private String language = "en";
@@ -46,11 +46,11 @@ public class DataManager {
 		this.clientBraintreeToken = clientBraintreeToken;
 	}
 
-	public double getDiscount() {
+	public float getDiscount() {
 		return discount;
 	}
 
-	public void setDiscount(double discount) {
+	public void setDiscount(float discount) {
 		this.discount = discount;
 	}
 
@@ -167,14 +167,14 @@ public class DataManager {
 		this.categoriesList = categoriesList;
 	}
 
-	public void setTaxRate(double tax) {
+	public void setTaxRate(float tax) {
 		if (rate == null)
 			rate = new Rate();
 
 		rate.tax = tax;
 	}
 
-	public void setTipRate(double min, double max) {
+	public void setTipRate(float min, float max) {
 		if (rate == null)
 			rate = new Rate();
 

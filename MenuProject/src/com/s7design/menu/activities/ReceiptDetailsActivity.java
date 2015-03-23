@@ -162,11 +162,11 @@ public class ReceiptDetailsActivity extends BaseActivity {
 				mTextViewTotal.setText(arg0.currency + mReceiptSelected.getAmmount());
 				mTextViewDiscount.setText(String.format("%.2f", arg0.discount));
 				
-				double ammount = arg0.orderprice + arg0.tip + arg0.discount;
+				float ammount = arg0.orderprice + arg0.tip + arg0.discount;
 				
-				double tipPercentage = (double) (arg0.tip/ammount)*100; 
-				double discountPercentage = (double) (arg0.discount/ammount)*100;
-				double taxPercentage = (double) (arg0.tax/arg0.orderprice)*100;
+				float tipPercentage = (float) (arg0.tip/ammount)*100; 
+				float discountPercentage = (float) (arg0.discount/ammount)*100;
+				float taxPercentage = (float) (arg0.tax/arg0.orderprice)*100;
 				
 				mTextViewDiscountPercentage.setText(" " + String.valueOf(Utils.round(discountPercentage, 2)) + "%");
 				mTextViewTaxPercentage.setText(" " + String.valueOf(Utils.round(taxPercentage, 2)) + "%");

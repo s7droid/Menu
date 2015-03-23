@@ -139,6 +139,10 @@ public class SignUpActivity extends BaseActivity {
 									i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 									startActivity(i);
 									dismissProgressDialog();
+								} else if (signUpResponse.response.equals("emailinuse")) {
+									showAlertDialog(R.string.dialog_title_error, R.string.dialog_email_in_use);
+								} else if (signUpResponse.response.equals("ccdeclined")) {
+									showAlertDialog(R.string.dialog_title_error, R.string.dialog_card_declined);
 								}
 
 								dismissProgressDialog();
@@ -214,7 +218,7 @@ public class SignUpActivity extends BaseActivity {
 		String terms_privacy_policy_clickable = " " + getResources().getString(R.string.sign_up_privacy_policy_clickable);
 		String terms_tokenizer = " " + getResources().getString(R.string.sign_up_privacy_tokenizer);
 		String terms_tokenizer_clickable = " " + getResources().getString(R.string.sign_up_privacy_tokenizer_clickable);
-		
+
 		SpannableString ss = new SpannableString(terms_intro + terms_privacy_clickable + terms_and + terms_privacy_policy_clickable + terms_tokenizer + terms_tokenizer_clickable);
 		ClickableSpan clickableSpanTermsOfService = new ClickableSpan() {
 			@Override
@@ -225,7 +229,7 @@ public class SignUpActivity extends BaseActivity {
 		ss.setSpan(clickableSpanTermsOfService, terms_intro.length() + 1, (terms_intro.length() + 1 + terms_privacy_clickable.length()), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 		ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.menu_main_orange)), terms_intro.length() + 1, (terms_intro.length() + 1 + terms_privacy_clickable.length()),
 				Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-		
+
 		ClickableSpan clickableSpanPrivacyPolicy = new ClickableSpan() {
 			@Override
 			public void onClick(View textView) {
@@ -243,12 +247,14 @@ public class SignUpActivity extends BaseActivity {
 				startActivity(new Intent(SignUpActivity.this, TokenizationExplainedActivity.class));
 			}
 		};
-		ss.setSpan(clickableSpanTokenizerSeeHow, (terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length() + terms_tokenizer.length() + 1),
-				(terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length() + terms_tokenizer.length() + terms_tokenizer_clickable.length()), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-		ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.menu_main_orange)), (terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length() + terms_tokenizer.length() + 1),
-				(terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length() + terms_tokenizer.length() + terms_tokenizer_clickable.length()), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		ss.setSpan(clickableSpanTokenizerSeeHow,
+				(terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length() + terms_tokenizer.length() + 1), (terms_intro.length()
+						+ terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length() + terms_tokenizer.length() + terms_tokenizer_clickable.length()),
+				Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.menu_main_orange)), (terms_intro.length() + terms_privacy_clickable.length() + terms_and.length()
+				+ terms_privacy_policy_clickable.length() + terms_tokenizer.length() + 1), (terms_intro.length() + terms_privacy_clickable.length() + terms_and.length()
+				+ terms_privacy_policy_clickable.length() + terms_tokenizer.length() + terms_tokenizer_clickable.length()), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-		
 		mTextViewTermsOfUse.setText(ss);
 		mTextViewTermsOfUse.setMovementMethod(LinkMovementMethod.getInstance());
 
