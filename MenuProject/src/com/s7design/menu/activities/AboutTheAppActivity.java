@@ -1,5 +1,6 @@
 package com.s7design.menu.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,6 +16,7 @@ public class AboutTheAppActivity extends BaseActivity {
 	private Button mButtonTermsOfService;
 	private Button mButtonAcknowledgements;
 	private Button mButtonPrivacyTerms;
+	private Button mButtonSecurity;
 	private LinearLayout mLinearLayoutTOSContainer;
 	private LinearLayout mLinearLayoutAknwoledgementsContainer;
 	private LinearLayout mLinearLayoutPrivacyTerms;
@@ -23,9 +25,9 @@ public class AboutTheAppActivity extends BaseActivity {
 	private WebView mWebViewPrivacyTerms;
 
 	// CONTROLLERS
-	private boolean isAknwoledgementVisible = false;
-	private boolean isTOSVisible = false;
-	private boolean isPrivacyTermsVisible = false;
+	private boolean isAknwoledgementVisible = true;
+	private boolean isTOSVisible = true;
+	private boolean isPrivacyTermsVisible = true;
 
 	// DATA
 	private String HTTP_ADDRESS_AKNOWLEDGEMENTS = "http://usemenu.com/app_html/acknowledgements.html";
@@ -67,6 +69,7 @@ public class AboutTheAppActivity extends BaseActivity {
 		mButtonAcknowledgements = (Button) findViewById(R.id.buttonAboutMenuActivityAknowledgements);
 		mButtonTermsOfService = (Button) findViewById(R.id.buttonAboutMenuActivityTermsOfUse);
 		mButtonPrivacyTerms = (Button) findViewById(R.id.buttonAboutMenuActivityPrivacyTerms);
+		mButtonSecurity = (Button) findViewById(R.id.buttonAboutMenuActivitySecurity);
 		mLinearLayoutPrivacyTerms = (LinearLayout) findViewById(R.id.linearlayoutAboutMenuActivityPrivacyTermsContainer);
 		mLinearLayoutAknwoledgementsContainer = (LinearLayout) findViewById(R.id.linearlayoutAboutMenuActivityAknowledgementsContainer);
 		mLinearLayoutTOSContainer = (LinearLayout) findViewById(R.id.linearlayoutAboutMenuActivityTermsOfUseContainer);
@@ -74,6 +77,10 @@ public class AboutTheAppActivity extends BaseActivity {
 		mWebViewPrivacyTerms = (WebView) findViewById(R.id.webviewAboutMenuActivityPrivacyTerms);
 		mWebViewTermsOfService = (WebView) findViewById(R.id.webviewAboutMenuActivityTermsOfService);
 
+		mLinearLayoutAknwoledgementsContainer.setVisibility(View.GONE);
+		mLinearLayoutPrivacyTerms.setVisibility(View.GONE);
+		mLinearLayoutTOSContainer.setVisibility(View.GONE);
+		
 		mButtonAcknowledgements.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -124,6 +131,14 @@ public class AboutTheAppActivity extends BaseActivity {
 			}
 		});
 
+		mButtonSecurity.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(getApplicationContext(), TokenizationExplainedActivity.class));
+			}
+		});
+		
 	}
 
 	private void loadAknowledgements() {

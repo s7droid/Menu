@@ -3,8 +3,9 @@
 
     <color name="menu_main_orange">#ff6600 </color>
     <color name="menu_main_gray">#ff666666</color>
-    <color name="menu_main_gray_light">#ffb4b4b4</color>
+    <color name="menu_main_gray_light">#ff999999</color>
     <color name="menu_main_gray_dark">#ff333333</color>
+    <color name="menu_main_divider_color">#ffcccccc</color>
     <color name="white">#ffffffff</color>
 
 </resources>

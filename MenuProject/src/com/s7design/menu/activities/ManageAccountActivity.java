@@ -1,10 +1,11 @@
 package com.s7design.menu.activities;
 
+import io.card.payment.CardIOActivity;
+import io.card.payment.CreditCard;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import io.card.payment.CardIOActivity;
-import io.card.payment.CreditCard;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
@@ -13,24 +14,18 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.Response.Listener;
-import com.braintreepayments.api.Braintree;
-import com.braintreepayments.api.models.CardBuilder;
 import com.s7design.menu.R;
-import com.s7design.menu.app.Menu;
-import com.s7design.menu.dialogs.ProgressDialogFragment;
 import com.s7design.menu.utils.Settings;
 import com.s7design.menu.views.MenuEditText;
 import com.s7design.menu.volley.VolleySingleton;
 import com.s7design.menu.volley.requests.FetchAccountRequest;
 import com.s7design.menu.volley.requests.ModifyAccountRequest;
-import com.s7design.menu.volley.requests.SignUpRequest;
 import com.s7design.menu.volley.responses.FetchAccountResponse;
 import com.s7design.menu.volley.responses.ModifyAccountResponse;
-import com.s7design.menu.volley.responses.SignUpResponse;
 
 public class ManageAccountActivity extends BaseActivity {
 
@@ -44,7 +39,7 @@ public class ManageAccountActivity extends BaseActivity {
 	private EditText mEditTextMonth;
 	private EditText mEditTextYear;
 	private EditText mEditTextCCV;
-	private Button mButtonShowPassword;
+	private TextView mButtonShowPassword;
 	private Button mButtonChangeCreditCard;
 	private Button mButtonConfirmChanges;
 	private LinearLayout mLinearLayoutCreditCardDataCOntainer;
@@ -107,7 +102,7 @@ public class ManageAccountActivity extends BaseActivity {
 		mEditTextNameOnCard = (EditText) findViewById(R.id.edittextManageAccountActivityNickname);
 		mEditTextNewPassword = (EditText) findViewById(R.id.edittextManageAccountActivityPassword);
 		mEditTextRepeatPassword = (EditText) findViewById(R.id.edittextManageAccountActivityRepeatPassword);
-		mButtonShowPassword = (Button) findViewById(R.id.buttonManageAccountActivityHide);
+		mButtonShowPassword = (TextView) findViewById(R.id.textviewManageAccountActivityHide);
 		mButtonChangeCreditCard = (Button) findViewById(R.id.buttonManageAccountActivityScanCreditCard);
 		mButtonConfirmChanges = (Button) findViewById(R.id.buttonManageAccountCinfirmChanges);
 		mEditTextCreditCardNumber = (EditText) findViewById(R.id.edittextManageAccountActivityCardNumber);

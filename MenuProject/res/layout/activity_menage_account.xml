@@ -26,8 +26,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:alpha="0.5"
-                    android:background="@color/menu_main_gray" />
+                    android:background="@color/menu_main_divider_color" />
 
                 <com.s7design.menu.views.MenuEditText
                     android:id="@+id/edittextManageAccountActivityNickname"
@@ -39,13 +38,13 @@
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
                     android:singleLine="true"
-                    android:textColor="@color/menu_main_gray" />
+                    android:textColor="@color/menu_main_gray"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:alpha="0.5"
-                    android:background="@color/menu_main_gray" />
+                    android:background="@color/menu_main_divider_color" />
 
                 <com.s7design.menu.views.MenuEditText
                     android:id="@+id/edittextManageAccountActivityEmail"
@@ -57,13 +56,13 @@
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
                     android:singleLine="true"
-                    android:textColor="@color/menu_main_gray" />
+                    android:textColor="@color/menu_main_gray"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:alpha="0.5"
-                    android:background="@color/menu_main_gray" />
+                    android:background="@color/menu_main_divider_color" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -82,27 +81,27 @@
                         android:paddingBottom="10dp"
                         android:paddingTop="10dp"
                         android:singleLine="true"
-                        android:textColor="@color/menu_main_gray" />
+                        android:textColor="@color/menu_main_gray"
+                        android:textStyle="bold" />
 
-                    <com.s7design.menu.views.MenuButton
-                        android:id="@+id/buttonManageAccountActivityHide"
+                    <com.s7design.menu.views.MenuTextView
+                        android:id="@+id/textviewManageAccountActivityHide"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_weight="1"
-                        android:alpha="0.6"
                         android:background="@android:color/transparent"
                         android:gravity="center|right"
                         android:text="@string/sign_up_show_button"
-                        android:textColor="@color/menu_main_gray" />
+                        android:textColor="@color/menu_main_gray_light"
+                        android:textStyle="bold" />
                 </RelativeLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:alpha="0.5"
-                    android:background="@color/menu_main_gray" />
+                    android:background="@color/menu_main_divider_color" />
 
                 <com.s7design.menu.views.MenuEditText
                     android:id="@+id/edittextManageAccountActivityRepeatPassword"
@@ -114,30 +113,27 @@
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
                     android:singleLine="true"
-                    android:textColor="@color/menu_main_gray" />
+                    android:textColor="@color/menu_main_gray"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:alpha="0.5"
-                    android:background="@color/menu_main_gray" />
+                    android:background="@color/menu_main_divider_color" />
             </LinearLayout>
 
             <com.s7design.menu.views.MenuButton
                 android:id="@+id/buttonManageAccountActivityScanCreditCard"
+                style="@style/Menu_Button_Rounded_Orange_With_Selector"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_below="@id/ll1"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="25dp"
-                android:background="@drawable/rounded_orange_button_selector"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="30dp"
                 android:text="@string/manage_account_change_credit_card"
-                android:textColor="@drawable/orange_text_selector"
-                android:textSize="10sp" />
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:id="@+id/linearlayoutManageAccountActivityCardContainer"
@@ -146,14 +142,13 @@
                 android:layout_below="@+id/buttonManageAccountActivityScanCreditCard"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:layout_marginTop="10dp"
                 android:alpha="0.2"
                 android:orientation="vertical" >
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/menu_main_gray_light" />
+                    android:background="@color/menu_main_divider_color" />
 
                 <com.s7design.menu.views.MenuEditText
                     android:id="@+id/edittextManageAccountActivityCardNumber"
@@ -165,14 +160,14 @@
                     android:inputType="number"
                     android:maxLength="19"
                     android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
                     android:singleLine="true"
-                    android:textColor="@color/menu_main_gray" />
+                    android:textColor="@color/menu_main_gray"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/menu_main_gray_light" />
+                    android:background="@color/menu_main_divider_color" />
 
                 <!-- <com.s7design.menu.views.MenuEditText -->
                 <!-- android:id="@+id/edittextManageAccountActivityNameOnCard" -->
@@ -213,7 +208,8 @@
                         android:inputType="number"
                         android:maxLength="2"
                         android:singleLine="true"
-                        android:textColor="@color/menu_main_gray" />
+                        android:textColor="@color/menu_main_gray"
+                        android:textStyle="bold" />
 
                     <com.s7design.menu.views.MenuEditText
                         android:id="@+id/edittextManageAccountActivityYear"
@@ -232,7 +228,8 @@
                         android:inputType="number"
                         android:maxLength="4"
                         android:singleLine="true"
-                        android:textColor="@color/menu_main_gray" />
+                        android:textColor="@color/menu_main_gray"
+                        android:textStyle="bold" />
 
                     <View
                         android:layout_width="match_parent"
@@ -240,7 +237,7 @@
                         android:layout_alignLeft="@+id/edittextManageAccountActivityMonth"
                         android:layout_alignRight="@+id/edittextManageAccountActivityMonth"
                         android:layout_below="@+id/edittextManageAccountActivityMonth"
-                        android:background="@color/menu_main_gray_light" />
+                        android:background="@color/menu_main_divider_color" />
 
                     <View
                         android:layout_width="match_parent"
@@ -248,7 +245,7 @@
                         android:layout_alignLeft="@+id/edittextManageAccountActivityYear"
                         android:layout_alignRight="@+id/edittextManageAccountActivityYear"
                         android:layout_below="@+id/edittextManageAccountActivityYear"
-                        android:background="@color/menu_main_gray_light" />
+                        android:background="@color/menu_main_divider_color" />
 
                     <com.s7design.menu.views.MenuEditText
                         android:id="@+id/edittextManageAccountActivityCCV"
@@ -267,7 +264,8 @@
                         android:paddingRight="10dp"
                         android:paddingTop="10dp"
                         android:singleLine="true"
-                        android:textColor="@color/menu_main_gray" />
+                        android:textColor="@color/menu_main_gray"
+                        android:textStyle="bold" />
 
                     <View
                         android:layout_width="match_parent"
@@ -275,7 +273,7 @@
                         android:layout_alignLeft="@+id/edittextManageAccountActivityCCV"
                         android:layout_alignRight="@+id/edittextManageAccountActivityCCV"
                         android:layout_below="@+id/edittextManageAccountActivityCCV"
-                        android:background="@color/menu_main_gray_light" />
+                        android:background="@color/menu_main_divider_color" />
                 </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>
