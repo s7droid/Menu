@@ -20,9 +20,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv1"
                 android:layout_marginBottom="50dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical" >
 
                 <View
@@ -41,6 +41,7 @@
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
                     android:singleLine="true"
+                    android:textStyle="bold"
                     android:textColor="@color/menu_main_gray" />
 
                 <View
@@ -59,6 +60,7 @@
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
                     android:singleLine="true"
+                    android:textStyle="bold"
                     android:textColor="@color/menu_main_gray" />
 
                 <View
@@ -84,6 +86,7 @@
                         android:paddingBottom="10dp"
                         android:paddingTop="10dp"
                         android:singleLine="true"
+                        android:textStyle="bold"
                         android:textColor="@color/menu_main_gray" />
 
                     <com.s7design.menu.views.MenuButton
@@ -115,6 +118,7 @@
                     android:inputType="textPassword"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
+                    android:textStyle="bold"
                     android:singleLine="true"
                     android:textColor="@color/menu_main_gray" />
 
@@ -130,7 +134,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:lineSpacingExtra="7dp"
-                    android:textColor="@color/menu_main_gray_light"
+                    android:textColor="#cbcbcb"
                     android:textSize="12sp" />
 
                 <com.s7design.menu.views.MenuButton
@@ -138,7 +142,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="20dp"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/rounded_orange_button_selector"
                     android:paddingLeft="5dp"

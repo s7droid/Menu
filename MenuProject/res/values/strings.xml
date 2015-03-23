@@ -144,7 +144,8 @@
     <string name="about_menu_aknowledgements_text2"><b>Using our Services</b></string>
     <string name="about_menu_aknowledgements_text3">Cum ex putent splendide adversarium, id sea probo labores. At duo interesset complectitur, etiam minim eu sea. Everti voluptatum consequuntur ut per, dicat dolor noster eos eu, his case omnis id. Inani quaeque laboramus his et, mel magna delectus et, vero eloquentiam cu ius. Et enim oporteat has, nec sale adipiscing te.</string>
     <string name="about_menu_aknowledgements_text4">Eirmod civibus propriae eu per, dicit iisque civibus mei in. Eum ea error saepe sensibus, in populo epicurei omittantur vix. Id habeo referrentur delicatissimi duo. Cu velit consul detraxit usu.</string>
-
+	<string name="about_menu_security">Security</string>
+    
     <!-- Main Menu strings -->
     <string name="main_menu_category_not_available">You need to be in a restaurant to be able to view a menu</string>
     <string name="main_menu_view_tutorial">VIEW TUTORIAL</string>
@@ -157,7 +158,7 @@
     <string name="main_menu_logout">LOGOUT</string>
    
     <!-- Pickup info -->
-    <string name="pickup_info_text">Pro an decore accusam, his liber latine ex. Vide nusquam principes at eum, ut causae impetus inimicus his, eu ius doming hendrerit omittantur. Ad vero ridens argumentum duo, te affert meliore facilisis vim. Soleat option intellegebat ex pri, quo congue fabellas delicata ad. Id mel minim vidisse bonorum, ut nominavi recteque mea. Nihil delectus deserunt ut est, corrumpit moderatius in est, mei te dolore lobortis intellegat.</string>
+    <string name="pickup_info_text">Please provide us with your cell phone number so that we can send you an SMS notification when your order is ready:</string>
     <string name="pickup_info_country_code">Country code:</string>
     <string name="pickup_info_phone_number">Phone number:</string>
     <string name="pickup_info_confirm">CONFIRM</string>

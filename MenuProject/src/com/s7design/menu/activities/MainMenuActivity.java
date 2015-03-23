@@ -2,6 +2,7 @@ package com.s7design.menu.activities;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
@@ -75,19 +76,24 @@ public class MainMenuActivity extends BaseActivity {
 			mMenageYourProfileButton.setEnabled(true);
 			mMenageYourProfileButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_manage_account_orange), null, null, null);
 			mMenageYourProfileButton.setCompoundDrawablePadding((int) Utils.convertDpToPixel(15, MainMenuActivity.this));
-
+			mMenageYourProfileButton.setTextColor(getResources().getColor(R.color.menu_main_gray));
+			
 			mViewPastReceiptsButton.setEnabled(true);
 			mViewPastReceiptsButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_view_receipts_orange), null, null, null);
 			mViewPastReceiptsButton.setCompoundDrawablePadding((int) Utils.convertDpToPixel(15, MainMenuActivity.this));
+			mViewPastReceiptsButton.setTextColor(getResources().getColor(R.color.menu_main_gray));
 		} else {
 			mMenageYourProfileButton.setEnabled(false);
 			mMenageYourProfileButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_manage_account_gray), null, null, null);
 			mMenageYourProfileButton.setCompoundDrawablePadding((int) Utils.convertDpToPixel(15, MainMenuActivity.this));
-
+			mMenageYourProfileButton.setTextColor(Color.parseColor("#999999"));
+			
+			
 			mViewPastReceiptsButton.setEnabled(false);
 			mViewPastReceiptsButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_view_receipts_gray), null, null, null);
 			mViewPastReceiptsButton.setCompoundDrawablePadding((int) Utils.convertDpToPixel(15, MainMenuActivity.this));
-
+			mViewPastReceiptsButton.setTextColor(Color.parseColor("#999999"));
+			
 		}
 
 		if (isOutsideRestaurant) {

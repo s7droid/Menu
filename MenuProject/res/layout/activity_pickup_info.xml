@@ -9,16 +9,21 @@
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="40dp"
         android:text="@string/pickup_info_text"
-        android:textColor="@color/menu_main_gray_light" />
+        android:textColor="#999999"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/text"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:layout_marginTop="15dp" >
 
         <com.s7design.menu.views.MenuTextView
@@ -27,7 +32,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:text="@string/pickup_info_country_code"
-            android:textColor="@color/menu_main_gray_light" />
+            android:textColor="#999999"
+            android:textStyle="bold" />
 
         <View
             android:id="@+id/sep"
@@ -36,7 +42,7 @@
             android:layout_alignLeft="@+id/textview"
             android:layout_alignRight="@+id/textview"
             android:layout_below="@+id/textview"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:background="@color/menu_main_gray_light" />
 
         <com.s7design.menu.views.MenuTextView
@@ -45,9 +51,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/sep"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:text="+"
-            android:textColor="@color/menu_main_gray_light" />
+            android:gravity="center"
+            android:textColor="#999999"
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
         <com.s7design.menu.views.MenuEditText
             android:id="@+id/edittextPickupInfoActivityCountryCodeValue"
@@ -57,14 +66,16 @@
             android:layout_alignRight="@+id/sep"
             android:layout_below="@+id/sep"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_toRightOf="@+id/tvPlus"
             android:background="@drawable/sign_in_edittext_shape"
             android:ems="5"
             android:inputType="number"
             android:maxLength="3"
             android:singleLine="true"
-            android:textColor="@color/menu_main_gray" />
+            android:textColor="@color/menu_main_gray"
+            android:textSize="17sp"
+            android:textStyle="bold" />
 
         <View
             android:id="@+id/sep1"
@@ -73,7 +84,7 @@
             android:layout_alignLeft="@+id/textview"
             android:layout_alignRight="@+id/textview"
             android:layout_below="@+id/tvPlus"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:background="@color/menu_main_gray_light" />
 
         <!-- Phone number -->
@@ -86,7 +97,8 @@
             android:layout_marginLeft="20dp"
             android:layout_toRightOf="@+id/sep"
             android:text="@string/pickup_info_phone_number"
-            android:textColor="@color/menu_main_gray_light" />
+            android:textColor="#999999"
+            android:textStyle="bold" />
 
         <View
             android:id="@+id/sep2"
@@ -94,7 +106,7 @@
             android:layout_height="1dp"
             android:layout_alignLeft="@+id/textview1"
             android:layout_below="@+id/textview1"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:background="@color/menu_main_gray_light" />
 
         <com.s7design.menu.views.MenuEditText
@@ -108,7 +120,9 @@
             android:ems="40"
             android:inputType="number"
             android:singleLine="true"
-            android:textColor="@color/menu_main_gray" />
+            android:textColor="@color/menu_main_gray"
+            android:textSize="17sp"
+            android:textStyle="bold" />
 
         <View
             android:id="@+id/sep3"
@@ -116,7 +130,7 @@
             android:layout_height="1dp"
             android:layout_alignLeft="@+id/textview1"
             android:layout_below="@+id/edittextPickupInfoActivityPhoneNumberValue"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:background="@color/menu_main_gray_light" />
     </RelativeLayout>
 
