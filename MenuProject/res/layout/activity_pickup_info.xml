@@ -13,6 +13,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginTop="40dp"
+        android:lineSpacingMultiplier="1.40"
         android:text="@string/pickup_info_text"
         android:textColor="#999999"
         android:textSize="18sp"

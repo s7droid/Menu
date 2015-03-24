@@ -16,16 +16,13 @@
 
     <com.s7design.menu.views.MenuButton
         android:id="@+id/buttonReceiptListItemSendMessage"
+        style="@style/Menu_Button_Rounded_Orange_With_Selector"
         android:layout_width="wrap_content"
-        android:layout_height="25dp"
+        android:layout_height="30dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/rounded_orange_button_selector"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
+        android:layout_marginTop="20dp"
         android:text="@string/receipt_send_to_email"
-        android:textColor="@drawable/orange_text_selector"
-        android:textSize="12sp"
+        android:textStyle="bold"
         android:visibility="gone" />
 
     <ListView

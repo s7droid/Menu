@@ -104,9 +104,9 @@
     <string name="sign_up_privacy_terms_intro">By signing up, you accept our</string>
     <string name="sign_up_privacy_terms_clickable">terms of service</string>
     <string name="sign_up_privacy_policy_and">and</string>
-    <string name="sign_up_privacy_policy_clickable">privacy policy.</string>
+    <string name="sign_up_privacy_policy_clickable">privacy policy</string>
     <string name="sign_up_privacy_tokenizer">Your credit card is always safe with us -</string>
-    <string name="sign_up_privacy_tokenizer_clickable">see how.</string>
+    <string name="sign_up_privacy_tokenizer_clickable">see how</string>
 
     <!-- Manage account -->
     <string name="manage_account_name_on_card_hint_text">Name on card</string>

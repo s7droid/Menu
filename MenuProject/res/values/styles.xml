@@ -21,7 +21,7 @@
         <item name="android:height">70dp</item>
     </style>
 
-    <style name="Menu_Button_Rounded_Orange_With_Selector" parent="">
+    <style name="Menu_Button_Rounded_Orange_With_Selector" >
         <item name="android:background">@drawable/rounded_orange_button_selector</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@drawable/orange_text_selector</item>
@@ -29,4 +29,12 @@
         <item name="android:paddingRight">10dp</item>
     </style>
 
+     <style name="Menu_Button_Rounded_Gray_With_Selector" >
+        <item name="android:background">@drawable/rounded_gray_button_selector</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@drawable/gray_text_selector</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+    </style>
+    
 </resources>

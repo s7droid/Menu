@@ -13,6 +13,7 @@ import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
 import com.s7design.menu.utils.Settings;
 import com.s7design.menu.utils.Utils;
+import com.s7design.menu.views.MenuButton;
 
 /**
  * Activity for presenting main menu of the <i><b>Menu</b></i> application. <br>
@@ -44,7 +45,7 @@ import com.s7design.menu.utils.Utils;
 public class MainMenuActivity extends BaseActivity {
 
 	// VIEWS
-	private Button mVenueMenuButton;
+	private MenuButton mVenueMenuButton;
 	private Button mTutorialsButton;
 	private Button mMenageYourProfileButton;
 	private Button mViewPastReceiptsButton;
@@ -123,10 +124,12 @@ public class MainMenuActivity extends BaseActivity {
 		if (Settings.getMajor(MainMenuActivity.this).isEmpty() && Settings.getMinor(MainMenuActivity.this).isEmpty()) {
 			mVenueMenuButton.setTextColor(getResources().getColor(R.color.menu_main_gray_light));
 			mVenueMenuButton.setText(getResources().getString(R.string.main_menu_category_not_available));
+			mVenueMenuButton.setFont(false);
 			mVenueMenuButton.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
 		} else {
 			mVenueMenuButton.setTextColor(getResources().getColor(R.color.menu_main_gray));
 			mVenueMenuButton.setText(getResources().getString(R.string.main_menu_view_venue_menu));
+			mVenueMenuButton.setFont(true);
 			mVenueMenuButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_view_menu_orange), null, null, null);
 			mVenueMenuButton.setCompoundDrawablePadding((int) Utils.convertDpToPixel(15, MainMenuActivity.this));
 		}
@@ -154,7 +157,7 @@ public class MainMenuActivity extends BaseActivity {
 		isOrderListEmpty = Menu.getInstance().getDataManager().getCheckoutList().size() == 0 ? true : false;
 		isOutsideRestaurant = (!Settings.getMajor(MainMenuActivity.this).isEmpty() ? false : true) && (!Settings.getMinor(MainMenuActivity.this).isEmpty() ? false : true);
 
-		mVenueMenuButton = (Button) findViewById(R.id.buttonMainMenuActivityViewVenue);
+		mVenueMenuButton = (MenuButton) findViewById(R.id.buttonMainMenuActivityViewVenue);
 		mTutorialsButton = (Button) findViewById(R.id.buttonMainMenuActivityViewTutorial);
 		mMenageYourProfileButton = (Button) findViewById(R.id.buttonMainMenuActivityManageYourAccount);
 		mViewPastReceiptsButton = (Button) findViewById(R.id.buttonMainMenuActivityViewPastReceipts);

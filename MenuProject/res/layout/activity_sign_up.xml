@@ -22,7 +22,7 @@
                 android:layout_marginBottom="50dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:orientation="vertical" >
 
                 <View
@@ -41,8 +41,8 @@
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
                     android:singleLine="true"
-                    android:textStyle="bold"
-                    android:textColor="@color/menu_main_gray" />
+                    android:textColor="@color/menu_main_gray"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="match_parent"
@@ -60,8 +60,8 @@
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
                     android:singleLine="true"
-                    android:textStyle="bold"
-                    android:textColor="@color/menu_main_gray" />
+                    android:textColor="@color/menu_main_gray"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="match_parent"
@@ -86,21 +86,21 @@
                         android:paddingBottom="10dp"
                         android:paddingTop="10dp"
                         android:singleLine="true"
-                        android:textStyle="bold"
-                        android:textColor="@color/menu_main_gray" />
+                        android:textColor="@color/menu_main_gray"
+                        android:textStyle="bold" />
 
-                    <com.s7design.menu.views.MenuButton
+                    <com.s7design.menu.views.MenuTextView
                         android:id="@+id/buttonSignUpActivityHide"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_weight="1"
-                        android:alpha="0.6"
                         android:background="@android:color/transparent"
                         android:gravity="center|right"
                         android:text="@string/sign_up_show_button"
-                        android:textColor="@color/menu_main_gray" />
+                        android:textColor="@color/menu_main_gray_light"
+                        android:textStyle="bold" />
                 </RelativeLayout>
 
                 <View
@@ -118,9 +118,9 @@
                     android:inputType="textPassword"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
-                    android:textStyle="bold"
                     android:singleLine="true"
-                    android:textColor="@color/menu_main_gray" />
+                    android:textColor="@color/menu_main_gray"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="match_parent"
@@ -134,22 +134,19 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:lineSpacingExtra="7dp"
-                    android:textColor="#cbcbcb"
+                    android:textColor="@color/menu_main_gray"
                     android:textSize="12sp" />
 
                 <com.s7design.menu.views.MenuButton
                     android:id="@+id/buttonSignUpScanCreditCard"
+                    style="@style/Menu_Button_Rounded_Orange_With_Selector"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/rounded_orange_button_selector"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
                     android:text="@string/sign_up_scan_credit_card_hint_text"
-                    android:textColor="@drawable/orange_text_selector"
-                    android:textSize="10sp" />
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="match_parent"
@@ -168,7 +165,8 @@
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
                     android:singleLine="true"
-                    android:textColor="@color/menu_main_gray" />
+                    android:textColor="@color/menu_main_gray"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="match_parent"
@@ -213,7 +211,8 @@
                         android:inputType="number"
                         android:maxLength="2"
                         android:singleLine="true"
-                        android:textColor="@color/menu_main_gray" />
+                        android:textColor="@color/menu_main_gray"
+                        android:textStyle="bold" />
 
                     <com.s7design.menu.views.MenuEditText
                         android:id="@+id/edittextSignUpActivityYear"
@@ -231,7 +230,8 @@
                         android:inputType="number"
                         android:maxLength="4"
                         android:singleLine="true"
-                        android:textColor="@color/menu_main_gray" />
+                        android:textColor="@color/menu_main_gray"
+                        android:textStyle="bold" />
 
                     <View
                         android:layout_width="match_parent"
@@ -267,7 +267,8 @@
                         android:paddingRight="10dp"
                         android:paddingTop="10dp"
                         android:singleLine="true"
-                        android:textColor="@color/menu_main_gray" />
+                        android:textColor="@color/menu_main_gray"
+                        android:textStyle="bold" />
 
                     <View
                         android:layout_width="match_parent"

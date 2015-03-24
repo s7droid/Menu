@@ -37,7 +37,7 @@ public class SignUpActivity extends BaseActivity {
 	private static final String TAG = SignUpActivity.class.getSimpleName();
 
 	// VIEWS
-	private Button mShowHidePasswordButton;
+	private TextView mShowHidePasswordButton;
 	private Button mScanCreditCardButton;
 	private Button mSignUpButton;
 	private EditText mEmailEditText;
@@ -95,7 +95,7 @@ public class SignUpActivity extends BaseActivity {
 
 	private void initViews() {
 		mSignUpButton = (Button) findViewById(R.id.buttonSignUpActivitySignUp);
-		mShowHidePasswordButton = (Button) findViewById(R.id.buttonSignUpActivityHide);
+		mShowHidePasswordButton = (TextView) findViewById(R.id.buttonSignUpActivityHide);
 		mScanCreditCardButton = (Button) findViewById(R.id.buttonSignUpScanCreditCard);
 		mEmailEditText = (EditText) findViewById(R.id.edittextSignUpActivityEmail);
 		mPasswordEditText = (EditText) findViewById(R.id.edittextSignUpActivityPassword);
@@ -168,11 +168,11 @@ public class SignUpActivity extends BaseActivity {
 				if (isPasswordShowing) {
 					mShowHidePasswordButton.setText(R.string.sign_up_show);
 					mPasswordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-					((MenuEditText) mPasswordEditText).setFont(false);
+					((MenuEditText) mPasswordEditText).setFont(true);
 				} else {
 					mShowHidePasswordButton.setText(R.string.sign_up_hide);
 					mPasswordEditText.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-					((MenuEditText) mPasswordEditText).setFont(false);
+					((MenuEditText) mPasswordEditText).setFont(true);
 
 				}
 
@@ -216,8 +216,8 @@ public class SignUpActivity extends BaseActivity {
 		String terms_privacy_clickable = " " + getResources().getString(R.string.sign_up_privacy_terms_clickable);
 		String terms_and = " " + getResources().getString(R.string.sign_up_privacy_policy_and);
 		String terms_privacy_policy_clickable = " " + getResources().getString(R.string.sign_up_privacy_policy_clickable);
-		String terms_tokenizer = " " + getResources().getString(R.string.sign_up_privacy_tokenizer);
-		String terms_tokenizer_clickable = " " + getResources().getString(R.string.sign_up_privacy_tokenizer_clickable);
+		String terms_tokenizer = ". " + getResources().getString(R.string.sign_up_privacy_tokenizer);
+		String terms_tokenizer_clickable = " " + getResources().getString(R.string.sign_up_privacy_tokenizer_clickable) + ".";
 
 		SpannableString ss = new SpannableString(terms_intro + terms_privacy_clickable + terms_and + terms_privacy_policy_clickable + terms_tokenizer + terms_tokenizer_clickable);
 		ClickableSpan clickableSpanTermsOfService = new ClickableSpan() {
@@ -227,7 +227,7 @@ public class SignUpActivity extends BaseActivity {
 			}
 		};
 		ss.setSpan(clickableSpanTermsOfService, terms_intro.length() + 1, (terms_intro.length() + 1 + terms_privacy_clickable.length()), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-		ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.menu_main_orange)), terms_intro.length() + 1, (terms_intro.length() + 1 + terms_privacy_clickable.length()),
+		ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.menu_main_orange)), terms_intro.length() + 1, (terms_intro.length() + 1 + terms_privacy_clickable.length() - 1),
 				Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 		ClickableSpan clickableSpanPrivacyPolicy = new ClickableSpan() {
@@ -249,11 +249,11 @@ public class SignUpActivity extends BaseActivity {
 		};
 		ss.setSpan(clickableSpanTokenizerSeeHow,
 				(terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length() + terms_tokenizer.length() + 1), (terms_intro.length()
-						+ terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length() + terms_tokenizer.length() + terms_tokenizer_clickable.length()),
+						+ terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length() + terms_tokenizer.length() + terms_tokenizer_clickable.length() - 1),
 				Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 		ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.menu_main_orange)), (terms_intro.length() + terms_privacy_clickable.length() + terms_and.length()
 				+ terms_privacy_policy_clickable.length() + terms_tokenizer.length() + 1), (terms_intro.length() + terms_privacy_clickable.length() + terms_and.length()
-				+ terms_privacy_policy_clickable.length() + terms_tokenizer.length() + terms_tokenizer_clickable.length()), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+				+ terms_privacy_policy_clickable.length() + terms_tokenizer.length() + terms_tokenizer_clickable.length() - 1), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 		mTextViewTermsOfUse.setText(ss);
 		mTextViewTermsOfUse.setMovementMethod(LinkMovementMethod.getInstance());

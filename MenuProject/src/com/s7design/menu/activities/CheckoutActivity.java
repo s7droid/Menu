@@ -247,6 +247,8 @@ public class CheckoutActivity extends BaseActivity {
 							if (arg0.response != null && arg0.response.equals("numberneeded")) {
 								Intent intent = new Intent(CheckoutActivity.this, PickupInfoActivity.class);
 								startActivityForResult(intent, REQUEST_PHONE_NUMBER);
+							}else if(arg0.response != null && arg0.response.equals("notneeded")){
+								checkout();
 							}
 						}
 					});
