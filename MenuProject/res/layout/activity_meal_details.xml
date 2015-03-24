@@ -86,8 +86,8 @@
             <View
                 android:id="@+id/viewSeparator"
                 android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/menu_main_gray" />
+                android:layout_height="1dp"
+                android:background="@color/menu_main_divider_color" />
 
             <RelativeLayout
                 android:id="@+id/layoutSmall"
@@ -149,15 +149,15 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1px"
+                android:layout_height="1dp"
                 android:layout_marginBottom="15dp"
-                android:background="@color/menu_main_gray" />
+                android:background="@color/menu_main_divider_color" />
 
             <com.s7design.menu.views.MenuTextView
                 android:id="@+id/textviewMealDetailsActivityDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:lineSpacingExtra="3dp"
+                android:lineSpacingMultiplier="1.4"
                 android:textColor="@color/menu_main_gray_dark"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -165,7 +165,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp" >
+                android:layout_marginTop="15dp" >
 
                 <ImageButton
                     android:id="@+id/imagebuttonMealDetailsActivityGetReceipt"
@@ -183,15 +183,18 @@
                     android:layout_marginRight="10dp"
                     android:layout_toLeftOf="@+id/imagebuttonMealDetailsActivityGetReceipt"
                     android:alpha="0.4"
+                    android:lineSpacingMultiplier="1.4"
                     android:textColor="@color/menu_main_gray"
-                    android:textSize="12sp" />
+                    android:textSize="16sp" />
             </RelativeLayout>
 
             <com.s7design.menu.views.MenuTextView
                 android:id="@+id/textviewMealDetailsActivityIngridients"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"
+                android:lineSpacingMultiplier="1.4"
                 android:textAllCaps="true"
                 android:textColor="@color/menu_main_orange"
                 android:textSize="16sp"

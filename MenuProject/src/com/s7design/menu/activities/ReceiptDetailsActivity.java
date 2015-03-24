@@ -43,11 +43,12 @@ public class ReceiptDetailsActivity extends BaseActivity {
 	private TextView mTextViewTaxPercentage;
 	private TextView mTextViewTipPercentage;
 	private TextView mTextViewDiscountPercentage;
-	
+	private TextView mTextViewTotalLabel;
+
 	private ListView mListViewItems;
 	private Button mButtonSendEmail;
 	private LinearLayout mContainer;
-	
+
 	// DATA
 	private Receipt mReceiptSelected;
 
@@ -82,7 +83,7 @@ public class ReceiptDetailsActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				
+
 			}
 		});
 
@@ -97,48 +98,49 @@ public class ReceiptDetailsActivity extends BaseActivity {
 		mTextViewTip = (TextView) findViewById(R.id.textViewTip);
 		mTextViewTotal = (TextView) findViewById(R.id.textViewTotal);
 		mTextViewTaxPercentage = (TextView) findViewById(R.id.textViewTaxPercent);
-		mTextViewTipPercentage= (TextView) findViewById(R.id.textViewTipTotalPercent);
+		mTextViewTipPercentage = (TextView) findViewById(R.id.textViewTipTotalPercent);
 		mTextViewDiscountPercentage = (TextView) findViewById(R.id.textViewDiscountPercent);
 		mListViewItems = (ListView) findViewById(R.id.listViewReceipts);
 		mButtonSendEmail = (Button) findViewById(R.id.buttonSendEmail);
 		mContainer = (LinearLayout) findViewById(R.id.linearlayoutReceiptDetailsActivityContainer);
-		
+		mTextViewTotalLabel = (TextView) findViewById(R.id.textViewTotalLabel);
+
 		mButtonSendEmail.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				showProgressDialogLoading();
-				
+
 				Map<String, String> params = new HashMap<String, String>();
 				params.put("receiptid", String.valueOf(mReceiptSelected.receiptid));
 				params.put("accesstoken", Settings.getAccessToken(getApplicationContext()));
-				
+
 				SendReceiptByEmailRequest request = new SendReceiptByEmailRequest(ReceiptDetailsActivity.this, params, new Response.Listener<SendReceiptByEmailResponse>() {
-				
-				@Override
-				public void onResponse(SendReceiptByEmailResponse response) {
-					dismissProgressDialog();
-					
-					if(response.response != null && response.response.equals("success"))
-						showAlertDialog("", getResources().getString(R.string.receipt_list_message_sent_sucess));
-					else
-						showAlertDialog("", getResources().getString(R.string.error_message_basic));
-				}
-					
+
+					@Override
+					public void onResponse(SendReceiptByEmailResponse response) {
+						dismissProgressDialog();
+
+						if (response.response != null && response.response.equals("success"))
+							showAlertDialog("", getResources().getString(R.string.receipt_list_message_sent_sucess));
+						else
+							showAlertDialog("", getResources().getString(R.string.error_message_basic));
+					}
+
 				});
-				
+
 				VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
 			}
 		});
 
 		mContainer.setVisibility(View.INVISIBLE);
-		
+
 	}
 
 	private void initData() {
 
 		showProgressDialogLoading();
-		
+
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("accesstoken", Settings.getAccessToken(ReceiptDetailsActivity.this));
 		params.put("receiptid", mReceiptSelected.getReceiptId());
@@ -159,27 +161,28 @@ public class ReceiptDetailsActivity extends BaseActivity {
 				mTextViewSubtotal.setText(String.format("%.2f", arg0.orderprice));
 				mTextViewTax.setText(String.format("%.2f", arg0.tax));
 				mTextViewTip.setText(String.format("%.2f", arg0.tip));
-				mTextViewTotal.setText(arg0.currency + mReceiptSelected.getAmmount());
+				mTextViewTotalLabel.setText(getString(R.string.checkout_total) + " " + arg0.currency);
+				mTextViewTotal.setText(mReceiptSelected.getAmmount());
 				mTextViewDiscount.setText(String.format("%.2f", arg0.discount));
-				
+
 				float ammount = arg0.orderprice + arg0.tip + arg0.discount;
-				
-				float tipPercentage = (float) (arg0.tip/ammount)*100; 
-				float discountPercentage = (float) (arg0.discount/ammount)*100;
-				float taxPercentage = (float) (arg0.tax/arg0.orderprice)*100;
-				
+
+				float tipPercentage = (float) (arg0.tip / ammount) * 100;
+				float discountPercentage = (float) (arg0.discount / ammount) * 100;
+				float taxPercentage = (float) (arg0.tax / arg0.orderprice) * 100;
+
 				mTextViewDiscountPercentage.setText(" " + String.valueOf(Utils.round(discountPercentage, 2)) + "%");
 				mTextViewTaxPercentage.setText(" " + String.valueOf(Utils.round(taxPercentage, 2)) + "%");
 				mTextViewTipPercentage.setText(" " + String.valueOf(Utils.round(tipPercentage, 2)) + "%");
-				
+
 				mListViewItems.setAdapter(new ItemListAdapter(arg0));
 				mContainer.setVisibility(View.VISIBLE);
 				dismissProgressDialog();
 			}
 		});
-		
+
 		VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
-		
+
 	}
 
 	private class ItemListAdapter extends BaseAdapter {

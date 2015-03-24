@@ -18,7 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class AlertDialogEditTextFragment extends DialogFragment{
+public class AlertDialogEditTextFragment extends DialogFragment {
 	private static final String TAG = AlertDialogFragment.class.getSimpleName();
 	private FragmentManager fm;
 	private String tag = "alert_dialog";
@@ -56,31 +56,31 @@ public class AlertDialogEditTextFragment extends DialogFragment{
 				dismiss();
 			}
 		});
-		
+
 		characatersLeft.setText(textViewBody.length() + "/100");
-		
+
 		textViewBody.addTextChangedListener(new TextWatcher() {
-			
+
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				characatersLeft.setText(textViewBody.length() +  "/100");
+				characatersLeft.setText(textViewBody.length() + "/100");
 				System.out.println("ON TEXT CHANGED");
 			}
-			
+
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-				
+
 			}
-			
+
 			@Override
 			public void afterTextChanged(Editable s) {
-				
+
 			}
 		});
-		
+
 		builder = new AlertDialog.Builder(getActivity());
 		builder.setView(view);
-		setCancelable(false);
+		setCancelable(true);
 		return builder.create();
 	}
 

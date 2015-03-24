@@ -6,6 +6,7 @@ import java.util.Map;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,7 +14,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.RelativeLayout.LayoutParams;
 
 import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.NetworkImageView;
@@ -21,7 +21,6 @@ import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
 import com.s7design.menu.dataclasses.Item;
 import com.s7design.menu.utils.Settings;
-import com.s7design.menu.utils.Utils;
 import com.s7design.menu.views.CircleButtonView;
 import com.s7design.menu.volley.VolleySingleton;
 import com.s7design.menu.volley.requests.GetItemInfoRequest;
@@ -32,6 +31,7 @@ public class MealDetailsActivity extends BaseActivity {
 	private static final String TAG = MealDetailsActivity.class.getSimpleName();
 
 	public static final String INTENT_EXTRA_TAG = "tag";
+	public static final String INTENT_EXTRA_NAME = "name";
 
 	// VIEWS
 	private NetworkImageView mMealImageImageView;
@@ -58,6 +58,7 @@ public class MealDetailsActivity extends BaseActivity {
 	private String currency;
 
 	private int itemTag;
+	private String name;
 
 	// DATA
 
@@ -67,6 +68,7 @@ public class MealDetailsActivity extends BaseActivity {
 		setContentView(R.layout.activity_meal_details);
 
 		itemTag = getIntent().getIntExtra(INTENT_EXTRA_TAG, 0);
+		name = getIntent().getStringExtra(INTENT_EXTRA_NAME);
 
 		initActionBar();
 		initViews();
@@ -186,6 +188,10 @@ public class MealDetailsActivity extends BaseActivity {
 
 		Item tempItem = Menu.getInstance().getDataManager().getItemByTag(item.largetag);
 		if (tempItem != null) {
+			// item.quantityLarge = tempItem.quantityLarge;
+			// item.quantitySmall = tempItem.quantitySmall;
+			tempItem.description = item.description;
+			tempItem.ingredients = item.ingredients;
 			item = tempItem;
 		} else {
 			item.quantityLarge = 0;
@@ -197,8 +203,12 @@ public class MealDetailsActivity extends BaseActivity {
 		// alps.","ingredients":"SWISS ALPINE
 		// WATER","smalltag":"3","largetag":"4","smallprice":"3.50","largeprice":"7.00","smalllabel":"GLASS","largelabel":"BOTTLE","currency":"\u20ac"}],"errordata":"none"}
 
+		Log.e(TAG, "desc " + item.description);
+		Log.e(TAG, "ingr " + item.ingredients);
+
 		mMealImageImageView.setImageUrl(item.image, VolleySingleton.getInstance(getApplicationContext()).getImageLoader());
-		mMealDescriptionTextView.setText(item.description);
+		mMealDescriptionTextView.setText(name);
+		mMealReceiptTextView.setText(item.description);
 		mMealIngridientsTextView.setText(item.ingredients);
 		mOrderLargePriceTextView.setText(currency + String.format("%.2f", item.largeprice));
 		circleButtonViewPlusLarge.setVisibility(View.VISIBLE);

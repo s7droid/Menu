@@ -179,6 +179,7 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 
 					Intent intent = new Intent(mGlobalContext, MealDetailsActivity.class);
 					intent.putExtra(MealDetailsActivity.INTENT_EXTRA_TAG, items.get((Integer) v.getTag()).largetag);
+					intent.putExtra(MealDetailsActivity.INTENT_EXTRA_NAME, items.get((Integer) v.getTag()).name);
 					mGlobalContext.startActivity(intent);
 				}
 			});
