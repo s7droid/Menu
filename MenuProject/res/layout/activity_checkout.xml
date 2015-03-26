@@ -12,13 +12,14 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
+        android:textSize="15sp"
         android:visibility="gone" />
 
     <com.s7design.menu.views.MenuButton
         android:id="@+id/buttonReceiptListItemSendMessage"
         style="@style/Menu_Button_Rounded_Orange_With_Selector"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="24dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:text="@string/receipt_send_to_email"
@@ -46,8 +47,8 @@
 
         <com.s7design.menu.views.CircleButtonView
             android:id="@+id/circleButtonAdd"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginRight="20dp" />
     </LinearLayout>
 
@@ -72,7 +73,7 @@
                 android:layout_marginLeft="15dp"
                 android:text="@string/checkout_tip_col"
                 android:textColor="@color/menu_main_gray"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
             <com.s7design.menu.views.MenuTextView
@@ -81,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:textColor="@color/menu_main_gray"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
         </RelativeLayout>
 
@@ -106,7 +107,7 @@
                 android:layout_marginLeft="15dp"
                 android:text="0%"
                 android:textColor="@color/menu_main_gray_light"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
             <com.s7design.menu.views.MenuTextView
@@ -117,7 +118,7 @@
                 android:layout_marginRight="15dp"
                 android:text="25%"
                 android:textColor="@color/menu_main_gray_light"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
         </RelativeLayout>
     </LinearLayout>
@@ -138,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/checkout_subtotal"
                 android:textColor="@color/menu_main_gray"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -151,7 +152,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/checkout_tax"
                     android:textColor="@color/menu_main_gray"
-                    android:textSize="15sp"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
 
                 <com.s7design.menu.views.MenuTextView
@@ -160,7 +161,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:textColor="@color/menu_main_gray_light"
-                    android:textSize="15sp" />
+                    android:textSize="13sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -173,7 +174,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/checkout_tip"
                     android:textColor="@color/menu_main_gray"
-                    android:textSize="15sp"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
 
                 <com.s7design.menu.views.MenuTextView
@@ -182,7 +183,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:textColor="@color/menu_main_gray_light"
-                    android:textSize="15sp" />
+                    android:textSize="13sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -196,7 +197,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/checkout_discount"
                     android:textColor="@color/menu_main_gray"
-                    android:textSize="15sp"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
 
                 <com.s7design.menu.views.MenuTextView
@@ -205,7 +206,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:textColor="@color/menu_main_gray_light"
-                    android:textSize="15sp" />
+                    android:textSize="13sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -222,7 +223,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/menu_main_gray"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
             <com.s7design.menu.views.MenuTextView
@@ -230,7 +231,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/menu_main_gray"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
             <com.s7design.menu.views.MenuTextView
@@ -238,7 +239,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/menu_main_gray"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
             <com.s7design.menu.views.MenuTextView
@@ -246,7 +247,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/menu_main_gray"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -264,8 +265,10 @@
                 android:layout_above="@+id/viewDivider"
                 android:layout_alignParentRight="true"
                 android:text="@string/checkout_total"
+                android:gravity="bottom|right"
+                android:includeFontPadding="false"
                 android:textColor="@color/menu_main_orange"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
             <View
@@ -273,8 +276,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_above="@+id/textViewTotal"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginBottom="7dp"
+                android:layout_marginTop="7dp"
                 android:background="@color/menu_main_orange" />
 
             <com.s7design.menu.views.MenuTextView
@@ -283,9 +286,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:gravity="right"
+                android:includeFontPadding="false"
+                android:gravity="right|bottom"
                 android:textColor="@color/menu_main_orange"
-                android:textSize="23sp"
+                android:textSize="24sp"
                 android:textStyle="bold" />
         </RelativeLayout>
     </LinearLayout>
