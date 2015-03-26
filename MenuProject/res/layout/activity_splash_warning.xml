@@ -27,7 +27,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <com.s7design.menu.views.MenuTextView
             android:id="@+id/textViewDesc"
@@ -37,13 +37,13 @@
             android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
     </LinearLayout>
 
     <com.s7design.menu.views.MenuButton
         android:id="@+id/buttonEnableLocationServices"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="24dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="30dp"
         android:background="@drawable/rounded_white_button_selector"
@@ -52,7 +52,7 @@
         android:layout_centerHorizontal="true"
         android:text="@string/splash_screen_enable_location_services"
         android:textColor="@drawable/white_text_selector"
-        android:textSize="15sp"
+        android:textSize="12sp"
         android:textStyle="bold"
         android:visibility="gone" />
 

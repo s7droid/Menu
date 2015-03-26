@@ -191,7 +191,7 @@ public class CategoryMealsActivity extends BaseActivity {
 
 			holder.categoryImage.setImageUrl(getItem(position).image, imageLoader);
 			holder.categoryImage.setDefaultImageResId(R.drawable.no_image);
-			holder.categoryImage.setErrorImageResId(R.drawable.no_image);;
+			holder.categoryImage.setErrorImageResId(R.drawable.no_image);
 			
 			holder.categoryTitle.setText(getItem(position).name);
 

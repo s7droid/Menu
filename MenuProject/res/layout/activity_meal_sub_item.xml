@@ -12,6 +12,7 @@
 
         <com.s7design.menu.views.MenuTextView
             android:id="@+id/textViewTitle"
+            style="@style/Menu_Text_View_Shadow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
