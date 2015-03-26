@@ -34,7 +34,7 @@
         android:paddingTop="5dp"
         android:text="@string/main_menu_view_venue_menu"
         android:textColor="@color/menu_main_gray"
-        android:textSize="17sp"
+        android:textSize="15sp"
         android:textStyle="bold" />
 
     <View
@@ -55,7 +55,7 @@
         android:gravity="left|center_vertical"
         android:text="@string/main_menu_view_tutorial"
         android:textColor="@color/menu_main_gray"
-        android:textSize="17sp"
+        android:textSize="15sp"
         android:textStyle="bold" />
 
     <View
@@ -74,7 +74,7 @@
         android:gravity="left|center_vertical"
         android:text="@string/main_menu_view_past_receipts"
         android:textColor="@color/menu_main_gray"
-        android:textSize="17sp"
+        android:textSize="15sp"
         android:textStyle="bold" />
 
     <View
@@ -93,7 +93,7 @@
         android:gravity="left|center_vertical"
         android:text="@string/main_menu_manage_your_account"
         android:textColor="@color/menu_main_gray"
-        android:textSize="17sp"
+        android:textSize="15sp"
         android:textStyle="bold" />
 
     <View
@@ -114,7 +114,7 @@
         android:gravity="left|center_vertical"
         android:text="@string/main_menu_about_the_app"
         android:textColor="@color/menu_main_gray"
-        android:textSize="17sp"
+        android:textSize="15sp"
         android:textStyle="bold" />
 
     <View
@@ -140,7 +140,7 @@
         android:gravity="left|center_vertical"
         android:text="@string/main_menu_current_order"
         android:textColor="@color/menu_main_gray"
-        android:textSize="17sp"
+        android:textSize="15sp"
         android:textStyle="bold" />
 
 </RelativeLayout>
