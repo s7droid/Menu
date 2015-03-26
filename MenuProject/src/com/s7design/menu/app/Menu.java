@@ -28,7 +28,7 @@ import com.android.volley.VolleyError;
 import com.s7design.menu.callbacks.OnIBeaconSearchResultCallback;
 import com.s7design.menu.callbacks.OnVolleyErrorCallback;
 import com.s7design.menu.dataclasses.DataManager;
-import com.s7design.menu.utils.Settings;
+import com.s7design.menu.volley.responses.GsonResponse;
 
 public class Menu extends Application implements BeaconConsumer, LeScanCallback, OnIBeaconSearchResultCallback {
 
@@ -154,6 +154,12 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 		this.onVolleyErrorCallback = null;
 	}
 
+	public void onResponseErrorReceived(GsonResponse response) {
+
+		if (onVolleyErrorCallback != null)
+			onVolleyErrorCallback.onResponseError(response);
+	}
+
 	public void onVolleyErrorReceived(VolleyError error) {
 
 		if (onVolleyErrorCallback != null)
@@ -187,7 +193,7 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 	};
 
 	private OnIBeaconSearchResultCallback onIBeaconSearchResultCallback;
-	
+
 	private TimerTask timerTask;
 
 	public void searchForIBeacon(OnIBeaconSearchResultCallback callback) {
@@ -197,11 +203,11 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 		bluetoothAdapter.startLeScan(this);
 		handler.postDelayed(runnable, SPLASH_SCREEN_TIMEOUT);
 
-		if(timerTask != null){ 
+		if (timerTask != null) {
 			timer.cancel();
 			timer = new Timer();
 		}
-		
+
 		timerTask = new TimerTask() {
 
 			@Override
@@ -214,7 +220,6 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 			}
 		};
 
-		
 		try {
 			timer.schedule(timerTask, SCAN_PERIOD, SCAN_PERIOD);
 		} catch (Exception e) {

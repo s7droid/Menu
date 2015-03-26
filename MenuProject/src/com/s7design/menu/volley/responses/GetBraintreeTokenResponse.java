@@ -1,6 +1,6 @@
 package com.s7design.menu.volley.responses;
 
-public class GetBraintreeTokenResponse {
+public class GetBraintreeTokenResponse extends GsonResponse {
 
 	public String token;
 
