@@ -12,8 +12,11 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:gravity="center"
+        android:lineSpacingMultiplier="1.30"
         android:text="Enjoy your meal!"
-        android:textSize="20sp" />
+        android:textColor="@color/menu_main_gray"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/iv1"

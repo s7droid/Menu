@@ -207,6 +207,8 @@ public class MealDetailsActivity extends BaseActivity {
 		Log.e(TAG, "ingr " + item.ingredients);
 
 		mMealImageImageView.setImageUrl(item.image, VolleySingleton.getInstance(getApplicationContext()).getImageLoader());
+		mMealImageImageView.setDefaultImageResId(R.drawable.no_image);
+		mMealImageImageView.setErrorImageResId(R.drawable.no_image);
 		mMealDescriptionTextView.setText(name);
 		mMealReceiptTextView.setText(item.description);
 		mMealIngridientsTextView.setText(item.ingredients);

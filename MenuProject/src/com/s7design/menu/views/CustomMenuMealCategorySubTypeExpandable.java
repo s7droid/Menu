@@ -85,8 +85,11 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 			TextView mealName = (TextView) vi.findViewById(R.id.textviewSubMealTitle);
 			RelativeLayout imageContainer = (RelativeLayout) vi.findViewById(R.id.linearlayoutSubMealImageContainer);
 
+			
 			imageView.setImageUrl(itemToSend.image, imageLoader);
-
+			imageView.setDefaultImageResId(R.drawable.no_image);
+			imageView.setErrorImageResId(R.drawable.no_image);
+			
 			mealName.setText(items.get(i).name);
 
 			Item it = Menu.getInstance().getDataManager().getItemByTag(itemToSend.largetag);

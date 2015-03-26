@@ -39,7 +39,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:textColor="@color/menu_main_orange"
-                    android:textSize="17sp"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <com.s7design.menu.views.MenuTextView
@@ -50,7 +50,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@+id/tv1"
                     android:textColor="@color/menu_main_orange"
-                    android:textSize="17sp" />
+                    android:textSize="15sp" />
 
                 <com.s7design.menu.views.CircleButtonView
                     android:id="@+id/circleButtonViewMinusLarge"
@@ -70,7 +70,7 @@
                     android:layout_toLeftOf="@+id/circleButtonViewPlusLarge"
                     android:gravity="center"
                     android:textColor="@color/menu_main_orange"
-                    android:textSize="17sp"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     android:visibility="invisible" />
 
@@ -103,7 +103,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:textColor="@color/menu_main_gray"
-                    android:textSize="17sp"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <com.s7design.menu.views.MenuTextView
@@ -114,7 +114,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@+id/tv2"
                     android:textColor="@color/menu_main_gray"
-                    android:textSize="17sp" />
+                    android:textSize="15sp" />
 
                 <com.s7design.menu.views.CircleButtonView
                     android:id="@+id/circleButtonViewMinusSmall"
@@ -124,7 +124,7 @@
                     android:visibility="invisible" >
                 </com.s7design.menu.views.CircleButtonView>
 
-                <TextView
+                <com.s7design.menu.views.MenuTextView
                     android:id="@+id/textviewMealDetailsActivityOrderSmallQuantity"
                     android:layout_width="30dp"
                     android:layout_height="wrap_content"
@@ -134,7 +134,7 @@
                     android:layout_toLeftOf="@+id/circleButtonViewPlusSmall"
                     android:gravity="center"
                     android:textColor="@color/menu_main_gray"
-                    android:textSize="17sp"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     android:visibility="invisible" />
 
@@ -159,7 +159,7 @@
                 android:layout_height="wrap_content"
                 android:lineSpacingMultiplier="1.4"
                 android:textColor="@color/menu_main_gray_dark"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <RelativeLayout
@@ -182,10 +182,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:layout_toLeftOf="@+id/imagebuttonMealDetailsActivityGetReceipt"
-                    android:alpha="0.4"
                     android:lineSpacingMultiplier="1.4"
                     android:textColor="@color/menu_main_gray"
-                    android:textSize="16sp" />
+                    android:textSize="12sp" />
             </RelativeLayout>
 
             <com.s7design.menu.views.MenuTextView
@@ -197,7 +196,7 @@
                 android:lineSpacingMultiplier="1.4"
                 android:textAllCaps="true"
                 android:textColor="@color/menu_main_orange"
-                android:textSize="16sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
