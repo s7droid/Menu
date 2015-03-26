@@ -51,6 +51,9 @@ public class RestaurantPreviewActivity extends BaseActivity {
 		imageViewRestaurant = (NetworkImageView) findViewById(R.id.imageViewRestaurantPreviewActivityRestaurantImage);
 
 		imageViewRestaurant.setImageUrl(restaurantInfo.imageurl, VolleySingleton.getInstance(getApplicationContext()).getImageLoader());
+		imageViewRestaurant.setDefaultImageResId(R.drawable.no_image);
+		imageViewRestaurant.setErrorImageResId(R.drawable.no_image);
+		
 		mRestaurantName.setText(restaurantInfo.restaurantname);
 
 		setActionBarBackButtonVisibility(View.INVISIBLE);

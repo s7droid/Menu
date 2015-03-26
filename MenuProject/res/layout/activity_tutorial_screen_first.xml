@@ -12,8 +12,11 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:gravity="center"
+        android:lineSpacingMultiplier="1.30"
         android:text="Order from your table \nwith your phone:"
-        android:textSize="20sp" />
+        android:textColor="@color/menu_main_gray"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/iv1"
@@ -29,8 +32,8 @@
         style="@style/Menu_Button_Orange"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:textStyle="bold"
         android:layout_alignParentBottom="true"
-        android:text="@string/menu_tutorial_screen_button_continue" />
+        android:text="@string/menu_tutorial_screen_button_continue"
+        android:textStyle="bold" />
 
 </RelativeLayout>

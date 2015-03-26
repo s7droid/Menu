@@ -17,7 +17,7 @@
         android:paddingRight="10dp"
         android:text="@string/action_bar_back"
         android:textColor="@color/menu_main_gray"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:textStyle="bold" />
 
     <ImageButton
@@ -42,7 +42,7 @@
         android:paddingRight="10dp"
         android:text="@string/action_bar_tutorial"
         android:textColor="@color/menu_main_gray"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:textStyle="bold" />
 
 </RelativeLayout>
