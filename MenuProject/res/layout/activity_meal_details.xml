@@ -54,8 +54,8 @@
 
                 <com.s7design.menu.views.CircleButtonView
                     android:id="@+id/circleButtonViewMinusLarge"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_toLeftOf="@+id/textviewMealDetailsActivityOrderLargeQuantity"
                     android:visibility="invisible" >
                 </com.s7design.menu.views.CircleButtonView>
@@ -76,8 +76,8 @@
 
                 <com.s7design.menu.views.CircleButtonView
                     android:id="@+id/circleButtonViewPlusLarge"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_alignParentRight="true"
                     android:visibility="invisible" >
                 </com.s7design.menu.views.CircleButtonView>
@@ -118,8 +118,8 @@
 
                 <com.s7design.menu.views.CircleButtonView
                     android:id="@+id/circleButtonViewMinusSmall"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_toLeftOf="@+id/textviewMealDetailsActivityOrderSmallQuantity"
                     android:visibility="invisible" >
                 </com.s7design.menu.views.CircleButtonView>
@@ -140,8 +140,8 @@
 
                 <com.s7design.menu.views.CircleButtonView
                     android:id="@+id/circleButtonViewPlusSmall"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_alignParentRight="true"
                     android:visibility="invisible" >
                 </com.s7design.menu.views.CircleButtonView>

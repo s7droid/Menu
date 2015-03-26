@@ -17,8 +17,8 @@
 
         <com.s7design.menu.views.CircleButtonView
             android:id="@+id/circleButtonViewQty"
-            android:layout_width="30dp"
-            android:layout_height="30dp" >
+            android:layout_width="25dp"
+            android:layout_height="25dp" >
         </com.s7design.menu.views.CircleButtonView>
 
         <com.s7design.menu.views.MenuTextView
@@ -30,7 +30,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:textColor="@color/menu_main_gray"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textStyle="bold" />
 
         <com.s7design.menu.views.MenuTextView
@@ -42,7 +42,7 @@
             android:singleLine="true"
             android:text="@string/misc_is_small"
             android:textColor="@color/menu_main_gray_light"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:visibility="gone" />
     </LinearLayout>
@@ -58,8 +58,8 @@
 
         <com.s7design.menu.views.CircleButtonView
             android:id="@+id/circleButtonViewMinus"
-            android:layout_width="30dp"
-            android:layout_height="30dp" >
+            android:layout_width="25dp"
+            android:layout_height="25dp" >
         </com.s7design.menu.views.CircleButtonView>
 
         <com.s7design.menu.views.MenuTextView
@@ -70,26 +70,22 @@
             android:layout_marginRight="5dp"
             android:gravity="center"
             android:textColor="@color/menu_main_gray"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textStyle="bold" />
 
         <com.s7design.menu.views.CircleButtonView
             android:id="@+id/circleButtonViewPlus"
-            android:layout_width="30dp"
-            android:layout_height="30dp" >
+            android:layout_width="25dp"
+            android:layout_height="25dp" >
         </com.s7design.menu.views.CircleButtonView>
 
         <com.s7design.menu.views.MenuButton
             android:id="@+id/buttonDone"
+            style="@style/Menu_Button_Rounded_Orange_With_Selector"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="24dp"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/rounded_orange_button_selector"
-            android:paddingLeft="2dp"
-            android:paddingRight="2dp"
             android:text="@string/checkout_done"
-            android:textColor="@drawable/orange_text_selector"
-            android:textSize="16sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -99,13 +95,13 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
         android:textColor="@color/menu_main_gray"
-        android:textSize="16sp"
+        android:textSize="15sp"
         android:textStyle="bold" />
 
     <com.s7design.menu.views.CircleButtonView
         android:id="@+id/circleButtonViewDel"
-        android:layout_width="30dp"
-        android:layout_height="30dp" >
+        android:layout_width="25dp"
+        android:layout_height="25dp" >
     </com.s7design.menu.views.CircleButtonView>
 
 </LinearLayout>
