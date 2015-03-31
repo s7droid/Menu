@@ -121,11 +121,11 @@ public class ManageAccountActivity extends BaseActivity {
 				if (isPasswordShowing) {
 					mButtonShowPassword.setText(R.string.sign_up_show);
 					mEditTextNewPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-					((MenuEditText) mEditTextNewPassword).setFont(false);
+					((MenuEditText) mEditTextNewPassword).setFont(true);
 				} else {
 					mButtonShowPassword.setText(R.string.sign_up_hide);
 					mEditTextNewPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-					((MenuEditText) mEditTextNewPassword).setFont(false);
+					((MenuEditText) mEditTextNewPassword).setFont(true);
 
 				}
 

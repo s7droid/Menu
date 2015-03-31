@@ -43,7 +43,7 @@
     <com.s7design.menu.views.MenuButton
         android:id="@+id/buttonEnableLocationServices"
         android:layout_width="wrap_content"
-        android:layout_height="24dp"
+        android:layout_height="25dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="30dp"
         android:background="@drawable/rounded_white_button_selector"

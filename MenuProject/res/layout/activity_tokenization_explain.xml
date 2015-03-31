@@ -83,8 +83,9 @@
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="top"
                 android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
                 android:padding="3dp"
                 android:src="@drawable/tokenization_explain_down_arrow_icon" />
 
@@ -149,7 +150,8 @@
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="top"
+                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginRight="10dp"
                 android:padding="3dp"

@@ -36,6 +36,8 @@
         android:layout_height="0dp"
         android:layout_margin="20dp"
         android:layout_weight="1"
+        android:divider="@color/menu_main_divider_color"
+        android:dividerHeight="1dp"
         android:listSelector="@android:color/transparent"
         android:scrollbars="none" >
     </ListView>

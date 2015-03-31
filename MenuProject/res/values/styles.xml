@@ -24,7 +24,7 @@
         <item name="android:shadowDy">5</item>
         <item name="android:height">60dp</item>
     </style>
-    
+
     <style name="Menu_Text_View_Shadow" parent="@android:style/Widget.TextView">
         <item name="android:shadowColor">@color/menu_main_orange_dark</item>
         <item name="android:shadowRadius">5</item>
@@ -32,20 +32,22 @@
         <item name="android:shadowDy">5</item>
     </style>
 
-    <style name="Menu_Button_Rounded_Orange_With_Selector" >
+    <style name="Menu_Button_Rounded_Orange_With_Selector">
         <item name="android:background">@drawable/rounded_orange_button_selector</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@drawable/orange_text_selector</item>
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingRight">10dp</item>
+        <item name="android:height">25dp</item>
     </style>
 
-     <style name="Menu_Button_Rounded_Gray_With_Selector" >
+    <style name="Menu_Button_Rounded_Gray_With_Selector">
         <item name="android:background">@drawable/rounded_gray_button_selector</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@drawable/gray_text_selector</item>
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingRight">10dp</item>
+        <item name="android:height">25dp</item>
     </style>
-    
+
 </resources>

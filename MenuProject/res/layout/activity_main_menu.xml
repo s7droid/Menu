@@ -19,7 +19,7 @@
         android:layout_height="1dp"
         android:layout_below="@+id/iv1"
         android:layout_marginTop="25dp"
-        android:background="@color/menu_main_gray_light" />
+        android:background="@color/menu_main_divider_color" />
 
     <com.s7design.menu.views.MenuButton
         android:id="@+id/buttonMainMenuActivityViewVenue"
@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@+id/buttonMainMenuActivityViewVenue"
-        android:background="@color/menu_main_gray_light" />
+        android:background="@color/menu_main_divider_color" />
 
     <com.s7design.menu.views.MenuButton
         android:id="@+id/buttonMainMenuActivityViewTutorial"
@@ -63,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@+id/buttonMainMenuActivityViewTutorial"
-        android:background="@color/menu_main_gray_light" />
+        android:background="@color/menu_main_divider_color" />
 
     <com.s7design.menu.views.MenuButton
         android:id="@+id/buttonMainMenuActivityViewPastReceipts"
@@ -82,7 +82,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@+id/buttonMainMenuActivityViewPastReceipts"
-        android:background="@color/menu_main_gray_light" />
+        android:background="@color/menu_main_divider_color" />
 
     <com.s7design.menu.views.MenuButton
         android:id="@+id/buttonMainMenuActivityManageYourAccount"
@@ -101,7 +101,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@+id/buttonMainMenuActivityManageYourAccount"
-        android:background="@color/menu_main_gray_light" />
+        android:background="@color/menu_main_divider_color" />
 
     <com.s7design.menu.views.MenuButton
         android:id="@+id/buttonMainMenuActivityAboutTheApp"
@@ -122,14 +122,14 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@+id/buttonMainMenuActivityAboutTheApp"
-        android:background="@color/menu_main_gray_light" />
+        android:background="@color/menu_main_divider_color" />
 
     <View
         android:id="@+id/separator6"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_above="@+id/buttonMainMenuActivityCurrentOrderPreview"
-        android:background="@color/menu_main_gray_light" />
+        android:background="@color/menu_main_divider_color" />
 
     <com.s7design.menu.views.MenuButton
         android:id="@+id/buttonMainMenuActivityCurrentOrderPreview"

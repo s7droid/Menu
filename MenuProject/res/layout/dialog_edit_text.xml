@@ -41,7 +41,7 @@
             android:id="@+id/buttonEditTextDialogOk"
            style="@style/Menu_Button_Rounded_Orange_With_Selector"
             android:layout_width="wrap_content"
-            android:layout_height="24dp"
+            android:layout_height="25dp"
             android:layout_centerVertical="true"
             android:layout_margin="5dp"
             android:includeFontPadding="false"

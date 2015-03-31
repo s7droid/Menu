@@ -83,7 +83,7 @@
             android:id="@+id/buttonDone"
             style="@style/Menu_Button_Rounded_Orange_With_Selector"
             android:layout_width="wrap_content"
-            android:layout_height="24dp"
+            android:layout_height="25dp"
             android:layout_marginLeft="10dp"
             android:text="@string/checkout_done"
             android:textStyle="bold" />

@@ -24,6 +24,7 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -135,6 +136,32 @@ public class CheckoutActivity extends BaseActivity {
 
 		if (!Menu.getInstance().isOrderEnabled() || total == 0)
 			buttonCheckout.setEnabled(false);
+		
+		
+		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		if(checkoutList != null && checkoutList.size() < 6){
+			params.weight = 0;
+			params.topMargin = (int) Utils.convertDpToPixel(20, this);
+			params.rightMargin = (int) Utils.convertDpToPixel(20, this);
+			params.leftMargin = (int) Utils.convertDpToPixel(20, this);
+			params.bottomMargin = (int) Utils.convertDpToPixel(10, this);
+			
+			System.out.println("getCount= " + checkoutList.size());
+			System.out.println("convertDpToPixels= " + Utils.convertDpToPixel(40, this));
+			System.out.println("height should be= " + (int) (checkoutList.size() * (int) Utils.convertDpToPixel(40, this)));
+			params.height = (int) (checkoutList.size() * Utils.convertDpToPixel(40, this));
+			System.out.println("height= " + params.height);
+		}else{
+			params.weight = 1;
+			params.height = 0;
+			params.topMargin = (int) Utils.convertDpToPixel(20, this);
+			params.rightMargin = (int) Utils.convertDpToPixel(20, this);
+			params.leftMargin = (int) Utils.convertDpToPixel(20, this);
+			params.bottomMargin = (int) Utils.convertDpToPixel(10, this);
+		}
+		
+		listView.setLayoutParams(params);
+		
 	}
 
 	private void initData() {
@@ -592,7 +619,7 @@ public class CheckoutActivity extends BaseActivity {
 			holder.circleButtonViewMinus.setAsRemoveGrey();
 			holder.circleButtonViewPlus.setAsAddGrey();
 			holder.textViewQty.setText(String.valueOf(holder.isSmall ? item.quantitySmall : item.quantityLarge));
-			holder.textViewIsSmall.setVisibility(holder.isSmall ? View.VISIBLE : View.GONE);
+//			holder.textViewIsSmall.setVisibility(holder.isSmall ? View.VISIBLE : View.GONE);
 
 			if (!disableClicks) {
 				convertView.setOnClickListener(new OnClickListener() {

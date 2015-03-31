@@ -50,6 +50,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="10dp"
             android:text="@string/restaurant_preview_activity_powered_by"
+            android:textColor="@color/menu_main_gray"
             android:textSize="15sp" />
 
         <ImageView
