@@ -153,11 +153,11 @@ public class ReceiptDetailsActivity extends BaseActivity {
 
 				stringBuilder.append(arg0.date);
 				stringBuilder.append(" at " + arg0.time);
-				stringBuilder.append(" / Table 5");
+				stringBuilder.append(" / Table " + arg0.tablenumber);
 
 				mTextViewReceiptTime.setText(stringBuilder);
 
-				mTextViewRestaurantName.setText(mReceiptSelected.getRestaurantName());
+				mTextViewRestaurantName.setText(arg0.restaurantname);
 				mTextViewSubtotal.setText(String.format("%.2f", arg0.orderprice));
 				mTextViewTax.setText(String.format("%.2f", arg0.tax));
 				mTextViewTip.setText(String.format("%.2f", arg0.tip));
@@ -165,15 +165,9 @@ public class ReceiptDetailsActivity extends BaseActivity {
 				mTextViewTotal.setText(mReceiptSelected.getAmmount());
 				mTextViewDiscount.setText(String.format("%.2f", arg0.discount));
 
-				float ammount = arg0.orderprice + arg0.tip + arg0.discount;
-
-				float tipPercentage = (float) (arg0.tip / ammount) * 100;
-				float discountPercentage = (float) (arg0.discount / ammount) * 100;
-				float taxPercentage = (float) (arg0.tax / arg0.orderprice) * 100;
-
-				mTextViewDiscountPercentage.setText(" " + String.valueOf(Utils.round(discountPercentage, 2)) + "%");
-				mTextViewTaxPercentage.setText(" " + String.valueOf(Utils.round(taxPercentage, 2)) + "%");
-				mTextViewTipPercentage.setText(" " + String.valueOf(Utils.round(tipPercentage, 2)) + "%");
+				mTextViewDiscountPercentage.setText(" " + String.format("%.2f", arg0.discountrate) + "%");
+				mTextViewTaxPercentage.setText(" " + String.format("%.2f", arg0.taxrate) + "%");
+				mTextViewTipPercentage.setText(" " + String.format("%.2f", arg0.tiprate) + "%");
 
 				mListViewItems.setAdapter(new ItemListAdapter(arg0));
 				mContainer.setVisibility(View.VISIBLE);

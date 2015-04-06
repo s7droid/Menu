@@ -27,6 +27,7 @@ import com.braintreepayments.api.models.CardBuilder;
 import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
 import com.s7design.menu.utils.Settings;
+import com.s7design.menu.utils.Utils;
 import com.s7design.menu.views.MenuEditText;
 import com.s7design.menu.volley.VolleySingleton;
 import com.s7design.menu.volley.requests.SignUpRequest;
@@ -109,6 +110,9 @@ public class SignUpActivity extends BaseActivity {
 		mCCVEditText = (EditText) findViewById(R.id.edittextSignUpActivityCCV);
 		mTextViewTermsOfUse = (TextView) findViewById(R.id.textviewSignUpScanTermsOfUse);
 
+		mNameOnCardEditText.requestFocus();
+		Utils.handleOutsideEditTextClick(findViewById(R.id.relativelayoutSignUpActivityContainer), this);
+		
 		initClicksInTermsText();
 
 		mSignUpButton.setOnClickListener(new OnClickListener() {

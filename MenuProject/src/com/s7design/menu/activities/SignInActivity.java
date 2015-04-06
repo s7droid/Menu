@@ -69,6 +69,9 @@ public class SignInActivity extends BaseActivity {
 		mRegisterButton = (TextView) findViewById(R.id.textviewSignInActivitySignUp);
 		mSignInButton = (Button) findViewById(R.id.buttonSignInActivitySignin);
 
+		mUsernameEditText.requestFocus();
+		Utils.handleOutsideEditTextClick(findViewById(R.id.relativelayoutSignInActivityContainer), this);
+		
 		mRegisterButton.setOnClickListener(new OnClickListener() {
 
 			@Override

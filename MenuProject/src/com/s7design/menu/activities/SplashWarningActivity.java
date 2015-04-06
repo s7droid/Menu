@@ -1,6 +1,10 @@
 package com.s7design.menu.activities;
 
+import android.bluetooth.BluetoothAdapter;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -16,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.s7design.menu.R;
+import com.s7design.menu.utils.Utils;
 
 public class SplashWarningActivity extends BaseActivity {
 
@@ -32,18 +37,75 @@ public class SplashWarningActivity extends BaseActivity {
 	private static final int SWIPE_MIN_DISTANCE = 120;
 	private static final int SWIPE_MAX_OFF_PATH = 250;
 	private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+	private static final int REQUEST_BLUETOOTH_STATE_CHANGE = 123456;
+	private static final int REQUEST_LOCATION_STATE_CHANGE = 1234567;
+	
+	private boolean isBluetoothEnabled = false;
+	private boolean isLocationEnabled = false;
+	
 	private GestureDetector gestureDetector;
 	private View.OnTouchListener gestureListener;
 
+	private final BroadcastReceiver bluetoothStateChangeReceiver = new BroadcastReceiver() {
+	    @Override
+	    public void onReceive(Context context, Intent intent) {
+	        final String action = intent.getAction();
+
+	        if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
+	            final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE,
+	                                                 BluetoothAdapter.ERROR);
+	            switch (state) {
+//	            case BluetoothAdapter.STATE_OFF:
+//	                setButtonText("Bluetooth off");
+//	                break;
+//	            case BluetoothAdapter.STATE_TURNING_OFF:
+//	                setButtonText("Turning Bluetooth off...");
+//	                break;
+	            case BluetoothAdapter.STATE_ON:
+//	                setButtonText("Bluetooth on");
+	            	System.err.println("Bluetooth is ON");
+	            	isBluetoothEnabled = true;
+	            	finish();
+	                break;
+//	            case BluetoothAdapter.STATE_TURNING_ON:
+//	                setButtonText("Turning Bluetooth on...");
+//	                break;
+	            }
+	        }
+	    }
+	};
+	
+	private final BroadcastReceiver locationStateChangeReceiver = new BroadcastReceiver() {
+	    @Override
+	    public void onReceive(Context context, Intent intent) {
+	        final String action = intent.getAction();
+
+	        if (action.equals("android.location.PROVIDERS_CHANGED")) {
+	        	if(Utils.isLocationEnabled(SplashWarningActivity.this)){
+	    			finish();
+	    		}
+	        }
+	    }
+	};
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash_warning);
-
 		initViews();
-
+		IntentFilter bluetoothFilter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
+	    registerReceiver(bluetoothStateChangeReceiver, bluetoothFilter);
+	    IntentFilter locationFilter = new IntentFilter("android.location.PROVIDERS_CHANGED");
+	    registerReceiver(locationStateChangeReceiver, locationFilter);
 	}
 
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		unregisterReceiver(bluetoothStateChangeReceiver);
+		unregisterReceiver(locationStateChangeReceiver);
+	}
+	
 	private void initViews() {
 
 		imageView = (ImageView) findViewById(R.id.imageView);

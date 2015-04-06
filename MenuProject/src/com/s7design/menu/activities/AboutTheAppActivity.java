@@ -30,9 +30,9 @@ public class AboutTheAppActivity extends BaseActivity {
 	private boolean isPrivacyTermsVisible = true;
 
 	// DATA
-	private String HTTP_ADDRESS_AKNOWLEDGEMENTS = "http://usemenu.com/app_html/acknowledgements.html";
-	private String HTTP_ADDRESS_PRIVACY_TERMS = "http://usemenu.com/app_html/privacypolicy.html";
-	private String HTTP_ADDRESS_TERMS_OF_SERVICE = "http://usemenu.com/app_html/termsofservice.html";
+	private String HTTP_ADDRESS_AKNOWLEDGEMENTS = "https://usemenu.com/app_html/acknowledgements.html";
+	private String HTTP_ADDRESS_PRIVACY_TERMS = "https://usemenu.com/app_html/privacypolicy.html";
+	private String HTTP_ADDRESS_TERMS_OF_SERVICE = "https://usemenu.com/app_html/termsofservice.html";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

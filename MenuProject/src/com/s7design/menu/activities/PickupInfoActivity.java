@@ -13,6 +13,7 @@ import android.widget.EditText;
 import com.android.volley.Response.Listener;
 import com.s7design.menu.R;
 import com.s7design.menu.utils.Settings;
+import com.s7design.menu.utils.Utils;
 import com.s7design.menu.volley.VolleySingleton;
 import com.s7design.menu.volley.requests.AddPhoneNumberRequest;
 import com.s7design.menu.volley.responses.AddPhoneNumberResponse;
@@ -57,6 +58,9 @@ public class PickupInfoActivity extends BaseActivity {
 		mButtonConfirm = (Button) findViewById(R.id.buttonPickupInfoActivityConfirm);
 		mEditTextCountryCode = (EditText) findViewById(R.id.edittextPickupInfoActivityCountryCodeValue);
 		mEditTextPhoneNumber = (EditText) findViewById(R.id.edittextPickupInfoActivityPhoneNumberValue);
+		
+		mEditTextCountryCode.requestFocus();
+		Utils.handleOutsideEditTextClick(findViewById(R.id.relativelayoutPickupInfoActivity), this);
 		
 		mButtonConfirm.setOnClickListener(new OnClickListener() {
 			

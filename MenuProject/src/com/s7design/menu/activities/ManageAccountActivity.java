@@ -6,11 +6,16 @@ import io.card.payment.CreditCard;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -20,6 +25,7 @@ import com.android.volley.Response;
 import com.android.volley.Response.Listener;
 import com.s7design.menu.R;
 import com.s7design.menu.utils.Settings;
+import com.s7design.menu.utils.Utils;
 import com.s7design.menu.views.MenuEditText;
 import com.s7design.menu.volley.VolleySingleton;
 import com.s7design.menu.volley.requests.FetchAccountRequest;
@@ -27,7 +33,7 @@ import com.s7design.menu.volley.requests.ModifyAccountRequest;
 import com.s7design.menu.volley.responses.FetchAccountResponse;
 import com.s7design.menu.volley.responses.ModifyAccountResponse;
 
-public class ManageAccountActivity extends BaseActivity {
+public class ManageAccountActivity extends BaseActivity{
 
 	// VIEWS
 	private EditText mEditTextNameOnCard;
@@ -113,6 +119,18 @@ public class ManageAccountActivity extends BaseActivity {
 		mEditTextCCV = (EditText) findViewById(R.id.edittextManageAccountActivityCCV);
 		mLinearLayoutCreditCardDataCOntainer = (LinearLayout) findViewById(R.id.linearlayoutManageAccountActivityCardContainer);
 
+//		setupUI(mEditTextCCV);
+//		setupUI(mEditTextCreditCardNumber);
+//		setupUI(mEditTextEmail);
+//		setupUI(mEditTextMonth);
+//		setupUI(mEditTextNameOnCard);
+//		setupUI(mEditTextNewPassword);
+//		setupUI(mEditTextRepeatPassword);
+//		setupUI(mEditTextYear);
+		
+		Utils.handleOutsideEditTextClick(findViewById(R.id.relativelayoutContainer),this);
+		mEditTextNameOnCard.requestFocus();
+		
 		mButtonShowPassword.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -271,6 +289,7 @@ public class ManageAccountActivity extends BaseActivity {
 
 			}
 		});
+
 	}
 
 	@Override
