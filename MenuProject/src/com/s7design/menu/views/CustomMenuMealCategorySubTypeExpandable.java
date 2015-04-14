@@ -115,8 +115,8 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 			else
 				imageViewOrangeBorder.setVisibility(View.INVISIBLE);
 
-			bigOrderPriceAndQuantity.setText(String.format("%.2f", items.get(i).largeprice) + currency + (itemToSend.quantityLarge > 0 ? " (" + itemToSend.quantityLarge + ")" : ""));
-			large.setText(mGlobalContext.getString(R.string.category_meals_add) + " " + itemToSend.largelabel);
+			bigOrderPriceAndQuantity.setText(currency + String.format("%.2f", items.get(i).largeprice) + (itemToSend.quantityLarge > 0 ? " (" + itemToSend.quantityLarge + ")" : ""));
+			large.setText(/*mGlobalContext.getString(R.string.category_meals_add) + " " + */itemToSend.largelabel);
 			large.setTag(itemToSend.quantityLarge);
 			large.setOnClickListener(new OnClickListener() {
 
@@ -144,13 +144,16 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 			});
 
 			if (itemToSend.smalllabel.length() > 0) {
-				smallOrderPriceAndQuantity.setText(String.format("%.2f", items.get(i).smallprice) + currency + (itemToSend.quantitySmall > 0 ? " (" + itemToSend.quantitySmall + ")" : ""));
-				small.setText(mGlobalContext.getString(R.string.category_meals_add) + " " + itemToSend.smalllabel);
+				smallOrderPriceAndQuantity.setText(currency + String.format("%.2f", items.get(i).smallprice) + (itemToSend.quantitySmall > 0 ? " (" + itemToSend.quantitySmall + ")" : ""));
+				small.setText(/*mGlobalContext.getString(R.string.category_meals_add) + " " + */itemToSend.smalllabel);
 				small.setTag(itemToSend.quantitySmall);
 				small.setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
+						if (Menu.getInstance().getDataManager().isCheckoutListEmpty())
+							((BaseActivity) getContext()).showRightActionBarButton();
+						
 						int counter = (Integer) v.getTag();
 						counter++;
 						setQuantitySmall(smallOrderPriceAndQuantity, itemToSend.smallprice, counter);
@@ -230,7 +233,7 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 		tv.setTextColor(getResources().getColor(R.color.menu_main_orange));
 		tv.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "fonts/GothamRounded-Medium.otf"));
 		tv.setAlpha(1.0f);
-		tv.setText(String.format("%.2f", price) + currency + " (" + String.valueOf(quantity) + ")");
+		tv.setText(currency + String.format("%.2f", price) + " (" + String.valueOf(quantity) + ")");
 	}
 
 	private void setQuantitySmall(TextView tv, double price, int quantity) {
@@ -238,7 +241,7 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 		tv.setTextColor(getResources().getColor(R.color.menu_main_gray));
 		tv.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "fonts/GothamRounded-Medium.otf"));
 		tv.setAlpha(1.0f);
-		tv.setText(String.format("%.2f", price) + currency + " (" + String.valueOf(quantity) + ")");
+		tv.setText(currency + String.format("%.2f", price) + " (" + String.valueOf(quantity) + ")");
 	}
 
 }

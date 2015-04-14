@@ -240,7 +240,7 @@ public class MealDetailsActivity extends BaseActivity {
 			mOrderSmallQuantityTextView.setVisibility(View.INVISIBLE);
 		}
 
-		textViewLabelLarge.setText(getString(R.string.meal_details_order) + " " + item.largelabel);
+		textViewLabelLarge.setText(/*getString(R.string.meal_details_order) + " " + */item.largelabel);
 
 		circleButtonViewPlusLarge.setOnClickListener(new OnClickListener() {
 
@@ -281,7 +281,7 @@ public class MealDetailsActivity extends BaseActivity {
 
 		if (item.smalllabel.length() > 0) {
 
-			textViewLabelSmall.setText(getString(R.string.meal_details_order) + " " + item.smalllabel);
+			textViewLabelSmall.setText(/*getString(R.string.meal_details_order) + " " + */item.smalllabel);
 			mOrderSmallPriceTextView.setText(currency + String.format("%.2f", item.smallprice));
 
 			circleButtonViewPlusSmall.setOnClickListener(new OnClickListener() {

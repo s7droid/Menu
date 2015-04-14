@@ -10,7 +10,7 @@
     <string name="action_bar_add_items">ADD ITEMS</string>
     <string name="action_bar_order_summary">ORDER SUMMARY</string>
     <string name="action_bar_receipt">RECEIPT</string>
-    <string name="action_bar_account_management">ACCOUNT MANAGEMENT</string>
+    <string name="action_bar_account_management">MANAGE</string>
     <string name="action_bar_about_the_app">ABOUT MENU</string>
     <string name="action_bar_sign_in">SIGN IN</string>
     <string name="action_bar_sign_up">SIGN UP</string>
@@ -71,7 +71,7 @@
     <string name="checkout_tip">TIP</string>
     <string name="checkout_discount">DISCOUNT</string>
     <string name="checkout_total">TOTAL</string>
-    <string name="checkout">CHECKOUT</string>
+    <string name="checkout">PLACE ORDER</string>
     <string name="checkout_enjoy">ENJOY YOUR MEAL!</string>
     <string name="checkout_done">DONE</string>
 
@@ -125,6 +125,7 @@
 
     <!-- Receipt -->
     <string name="receipt_send_to_email">SEND TO EMAIL</string>
+    <string name="receipt_send_email_button_sent">SENT</string>
     <string name="receipt_list_empty_body">Receipt list is empty.</string>
     <string name="receipt_list_message_sent_sucess">Receipt sent successfully to Your email.</string>
 
@@ -138,8 +139,8 @@
 
     <!-- About the App -->
     <string name="about_menu_terms_of_service">Terms of Service</string>
-    <string name="about_menu_aknoledgements">Aknowledgements</string>
-    <string name="about_menu_privacy_terms">Privacy Terms</string>
+    <string name="about_menu_aknoledgements">Acknowledgements</string>
+    <string name="about_menu_privacy_terms">Privacy Policy</string>
     <string name="about_menu_terms_of_service_description">In quo facer assentior abhorreant, no delicata accommodare has. Sed ad assum appetere. An pri doctus inimicus, eu nec decore expetenda. Ut fabellas deserunt reformidans mea, consequat disputando definitiones ut qui, ut luptatum voluptatibus reprehendunt pri.</string>
     <string name="about_menu_aknowledgements_text1">Lorem ipsum dolor sit amet, no bonorum commune electram est, vidisse veritus sit at. Per ad dicat salutatus. Ei diam fugit causae sit. Ne tollit invenire usu, at duis pertinacia consetetur nam. Viderer volutpat duo ei, at duo omnis ornatus qualisque.</string>
     <string name="about_menu_aknowledgements_text2"><b>Using our Services</b></string>
@@ -171,6 +172,6 @@
     <string name="tokenization_explanation_title">We care about your security.</string>
     <string name="tokenization_explanation_subtitle">Here\'s what happens with your credit card when using MENU:</string>
     <string name="tokenization_explanation_first_step">1. You enter your credit card information when you sign up for MENU.</string>
-    <string name="tokenization_explanation_second_step">2. Your personal info is then \"tokenized\" - turned into random numbers.</string>
+    <string name="tokenization_explanation_second_step">2. Your credit card information is then \"tokenized\" - turned into random numbers.</string>
     <string name="tokenization_explanation_third_step">3. These newly created \"tokens\" are stored in the cloud for safe future payments with MENU.</string>
 </resources>

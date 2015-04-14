@@ -3,6 +3,7 @@ package com.s7design.menu.activities;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -14,6 +15,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.InputFilter.LengthFilter;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -52,6 +54,7 @@ public class CheckoutActivity extends BaseActivity {
 	private static final String TAG = CheckoutActivity.class.getSimpleName();
 
 	private ArrayList<Item> checkoutList;
+	private ArrayList<Item> checkedoutItems;
 	private ListView listView;
 	private Adapter adapter;
 	private CircleButtonView circleButtonAdd;
@@ -87,7 +90,8 @@ public class CheckoutActivity extends BaseActivity {
 	private float disc;
 	private float totalTip;
 	private float totalTax;
-
+	private boolean isOrderComplete = false;
+	
 	private DataManager data;
 
 	private static final int REQUEST_LOGIN = 123;
@@ -132,6 +136,19 @@ public class CheckoutActivity extends BaseActivity {
 		// item.smallprice) : (item.quantityLarge * item.largeprice);
 		// }
 
+		if(isOrderComplete){
+			for (Item item : checkedoutItems) {
+				if (item.quantityLarge > 0) {
+					checkoutList.add(item);
+					total += item.quantityLarge * item.largeprice;
+				}
+				if (item.quantitySmall > 0) {
+					checkoutList.add(item);
+					total += item.quantitySmall * item.smallprice;
+				}
+			}
+		}
+		
 		setData();
 
 		if (!Menu.getInstance().isOrderEnabled() || total == 0)
@@ -174,7 +191,8 @@ public class CheckoutActivity extends BaseActivity {
 		maxTip = Utils.round(rate.maxtip, 2);
 		discount = Utils.round(data.getDiscount(), 2);
 		currency = data.getCurrency();
-		tip = Utils.round((maxTip + minTip) / 2.f, 1);
+		// tip = Utils.round((maxTip + minTip) / 2.f, 1);
+		tip = (int) ((maxTip + minTip) / 2);
 	}
 
 	private void initViews() {
@@ -244,7 +262,8 @@ public class CheckoutActivity extends BaseActivity {
 
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-				tip = ((float) progress) / 10.f + minTip;
+				// tip = ((float) progress) / 10.f + minTip;
+				tip = ((int) progress) / 10 + minTip;
 				setData();
 			}
 		});
@@ -253,7 +272,6 @@ public class CheckoutActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-
 				if (!Settings.getAccessToken(getApplicationContext()).equals("")) {
 					System.out.println("accesstoken= " + Settings.getAccessToken(getApplicationContext()));
 
@@ -329,18 +347,29 @@ public class CheckoutActivity extends BaseActivity {
 		buttonReceiptListItemSendMessage.setVisibility(View.VISIBLE);
 		layoutAddMore.setVisibility(View.GONE);
 		layoutSeekBar.setVisibility(View.GONE);
-		layoutDiscount.setVisibility(View.GONE);
-		textViewDiscount.setVisibility(View.GONE);
+		layoutDiscount.setVisibility(View.VISIBLE);
+		textViewDiscount.setVisibility(View.VISIBLE);
 		viewDivider.setBackgroundColor(getResources().getColor(R.color.menu_main_gray_light));
 		textViewTotalLabel.setTextColor(getResources().getColor(R.color.menu_main_gray));
 		textViewTotal.setTextColor(getResources().getColor(R.color.menu_main_gray));
 		setActionBarForwardButtonText(R.string.action_bar_receipt);
+		setActionBarBackButtonText(getString(R.string.action_bar_add_items));
 		buttonCheckout.setText(R.string.checkout_enjoy);
 		buttonCheckout.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
+				Intent intent = new Intent(CheckoutActivity.this, CategoryMealsActivity.class);
+				startActivity(intent);
+			}
+		});
 
+		setActionBarBackButtonOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(CheckoutActivity.this, CategoryMealsActivity.class);
+				startActivity(intent);
 			}
 		});
 
@@ -352,7 +381,7 @@ public class CheckoutActivity extends BaseActivity {
 
 		textViewDesc.setText(ssb);
 
-		adapter = new Adapter(this, checkoutList);
+		adapter = new Adapter(this, checkedoutItems);
 		adapter.disableClicks();
 		listView.setAdapter(adapter);
 		listView.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
@@ -368,6 +397,10 @@ public class CheckoutActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 
+				if (buttonReceiptListItemSendMessage.getText().toString().equals(getString(R.string.receipt_send_email_button_sent))) {
+					return;
+				}
+
 				showProgressDialogLoading();
 
 				Map<String, String> params = new HashMap<String, String>();
@@ -380,6 +413,7 @@ public class CheckoutActivity extends BaseActivity {
 
 						if (response.response != null && response.response.equals("success")) {
 							dismissProgressDialog();
+							buttonReceiptListItemSendMessage.setText(getString(R.string.receipt_send_email_button_sent));
 						}
 					}
 				});
@@ -387,19 +421,30 @@ public class CheckoutActivity extends BaseActivity {
 				VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(sendEmailRequest);
 			}
 		});
-		
-		listView.setEnabled(false);
-		
-//		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-//
-//		params.weight = 1;
-//		params.height = 0;
-//		params.topMargin = (int) Utils.convertDpToPixel(20, this);
-//		params.rightMargin = (int) Utils.convertDpToPixel(20, this);
-//		params.leftMargin = (int) Utils.convertDpToPixel(20, this);
-//		params.bottomMargin = (int) Utils.convertDpToPixel(10, this);
-//
-//		listView.setLayoutParams(params);
+
+//		listView.setEnabled(false);
+
+		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		params.weight = 1;
+		params.height = 0;
+		params.topMargin = (int) Utils.convertDpToPixel(20, this);
+		params.rightMargin = (int) Utils.convertDpToPixel(20, this);
+		params.leftMargin = (int) Utils.convertDpToPixel(20, this);
+		params.bottomMargin = (int) Utils.convertDpToPixel(10, this);
+
+		listView.setLayoutParams(params);
+
+		// LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT,
+		// LayoutParams.WRAP_CONTENT);
+		//
+		// params.weight = 1;
+		// params.height = 0;
+		// params.topMargin = (int) Utils.convertDpToPixel(20, this);
+		// params.rightMargin = (int) Utils.convertDpToPixel(20, this);
+		// params.leftMargin = (int) Utils.convertDpToPixel(20, this);
+		// params.bottomMargin = (int) Utils.convertDpToPixel(10, this);
+		//
+		// listView.setLayoutParams(params);
 	}
 
 	@Override
@@ -423,6 +468,8 @@ public class CheckoutActivity extends BaseActivity {
 						if (arg0.response != null && arg0.response.equals("numberneeded")) {
 							Intent intent = new Intent(CheckoutActivity.this, PickupInfoActivity.class);
 							startActivityForResult(intent, REQUEST_PHONE_NUMBER);
+						}else if(arg0.response != null && arg0.response.equals("notneeded")){
+							checkout();
 						}
 					}
 				});
@@ -531,6 +578,9 @@ public class CheckoutActivity extends BaseActivity {
 											dismissProgressDialog();
 											// showAlertDialog(R.string.dialog_title_success,
 											// R.string.dialog_order_successful);
+											isOrderComplete = true;
+											checkedoutItems = new ArrayList<Item>();
+											checkedoutItems.addAll(checkoutList);
 											onSuccessfulCheckout();
 										}
 									}
@@ -727,10 +777,13 @@ public class CheckoutActivity extends BaseActivity {
 					}
 				});
 			}
-			
-			if(disableClicks){
-				holder.circleButtonViewDel.setVisibility(View.INVISIBLE);
-				
+
+			if (disableClicks) {
+				holder.circleButtonViewDel.setVisibility(View.GONE);
+				LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+				params.rightMargin = 0;
+				params.leftMargin = 0;
+				holder.textViewPrice.setLayoutParams(params);
 			}
 
 			return convertView;

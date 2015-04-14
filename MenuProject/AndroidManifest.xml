@@ -64,7 +64,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.s7design.menu.activities.SignUpActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" 
+            android:windowSoftInputMode="stateVisible|adjustPan"/>
         <activity
             android:name="com.s7design.menu.activities.MealDetailsActivity"
             android:screenOrientation="portrait" />
@@ -79,7 +80,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.s7design.menu.activities.ManageAccountActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity
             android:name="com.s7design.menu.activities.AboutTheAppActivity"
             android:screenOrientation="portrait" />

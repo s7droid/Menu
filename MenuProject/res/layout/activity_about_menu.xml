@@ -53,39 +53,6 @@
             android:background="@color/menu_main_divider_color" />
 
         <com.s7design.menu.views.MenuButton
-            android:id="@+id/buttonAboutMenuActivityAknowledgements"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@android:color/transparent"
-            android:drawablePadding="10dp"
-            android:drawableRight="@drawable/about_app_down_arrow_down"
-            android:gravity="left|center_vertical"
-            android:text="@string/about_menu_aknoledgements"
-            android:textColor="@color/menu_main_orange"
-            android:textSize="17sp"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:id="@+id/linearlayoutAboutMenuActivityAknowledgementsContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
-
-            <WebView
-                android:id="@+id/webviewAboutMenuActivityAknowledgements"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/menu_main_divider_color" />
-
-        <com.s7design.menu.views.MenuButton
             android:id="@+id/buttonAboutMenuActivityPrivacyTerms"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -118,6 +85,39 @@
             android:layout_marginTop="10dp"
             android:background="@color/menu_main_divider_color" />
 
+         <com.s7design.menu.views.MenuButton
+            android:id="@+id/buttonAboutMenuActivityAknowledgements"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/transparent"
+            android:drawablePadding="10dp"
+            android:drawableRight="@drawable/about_app_down_arrow_down"
+            android:gravity="left|center_vertical"
+            android:text="@string/about_menu_aknoledgements"
+            android:textColor="@color/menu_main_orange"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/linearlayoutAboutMenuActivityAknowledgementsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <WebView
+                android:id="@+id/webviewAboutMenuActivityAknowledgements"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/menu_main_divider_color" />
+        
         <com.s7design.menu.views.MenuButton
             android:id="@+id/buttonAboutMenuActivitySecurity"
             android:layout_width="wrap_content"

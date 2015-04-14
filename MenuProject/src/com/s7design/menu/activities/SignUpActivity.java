@@ -14,12 +14,14 @@ import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Response.Listener;
 import com.braintreepayments.api.Braintree;
@@ -112,7 +114,7 @@ public class SignUpActivity extends BaseActivity {
 
 		mNameOnCardEditText.requestFocus();
 		Utils.handleOutsideEditTextClick(findViewById(R.id.relativelayoutSignUpActivityContainer), this);
-		
+
 		initClicksInTermsText();
 
 		mSignUpButton.setOnClickListener(new OnClickListener() {
@@ -213,6 +215,46 @@ public class SignUpActivity extends BaseActivity {
 
 			}
 		});
+//		mCCVEditText.setOnTouchListener(new OnTouchListener() {
+//
+//			@Override
+//			public boolean onTouch(View v, MotionEvent event) {
+//				mCCVEditText.requestLayout();
+//				SignUpActivity.this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED);
+//				return false;
+//			}
+//		});
+//
+//		mCreditCardNumberEditText.setOnTouchListener(new OnTouchListener() {
+//
+//			@Override
+//			public boolean onTouch(View v, MotionEvent event) {
+//				mCreditCardNumberEditText.requestLayout();
+//				SignUpActivity.this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED);
+//				return false;
+//			}
+//		});
+//
+//		mMonthEditText.setOnTouchListener(new OnTouchListener() {
+//
+//			@Override
+//			public boolean onTouch(View v, MotionEvent event) {
+//				mMonthEditText.requestLayout();
+//				SignUpActivity.this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED);
+//				return false;
+//			}
+//		});
+//
+//		mYearEditText.setOnTouchListener(new OnTouchListener() {
+//
+//			@Override
+//			public boolean onTouch(View v, MotionEvent event) {
+//				mYearEditText.requestLayout();
+//				SignUpActivity.this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED);
+//				return false;
+//			}
+//		});
+
 	}
 
 	private void initClicksInTermsText() {

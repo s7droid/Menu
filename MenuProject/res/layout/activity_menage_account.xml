@@ -152,7 +152,6 @@
                 android:layout_below="@+id/buttonManageAccountActivityScanCreditCard"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:alpha="0.2"
                 android:orientation="vertical" >
 
                 <View
@@ -165,10 +164,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/sign_in_edittext_shape"
-                    android:focusable="false"
                     android:hint="@string/sign_up_credit_card_number_hint_text"
                     android:inputType="number"
                     android:maxLength="19"
+                    android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:singleLine="true"
                     android:textColor="@color/menu_main_gray"
@@ -214,7 +213,6 @@
                         android:layout_alignTop="@+id/edittextManageAccountActivityCCV"
                         android:layout_marginRight="15dp"
                         android:background="@android:color/transparent"
-                        android:focusable="false"
                         android:gravity="center_horizontal|center_vertical"
                         android:hint="MM"
                         android:inputType="number"
@@ -236,7 +234,6 @@
                         android:background="@android:color/transparent"
                         android:drawablePadding="10dp"
                         android:drawableRight="@drawable/sign_up_calendar"
-                        android:focusable="false"
                         android:gravity="center_horizontal|center_vertical"
                         android:hint="YYYY"
                         android:inputType="number"
@@ -270,7 +267,6 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:background="@drawable/sign_in_edittext_shape"
-                        android:focusable="false"
                         android:gravity="right"
                         android:hint="@string/sign_up_cvv_hint_text"
                         android:inputType="number"
