@@ -91,7 +91,7 @@ public class CheckoutActivity extends BaseActivity {
 	private float totalTip;
 	private float totalTax;
 	private boolean isOrderComplete = false;
-	
+
 	private DataManager data;
 
 	private static final int REQUEST_LOGIN = 123;
@@ -136,7 +136,7 @@ public class CheckoutActivity extends BaseActivity {
 		// item.smallprice) : (item.quantityLarge * item.largeprice);
 		// }
 
-		if(isOrderComplete){
+		if (isOrderComplete) {
 			for (Item item : checkedoutItems) {
 				if (item.quantityLarge > 0) {
 					checkoutList.add(item);
@@ -148,11 +148,16 @@ public class CheckoutActivity extends BaseActivity {
 				}
 			}
 		}
-		
+
 		setData();
 
-		if (!Menu.getInstance().isOrderEnabled() || total == 0)
+		if (!Menu.getInstance().isOrderEnabled() || total == 0) {
 			buttonCheckout.setEnabled(false);
+			buttonCheckout.setShadowLayer(0, 0, 0, getResources().getColor(android.R.color.transparent));
+		} else {
+			buttonCheckout.setEnabled(true);
+			buttonCheckout.setShadowLayer(5, 5, 5, getResources().getColor(R.color.menu_main_orange_dark));
+		}
 
 		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		if (checkoutList != null && checkoutList.size() < 6) {
@@ -422,7 +427,7 @@ public class CheckoutActivity extends BaseActivity {
 			}
 		});
 
-//		listView.setEnabled(false);
+		// listView.setEnabled(false);
 
 		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		params.weight = 1;
@@ -468,7 +473,7 @@ public class CheckoutActivity extends BaseActivity {
 						if (arg0.response != null && arg0.response.equals("numberneeded")) {
 							Intent intent = new Intent(CheckoutActivity.this, PickupInfoActivity.class);
 							startActivityForResult(intent, REQUEST_PHONE_NUMBER);
-						}else if(arg0.response != null && arg0.response.equals("notneeded")){
+						} else if (arg0.response != null && arg0.response.equals("notneeded")) {
 							checkout();
 						}
 					}
@@ -780,7 +785,7 @@ public class CheckoutActivity extends BaseActivity {
 
 			if (disableClicks) {
 				holder.circleButtonViewDel.setVisibility(View.GONE);
-				LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+				LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 				params.rightMargin = 0;
 				params.leftMargin = 0;
 				holder.textViewPrice.setLayoutParams(params);

@@ -199,14 +199,14 @@ public class BaseActivity extends Activity implements OnVolleyErrorCallback {
 	public void onResponseError(GsonResponse response) {
 
 		dismissProgressDialog();
-		showAlertDialog(getString(R.string.dialog_title_error), getString(R.string.dialog_body_network_problem));
+		showAlertDialog(getString(R.string.dialog_title_error), getString(R.string.dialog_body_default_error_message));
 	}
 
 	@Override
 	public void onVolleyError(VolleyError volleyError) {
 
 		dismissProgressDialog();
-		showAlertDialog(getString(R.string.dialog_title_error), getString(R.string.dialog_body_network_problem));
+		showAlertDialog(getString(R.string.dialog_title_error), getString(R.string.dialog_body_default_error_message));
 	}
 
 	public void hideRightActionBarButton() {

@@ -32,9 +32,9 @@
     <!-- Tutorial -->
     <string name="menu_tutorial_screen_button_continue">WEITER</string>
     <string name="menu_tutorial_screen_button_make_your_choice">AUSWÄHLEN</string>
-	<string name="tutorial_screen_first">Bestelle von Deinem Tisch aus\nmit Deinem Smartphone:</string>
+    <string name="tutorial_screen_first">Bestelle von Deinem Tisch aus\nmit Deinem Smartphone:</string>
     <string name="tutorial_screen_second">Guten Appetit!</string>
-    
+
     <!-- Restaurant preview -->
     <string name="restaurant_preview_activity_welcome_message">Willkommen bei</string>
     <string name="restaurant_preview_activity_make_your_order">AUSWÄHLEN</string>
@@ -48,7 +48,7 @@
     <string name="dialog_title_error">Error</string>
     <string name="dialog_title_success">Success</string>
     <string name="dialog_title_warning">Warning</string>
-    <string name="dialog_no_internet_connection">No internet connection</string>
+    <string name="dialog_no_internet_connection">Keine Internetverbidung. Bitte stelle eine 3G/4G oder WIFI-Verbindung her.</string>
     <string name="dialog_bluetooth_off">Bluetooth is off. Would you like to turn it on?</string>
     <string name="dialog_insert_email_address">Bitte gebe Deine E-Mail Adresse ein</string>
     <string name="dialog_insert_password">Bitte gebe dein Kennwort ein</string>
@@ -65,10 +65,7 @@
     <string name="dialog_email_in_use">Diese E-Mail Adresse ist bereits vergeben. Bitte versuche es erneut</string>
     <string name="dialog_card_declined">Deine Kreditkarte wurde abgelehnt#8230; Bitte versuchen Sie es erneut</string>
     <string name="dialog_body_network_problem">Network problem, please try again.</string>
-  
-    
-    
-    
+    <string name="dialog_body_default_error_message">Etwas ist schief gelaufen#8230; Bitte versuche es erneut</string>
     <string name="dialog_first_name_empty_content">Bitte trage Deinen Vornamen ein und versuche es erneut</string>
     <string name="dialog_first_name_empty_title">Das Feld mit Deinem Vornamen ist leer</string>
     <string name="dialog_email_address_empty_content">Bitte trage Deine E-Mail Adresse ein und versuche es erneut</string>
@@ -81,12 +78,16 @@
     <string name="dialog_credit_card_number_empty_title">Das Feld mit der Kreditkartennummer ist leer</string>
     <string name="dialog_cvv_empty_content">Bitte trage die CVV Nummer auf Deiner Kreditkarte ein und versuche es erneut</string>
     <string name="dialog_cvv_empty_title">Das Feld mit der CVV Nummer ist leer</string>
-    <string name="dialog_passwords_don_match_content">Die Kennwörter stimmen nicht überein. Bitte versuche es erneut</string>
+    <string name="dialog_passwords_dont_match_content">Die Kennwörter stimmen nicht überein. Bitte versuche es erneut</string>
     <string name="dialog_passwords_dont_match_title">Kennwörter stimmen nicht überein</string>
-    
+    <string name="dialog_invalid_expiry_date_error_title">Ungültiges Ablaufdatum</string>
+    <string name="dialog_invalid_expiry_date_error_content">Bitte fülle ein gültiges Ablaufsdatum ein und versuche es erneut</string>
+    <string name="dialog_check_inbox_title">Überprüfe Deine E-Mail Inbox!</string>
+    <string name="dialog_check_inbox_content">Überprüfe Deine Inbox auf einen Link zum Zurücksetzen Deines Kennworts</string>
+
     <!-- Checkout activity -->
-    <string name="checkout_thank_you_for_order">Thank you for your order!</string>
-    <string name="checkout_receipt_sent"> A receipt has been sent to your email.</string>
+    <string name="checkout_thank_you_for_order">Vielen Dank für Deine Bestellung!</string>
+    <string name="checkout_receipt_sent">Die Quittung wurde in dieser App hinterlegt.</string>
     <string name="checkout_tip_col">TIP:</string>
     <string name="checkout_subtotal">NETTOBETRAG</string>
     <string name="checkout_tax">MWST</string>
@@ -147,7 +148,7 @@
 
     <!-- Receipt -->
     <string name="receipt_send_to_email">AN EMAIL SENDEN</string>
-    <string name="receipt_send_email_button_sent">GESENDET</string>
+    <string name="receipt_send_email_button_sent">GESENDET!</string>
     <string name="receipt_list_empty_body">Receipt list is empty.</string>
     <string name="receipt_list_message_sent_sucess">Receipt sent successfully to Your email.</string>
 
@@ -155,8 +156,8 @@
     <string name="misc_is_small">(S)</string>
     <string name="misc_splash">Willkommen bei MENU</string>
     <string name="misc_table">Tisch</string>
-	<string name="misc_at">um</string>
-    
+    <string name="misc_at">um</string>
+
     <!-- Error messages -->
     <string name="error_message_basic">Ooops!\nEtwas ist schief gelaufen#8230; Bitte versuche es erneut</string>
     <string name="error_checkout_list_empty">Um den Bezahlvorgang durchführen zu können musst Du eine Menüauswahl treffen.</string>

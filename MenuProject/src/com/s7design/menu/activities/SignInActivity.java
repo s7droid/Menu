@@ -17,7 +17,9 @@ import com.s7design.menu.R;
 import com.s7design.menu.utils.Settings;
 import com.s7design.menu.utils.Utils;
 import com.s7design.menu.volley.VolleySingleton;
+import com.s7design.menu.volley.requests.ForgotPasswordRequest;
 import com.s7design.menu.volley.requests.LoginRequest;
+import com.s7design.menu.volley.responses.ForgotPasswordResponse;
 import com.s7design.menu.volley.responses.LoginResponse;
 
 public class SignInActivity extends BaseActivity {
@@ -43,7 +45,7 @@ public class SignInActivity extends BaseActivity {
 		setActionBarForwardArrowVisibility(null);
 		setActionBarForwardButtonText(getResources().getString(R.string.action_bar_sign_in));
 		setActionBarForwardButtonTextColor(getResources().getColor(R.color.menu_main_orange));
-		
+
 		setActionBarMenuButtonOnClickListener(new OnClickListener() {
 
 			@Override
@@ -71,7 +73,7 @@ public class SignInActivity extends BaseActivity {
 
 		mUsernameEditText.requestFocus();
 		Utils.handleOutsideEditTextClick(findViewById(R.id.relativelayoutSignInActivityContainer), this);
-		
+
 		mRegisterButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -84,6 +86,34 @@ public class SignInActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
+
+				if (mUsernameEditText.getText().toString().equals("")) {
+					showAlertDialog(null, getResources().getString(R.string.dialog_insert_email_address));
+					return;
+				}
+
+				showProgressDialogLoading();
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("email", mUsernameEditText.getText().toString());
+
+				ForgotPasswordRequest forgotPasswordRequest = new ForgotPasswordRequest(SignInActivity.this, params, new Listener<ForgotPasswordResponse>() {
+
+					@Override
+					public void onResponse(ForgotPasswordResponse forgotPasswordResponse) {
+						
+						dismissProgressDialog();
+
+						if (forgotPasswordResponse.response != null && forgotPasswordResponse.response.equals("success")) {
+
+							showAlertDialog(R.string.dialog_check_inbox_title, R.string.dialog_check_inbox_content);
+						} else if (forgotPasswordResponse.response != null && forgotPasswordResponse.response.equals(ForgotPasswordResponse.USER_DOESNT_EXIST)) {
+
+							showAlertDialog(R.string.dialog_no_user_title, R.string.dialog_no_user);
+						}
+					}
+				});
+
+				VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(forgotPasswordRequest);
 			}
 		});
 
@@ -112,11 +142,15 @@ public class SignInActivity extends BaseActivity {
 
 								if (loginResponse.response != null && loginResponse.response.equals("success")) {
 									Settings.setAccessToken(SignInActivity.this, loginResponse.accesstoken);
-//									Intent i = new Intent(SignInActivity.this, RestaurantPreviewActivity.class);
-//									i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//									startActivity(i);
+									// Intent i = new
+									// Intent(SignInActivity.this,
+									// RestaurantPreviewActivity.class);
+									// i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+									// | Intent.FLAG_ACTIVITY_CLEAR_TASK |
+									// Intent.FLAG_ACTIVITY_CLEAR_TOP);
+									// startActivity(i);
 									Intent intent = new Intent();
-									setResult(RESULT_OK,intent);
+									setResult(RESULT_OK, intent);
 									dismissProgressDialog();
 									finish();
 								} else {

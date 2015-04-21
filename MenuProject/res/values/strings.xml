@@ -20,7 +20,7 @@
     <!-- Splash screen -->
     <string name="splash_screen_welcome_message">Welcome to MENU</string>
     <string name="splash_screen_location_disabled_body_1">Location services</string>
-    <string name="splash_screen_location_disabled_body_2">are disabled on your device. You need to enable them in order to use Menu.</string>
+    <string name="splash_screen_location_disabled_body_2">are disabled on your device. You need to enable them in order to use MENU.</string>
     <string name="splash_screen_location_disabled_desc_1">Go to</string>
     <string name="splash_screen_location_disabled_desc_2">Settings > Privacy > Location Services > Menu</string>
     <string name="splash_screen_location_disabled_desc_3">and allow Location Services \"Always\".</string>
@@ -49,10 +49,10 @@
     <string name="dialog_title_error">Error</string>
     <string name="dialog_title_success">Success</string>
     <string name="dialog_title_warning">Warning</string>
-    <string name="dialog_no_internet_connection">No internet connection</string>
+    <string name="dialog_no_internet_connection">No Internet Connection. Please make sure you have a 3G/4G or WLAN connection.</string>
     <string name="dialog_bluetooth_off">Bluetooth is off. Would you like to turn it on?</string>
-    <string name="dialog_insert_email_address">Please, insert Your email address.</string>
-    <string name="dialog_insert_password">Please, insert Your password.</string>
+    <string name="dialog_insert_email_address">You need to enter your email address</string>
+    <string name="dialog_insert_password">You need to enter your password</string>
     <string name="dialog_insert_emal_address_and_password">Please, insert Your email address and password.</string>
     <string name="dialog_no_user">Please check your e-mail address or create an account if you don\'t have one yet.</string>
     <string name="dialog_no_user_title">Email address is invalid</string>
@@ -66,6 +66,7 @@
     <string name="dialog_email_in_use">This email address is already in use. Please try again</string>
     <string name="dialog_card_declined">Your credit card was declined#8230; Please try again</string>
     <string name="dialog_body_network_problem">Network problem, please try again.</string>
+    <string name="dialog_body_default_error_message">Something went wrong#8230; Please try again</string>
 	<string name="dialog_first_name_empty_content">Please enter your first name and try again</string>
     <string name="dialog_first_name_empty_title">Empty First Name</string>
     <string name="dialog_email_address_empty_content">Please enter your email address and try again</string>
@@ -78,15 +79,19 @@
     <string name="dialog_credit_card_number_empty_title">Empty Credit Card Number</string>
     <string name="dialog_cvv_empty_content">Please enter your credit card CVV and try again</string>
     <string name="dialog_cvv_empty_title">Empty CVV</string>
-    <string name="dialog_passwords_don_match_content">Passwords do not match. Please try again</string>
+    <string name="dialog_passwords_dont_match_content">Passwords do not match. Please try again</string>
     <string name="dialog_passwords_dont_match_title">Passwords do not match</string>
+    <string name="dialog_invalid_expiry_date_error_title">Invalid Expiry Date</string>
+    <string name="dialog_invalid_expiry_date_error_content">Please enter a valid expiry date and try again</string>
+    <string name="dialog_check_inbox_title">Check your Email!</string>
+    <string name="dialog_check_inbox_content">Check your Email Inbox for a reset link</string>
    
     <!-- Checkout activity -->
     <string name="checkout_thank_you_for_order">Thank you for your order!</string>
     <string name="checkout_receipt_sent"> A receipt has been sent to your email.</string>
     <string name="checkout_tip_col">TIP:</string>
     <string name="checkout_subtotal">SUBTOTAL</string>
-    <string name="checkout_tax">TAX</string>
+    <string name="checkout_tax">VAT</string>
     <string name="checkout_tip">TIP</string>
     <string name="checkout_discount">DISCOUNT</string>
     <string name="checkout_total">TOTAL</string>
@@ -98,7 +103,7 @@
     <string name="category_meals_add_large">ADD LARGE</string>
     <string name="category_meals_add_small">ADD SMALL</string>
     <string name="category_meals_add">ADD</string>
-	<string name="category_meals_out_of_stock">OUT OF STOCK TODAY</string>
+	<string name="category_meals_out_of_stock">SOLD OUT</string>
   
 	<!-- Sign in -->
     <string name="sign_in_button_text">SIGN IN</string>
@@ -144,7 +149,7 @@
 
     <!-- Receipt -->
     <string name="receipt_send_to_email">SEND TO EMAIL</string>
-    <string name="receipt_send_email_button_sent">SENT</string>
+    <string name="receipt_send_email_button_sent">SENT!</string>
     <string name="receipt_list_empty_body">Receipt list is empty.</string>
     <string name="receipt_list_message_sent_sucess">Receipt sent successfully to Your email.</string>
 
@@ -176,7 +181,7 @@
     <string name="main_menu_manage_your_account">MANAGE YOUR ACCOUNT</string>
     <string name="main_menu_about_the_app">ABOUT THE APP</string>
     <string name="main_menu_view_venue_menu">VIEW THE MENU</string>
-    <string name="main_menu_current_order">CURRENT ORDER PREVIEW</string>
+    <string name="main_menu_current_order">VIEW CURRENT ORDER</string>
 	<string name="main_menu_log_in_or_sign_up">LOG IN OR SIGN UP</string>
     <string name="main_menu_logout">LOGOUT</string>
    
@@ -193,6 +198,6 @@
     <string name="tokenization_explanation_title">We care about your security.</string>
     <string name="tokenization_explanation_subtitle">Here\'s what happens with your credit card when using MENU:</string>
     <string name="tokenization_explanation_first_step">1. You enter your credit card information when you sign up for MENU.</string>
-    <string name="tokenization_explanation_second_step">2. Your credit card information is then \"tokenized\" - turned into random numbers.</string>
-    <string name="tokenization_explanation_third_step">3. These newly created \"tokens\" are stored in the cloud for safe future payments with MENU.</string>
+    <string name="tokenization_explanation_second_step">2. Your credit card information is then \'tokenized\' - turned into random numbers.</string>
+    <string name="tokenization_explanation_third_step">3. These newly created \'tokens\' are stored in the cloud for safe future payments with MENU.</string>
 </resources>

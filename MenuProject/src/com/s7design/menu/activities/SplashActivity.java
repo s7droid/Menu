@@ -78,6 +78,19 @@ public class SplashActivity extends BaseActivity {
 		doChecks();
 	}
 
+	private void getBraintreeToken() {
+		GetBraintreeTokenRequest tokenRequest = new GetBraintreeTokenRequest(SplashActivity.this, null, new Listener<GetBraintreeTokenResponse>() {
+
+			@Override
+			public void onResponse(GetBraintreeTokenResponse token) {
+
+				Menu.getInstance().getDataManager().setClientBraintreeToken(token.token);
+				scanForIBeacon();
+			}
+		});
+		VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(tokenRequest);
+	}
+
 	private void doChecks() {
 
 		if (!Utils.isNetworkAvailable(this)) {
@@ -156,7 +169,7 @@ public class SplashActivity extends BaseActivity {
 			// });
 		} else {
 
-			scanForIBeacon();
+			getBraintreeToken();
 		}
 	}
 
@@ -173,7 +186,7 @@ public class SplashActivity extends BaseActivity {
 					intent.putExtra(SplashWarningActivity.INTENT_EXTRA_TAG_START, SplashWarningActivity.INTENT_EXTRA_START_BLUETOOTH);
 					startActivityForResult(intent, REQUEST_CODE_BLUETOOTH);
 				} else {
-					scanForIBeacon();
+					getBraintreeToken();
 				}
 			}
 		} else if (requestCode == REQUEST_CODE_BLUETOOTH) {
@@ -186,7 +199,7 @@ public class SplashActivity extends BaseActivity {
 					startActivityForResult(intent, REQUEST_CODE_LOCATION);
 
 				} else {
-					scanForIBeacon();
+					getBraintreeToken();
 				}
 			}
 		}
@@ -224,7 +237,7 @@ public class SplashActivity extends BaseActivity {
 						@Override
 						protected Void doInBackground(Void... pars) {
 
-							final CountDownLatch countDownLatch = new CountDownLatch(6);
+							final CountDownLatch countDownLatch = new CountDownLatch(5);
 
 							Map<String, String> params = new HashMap<String, String>();
 							params.put("major", Menu.getInstance().getDataManager().getMajor(SplashActivity.this));
@@ -280,22 +293,11 @@ public class SplashActivity extends BaseActivity {
 								}
 							});
 
-							GetBraintreeTokenRequest tokenRequest = new GetBraintreeTokenRequest(SplashActivity.this, null, new Listener<GetBraintreeTokenResponse>() {
-
-								@Override
-								public void onResponse(GetBraintreeTokenResponse token) {
-
-									Menu.getInstance().getDataManager().setClientBraintreeToken(token.token);
-									countDownLatch.countDown();
-								}
-							});
-
 							VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(restaurantInfoRequest);
 							VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(taxRequest);
 							VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(tipRequest);
 							VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(discountRequest);
 							VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(currencyRequest);
-							VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(tokenRequest);
 
 							try {
 								countDownLatch.await(20000, TimeUnit.MILLISECONDS);
