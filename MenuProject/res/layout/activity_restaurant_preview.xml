@@ -27,7 +27,6 @@
             android:layout_below="@+id/textviewRestaurantPreviewActivityWelcomeMessage"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
-            android:text="Restaurant Name"
             android:textColor="@color/menu_main_gray"
             android:textSize="24sp"
             android:textStyle="bold" />

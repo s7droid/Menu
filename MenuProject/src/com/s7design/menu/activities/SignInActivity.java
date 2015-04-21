@@ -123,9 +123,9 @@ public class SignInActivity extends BaseActivity {
 									dismissProgressDialog();
 
 									if (loginResponse.response != null && loginResponse.response.equals("nouser")) {
-										showAlertDialog(R.string.dialog_title_error, R.string.dialog_no_user);
+										showAlertDialog(R.string.dialog_no_user_title, R.string.dialog_no_user);
 									} else if (loginResponse.response.equals("passwordfalse")) {
-										showAlertDialog(R.string.dialog_title_error, R.string.dialog_wrong_password);
+										showAlertDialog(R.string.dialog_wrong_password_title, R.string.dialog_wrong_password);
 									}
 
 								}

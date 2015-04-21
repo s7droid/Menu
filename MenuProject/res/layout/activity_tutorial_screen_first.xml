@@ -13,7 +13,7 @@
         android:layout_marginTop="40dp"
         android:gravity="center"
         android:lineSpacingMultiplier="1.30"
-        android:text="Order from your table \nwith your phone:"
+        android:text="@string/tutorial_screen_first"
         android:textColor="@color/menu_main_gray"
         android:textSize="18sp"
         android:textStyle="bold" />

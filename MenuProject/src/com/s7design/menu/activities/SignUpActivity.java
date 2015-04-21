@@ -120,6 +120,35 @@ public class SignUpActivity extends BaseActivity {
 		mSignUpButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				if (mNameOnCardEditText.getText().toString().isEmpty()) {
+					showAlertDialog(getResources().getString(R.string.dialog_first_name_empty_title),
+							getResources().getString(R.string.dialog_first_name_empty_content));
+					return;
+				} else if (mEmailEditText.getText().toString().isEmpty()) {
+					showAlertDialog(getResources().getString(R.string.dialog_email_address_empty_title),
+							getResources().getString(R.string.dialog_email_address_empty_content));
+					return;
+				} else if (mPasswordEditText.getText().toString().isEmpty()) {
+					showAlertDialog(getResources().getString(R.string.dialog_password_empty_title),
+							getResources().getString(R.string.dialog_password_empty_content));
+					return;
+				} else if (mRepeatPasswordEditText.getText().toString().isEmpty()) {
+					showAlertDialog(getResources().getString(R.string.dialog_repeat_password_empty_title),
+							getResources().getString(R.string.dialog_repeat_password_empty_content));
+					return;
+				} else if (mCreditCardNumberEditText.getText().toString().isEmpty()) {
+					showAlertDialog(getResources().getString(R.string.dialog_credit_card_number_empty_title),
+							getResources().getString(R.string.dialog_credit_card_number_empty_content));
+					return;
+				} else if (mCCVEditText.getText().toString().isEmpty()) {
+					showAlertDialog(getResources().getString(R.string.dialog_cvv_empty_title),
+							getResources().getString(R.string.dialog_cvv_empty_content));
+					return;
+				} else if (!mPasswordEditText.getText().toString().equals(mRepeatPasswordEditText.getText().toString())) {
+					showAlertDialog(getResources().getString(R.string.dialog_passwords_dont_match_title),
+							getResources().getString(R.string.dialog_passwords_don_match_content));
+					return;
+				}
 
 				Braintree braintree = Braintree.getInstance(SignUpActivity.this, Menu.getInstance().getDataManager().getClientBraintreeToken());
 				braintree.addListener(new Braintree.PaymentMethodNonceListener() {
@@ -132,7 +161,7 @@ public class SignUpActivity extends BaseActivity {
 						params.put("password", mPasswordEditText.getText().toString());
 						params.put("nonce", paymentMethodNonce);
 						params.put("name", mNameOnCardEditText.getText().toString());
-						params.put("phonenumber", "0641234567");
+//						params.put("phonenumber", "0641234567");
 
 						SignUpRequest signUpRequest = new SignUpRequest(SignUpActivity.this, params, new Listener<SignUpResponse>() {
 
@@ -215,45 +244,45 @@ public class SignUpActivity extends BaseActivity {
 
 			}
 		});
-//		mCCVEditText.setOnTouchListener(new OnTouchListener() {
-//
-//			@Override
-//			public boolean onTouch(View v, MotionEvent event) {
-//				mCCVEditText.requestLayout();
-//				SignUpActivity.this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED);
-//				return false;
-//			}
-//		});
-//
-//		mCreditCardNumberEditText.setOnTouchListener(new OnTouchListener() {
-//
-//			@Override
-//			public boolean onTouch(View v, MotionEvent event) {
-//				mCreditCardNumberEditText.requestLayout();
-//				SignUpActivity.this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED);
-//				return false;
-//			}
-//		});
-//
-//		mMonthEditText.setOnTouchListener(new OnTouchListener() {
-//
-//			@Override
-//			public boolean onTouch(View v, MotionEvent event) {
-//				mMonthEditText.requestLayout();
-//				SignUpActivity.this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED);
-//				return false;
-//			}
-//		});
-//
-//		mYearEditText.setOnTouchListener(new OnTouchListener() {
-//
-//			@Override
-//			public boolean onTouch(View v, MotionEvent event) {
-//				mYearEditText.requestLayout();
-//				SignUpActivity.this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED);
-//				return false;
-//			}
-//		});
+		// mCCVEditText.setOnTouchListener(new OnTouchListener() {
+		//
+		// @Override
+		// public boolean onTouch(View v, MotionEvent event) {
+		// mCCVEditText.requestLayout();
+		// SignUpActivity.this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED);
+		// return false;
+		// }
+		// });
+		//
+		// mCreditCardNumberEditText.setOnTouchListener(new OnTouchListener() {
+		//
+		// @Override
+		// public boolean onTouch(View v, MotionEvent event) {
+		// mCreditCardNumberEditText.requestLayout();
+		// SignUpActivity.this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED);
+		// return false;
+		// }
+		// });
+		//
+		// mMonthEditText.setOnTouchListener(new OnTouchListener() {
+		//
+		// @Override
+		// public boolean onTouch(View v, MotionEvent event) {
+		// mMonthEditText.requestLayout();
+		// SignUpActivity.this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED);
+		// return false;
+		// }
+		// });
+		//
+		// mYearEditText.setOnTouchListener(new OnTouchListener() {
+		//
+		// @Override
+		// public boolean onTouch(View v, MotionEvent event) {
+		// mYearEditText.requestLayout();
+		// SignUpActivity.this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED);
+		// return false;
+		// }
+		// });
 
 	}
 
@@ -265,16 +294,18 @@ public class SignUpActivity extends BaseActivity {
 		String terms_tokenizer = ". " + getResources().getString(R.string.sign_up_privacy_tokenizer);
 		String terms_tokenizer_clickable = " " + getResources().getString(R.string.sign_up_privacy_tokenizer_clickable) + ".";
 
-		SpannableString ss = new SpannableString(terms_intro + terms_privacy_clickable + terms_and + terms_privacy_policy_clickable + terms_tokenizer + terms_tokenizer_clickable);
+		SpannableString ss = new SpannableString(terms_intro + terms_privacy_clickable + terms_and + terms_privacy_policy_clickable + terms_tokenizer
+				+ terms_tokenizer_clickable);
 		ClickableSpan clickableSpanTermsOfService = new ClickableSpan() {
 			@Override
 			public void onClick(View textView) {
 				startActivity(new Intent(SignUpActivity.this, AboutTheAppActivity.class));
 			}
 		};
-		ss.setSpan(clickableSpanTermsOfService, terms_intro.length() + 1, (terms_intro.length() + 1 + terms_privacy_clickable.length()), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-		ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.menu_main_orange)), terms_intro.length() + 1, (terms_intro.length() + 1 + terms_privacy_clickable.length() - 1),
+		ss.setSpan(clickableSpanTermsOfService, terms_intro.length() + 1, (terms_intro.length() + 1 + terms_privacy_clickable.length()),
 				Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.menu_main_orange)), terms_intro.length() + 1, (terms_intro.length() + 1
+				+ terms_privacy_clickable.length() - 1), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 		ClickableSpan clickableSpanPrivacyPolicy = new ClickableSpan() {
 			@Override
@@ -283,9 +314,12 @@ public class SignUpActivity extends BaseActivity {
 			}
 		};
 		ss.setSpan(clickableSpanPrivacyPolicy, (terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + 1),
-				(terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length()), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-		ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.menu_main_orange)), (terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + 1),
-				(terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length()), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+				(terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length()),
+				Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.menu_main_orange)),
+				(terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + 1),
+				(terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length()),
+				Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 		ClickableSpan clickableSpanTokenizerSeeHow = new ClickableSpan() {
 			@Override
@@ -293,13 +327,15 @@ public class SignUpActivity extends BaseActivity {
 				startActivity(new Intent(SignUpActivity.this, TokenizationExplainedActivity.class));
 			}
 		};
-		ss.setSpan(clickableSpanTokenizerSeeHow,
-				(terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length() + terms_tokenizer.length() + 1), (terms_intro.length()
-						+ terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length() + terms_tokenizer.length() + terms_tokenizer_clickable.length() - 1),
+		ss.setSpan(clickableSpanTokenizerSeeHow, (terms_intro.length() + terms_privacy_clickable.length() + terms_and.length()
+				+ terms_privacy_policy_clickable.length() + terms_tokenizer.length() + 1), (terms_intro.length() + terms_privacy_clickable.length()
+				+ terms_and.length() + terms_privacy_policy_clickable.length() + terms_tokenizer.length() + terms_tokenizer_clickable.length() - 1),
 				Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-		ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.menu_main_orange)), (terms_intro.length() + terms_privacy_clickable.length() + terms_and.length()
-				+ terms_privacy_policy_clickable.length() + terms_tokenizer.length() + 1), (terms_intro.length() + terms_privacy_clickable.length() + terms_and.length()
-				+ terms_privacy_policy_clickable.length() + terms_tokenizer.length() + terms_tokenizer_clickable.length() - 1), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.menu_main_orange)),
+				(terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length()
+						+ terms_tokenizer.length() + 1), (terms_intro.length() + terms_privacy_clickable.length() + terms_and.length()
+						+ terms_privacy_policy_clickable.length() + terms_tokenizer.length() + terms_tokenizer_clickable.length() - 1),
+				Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 		mTextViewTermsOfUse.setText(ss);
 		mTextViewTermsOfUse.setMovementMethod(LinkMovementMethod.getInstance());

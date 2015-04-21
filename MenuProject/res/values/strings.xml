@@ -33,7 +33,9 @@
     <!-- Tutorial -->
     <string name="menu_tutorial_screen_button_continue">CONTINUE</string>
     <string name="menu_tutorial_screen_button_make_your_choice">MAKE YOUR CHOICE</string>
-
+	<string name="tutorial_screen_first">Order from your table\nwith your phone:</string>
+    <string name="tutorial_screen_second">Enjoy your meal!</string>
+    
     <!-- Restaurant preview -->
     <string name="restaurant_preview_activity_welcome_message">Welcome to</string>
     <string name="restaurant_preview_activity_make_your_order">MAKE YOUR ORDER</string>
@@ -41,6 +43,7 @@
     <string name="txt_checkout_small">Checkout</string>
 
     <!-- Dialogs -->
+     <string name="dialog_add_comment">ADD COMMENT</string>
     <string name="dialog_loading">Loading&#8230;</string>
     <string name="dialog_please_wait">Please wait&#8230;</string>
     <string name="dialog_title_error">Error</string>
@@ -51,17 +54,33 @@
     <string name="dialog_insert_email_address">Please, insert Your email address.</string>
     <string name="dialog_insert_password">Please, insert Your password.</string>
     <string name="dialog_insert_emal_address_and_password">Please, insert Your email address and password.</string>
-    <string name="dialog_no_user">No user was found with provided email.</string>
-    <string name="dialog_wrong_password">The password provided is incorrect.</string>
+    <string name="dialog_no_user">Please check your e-mail address or create an account if you don\'t have one yet.</string>
+    <string name="dialog_no_user_title">Email address is invalid</string>
+    <string name="dialog_wrong_password">Wrong password. Please try again</string>
+    <string name="dialog_wrong_password_title">Wrong Password</string>
     <string name="dialog_order_successful">Your order was successful!</string>
     <string name="dialog_no_beacon_found">No iBeacon found. Search again?</string>
     <string name="dialog_no_restaurants_found">No restaurants found nearby. Search again?</string>
 	<string name="dialog_fields_changed">Fields changed successfully.</string>
     <string name="dialog_unable_to_order">You are in a part of the restaurant where ordering is disabled, but you can still add items to your order list.</string>
-    <string name="dialog_email_in_use">The entered email is already in use. Please try again.</string>
-    <string name="dialog_card_declined">Credit card has been declined. Please try again.</string>
+    <string name="dialog_email_in_use">This email address is already in use. Please try again</string>
+    <string name="dialog_card_declined">Your credit card was declined#8230; Please try again</string>
     <string name="dialog_body_network_problem">Network problem, please try again.</string>
-
+	<string name="dialog_first_name_empty_content">Please enter your first name and try again</string>
+    <string name="dialog_first_name_empty_title">Empty First Name</string>
+    <string name="dialog_email_address_empty_content">Please enter your email address and try again</string>
+    <string name="dialog_email_address_empty_title">Empty E-Mail Address</string>
+    <string name="dialog_password_empty_content">Please enter a password and try again</string>
+    <string name="dialog_password_empty_title">Empty Password</string>
+    <string name="dialog_repeat_password_empty_content">Please repeat your password and try again</string>
+    <string name="dialog_repeat_password_empty_title">Empty Repeat Password</string>
+    <string name="dialog_credit_card_number_empty_content">Please enter your credit card number and try again</string>
+    <string name="dialog_credit_card_number_empty_title">Empty Credit Card Number</string>
+    <string name="dialog_cvv_empty_content">Please enter your credit card CVV and try again</string>
+    <string name="dialog_cvv_empty_title">Empty CVV</string>
+    <string name="dialog_passwords_don_match_content">Passwords do not match. Please try again</string>
+    <string name="dialog_passwords_dont_match_title">Passwords do not match</string>
+   
     <!-- Checkout activity -->
     <string name="checkout_thank_you_for_order">Thank you for your order!</string>
     <string name="checkout_receipt_sent"> A receipt has been sent to your email.</string>
@@ -132,7 +151,9 @@
     <!-- Misc -->
     <string name="misc_is_small">(S)</string>
     <string name="misc_splash">Welcome to MENU</string>
-
+	<string name="misc_table">Table</string>
+	<string name="misc_at">at</string>
+    
     <!-- Error messages -->
     <string name="error_message_basic">Some error acquired. We weren\'t able to finish Your request. Pleasem, try again later.</string>
     <string name="error_checkout_list_empty">Your cart is empty at the moment. Add some items.</string>
