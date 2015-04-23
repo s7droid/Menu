@@ -53,6 +53,17 @@ public class OrderMealsActivity extends BaseActivity {
 			@Override
 			public void onResponse(GetAllItemsInCategoryResponse items) {
 
+				if(items.items == null){
+					showAlertDialog(getString(R.string.category_meals_no_items_title), getString(R.string.category_meals_no_items_content), new OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+							finish();
+						}
+					});
+					return;
+				}
+				
 				OrderMealsActivity.this.items = new ArrayList<Item>(Arrays.asList(items.items));
 				Menu.getInstance().getDataManager().setItemsList(OrderMealsActivity.this.items);
 

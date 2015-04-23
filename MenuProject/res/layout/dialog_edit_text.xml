@@ -29,7 +29,7 @@
         android:background="@drawable/sign_in_edittext_shape"
         android:gravity="left"
         android:maxLength="100"
-        android:hint="Enter Your comment here"
+        android:hint="@string/dialog_enter_your_comment"
         android:textColor="@color/menu_main_gray"
         android:textSize="15sp" />
 
@@ -47,7 +47,7 @@
             android:includeFontPadding="false"
             android:background="@drawable/rounded_orange_button_selector"
             android:gravity="center"
-            android:text="ADD COMMENT"
+            android:text="@string/dialog_add_comment"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:textStyle="bold" />

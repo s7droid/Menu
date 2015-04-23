@@ -67,9 +67,9 @@
     <string name="dialog_email_in_use">This email address is already in use. Please try again</string>
     <string name="dialog_not_at_menu">You are not currently seated at a MENU powered table. You can still add items to your order, but you will need to be seated at a MENU powered table to place your order. Ask the service personnel to be seated at a MENU powered table.</string>
     <string name="dialog_cannot_order">You do not seem to be seated at a MENU powered table. If you are seated at a MENU powered table, please try again by moving your phone closer to the middle of the table and placing your order again.</string>
-    <string name="dialog_card_declined">Your credit card was declined#8230; Please try again</string>
+    <string name="dialog_card_declined">Your credit card was declined&#8230; Please try again</string>
     <string name="dialog_body_network_problem">Network problem, please try again.</string>
-    <string name="dialog_body_default_error_message">Something went wrong#8230; Please try again</string>
+    <string name="dialog_body_default_error_message">Something went wrong&#8230; Please try again</string>
     <string name="dialog_body_default_error_title">Oops!</string>
     <string name="dialog_first_name_empty_content">Please enter your first name and try again</string>
     <string name="dialog_first_name_empty_title">Empty First Name</string>
@@ -90,7 +90,8 @@
     <string name="dialog_check_inbox_title">Check your Email!</string>
     <string name="dialog_check_inbox_content">Check your Email Inbox for a reset link</string>
     <string name="dialog_send_receipt_to_email_error">Something went wrong&#8230; You can try to resend your receipt from the main menu under View Past Receipts.</string>
-
+    <string name="dialog_enter_your_comment">Enter Your comment here</string>
+    
     <!-- Checkout activity -->
     <string name="checkout_thank_you_for_order">Thank you for your order!</string>
     <string name="checkout_receipt_sent"> A receipt has been sent to your email.</string>
@@ -109,7 +110,9 @@
     <string name="category_meals_add_small">ADD SMALL</string>
     <string name="category_meals_add">ADD</string>
     <string name="category_meals_out_of_stock">SOLD OUT</string>
-
+    <string name="category_meals_no_items_content">It appears that there is no any item to order. Try to order something from other category.</string>
+	<string name="category_meals_no_items_title">No items</string>
+    
     <!-- Sign in -->
     <string name="sign_in_button_text">SIGN IN</string>
     <string name="sign_in_username_hint_text">Email address</string>

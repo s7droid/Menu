@@ -66,9 +66,9 @@
     <string name="dialog_not_at_menu">An diesem Tisch kann möglicherweise nicht mit der MENU App bestellt und bezahlt werden. Falls doch, dann versuche es noch einmal indem Du das Smartphone näher in die Mitte des Tisches bewegst.</string>
     <string name="dialog_cannot_order">An diesem Tisch kannst Du nicht mit der MENU App bestellen und bezahlen. Jedoch kannst Du mit der MENU App Deine Auswahl treffen. Um die Bestellung auszulösen musst Du aber an einem durch MENU unterstützten Tisch sitzen. Bitte wende Dich an das Bedienungspersonal um einen MENU unterstützten Tisch zu finden.</string>
     <string name="dialog_email_in_use">Diese E-Mail Adresse ist bereits vergeben. Bitte versuche es erneut</string>
-    <string name="dialog_card_declined">Deine Kreditkarte wurde abgelehnt#8230; Bitte versuchen Sie es erneut</string>
+    <string name="dialog_card_declined">Deine Kreditkarte wurde abgelehnt&#8230; Bitte versuchen Sie es erneut</string>
     <string name="dialog_body_network_problem">Network problem, please try again.</string>
-    <string name="dialog_body_default_error_message">Etwas ist schief gelaufen#8230; Bitte versuche es erneut</string>
+    <string name="dialog_body_default_error_message">Etwas ist schief gelaufen&#8230; Bitte versuche es erneut</string>
     <string name="dialog_body_default_error_title">Oops!</string>
     <string name="dialog_first_name_empty_content">Bitte trage Deinen Vornamen ein und versuche es erneut</string>
     <string name="dialog_first_name_empty_title">Das Feld mit Deinem Vornamen ist leer</string>
@@ -164,7 +164,7 @@
     <string name="misc_at">um</string>
 
     <!-- Error messages -->
-    <string name="error_message_basic">Ooops!\nEtwas ist schief gelaufen#8230; Bitte versuche es erneut</string>
+    <string name="error_message_basic">Etwas ist schief gelaufen&#8230; Bitte versuche es erneut</string>
     <string name="error_checkout_list_empty">Um den Bezahlvorgang durchführen zu können musst Du eine Menüauswahl treffen.</string>
 
     <!-- About the App -->
