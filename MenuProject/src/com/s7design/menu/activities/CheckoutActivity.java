@@ -384,6 +384,8 @@ public class CheckoutActivity extends BaseActivity {
 				startActivity(intent);
 			}
 		});
+		
+		setActionBarBackButtonText(R.string.action_bar_order_again);
 
 		String thankYou = getString(R.string.checkout_thank_you_for_order);
 		SpannableStringBuilder ssb = new SpannableStringBuilder(thankYou + " " + getString(R.string.checkout_receipt_sent));

@@ -18,6 +18,7 @@ import com.s7design.menu.app.Menu;
 import com.s7design.menu.callbacks.OnVolleyErrorCallback;
 import com.s7design.menu.dialogs.AlertDialogEditTextFragment;
 import com.s7design.menu.dialogs.AlertDialogFragment;
+import com.s7design.menu.dialogs.OkCancelDialogFragment;
 import com.s7design.menu.dialogs.ProgressDialogFragment;
 import com.s7design.menu.utils.Utils;
 import com.s7design.menu.volley.responses.GsonResponse;
@@ -145,11 +146,10 @@ public class BaseActivity extends Activity implements OnVolleyErrorCallback {
 	 */
 	public void setActionBarForwardArrowVisibility(Drawable drawable) {
 		buttonActionBarForward.setCompoundDrawables(null, null, drawable, null);
-		buttonActionBarForward.setPadding(buttonActionBarForward.getPaddingLeft(), buttonActionBarForward.getPaddingTop(), 30,
-				buttonActionBarForward.getPaddingBottom());
+		buttonActionBarForward.setPadding(buttonActionBarForward.getPaddingLeft(), buttonActionBarForward.getPaddingTop(), 30, buttonActionBarForward.getPaddingBottom());
 		if (drawable == null)
-			buttonActionBarForward.setPadding(buttonActionBarForward.getPaddingLeft(), buttonActionBarForward.getPaddingTop(),
-					(int) Utils.convertDpToPixel(20, BaseActivity.this), buttonActionBarForward.getPaddingBottom());
+			buttonActionBarForward.setPadding(buttonActionBarForward.getPaddingLeft(), buttonActionBarForward.getPaddingTop(), (int) Utils.convertDpToPixel(20, BaseActivity.this),
+					buttonActionBarForward.getPaddingBottom());
 	}
 
 	public void showAlertDialog(int title, int body) {
@@ -198,6 +198,21 @@ public class BaseActivity extends Activity implements OnVolleyErrorCallback {
 
 	@Override
 	public void onResponseError(GsonResponse response) {
+
+		if (response.errorlog != null && response.errorlog.equals("wronglogindetails")) {
+
+			OkCancelDialogFragment dialog = new OkCancelDialogFragment();
+			dialog.showDialog(getFragmentManager(), "", getString(R.string.dialog_please_login_again), new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+
+					startActivity(new Intent(BaseActivity.this, SignInActivity.class));
+				}
+			}, null);
+
+			return;
+		}
 
 		dismissProgressDialog();
 		showAlertDialog(getString(R.string.dialog_body_default_error_title), getString(R.string.dialog_body_default_error_message));

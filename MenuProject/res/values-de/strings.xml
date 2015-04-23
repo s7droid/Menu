@@ -15,6 +15,7 @@
     <string name="action_bar_sign_up">REGISTRIEREN</string>
     <string name="action_bar_pickup_info">INFO ZUR ABHOLNG DER BESTELLUNG</string>
     <string name="action_bar_main_menu">HAUPTVERZEICHNIS</string>
+    <string name="action_bar_order_again">NEU</string>
 
     <!-- Splash screen -->
     <string name="splash_screen_welcome_message">Willkommen bei MENU</string>
@@ -89,6 +90,7 @@
     <string name="dialog_check_inbox_title">Überprüfe Deine E-Mail Inbox!</string>
     <string name="dialog_check_inbox_content">Überprüfe Deine Inbox auf einen Link zum Zurücksetzen Deines Kennworts</string>
     <string name="dialog_send_receipt_to_email_error">Es hat nicht funktioniert… Gehe zu Quittungen im Hauptverzeichnis und versuche es erneut.</string>
+    <string name="dialog_please_login_again">Bitte melde dich noch einmal an</string>
 
     <!-- Checkout activity -->
     <string name="checkout_thank_you_for_order">Vielen Dank für Deine Bestellung!</string>
