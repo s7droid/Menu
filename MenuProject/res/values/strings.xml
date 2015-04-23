@@ -16,6 +16,7 @@
     <string name="action_bar_sign_up">SIGN UP</string>
     <string name="action_bar_pickup_info">ORDER PICK UP INFO</string>
     <string name="action_bar_main_menu">MAIN MENU</string>
+    <string name="action_bar_order_again">ORDER AGAIN</string>
 
     <!-- Splash screen -->
     <string name="splash_screen_welcome_message">Welcome to MENU</string>
@@ -90,6 +91,7 @@
     <string name="dialog_check_inbox_title">Check your Email!</string>
     <string name="dialog_check_inbox_content">Check your Email Inbox for a reset link</string>
     <string name="dialog_send_receipt_to_email_error">Something went wrong&#8230; You can try to resend your receipt from the main menu under View Past Receipts.</string>
+    <string name="dialog_please_login_again">Please login again</string>
 
     <!-- Checkout activity -->
     <string name="checkout_thank_you_for_order">Thank you for your order!</string>
