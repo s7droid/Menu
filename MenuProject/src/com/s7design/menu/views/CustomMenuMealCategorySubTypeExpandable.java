@@ -57,8 +57,7 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 	}
 
 	/**
-	 * Method for initializing all needed parameters and views for this custom
-	 * component.
+	 * Method for initializing all needed parameters and views for this custom component.
 	 */
 	public CustomMenuMealCategorySubTypeExpandable init() {
 
@@ -85,11 +84,10 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 			TextView mealName = (TextView) vi.findViewById(R.id.textviewSubMealTitle);
 			RelativeLayout imageContainer = (RelativeLayout) vi.findViewById(R.id.linearlayoutSubMealImageContainer);
 
-			
 			imageView.setImageUrl(itemToSend.image, imageLoader);
 			imageView.setDefaultImageResId(R.drawable.no_image);
 			imageView.setErrorImageResId(R.drawable.no_image);
-			
+
 			mealName.setText(items.get(i).name);
 
 			Item it = Menu.getInstance().getDataManager().getItemByTag(itemToSend.largetag);
@@ -115,8 +113,9 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 			else
 				imageViewOrangeBorder.setVisibility(View.INVISIBLE);
 
-			bigOrderPriceAndQuantity.setText(currency + String.format("%.2f", items.get(i).largeprice) + (itemToSend.quantityLarge > 0 ? " (" + itemToSend.quantityLarge + ")" : ""));
-			large.setText(/*mGlobalContext.getString(R.string.category_meals_add) + " " + */itemToSend.largelabel);
+			bigOrderPriceAndQuantity.setText(currency + String.format("%.2f", items.get(i).largeprice)
+					+ (itemToSend.quantityLarge > 0 ? " (" + itemToSend.quantityLarge + ")" : ""));
+			large.setText(/* mGlobalContext.getString(R.string.category_meals_add) + " " + */itemToSend.largelabel);
 			large.setTag(itemToSend.quantityLarge);
 			large.setOnClickListener(new OnClickListener() {
 
@@ -136,7 +135,7 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 					Menu.getInstance().getDataManager().addCheckoutListItem(item.getLarge());
 
 					if (!Menu.getInstance().isOrderEnabled())
-						((BaseActivity) getContext()).showAlertDialog(R.string.dialog_title_warning, R.string.dialog_unable_to_order);
+						((BaseActivity) getContext()).showAlertDialog(R.string.dialog_title_warning, R.string.dialog_not_at_menu);
 
 					imageViewOrangeBorder.setVisibility(View.VISIBLE);
 
@@ -144,8 +143,9 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 			});
 
 			if (itemToSend.smalllabel.length() > 0) {
-				smallOrderPriceAndQuantity.setText(currency + String.format("%.2f", items.get(i).smallprice) + (itemToSend.quantitySmall > 0 ? " (" + itemToSend.quantitySmall + ")" : ""));
-				small.setText(/*mGlobalContext.getString(R.string.category_meals_add) + " " + */itemToSend.smalllabel);
+				smallOrderPriceAndQuantity.setText(currency + String.format("%.2f", items.get(i).smallprice)
+						+ (itemToSend.quantitySmall > 0 ? " (" + itemToSend.quantitySmall + ")" : ""));
+				small.setText(/* mGlobalContext.getString(R.string.category_meals_add) + " " + */itemToSend.smalllabel);
 				small.setTag(itemToSend.quantitySmall);
 				small.setOnClickListener(new OnClickListener() {
 
@@ -153,7 +153,7 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 					public void onClick(View v) {
 						if (Menu.getInstance().getDataManager().isCheckoutListEmpty())
 							((BaseActivity) getContext()).showRightActionBarButton();
-						
+
 						int counter = (Integer) v.getTag();
 						counter++;
 						setQuantitySmall(smallOrderPriceAndQuantity, itemToSend.smallprice, counter);
@@ -164,7 +164,7 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 						Menu.getInstance().getDataManager().addCheckoutListItem(item.getSmall());
 
 						if (!Menu.getInstance().isOrderEnabled())
-							((BaseActivity) getContext()).showAlertDialog(R.string.dialog_title_warning, R.string.dialog_unable_to_order);
+							((BaseActivity) getContext()).showAlertDialog(R.string.dialog_title_warning, R.string.dialog_not_at_menu);
 
 						imageViewOrangeBorder.setVisibility(View.VISIBLE);
 					}

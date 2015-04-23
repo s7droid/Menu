@@ -172,7 +172,7 @@ public class ReceiptListActivity extends BaseActivity {
 							if (response.response != null && response.response.equals("success"))
 								showAlertDialog("", getResources().getString(R.string.receipt_list_message_sent_sucess));
 							else
-								showAlertDialog("", getResources().getString(R.string.error_message_basic));
+								showAlertDialog("", getResources().getString(R.string.dialog_send_receipt_to_email_error));
 						}
 
 					});

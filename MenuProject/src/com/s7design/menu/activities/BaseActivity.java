@@ -145,10 +145,11 @@ public class BaseActivity extends Activity implements OnVolleyErrorCallback {
 	 */
 	public void setActionBarForwardArrowVisibility(Drawable drawable) {
 		buttonActionBarForward.setCompoundDrawables(null, null, drawable, null);
-		buttonActionBarForward.setPadding(buttonActionBarForward.getPaddingLeft(), buttonActionBarForward.getPaddingTop(), 30, buttonActionBarForward.getPaddingBottom());
+		buttonActionBarForward.setPadding(buttonActionBarForward.getPaddingLeft(), buttonActionBarForward.getPaddingTop(), 30,
+				buttonActionBarForward.getPaddingBottom());
 		if (drawable == null)
-			buttonActionBarForward.setPadding(buttonActionBarForward.getPaddingLeft(), buttonActionBarForward.getPaddingTop(), (int) Utils.convertDpToPixel(20, BaseActivity.this),
-					buttonActionBarForward.getPaddingBottom());
+			buttonActionBarForward.setPadding(buttonActionBarForward.getPaddingLeft(), buttonActionBarForward.getPaddingTop(),
+					(int) Utils.convertDpToPixel(20, BaseActivity.this), buttonActionBarForward.getPaddingBottom());
 	}
 
 	public void showAlertDialog(int title, int body) {
@@ -199,14 +200,14 @@ public class BaseActivity extends Activity implements OnVolleyErrorCallback {
 	public void onResponseError(GsonResponse response) {
 
 		dismissProgressDialog();
-		showAlertDialog(getString(R.string.dialog_title_error), getString(R.string.dialog_body_default_error_message));
+		showAlertDialog(getString(R.string.dialog_body_default_error_title), getString(R.string.dialog_body_default_error_message));
 	}
 
 	@Override
 	public void onVolleyError(VolleyError volleyError) {
 
 		dismissProgressDialog();
-		showAlertDialog(getString(R.string.dialog_title_error), getString(R.string.dialog_body_default_error_message));
+		showAlertDialog(getString(R.string.dialog_body_default_error_title), getString(R.string.dialog_body_default_error_message));
 	}
 
 	public void hideRightActionBarButton() {

@@ -32,6 +32,7 @@
     <!-- Tutorial -->
     <string name="menu_tutorial_screen_button_continue">WEITER</string>
     <string name="menu_tutorial_screen_button_make_your_choice">AUSWÄHLEN</string>
+    <string name="menu_tutorial_screen_button_awesome">AWESOME</string>
     <string name="tutorial_screen_first">Bestelle von Deinem Tisch aus\nmit Deinem Smartphone:</string>
     <string name="tutorial_screen_second">Guten Appetit!</string>
 
@@ -48,7 +49,8 @@
     <string name="dialog_title_error">Error</string>
     <string name="dialog_title_success">Success</string>
     <string name="dialog_title_warning">Warning</string>
-    <string name="dialog_no_internet_connection">Keine Internetverbidung. Bitte stelle eine 3G/4G oder WIFI-Verbindung her.</string>
+    <string name="dialog_no_internet_connection_title">Erneut versuchen</string>
+    <string name="dialog_no_internet_connection_message">Keine Internetverbidung. Bitte stelle eine 3G/4G oder WIFI-Verbindung her.</string>
     <string name="dialog_bluetooth_off">Bluetooth is off. Would you like to turn it on?</string>
     <string name="dialog_insert_email_address">Bitte gebe Deine E-Mail Adresse ein</string>
     <string name="dialog_insert_password">Bitte gebe dein Kennwort ein</string>
@@ -61,11 +63,13 @@
     <string name="dialog_no_beacon_found">No iBeacon found. Search again?</string>
     <string name="dialog_no_restaurants_found">No restaurants found nearby. Search again?</string>
     <string name="dialog_fields_changed">Fields changed successfully.</string>
-    <string name="dialog_unable_to_order">You are in a part of the restaurant where ordering is disabled, but you can still add items to your order list.</string>
+    <string name="dialog_not_at_menu">An diesem Tisch kann möglicherweise nicht mit der MENU App bestellt und bezahlt werden. Falls doch, dann versuche es noch einmal indem Du das Smartphone näher in die Mitte des Tisches bewegst.</string>
+    <string name="dialog_cannot_order">An diesem Tisch kannst Du nicht mit der MENU App bestellen und bezahlen. Jedoch kannst Du mit der MENU App Deine Auswahl treffen. Um die Bestellung auszulösen musst Du aber an einem durch MENU unterstützten Tisch sitzen. Bitte wende Dich an das Bedienungspersonal um einen MENU unterstützten Tisch zu finden.</string>
     <string name="dialog_email_in_use">Diese E-Mail Adresse ist bereits vergeben. Bitte versuche es erneut</string>
     <string name="dialog_card_declined">Deine Kreditkarte wurde abgelehnt#8230; Bitte versuchen Sie es erneut</string>
     <string name="dialog_body_network_problem">Network problem, please try again.</string>
     <string name="dialog_body_default_error_message">Etwas ist schief gelaufen#8230; Bitte versuche es erneut</string>
+    <string name="dialog_body_default_error_title">Oops!</string>
     <string name="dialog_first_name_empty_content">Bitte trage Deinen Vornamen ein und versuche es erneut</string>
     <string name="dialog_first_name_empty_title">Das Feld mit Deinem Vornamen ist leer</string>
     <string name="dialog_email_address_empty_content">Bitte trage Deine E-Mail Adresse ein und versuche es erneut</string>
@@ -84,6 +88,7 @@
     <string name="dialog_invalid_expiry_date_error_content">Bitte fülle ein gültiges Ablaufsdatum ein und versuche es erneut</string>
     <string name="dialog_check_inbox_title">Überprüfe Deine E-Mail Inbox!</string>
     <string name="dialog_check_inbox_content">Überprüfe Deine Inbox auf einen Link zum Zurücksetzen Deines Kennworts</string>
+    <string name="dialog_send_receipt_to_email_error">Es hat nicht funktioniert… Gehe zu Quittungen im Hauptverzeichnis und versuche es erneut.</string>
 
     <!-- Checkout activity -->
     <string name="checkout_thank_you_for_order">Vielen Dank für Deine Bestellung!</string>

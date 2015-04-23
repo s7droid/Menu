@@ -51,8 +51,7 @@ import com.s7design.menu.volley.responses.GetTaxRateResponse;
 import com.s7design.menu.volley.responses.GetTipResponse;
 
 /**
- * Splash screen activity used for getting data from server, such are connection
- * to Bluetooth device, and gathering all other data needed for application to
+ * Splash screen activity used for getting data from server, such are connection to Bluetooth device, and gathering all other data needed for application to
  * work. <br>
  * Also, within this activity, connection on Internet is checked.
  * 
@@ -94,7 +93,7 @@ public class SplashActivity extends BaseActivity {
 	private void doChecks() {
 
 		if (!Utils.isNetworkAvailable(this)) {
-			showAlertDialog(R.string.dialog_title_error, R.string.dialog_no_internet_connection, new OnClickListener() {
+			showAlertDialog(R.string.dialog_no_internet_connection_title, R.string.dialog_no_internet_connection_message, new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
@@ -243,15 +242,16 @@ public class SplashActivity extends BaseActivity {
 							params.put("major", Menu.getInstance().getDataManager().getMajor(SplashActivity.this));
 							params.put("minor", Menu.getInstance().getDataManager().getMinor(SplashActivity.this));
 
-							GetRestaurantInfoRequest restaurantInfoRequest = new GetRestaurantInfoRequest(SplashActivity.this, params, new Listener<GetRestaurantInfoResponse>() {
+							GetRestaurantInfoRequest restaurantInfoRequest = new GetRestaurantInfoRequest(SplashActivity.this, params,
+									new Listener<GetRestaurantInfoResponse>() {
 
-								@Override
-								public void onResponse(GetRestaurantInfoResponse restaurantInfo) {
+										@Override
+										public void onResponse(GetRestaurantInfoResponse restaurantInfo) {
 
-									Menu.getInstance().getDataManager().setRestaurantInfo(restaurantInfo);
-									countDownLatch.countDown();
-								}
-							});
+											Menu.getInstance().getDataManager().setRestaurantInfo(restaurantInfo);
+											countDownLatch.countDown();
+										}
+									});
 
 							GetTaxRateRequest taxRequest = new GetTaxRateRequest(SplashActivity.this, params, new Listener<GetTaxRateResponse>() {
 

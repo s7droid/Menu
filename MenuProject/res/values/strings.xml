@@ -15,8 +15,8 @@
     <string name="action_bar_sign_in">SIGN IN</string>
     <string name="action_bar_sign_up">SIGN UP</string>
     <string name="action_bar_pickup_info">ORDER PICK UP INFO</string>
-	<string name="action_bar_main_menu">MAIN MENU</string>
-    
+    <string name="action_bar_main_menu">MAIN MENU</string>
+
     <!-- Splash screen -->
     <string name="splash_screen_welcome_message">Welcome to MENU</string>
     <string name="splash_screen_location_disabled_body_1">Location services</string>
@@ -33,9 +33,10 @@
     <!-- Tutorial -->
     <string name="menu_tutorial_screen_button_continue">CONTINUE</string>
     <string name="menu_tutorial_screen_button_make_your_choice">MAKE YOUR CHOICE</string>
-	<string name="tutorial_screen_first">Order from your table\nwith your phone:</string>
+    <string name="menu_tutorial_screen_button_awesome">AWESOME</string>
+    <string name="tutorial_screen_first">Order from your table\nwith your phone:</string>
     <string name="tutorial_screen_second">Enjoy your meal!</string>
-    
+
     <!-- Restaurant preview -->
     <string name="restaurant_preview_activity_welcome_message">Welcome to</string>
     <string name="restaurant_preview_activity_make_your_order">MAKE YOUR ORDER</string>
@@ -43,13 +44,14 @@
     <string name="txt_checkout_small">Checkout</string>
 
     <!-- Dialogs -->
-     <string name="dialog_add_comment">ADD COMMENT</string>
+    <string name="dialog_add_comment">ADD COMMENT</string>
     <string name="dialog_loading">Loading&#8230;</string>
     <string name="dialog_please_wait">Please wait&#8230;</string>
     <string name="dialog_title_error">Error</string>
     <string name="dialog_title_success">Success</string>
     <string name="dialog_title_warning">Warning</string>
-    <string name="dialog_no_internet_connection">No Internet Connection. Please make sure you have a 3G/4G or WLAN connection.</string>
+    <string name="dialog_no_internet_connection_title">Try Again</string>
+    <string name="dialog_no_internet_connection_message">No Internet Connection. Please make sure you have a 3G/4G or WLAN connection.</string>
     <string name="dialog_bluetooth_off">Bluetooth is off. Would you like to turn it on?</string>
     <string name="dialog_insert_email_address">You need to enter your email address</string>
     <string name="dialog_insert_password">You need to enter your password</string>
@@ -61,13 +63,15 @@
     <string name="dialog_order_successful">Your order was successful!</string>
     <string name="dialog_no_beacon_found">No iBeacon found. Search again?</string>
     <string name="dialog_no_restaurants_found">No restaurants found nearby. Search again?</string>
-	<string name="dialog_fields_changed">Fields changed successfully.</string>
-    <string name="dialog_unable_to_order">You are in a part of the restaurant where ordering is disabled, but you can still add items to your order list.</string>
+    <string name="dialog_fields_changed">Fields changed successfully.</string>
     <string name="dialog_email_in_use">This email address is already in use. Please try again</string>
+    <string name="dialog_not_at_menu">You are not currently seated at a MENU powered table. You can still add items to your order, but you will need to be seated at a MENU powered table to place your order. Ask the service personnel to be seated at a MENU powered table.</string>
+    <string name="dialog_cannot_order">You do not seem to be seated at a MENU powered table. If you are seated at a MENU powered table, please try again by moving your phone closer to the middle of the table and placing your order again.</string>
     <string name="dialog_card_declined">Your credit card was declined#8230; Please try again</string>
     <string name="dialog_body_network_problem">Network problem, please try again.</string>
     <string name="dialog_body_default_error_message">Something went wrong#8230; Please try again</string>
-	<string name="dialog_first_name_empty_content">Please enter your first name and try again</string>
+    <string name="dialog_body_default_error_title">Oops!</string>
+    <string name="dialog_first_name_empty_content">Please enter your first name and try again</string>
     <string name="dialog_first_name_empty_title">Empty First Name</string>
     <string name="dialog_email_address_empty_content">Please enter your email address and try again</string>
     <string name="dialog_email_address_empty_title">Empty E-Mail Address</string>
@@ -85,7 +89,8 @@
     <string name="dialog_invalid_expiry_date_error_content">Please enter a valid expiry date and try again</string>
     <string name="dialog_check_inbox_title">Check your Email!</string>
     <string name="dialog_check_inbox_content">Check your Email Inbox for a reset link</string>
-   
+    <string name="dialog_send_receipt_to_email_error">Something went wrong&#8230; You can try to resend your receipt from the main menu under View Past Receipts.</string>
+
     <!-- Checkout activity -->
     <string name="checkout_thank_you_for_order">Thank you for your order!</string>
     <string name="checkout_receipt_sent"> A receipt has been sent to your email.</string>
@@ -103,9 +108,9 @@
     <string name="category_meals_add_large">ADD LARGE</string>
     <string name="category_meals_add_small">ADD SMALL</string>
     <string name="category_meals_add">ADD</string>
-	<string name="category_meals_out_of_stock">SOLD OUT</string>
-  
-	<!-- Sign in -->
+    <string name="category_meals_out_of_stock">SOLD OUT</string>
+
+    <!-- Sign in -->
     <string name="sign_in_button_text">SIGN IN</string>
     <string name="sign_in_username_hint_text">Email address</string>
     <string name="sign_in_password_hint_text">Password</string>
@@ -140,8 +145,8 @@
     <string name="manage_account_repeat_password_hint_text">Repeat password</string>
     <string name="manage_account_change_credit_card">CHANGE CREDIT CARD</string>
     <string name="manage_account_confirm_changes_text">CONFIRM CHANGES</string>
-	<string name="manage_account_passwords_not_same">New password and repeated password are not same</string>
-	
+    <string name="manage_account_passwords_not_same">New password and repeated password are not same</string>
+
     <!-- Meal details -->
     <string name="meal_details_order_large">ORDER LARGE</string>
     <string name="meal_details_order_small">ORDER SMALL</string>
@@ -156,11 +161,11 @@
     <!-- Misc -->
     <string name="misc_is_small">(S)</string>
     <string name="misc_splash">Welcome to MENU</string>
-	<string name="misc_table">Table</string>
-	<string name="misc_at">at</string>
-    
+    <string name="misc_table">Table</string>
+    <string name="misc_at">at</string>
+
     <!-- Error messages -->
-    <string name="error_message_basic">Some error acquired. We weren\'t able to finish Your request. Pleasem, try again later.</string>
+    <string name="error_message_basic">Some error acquired. We weren\'t able to finish Your request. Please, try again later.</string>
     <string name="error_checkout_list_empty">Your cart is empty at the moment. Add some items.</string>
 
     <!-- About the App -->
@@ -172,8 +177,8 @@
     <string name="about_menu_aknowledgements_text2"><b>Using our Services</b></string>
     <string name="about_menu_aknowledgements_text3">Cum ex putent splendide adversarium, id sea probo labores. At duo interesset complectitur, etiam minim eu sea. Everti voluptatum consequuntur ut per, dicat dolor noster eos eu, his case omnis id. Inani quaeque laboramus his et, mel magna delectus et, vero eloquentiam cu ius. Et enim oporteat has, nec sale adipiscing te.</string>
     <string name="about_menu_aknowledgements_text4">Eirmod civibus propriae eu per, dicit iisque civibus mei in. Eum ea error saepe sensibus, in populo epicurei omittantur vix. Id habeo referrentur delicatissimi duo. Cu velit consul detraxit usu.</string>
-	<string name="about_menu_security">Security</string>
-    
+    <string name="about_menu_security">Security</string>
+
     <!-- Main Menu strings -->
     <string name="main_menu_category_not_available">You need to be in a restaurant to be able to view a menu</string>
     <string name="main_menu_view_tutorial">VIEW TUTORIAL</string>
@@ -182,9 +187,9 @@
     <string name="main_menu_about_the_app">ABOUT THE APP</string>
     <string name="main_menu_view_venue_menu">VIEW THE MENU</string>
     <string name="main_menu_current_order">VIEW CURRENT ORDER</string>
-	<string name="main_menu_log_in_or_sign_up">LOG IN OR SIGN UP</string>
+    <string name="main_menu_log_in_or_sign_up">LOG IN OR SIGN UP</string>
     <string name="main_menu_logout">LOGOUT</string>
-   
+
     <!-- Pickup info -->
     <string name="pickup_info_text">Please provide us with your cell phone number so that we can send you an SMS notification when your order is ready:</string>
     <string name="pickup_info_country_code">Country code:</string>
@@ -192,7 +197,7 @@
     <string name="pickup_info_confirm">CONFIRM</string>
     <string name="pickup_info_phone_number_added">You have successfully added Your phone number.</string>
     <string name="pickup_info_add_phone">Please, enter Your country code and phone number.</string>
-    
+
     <!-- Tokenization explain -->
     <string name="tokenization_explanation_action_bar_title">TOKENIZATION</string>
     <string name="tokenization_explanation_title">We care about your security.</string>
@@ -200,4 +205,5 @@
     <string name="tokenization_explanation_first_step">1. You enter your credit card information when you sign up for MENU.</string>
     <string name="tokenization_explanation_second_step">2. Your credit card information is then \'tokenized\' - turned into random numbers.</string>
     <string name="tokenization_explanation_third_step">3. These newly created \'tokens\' are stored in the cloud for safe future payments with MENU.</string>
+
 </resources>

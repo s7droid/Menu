@@ -170,7 +170,7 @@ public class SignInActivity extends BaseActivity {
 					}
 
 				} else {
-					showAlertDialog(R.string.dialog_title_error, R.string.dialog_no_internet_connection);
+					showAlertDialog(R.string.dialog_no_internet_connection_title, R.string.dialog_no_internet_connection_message);
 				}
 			}
 		});

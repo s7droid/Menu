@@ -12,8 +12,7 @@ import com.s7design.menu.utils.Settings;
 
 /**
  * Activity for showing second screen of the two screens tutorial. <br>
- * This activity is response for completing tutorial, and for transfering user
- * to
+ * This activity is response for completing tutorial, and for transfering user to
  * 
  * @author s7Design
  *
@@ -37,18 +36,21 @@ public class TutorialSecondActivity extends BaseActivity {
 	private void initViews() {
 		mMakeOrder = (Button) findViewById(R.id.buttonuTutorialScreenSecondContinueButton);
 
+		if (!Menu.getInstance().isInARestaurant())
+			mMakeOrder.setText(R.string.menu_tutorial_screen_button_awesome);
+
 		mMakeOrder.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				if(!Settings.getMajor(TutorialSecondActivity.this).isEmpty() && !Settings.getMinor(TutorialSecondActivity.this).isEmpty()){
+				if (!Settings.getMajor(TutorialSecondActivity.this).isEmpty() && !Settings.getMinor(TutorialSecondActivity.this).isEmpty()) {
 					Intent intent = new Intent(getApplicationContext(), CategoryMealsActivity.class);
 					startActivity(intent);
-				}else {
+				} else {
 					Intent intent = new Intent(getApplicationContext(), MainMenuActivity.class);
 					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 					startActivity(intent);
-				
+
 				}
 				finish();
 			}
