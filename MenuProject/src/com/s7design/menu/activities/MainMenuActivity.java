@@ -20,7 +20,7 @@ import com.s7design.menu.views.MenuButton;
  * In <code>MainMenuActivity</code> you can take actions such are: <br>
  * 
  * <pre>
- * 1)View venue menu
+ * 1)`e menu
  * </pre>
  * 
  * <pre>
@@ -242,7 +242,6 @@ public class MainMenuActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO: uncomment
 				if (!isOrderListEmpty && !isOutsideRestaurant)
 					reviewCurrentOrderButtonAction();
 

@@ -11,12 +11,25 @@
         android:orientation="vertical"
         android:weightSum="10" >
 
-        <com.android.volley.toolbox.NetworkImageView
-            android:id="@+id/imageviewMealsDetailsActivity"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:layout_weight="6"
-            android:scaleType="centerCrop" />
+            android:layout_weight="6" >
+
+            <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/imageviewMealsDetailsActivity"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:scaleType="centerCrop" />
+
+            <com.s7design.menu.views.AddCommentView
+                android:id="@+id/addCommentView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="50dp"
+                android:visibility="gone" />
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

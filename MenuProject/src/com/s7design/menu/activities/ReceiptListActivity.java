@@ -49,7 +49,7 @@ public class ReceiptListActivity extends BaseActivity {
 	private void initActionBar() {
 
 		setActionBarForwardArrowVisibility(null);
-		setActionBarForwardButtonText("RECEIPTS");
+		setActionBarForwardButtonText(getString(R.string.main_menu_view_past_receipts));
 		setActionBarForwardButtonTextColor(getResources().getColor(R.color.menu_main_orange));
 		setActionBarMenuButtonVisibility(View.GONE);
 

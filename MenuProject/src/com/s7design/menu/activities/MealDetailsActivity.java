@@ -21,6 +21,7 @@ import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
 import com.s7design.menu.dataclasses.Item;
 import com.s7design.menu.utils.Settings;
+import com.s7design.menu.views.AddCommentView;
 import com.s7design.menu.views.CircleButtonView;
 import com.s7design.menu.volley.VolleySingleton;
 import com.s7design.menu.volley.requests.GetItemInfoRequest;
@@ -34,6 +35,7 @@ public class MealDetailsActivity extends BaseActivity {
 	public static final String INTENT_EXTRA_NAME = "name";
 
 	// VIEWS
+	private AddCommentView addcommentview;
 	private NetworkImageView mMealImageImageView;
 	private TextView mMealDescriptionTextView;
 	private TextView mMealReceiptTextView;
@@ -113,6 +115,7 @@ public class MealDetailsActivity extends BaseActivity {
 
 	private void initViews() {
 
+		addcommentview = (AddCommentView) findViewById(R.id.addCommentView);
 		mMealImageImageView = (NetworkImageView) findViewById(R.id.imageviewMealsDetailsActivity);
 		mMealDescriptionTextView = (TextView) findViewById(R.id.textviewMealDetailsActivityDescription);
 		mMealReceiptTextView = (TextView) findViewById(R.id.textviewMealDetailsActivityReceiptText);
@@ -140,7 +143,8 @@ public class MealDetailsActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				showEditTextDialog("", null);
+				// showEditTextDialog("", null);
+				addcommentview.setVisibility(View.VISIBLE);
 			}
 		});
 
@@ -149,7 +153,7 @@ public class MealDetailsActivity extends BaseActivity {
 		display.getSize(size);
 		int width = (int) ((float) size.x * 2.f / 3.f);
 
-		LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mMealImageImageView.getLayoutParams();
+		RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mMealImageImageView.getLayoutParams();
 		params.height = width;
 		mMealImageImageView.setLayoutParams(params);
 
@@ -240,7 +244,10 @@ public class MealDetailsActivity extends BaseActivity {
 			mOrderSmallQuantityTextView.setVisibility(View.INVISIBLE);
 		}
 
-		textViewLabelLarge.setText(/* getString(R.string.meal_details_order) + " " + */item.largelabel);
+		textViewLabelLarge.setText(/*
+									 * getString(R.string.meal_details_order) +
+									 * " " +
+									 */item.largelabel);
 
 		circleButtonViewPlusLarge.setOnClickListener(new OnClickListener() {
 
@@ -281,7 +288,10 @@ public class MealDetailsActivity extends BaseActivity {
 
 		if (item.smalllabel.length() > 0) {
 
-			textViewLabelSmall.setText(/* getString(R.string.meal_details_order) + " " + */item.smalllabel);
+			textViewLabelSmall.setText(/*
+										 * getString(R.string.meal_details_order)
+										 * + " " +
+										 */item.smalllabel);
 			mOrderSmallPriceTextView.setText(currency + String.format("%.2f", item.smallprice));
 
 			circleButtonViewPlusSmall.setOnClickListener(new OnClickListener() {

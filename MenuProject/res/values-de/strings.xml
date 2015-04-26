@@ -11,7 +11,7 @@
     <string name="action_bar_receipt">QUITTUNG</string>
     <string name="action_bar_account_management">VERWALTEN</string>
     <string name="action_bar_about_the_app">ÜBER MENU</string>
-    <string name="action_bar_sign_in">SANMELDEN</string>
+    <string name="action_bar_sign_in">ANMELDEN</string>
     <string name="action_bar_sign_up">REGISTRIEREN</string>
     <string name="action_bar_pickup_info">INFO ZUR ABHOLNG DER BESTELLUNG</string>
     <string name="action_bar_main_menu">HAUPTVERZEICHNIS</string>
@@ -178,7 +178,7 @@
     <string name="about_menu_aknowledgements_text2"><b>Using our Services</b></string>
     <string name="about_menu_aknowledgements_text3">Cum ex putent splendide adversarium, id sea probo labores. At duo interesset complectitur, etiam minim eu sea. Everti voluptatum consequuntur ut per, dicat dolor noster eos eu, his case omnis id. Inani quaeque laboramus his et, mel magna delectus et, vero eloquentiam cu ius. Et enim oporteat has, nec sale adipiscing te.</string>
     <string name="about_menu_aknowledgements_text4">Eirmod civibus propriae eu per, dicit iisque civibus mei in. Eum ea error saepe sensibus, in populo epicurei omittantur vix. Id habeo referrentur delicatissimi duo. Cu velit consul detraxit usu.</string>
-    <string name="about_menu_security">Security</string>
+    <string name="about_menu_security">Sicherheit</string>
 
     <!-- Main Menu strings -->
     <string name="main_menu_category_not_available">Du musst dich in einem Restaurant befinden um das Menü einzusehen.</string>
@@ -197,7 +197,7 @@
     <string name="pickup_info_phone_number">Telefonnummer:</string>
     <string name="pickup_info_confirm">BESTÄTIGEN</string>
     <string name="pickup_info_phone_number_added">You have successfully added Your phone number.</string>
-    <string name="pickup_info_add_phone">Please, enter Your country code and phone number.</string>
+    <string name="pickup_info_add_phone">Bitte, tragen Sie Ihre Vorwählnummer und Telefonnummer ein.</string>
 
     <!-- Tokenization explain -->
     <string name="tokenization_explanation_action_bar_title">TOKENISIERUNG</string>
