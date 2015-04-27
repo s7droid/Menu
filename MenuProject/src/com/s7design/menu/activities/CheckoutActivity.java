@@ -195,20 +195,14 @@ public class CheckoutActivity extends BaseActivity {
 		checkoutList = new ArrayList<Item>();
 
 		Rate rate = data.getRate();
-		//TODO: uncomment
-//		tax = Utils.round(rate.tax, 2);
-//		minTip = Utils.round(rate.mintip, 2);
-//		maxTip = Utils.round(rate.maxtip, 2);
-//		discount = Utils.round(data.getDiscount(), 2);
-//		currency = data.getCurrency();
-//		// tip = Utils.round((maxTip + minTip) / 2.f, 1);
-//		tip = (int) ((maxTip + minTip) / 2);
+		tax = Utils.round(rate.tax, 2);
+		minTip = Utils.round(rate.mintip, 2);
+		maxTip = Utils.round(rate.maxtip, 2);
+		discount = Utils.round(data.getDiscount(), 2);
+		currency = data.getCurrency();
+		// tip = Utils.round((maxTip + minTip) / 2.f, 1);
+		tip = (int) ((maxTip + minTip) / 2);
 	
-		tax = 0;
-		minTip = 0;
-		maxTip = 0;
-		discount = 0;
-		currency = "e";
 		// tip = Utils.round((maxTip + minTip) / 2.f, 1);
 		tip = (int) ((maxTip + minTip) / 2);
 	
