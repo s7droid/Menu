@@ -4,7 +4,6 @@ import com.s7design.menu.dataclasses.Item;
 
 public class GetReceiptInfoResponse extends GsonResponse {
 
-	public String response;
 	public float orderprice;
 	public float discount;
 	public float tip;

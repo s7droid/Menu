@@ -98,7 +98,16 @@ public class GsonRequest<T> extends Request<T> {
 		GsonResponse gsonResponse = GsonResponse.class.cast(response);
 		String errordata = gsonResponse.errordata;
 
-		if (errordata != null && errordata.equals("yes")) {
+		Log.w(TAG, "deliverResponse " + gsonResponse.response);
+
+		if (gsonResponse.response != null) {
+			Log.w(TAG, "2 " + (!gsonResponse.response.equals("success")));
+			Log.w(TAG, "3 " + (gsonResponse.response.length() != 0));
+		}
+		if (errordata != null)
+			Log.w(TAG, "5 " + (errordata.equals("yes")));
+
+		if ((gsonResponse.response != null && gsonResponse.response.equals("wronglogindetails")) || (errordata != null && errordata.equals("yes"))) {
 			Menu.getInstance().onResponseErrorReceived(gsonResponse);
 		} else {
 			listener.onResponse(response);

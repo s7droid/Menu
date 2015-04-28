@@ -4,6 +4,4 @@ public class ForgotPasswordResponse extends GsonResponse {
 
 	public static final String USER_DOESNT_EXIST = "userdoesnotexist";
 
-	public String response;
-
 }
