@@ -110,7 +110,9 @@
     <string name="category_meals_add_small">ADD SMALL</string>
     <string name="category_meals_add">ADD</string>
     <string name="category_meals_out_of_stock">AUSVERKAUFT</string>
-
+	 <string name="category_meals_no_items_content">Es ist leider kein Gericht in dieser Kategorie vorhanden. Bitte versuche aus einer anderen Kategorie zu bestellen</string>
+	<string name="category_meals_no_items_title">Keine Gerichte</string>
+	
     <!-- Sign in -->
     <string name="sign_in_button_text">ANMELDEN</string>
     <string name="sign_in_username_hint_text">Email Adresse</string>

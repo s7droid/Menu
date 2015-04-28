@@ -11,8 +11,8 @@ import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.android.volley.Response.Listener;
@@ -55,7 +55,8 @@ public class MealDetailsActivity extends BaseActivity {
 	private TextView textViewLabelSmall;
 	private View viewSeparator;
 	private RelativeLayout layoutSmall;
-
+	private ScrollView mScrollViewGlobalContainer;
+	
 	private Item item;
 
 	private String currency;
@@ -116,6 +117,7 @@ public class MealDetailsActivity extends BaseActivity {
 
 	private void initViews() {
 
+		mScrollViewGlobalContainer = (ScrollView) findViewById(R.id.scrollViewMealDetailsContainer);
 		addcommentview = (AddCommentView) findViewById(R.id.addCommentView);
 		mMealImageImageView = (NetworkImageView) findViewById(R.id.imageviewMealsDetailsActivity);
 		mMealDescriptionTextView = (TextView) findViewById(R.id.textviewMealDetailsActivityDescription);
@@ -186,7 +188,7 @@ public class MealDetailsActivity extends BaseActivity {
 
 				if (response != null && response.item != null && response.item.length > 0) {
 					item = response.item[0];
-
+					mScrollViewGlobalContainer.setVisibility(View.VISIBLE);
 					setData();
 				}
 

@@ -112,7 +112,7 @@
     <string name="category_meals_add_small">ADD SMALL</string>
     <string name="category_meals_add">ADD</string>
     <string name="category_meals_out_of_stock">SOLD OUT</string>
-    <string name="category_meals_no_items_content">It appears that there is no any item to order. Try to order something from other category.</string>
+    <string name="category_meals_no_items_content">It appears that here is no item in this category. Please try ordering something from an other category</string>
 	<string name="category_meals_no_items_title">No items</string>
     
     <!-- Sign in -->
