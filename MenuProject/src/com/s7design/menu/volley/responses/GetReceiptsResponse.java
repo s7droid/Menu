@@ -4,7 +4,6 @@ import com.s7design.menu.dataclasses.Receipt;
 
 public class GetReceiptsResponse extends GsonResponse {
 
-	public String response;
 	public Receipt[] receipts;
 
 }

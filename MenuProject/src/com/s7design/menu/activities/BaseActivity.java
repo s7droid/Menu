@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,6 +26,8 @@ import com.s7design.menu.volley.responses.GsonResponse;
 
 public class BaseActivity extends Activity implements OnVolleyErrorCallback {
 
+	private static final String TAG = BaseActivity.class.getSimpleName();
+
 	private ActionBar actionBar;
 
 	private ProgressDialog progressDialog;
@@ -38,6 +41,8 @@ public class BaseActivity extends Activity implements OnVolleyErrorCallback {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		// overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
 		actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(false);
@@ -206,7 +211,11 @@ public class BaseActivity extends Activity implements OnVolleyErrorCallback {
 	@Override
 	public void onResponseError(GsonResponse response) {
 
-		if (response.errorlog != null && response.errorlog.equals("wronglogindetails")) {
+		Log.e(TAG, "onResponseError");
+
+		dismissProgressDialog();
+
+		if (response.response != null && response.response.equals("wronglogindetails")) {
 
 			OkCancelDialogFragment dialog = new OkCancelDialogFragment();
 			dialog.showDialog(getFragmentManager(), "", getString(R.string.dialog_please_login_again), new OnClickListener() {
@@ -215,13 +224,13 @@ public class BaseActivity extends Activity implements OnVolleyErrorCallback {
 				public void onClick(View v) {
 
 					startActivity(new Intent(BaseActivity.this, SignInActivity.class));
+					finish();
 				}
 			}, null);
 
 			return;
 		}
 
-		dismissProgressDialog();
 		showAlertDialog(getString(R.string.dialog_body_default_error_title), getString(R.string.dialog_body_default_error_message));
 	}
 
