@@ -94,6 +94,17 @@ public class Utils {
 		inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
 	}
 
+	public static void hideSoftKeyboard(View v, Activity activity) {
+		final InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+
+		inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+	}
+
+	public static void showSoftKeyboard(View view, Activity activity) {
+		InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+		inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_FORCED);
+	}
+
 	public static void handleOutsideEditTextClick(View view, final Activity activity) {
 
 		System.out.println("Called");

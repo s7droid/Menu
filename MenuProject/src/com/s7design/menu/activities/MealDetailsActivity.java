@@ -21,6 +21,7 @@ import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
 import com.s7design.menu.dataclasses.Item;
 import com.s7design.menu.utils.Settings;
+import com.s7design.menu.utils.Utils;
 import com.s7design.menu.views.AddCommentView;
 import com.s7design.menu.views.CircleButtonView;
 import com.s7design.menu.volley.VolleySingleton;
@@ -144,7 +145,18 @@ public class MealDetailsActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				// showEditTextDialog("", null);
-				addcommentview.setVisibility(View.VISIBLE);
+				if (addcommentview.getVisibility() == View.GONE) {
+					addcommentview.setVisibility(View.VISIBLE);
+					addcommentview.requestEditTextFocus();
+					Utils.showSoftKeyboard(addcommentview.edittextBody, MealDetailsActivity.this);
+				} else {
+					addcommentview.setVisibility(View.GONE);
+					try {
+						Utils.hideSoftKeyboard(v, MealDetailsActivity.this);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		});
 

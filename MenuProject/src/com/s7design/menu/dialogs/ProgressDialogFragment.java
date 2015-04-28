@@ -1,5 +1,7 @@
 package com.s7design.menu.dialogs;
 
+import java.io.IOException;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -9,9 +11,12 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.s7design.menu.R;
+import com.s7design.menu.gif.GifDecoderView;
 
 public class ProgressDialogFragment extends DialogFragment {
 	private FragmentManager fm;
@@ -34,8 +39,20 @@ public class ProgressDialogFragment extends DialogFragment {
 	public Dialog onCreateDialog(final Bundle savedInstanceState) {
 		isVisible = true;
 		LayoutInflater inflater = getActivity().getLayoutInflater();
-		View view = inflater.inflate(R.layout.dialog_progress, null);
-		bodyTextView = (TextView) view.findViewById(R.id.textViewBodyProgressDialog);
+		RelativeLayout view = (RelativeLayout) inflater.inflate(R.layout.dialog_progress, null);
+		
+		try {
+			GifDecoderView gifView = (GifDecoderView) view.findViewById(R.id.decoderView);
+			gifView.playGif(context.getAssets().open("loading_icon_384.gif"));
+//					new GifDecoderView(context, context.getAssets().open("loading_icon_384.gif"));
+//			LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
+//			params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+//			gifView.setLayoutParams(params);
+//			view.addView(gifView);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		if (body != null)
 			bodyTextView.setText(body);
 		builder = new AlertDialog.Builder(getActivity());
@@ -69,12 +86,13 @@ public class ProgressDialogFragment extends DialogFragment {
 
 	@Override
 	public void show(FragmentManager manager, String tag) {
-	    if (isVisible) return;
+		if (isVisible)
+			return;
 
-	    super.show(manager, tag);
-	    isVisible = true;
+		super.show(manager, tag);
+		isVisible = true;
 	}
-	
+
 	@Override
 	public void onDismiss(DialogInterface dialog) {
 		super.onDismiss(dialog);

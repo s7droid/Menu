@@ -19,7 +19,7 @@ import com.s7design.menu.callbacks.OnVolleyErrorCallback;
 import com.s7design.menu.dialogs.AlertDialogEditTextFragment;
 import com.s7design.menu.dialogs.AlertDialogFragment;
 import com.s7design.menu.dialogs.OkCancelDialogFragment;
-import com.s7design.menu.dialogs.ProgressDialogFragment;
+import com.s7design.menu.dialogs.ProgressDialog;
 import com.s7design.menu.utils.Utils;
 import com.s7design.menu.volley.responses.GsonResponse;
 
@@ -27,9 +27,10 @@ public class BaseActivity extends Activity implements OnVolleyErrorCallback {
 
 	private ActionBar actionBar;
 
+	private ProgressDialog progressDialog;
 	private AlertDialogEditTextFragment edittextDialog;
 	private AlertDialogFragment alertDialog;
-	private ProgressDialogFragment progressDialog;
+//	private ProgressDialogFragment progressDialog;
 	private Button buttonActionBarBack;
 	private Button buttonActionBarForward;
 	private ImageButton imageButtonActionBarMenu;
@@ -53,9 +54,11 @@ public class BaseActivity extends Activity implements OnVolleyErrorCallback {
 		alertDialog = new AlertDialogFragment();
 		alertDialog.setFragmentManager(getFragmentManager(), this);
 
-		progressDialog = new ProgressDialogFragment();
-		progressDialog.setFragmentManager(getFragmentManager(), this);
+//		progressDialog = new ProgressDialogFragment();
+//		progressDialog.setFragmentManager(getFragmentManager(), this);
 
+		progressDialog = new ProgressDialog(this);
+		
 		edittextDialog = new AlertDialogEditTextFragment();
 		edittextDialog.setFragmentManager(getFragmentManager(), this);
 
@@ -169,27 +172,31 @@ public class BaseActivity extends Activity implements OnVolleyErrorCallback {
 	}
 
 	public void showProgressDialog(int body) {
-		progressDialog.showDialog(getString(body));
+//		progressDialog.showDialog(getString(body));
+		progressDialog.show();
 	}
 
 	public void showProgressDialog(String body) {
-		progressDialog.showDialog(body);
+//		progressDialog.showDialog(body);
+		progressDialog.show();
 	}
 
 	public void showProgressDialogLoading() {
-		if (!progressDialog.isVisible) {
-			progressDialog.show(getFragmentManager(), BaseActivity.class.getSimpleName());
-			;
-		}
+//		if (!progressDialog.isVisible) {
+//			progressDialog.show(getFragmentManager(), BaseActivity.class.getSimpleName());
+//			;
+//		}
+		progressDialog.show();
 	}
 
 	public void dismissProgressDialog() {
-		try {
-			progressDialog.dismiss();
-			progressDialog.dismissAllowingStateLoss();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		try {
+//			progressDialog.dismiss();
+//			progressDialog.dismissAllowingStateLoss();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+		progressDialog.dismiss();
 	}
 
 	public void showEditTextDialog(String title, OnClickListener listener) {

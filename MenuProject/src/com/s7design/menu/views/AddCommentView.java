@@ -14,6 +14,8 @@ import com.s7design.menu.R;
 
 public class AddCommentView extends RelativeLayout {
 
+	public EditText edittextBody;
+	
 	public AddCommentView(Context context) {
 		super(context);
 		init();
@@ -29,11 +31,15 @@ public class AddCommentView extends RelativeLayout {
 		init();
 	}
 
+	public void requestEditTextFocus(){
+		edittextBody.requestFocus();
+	}
+	
 	private void init() {
 
 		View view = inflate(getContext(), R.layout.dialog_edit_text, this);
 
-		final EditText textViewBody = (EditText) view.findViewById(R.id.editetextBodyAlertEditTextDialog);
+		edittextBody = (EditText) view.findViewById(R.id.editetextBodyAlertEditTextDialog);
 		final TextView characatersLeft = (TextView) view.findViewById(R.id.textviewCharactersLeft);
 		Button buttonOk = (Button) view.findViewById(R.id.buttonEditTextDialogOk);
 
@@ -44,13 +50,13 @@ public class AddCommentView extends RelativeLayout {
 			}
 		});
 
-		characatersLeft.setText(textViewBody.length() + "/100");
+		characatersLeft.setText(edittextBody.length() + "/100");
 
-		textViewBody.addTextChangedListener(new TextWatcher() {
+		edittextBody.addTextChangedListener(new TextWatcher() {
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				characatersLeft.setText(textViewBody.length() + "/100");
+				characatersLeft.setText(edittextBody.length() + "/100");
 			}
 
 			@Override

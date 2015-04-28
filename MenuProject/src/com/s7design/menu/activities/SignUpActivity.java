@@ -14,13 +14,13 @@ import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
-import android.view.MotionEvent;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
-import android.view.WindowManager;
+import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.android.volley.Response.Listener;
@@ -53,6 +53,7 @@ public class SignUpActivity extends BaseActivity {
 	private EditText mYearEditText;
 	private EditText mCCVEditText;
 	private TextView mTextViewTermsOfUse;
+
 	// DATA
 	private boolean isPasswordShowing = false;
 	private int MY_SCAN_REQUEST_CODE = 123; // arbitrary int
@@ -240,6 +241,7 @@ public class SignUpActivity extends BaseActivity {
 
 			}
 		});
+
 		// mCCVEditText.setOnTouchListener(new OnTouchListener() {
 		//
 		// @Override
