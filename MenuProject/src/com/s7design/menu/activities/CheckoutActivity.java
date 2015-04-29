@@ -364,11 +364,13 @@ public class CheckoutActivity extends BaseActivity {
 
 	private void setData() {
 
-		totalTax = Utils.round(total * tax / 100, 2);
-		totalTip = Utils.round(total * tip / 100, 2);
 		disc = Utils.round(total * discount / 100, 2);
-		Log.d(TAG, "disc 1 " + disc);
-		totalPrice = Utils.round(total + totalTip - disc, 2);
+		float totalDisc = total - disc;
+		
+		totalTax = Utils.round(totalDisc * tax / 100, 2);
+		totalTip = Utils.round(totalDisc * tip / 100, 2);
+		
+		totalPrice = Utils.round(total + totalTip, 2);
 
 		textViewTipPercent.setText(tip + "% - " + currency + String.format("%.2f", totalTip));
 
