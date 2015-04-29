@@ -171,6 +171,8 @@ public class MealDetailsActivity extends BaseActivity {
 		params.height = width;
 		mMealImageImageView.setLayoutParams(params);
 
+//		Utils.handleOutsideCommentDialogClick(addcommentview, mScrollViewGlobalContainer, this);
+		
 	}
 
 	private void initData() {

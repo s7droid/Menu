@@ -93,7 +93,9 @@ public class CheckoutActivity extends BaseActivity {
 	private float totalTip;
 	private float totalTax;
 	private boolean isOrderComplete = false;
-
+	
+	public static boolean isCheckoutCLicked = false;
+	
 	private DataManager data;
 
 	private static final int REQUEST_LOGIN = 123;
@@ -114,8 +116,16 @@ public class CheckoutActivity extends BaseActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-
+		
 		refreshList();
+		
+		if(Settings.getAccessToken(CheckoutActivity.this) != null && !Settings.getAccessToken(CheckoutActivity.this).isEmpty()){
+			showProgressDialogLoading();
+			checkout();
+		}else{
+			isCheckoutCLicked = false;
+		}
+		
 	}
 
 	private void refreshList() {
@@ -329,6 +339,7 @@ public class CheckoutActivity extends BaseActivity {
 					VolleySingleton.getInstance(CheckoutActivity.this).addToRequestQueue(request);
 
 				} else {
+					isCheckoutCLicked = true;
 					Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
 					startActivityForResult(intent, REQUEST_LOGIN);
 					enableCheckoutButton();
@@ -389,6 +400,8 @@ public class CheckoutActivity extends BaseActivity {
 
 	private void onSuccessfulCheckout() {
 
+		isCheckoutCLicked = false;
+		
 		textViewDesc.setVisibility(View.VISIBLE);
 		buttonReceiptListItemSendMessage.setVisibility(View.VISIBLE);
 		layoutAddMore.setVisibility(View.GONE);

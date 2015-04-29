@@ -29,6 +29,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import com.s7design.menu.views.AddCommentView;
 
 public class Utils {
 
@@ -107,16 +108,12 @@ public class Utils {
 
 	public static void handleOutsideEditTextClick(View view, final Activity activity) {
 
-		System.out.println("Called");
-
 		// Set up touch listener for non-text box views to hide keyboard.
 		if (!(view instanceof EditText)) {
-			System.err.println("Instantiate proprely");
 			view.setOnTouchListener(new OnTouchListener() {
 
 				@Override
 				public boolean onTouch(View v, MotionEvent event) {
-					System.err.println("ON TOUCH CALLED");
 					hideSoftKeyboard(activity);
 					return false;
 				}
@@ -136,6 +133,42 @@ public class Utils {
 		}
 	}
 
+//	public static void handleOutsideCommentDialogClick(AddCommentView commentView, View view, final Activity activity){
+//
+//
+//		// Set up touch listener for non-text box views to hide keyboard.
+//		if (!(view instanceof AddCommentView)) {
+//			
+//			System.out.println("");
+//			
+//			if(commentView.getVisibility() == View.VISIBLE)
+//				commentView.setVisibility(View.GONE);
+//			
+//			
+//			view.setOnTouchListener(new OnTouchListener() {
+//
+//				@Override
+//				public boolean onTouch(View v, MotionEvent event) {
+//					hideSoftKeyboard(v,activity);
+//					return false;
+//				}
+//
+//			});
+//		}
+//
+//		// If a layout container, iterate over children and seed recursion.
+//		if (view instanceof ViewGroup) {
+//
+//			for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+//
+//				View innerView = ((ViewGroup) view).getChildAt(i);
+//
+//				handleOutsideCommentDialogClick(commentView,innerView, activity);
+//			}
+//		}
+//	
+//	}
+	
 	public static boolean isValidExpiryDate(String month, String year) {
 
 		if (month.length() < 2 || year.length() < 4)

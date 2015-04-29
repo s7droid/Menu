@@ -55,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/sign_in_edittext_shape"
                     android:hint="@string/manage_account_email_hint_text"
-                    android:inputType="textEmailAddress|textNoSuggestions"
+                    android:inputType="textNoSuggestions|textVisiblePassword"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
                     android:singleLine="true"

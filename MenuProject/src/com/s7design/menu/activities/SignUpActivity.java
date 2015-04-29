@@ -167,10 +167,19 @@ public class SignUpActivity extends BaseActivity {
 
 								if (signUpResponse.response.equals("success")) {
 									Settings.setAccessToken(SignUpActivity.this, signUpResponse.accesstoken);
-									Intent i = new Intent(SignUpActivity.this, RestaurantPreviewActivity.class);
-									i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-									startActivity(i);
-									dismissProgressDialog();
+									if (!CheckoutActivity.isCheckoutCLicked) {
+										Intent i = new Intent(SignUpActivity.this, RestaurantPreviewActivity.class);
+										i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+										startActivity(i);
+										dismissProgressDialog();
+									} else {
+										Intent i = new Intent(SignUpActivity.this, CheckoutActivity.class);
+										i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+										startActivity(i);
+										dismissProgressDialog();
+
+									}
+
 								} else if (signUpResponse.response.equals("emailinuse")) {
 									showAlertDialog(R.string.dialog_title_error, R.string.dialog_email_in_use);
 								} else if (signUpResponse.response.equals("ccdeclined")) {

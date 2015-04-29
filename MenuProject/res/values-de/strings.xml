@@ -40,7 +40,7 @@
     <!-- Restaurant preview -->
     <string name="restaurant_preview_activity_welcome_message">Willkommen bei</string>
     <string name="restaurant_preview_activity_make_your_order">AUSWÄHLEN</string>
-    <string name="restaurant_preview_activity_powered_by">Zur Verfügung gestellt von</string>
+    <string name="restaurant_preview_activity_powered_by">Provided to you by</string>
     <string name="txt_checkout_small">Bestellen</string>
 
     <!-- Dialogs -->

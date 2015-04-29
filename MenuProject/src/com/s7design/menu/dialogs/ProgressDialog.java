@@ -38,7 +38,7 @@ public class ProgressDialog extends Dialog {
 	private void initViews() {
 		GifDecoderView gifView = (GifDecoderView) findViewById(R.id.decoderView);
 		try {
-			gifView.playGif(getContext().getAssets().open("loading_icon_384.gif"));
+			gifView.playGif(getContext().getAssets().open("loading_icon_256.gif"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -3,6 +3,7 @@ package com.s7design.menu.activities;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -31,6 +32,9 @@ public class SignInActivity extends BaseActivity {
 	private TextView mRegisterButton;
 	private Button mSignInButton;
 
+	//DATA
+	private static int REQUEST_SIGN_UP = 54321;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -78,7 +82,7 @@ public class SignInActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(getApplicationContext(), SignUpActivity.class));
+				startActivityForResult(new Intent(getApplicationContext(), SignUpActivity.class),REQUEST_SIGN_UP);
 			}
 		});
 
@@ -176,4 +180,15 @@ public class SignInActivity extends BaseActivity {
 		});
 
 	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if(resultCode == Activity.RESULT_OK){
+			if(requestCode == REQUEST_SIGN_UP){
+				
+			}
+		}
+	}
+	
 }

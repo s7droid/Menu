@@ -38,7 +38,7 @@
             android:drawableLeft="@drawable/sign_in_user_icon"
             android:drawablePadding="10dp"
             android:hint="@string/sign_in_username_hint_text"
-            android:inputType="textEmailAddress|textNoSuggestions"
+            android:inputType="textNoSuggestions|textVisiblePassword"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
             android:singleLine="true"
