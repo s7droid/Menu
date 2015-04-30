@@ -200,6 +200,8 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 				textViewDash.setVisibility(View.INVISIBLE);
 				smallOrderPriceAndQuantity.setVisibility(View.INVISIBLE);
 
+				imageView.setAlpha(0.6f);
+
 				bigOrderPriceAndQuantity.setText(getResources().getString(R.string.category_meals_out_of_stock));
 			}
 

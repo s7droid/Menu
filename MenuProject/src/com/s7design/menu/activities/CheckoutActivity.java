@@ -93,9 +93,9 @@ public class CheckoutActivity extends BaseActivity {
 	private float totalTip;
 	private float totalTax;
 	private boolean isOrderComplete = false;
-	
+
 	public static boolean isCheckoutCLicked = false;
-	
+
 	private DataManager data;
 
 	private static final int REQUEST_LOGIN = 123;
@@ -116,16 +116,16 @@ public class CheckoutActivity extends BaseActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
+
 		refreshList();
-		
-		if(Settings.getAccessToken(CheckoutActivity.this) != null && !Settings.getAccessToken(CheckoutActivity.this).isEmpty()){
+
+		if (Settings.getAccessToken(CheckoutActivity.this) != null && !Settings.getAccessToken(CheckoutActivity.this).isEmpty() && isCheckoutCLicked) {
 			showProgressDialogLoading();
 			checkout();
-		}else{
+		} else {
 			isCheckoutCLicked = false;
 		}
-		
+
 	}
 
 	private void refreshList() {
@@ -133,6 +133,7 @@ public class CheckoutActivity extends BaseActivity {
 
 		checkoutList.clear();
 		for (Item item : data.getCheckoutList()) {
+
 			if (item.quantityLarge > 0) {
 				checkoutList.add(item);
 				total += item.quantityLarge * item.largeprice;
@@ -319,22 +320,23 @@ public class CheckoutActivity extends BaseActivity {
 					params.put("major", Settings.getMajor(CheckoutActivity.this));
 					params.put("minor", Settings.getMinor(CheckoutActivity.this));
 
-					CheckIfPhoneNeededRequest request = new CheckIfPhoneNeededRequest(CheckoutActivity.this, params, new Listener<CheckIfPhoneNeededResponse>() {
+					CheckIfPhoneNeededRequest request = new CheckIfPhoneNeededRequest(CheckoutActivity.this, params,
+							new Listener<CheckIfPhoneNeededResponse>() {
 
-						@Override
-						public void onResponse(CheckIfPhoneNeededResponse arg0) {
+								@Override
+								public void onResponse(CheckIfPhoneNeededResponse arg0) {
 
-							enableCheckoutButton();
+									enableCheckoutButton();
 
-							if (arg0.response != null && arg0.response.equals("numberneeded")) {
-								dismissProgressDialog();
-								Intent intent = new Intent(CheckoutActivity.this, PickupInfoActivity.class);
-								startActivityForResult(intent, REQUEST_PHONE_NUMBER);
-							} else if (arg0.response != null && arg0.response.equals("notneeded")) {
-								checkout();
-							}
-						}
-					});
+									if (arg0.response != null && arg0.response.equals("numberneeded")) {
+										dismissProgressDialog();
+										Intent intent = new Intent(CheckoutActivity.this, PickupInfoActivity.class);
+										startActivityForResult(intent, REQUEST_PHONE_NUMBER);
+									} else if (arg0.response != null && arg0.response.equals("notneeded")) {
+										checkout();
+									}
+								}
+							});
 
 					VolleySingleton.getInstance(CheckoutActivity.this).addToRequestQueue(request);
 
@@ -377,10 +379,10 @@ public class CheckoutActivity extends BaseActivity {
 
 		disc = Utils.round(total * discount / 100, 2);
 		float totalDisc = total - disc;
-		
+
 		totalTax = Utils.round(totalDisc * tax / 100, 2);
 		totalTip = Utils.round(totalDisc * tip / 100, 2);
-		
+
 		totalPrice = Utils.round(totalDisc + totalTip, 2);
 
 		textViewTipPercent.setText(tip + "% - " + currency + String.format("%.2f", totalTip));
@@ -401,7 +403,7 @@ public class CheckoutActivity extends BaseActivity {
 	private void onSuccessfulCheckout() {
 
 		isCheckoutCLicked = false;
-		
+
 		textViewDesc.setVisibility(View.VISIBLE);
 		buttonReceiptListItemSendMessage.setVisibility(View.VISIBLE);
 		layoutAddMore.setVisibility(View.GONE);
@@ -467,17 +469,18 @@ public class CheckoutActivity extends BaseActivity {
 				Map<String, String> params = new HashMap<String, String>();
 				params.put("accesstoken", Settings.getAccessToken(CheckoutActivity.this));
 				params.put("receiptid", orderResponse.receiptid);
-				SendReceiptByEmailRequest sendEmailRequest = new SendReceiptByEmailRequest(CheckoutActivity.this, params, new Listener<SendReceiptByEmailResponse>() {
+				SendReceiptByEmailRequest sendEmailRequest = new SendReceiptByEmailRequest(CheckoutActivity.this, params,
+						new Listener<SendReceiptByEmailResponse>() {
 
-					@Override
-					public void onResponse(SendReceiptByEmailResponse response) {
+							@Override
+							public void onResponse(SendReceiptByEmailResponse response) {
 
-						if (response.response != null && response.response.equals("success")) {
-							dismissProgressDialog();
-							buttonReceiptListItemSendMessage.setText(getString(R.string.receipt_send_email_button_sent));
-						}
-					}
-				});
+								if (response.response != null && response.response.equals("success")) {
+									dismissProgressDialog();
+									buttonReceiptListItemSendMessage.setText(getString(R.string.receipt_send_email_button_sent));
+								}
+							}
+						});
 
 				VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(sendEmailRequest);
 			}
@@ -588,6 +591,8 @@ public class CheckoutActivity extends BaseActivity {
 								itemParams.put("language", data.getLanguage());
 								itemParams.put("tag", String.valueOf(item.quantitySmall > 0 ? item.smalltag : item.largetag));
 								itemParams.put("amount", String.valueOf(item.quantitySmall > 0 ? item.quantitySmall : item.quantityLarge));
+								if (item.quantitySmall > 0)
+									--item.quantitySmall;
 								itemParams.put("orderid", response.orderid);
 								itemParams.put("accesstoken", Settings.getAccessToken(CheckoutActivity.this));
 
@@ -737,7 +742,8 @@ public class CheckoutActivity extends BaseActivity {
 
 			holder.circleButtonViewQty.setAsQty(holder.isSmall ? item.quantitySmall : item.quantityLarge);
 			holder.textViewName.setText(item.name);
-			holder.textViewPrice.setText(String.format("%.2f", holder.isSmall ? (item.smallprice * item.quantitySmall) : (item.largeprice * item.quantityLarge)));
+			holder.textViewPrice.setText(String
+					.format("%.2f", holder.isSmall ? (item.smallprice * item.quantitySmall) : (item.largeprice * item.quantityLarge)));
 			holder.circleButtonViewDel.setAsDel();
 			holder.circleButtonViewMinus.setAsRemoveGrey();
 			holder.circleButtonViewPlus.setAsAddGrey();
@@ -782,7 +788,8 @@ public class CheckoutActivity extends BaseActivity {
 						ViewHolder holder = (ViewHolder) v.getTag();
 						int qty = holder.isSmall ? getItem(holder.position).quantitySmall : getItem(holder.position).quantityLarge;
 						if (qty > 1) {
-							holder.textViewQty.setText(String.valueOf(holder.isSmall ? --getItem(holder.position).quantitySmall : --getItem(holder.position).quantityLarge));
+							holder.textViewQty.setText(String.valueOf(holder.isSmall ? --getItem(holder.position).quantitySmall
+									: --getItem(holder.position).quantityLarge));
 							refreshList();
 						}
 					}
@@ -798,7 +805,8 @@ public class CheckoutActivity extends BaseActivity {
 						ViewHolder holder = (ViewHolder) v.getTag();
 						int qty = holder.isSmall ? getItem(holder.position).quantitySmall : getItem(holder.position).quantityLarge;
 						if (qty < 99) {
-							holder.textViewQty.setText(String.valueOf(holder.isSmall ? ++getItem(holder.position).quantitySmall : ++getItem(holder.position).quantityLarge));
+							holder.textViewQty.setText(String.valueOf(holder.isSmall ? ++getItem(holder.position).quantitySmall
+									: ++getItem(holder.position).quantityLarge));
 							refreshList();
 						}
 
