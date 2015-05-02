@@ -133,41 +133,40 @@ public class Utils {
 		}
 	}
 
-//	public static void handleOutsideCommentDialogClick(AddCommentView commentView, View view, final Activity activity){
-//
-//
-//		// Set up touch listener for non-text box views to hide keyboard.
-//		if (!(view instanceof AddCommentView)) {
-//			
-//			System.out.println("");
-//			
+	public static void handleOutsideCommentDialogClick(AddCommentView commentView, View view, final Activity activity){
+
+
+		// Set up touch listener for non-text box views to hide keyboard.
+		if (!(view instanceof AddCommentView)) {
+			
+			
 //			if(commentView.getVisibility() == View.VISIBLE)
 //				commentView.setVisibility(View.GONE);
-//			
-//			
-//			view.setOnTouchListener(new OnTouchListener() {
-//
-//				@Override
-//				public boolean onTouch(View v, MotionEvent event) {
-//					hideSoftKeyboard(v,activity);
-//					return false;
-//				}
-//
-//			});
-//		}
-//
-//		// If a layout container, iterate over children and seed recursion.
-//		if (view instanceof ViewGroup) {
-//
-//			for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
-//
-//				View innerView = ((ViewGroup) view).getChildAt(i);
-//
-//				handleOutsideCommentDialogClick(commentView,innerView, activity);
-//			}
-//		}
-//	
-//	}
+			
+			
+			view.setOnTouchListener(new OnTouchListener() {
+
+				@Override
+				public boolean onTouch(View v, MotionEvent event) {
+					hideSoftKeyboard(v,activity);
+					return false;
+				}
+
+			});
+		}
+
+		// If a layout container, iterate over children and seed recursion.
+		if (view instanceof ViewGroup) {
+
+			for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+
+				View innerView = ((ViewGroup) view).getChildAt(i);
+
+				handleOutsideCommentDialogClick(commentView,innerView, activity);
+			}
+		}
+	
+	}
 	
 	public static boolean isValidExpiryDate(String month, String year) {
 

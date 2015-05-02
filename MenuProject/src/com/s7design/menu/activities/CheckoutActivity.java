@@ -144,7 +144,7 @@ public class CheckoutActivity extends BaseActivity {
 			}
 		}
 
-		if (data.getCheckoutList().size() == 0) {
+		if (listView.getAdapter().getCount() == 0) {
 			finish();
 		}
 
@@ -525,19 +525,20 @@ public class CheckoutActivity extends BaseActivity {
 				params.put("major", Settings.getMajor(CheckoutActivity.this));
 				params.put("minor", Settings.getMinor(CheckoutActivity.this));
 
-				CheckIfPhoneNeededRequest request = new CheckIfPhoneNeededRequest(CheckoutActivity.this, params, new Listener<CheckIfPhoneNeededResponse>() {
+				CheckIfPhoneNeededRequest request = new CheckIfPhoneNeededRequest(CheckoutActivity.this, params,
+						new Listener<CheckIfPhoneNeededResponse>() {
 
-					@Override
-					public void onResponse(CheckIfPhoneNeededResponse arg0) {
-						if (arg0.response != null && arg0.response.equals("numberneeded")) {
-							Intent intent = new Intent(CheckoutActivity.this, PickupInfoActivity.class);
-							startActivityForResult(intent, REQUEST_PHONE_NUMBER);
-						} else if (arg0.response != null && arg0.response.equals("notneeded")) {
-							showProgressDialogLoading();
-							checkout();
-						}
-					}
-				});
+							@Override
+							public void onResponse(CheckIfPhoneNeededResponse arg0) {
+								if (arg0.response != null && arg0.response.equals("numberneeded")) {
+									Intent intent = new Intent(CheckoutActivity.this, PickupInfoActivity.class);
+									startActivityForResult(intent, REQUEST_PHONE_NUMBER);
+								} else if (arg0.response != null && arg0.response.equals("notneeded")) {
+									showProgressDialogLoading();
+									checkout();
+								}
+							}
+						});
 
 				VolleySingleton.getInstance(CheckoutActivity.this).addToRequestQueue(request);
 			}
@@ -553,6 +554,19 @@ public class CheckoutActivity extends BaseActivity {
 
 		Calendar cal = Calendar.getInstance();
 
+		// TODO: see how will this beneath do
+		// checkedoutItems = new ArrayList<Item>();
+		// checkedoutItems.addAll(checkoutList);
+
+		// List<Item> copy = new ArrayList<Item>(checkoutList.size());
+		//
+		// for (Item foo: checkoutList) {
+		// copy.add((Item)foo.clone());
+		// }
+
+		checkedoutItems = (ArrayList<Item>) cloneList(checkoutList);
+
+		// /////////////
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("type", "neworder");
 		params.put("major", Settings.getMajor(CheckoutActivity.this));
@@ -645,8 +659,11 @@ public class CheckoutActivity extends BaseActivity {
 											// showAlertDialog(R.string.dialog_title_success,
 											// R.string.dialog_order_successful);
 											isOrderComplete = true;
-											checkedoutItems = new ArrayList<Item>();
-											checkedoutItems.addAll(checkoutList);
+											// TODO: commented, moved to the
+											// start of the method
+											// checkedoutItems = new
+											// ArrayList<Item>();
+											// checkedoutItems.addAll(checkoutList);
 											onSuccessfulCheckout();
 										}
 									}
@@ -742,8 +759,8 @@ public class CheckoutActivity extends BaseActivity {
 
 			holder.circleButtonViewQty.setAsQty(holder.isSmall ? item.quantitySmall : item.quantityLarge);
 			holder.textViewName.setText(item.name);
-			holder.textViewPrice.setText(String
-					.format("%.2f", holder.isSmall ? (item.smallprice * item.quantitySmall) : (item.largeprice * item.quantityLarge)));
+			holder.textViewPrice.setText(String.format("%.2f", holder.isSmall ? (item.smallprice * item.quantitySmall)
+					: (item.largeprice * item.quantityLarge)));
 			holder.circleButtonViewDel.setAsDel();
 			holder.circleButtonViewMinus.setAsRemoveGrey();
 			holder.circleButtonViewPlus.setAsAddGrey();
@@ -774,7 +791,8 @@ public class CheckoutActivity extends BaseActivity {
 						ViewHolder holder = (ViewHolder) v.getTag();
 						holder.layoutMinusPlus.setVisibility(View.GONE);
 						holder.layoutName.setVisibility(View.VISIBLE);
-						holder.circleButtonViewQty.setAsQty(holder.isSmall ? getItem(holder.position).quantitySmall : getItem(holder.position).quantityLarge);
+						holder.circleButtonViewQty.setAsQty(holder.isSmall ? getItem(holder.position).quantitySmall
+								: getItem(holder.position).quantityLarge);
 					}
 				});
 			}
@@ -889,6 +907,14 @@ public class CheckoutActivity extends BaseActivity {
 	private void disableCheckoutButton() {
 		buttonCheckout.setEnabled(false);
 		buttonCheckout.setShadowLayer(0, 0, 0, getResources().getColor(android.R.color.transparent));
+	}
+
+	// Method for copying list
+	public static List<Item> cloneList(List<Item> list) {
+		List<Item> clone = new ArrayList<Item>(list.size());
+		for (Item item : list)
+			clone.add((Item) item.clone());
+		return clone;
 	}
 
 }

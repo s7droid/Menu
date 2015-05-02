@@ -1,6 +1,6 @@
 package com.s7design.menu.dataclasses;
 
-public class Item {
+public class Item implements Cloneable{
 
 	public String name;
 	public String image;
@@ -48,5 +48,13 @@ public class Item {
 		item.amount = amount;
 		
 		return item;
+	}
+	
+	public Object clone(){  
+	    try{  
+	        return super.clone();  
+	    }catch(Exception e){ 
+	        return null; 
+	    }
 	}
 }

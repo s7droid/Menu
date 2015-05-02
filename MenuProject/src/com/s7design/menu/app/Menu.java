@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.acra.ACRA;
+import org.acra.annotation.ReportsCrashes;
 import org.altbeacon.beacon.BeaconConsumer;
 import org.altbeacon.beacon.BeaconManager;
 import org.altbeacon.beacon.MonitorNotifier;
@@ -30,6 +32,7 @@ import com.s7design.menu.callbacks.OnVolleyErrorCallback;
 import com.s7design.menu.dataclasses.DataManager;
 import com.s7design.menu.volley.responses.GsonResponse;
 
+//@ReportsCrashes(formUri = "", mailTo = "comajlo@gmail.com" /* my email here */)
 public class Menu extends Application implements BeaconConsumer, LeScanCallback, OnIBeaconSearchResultCallback {
 
 	private final String TAG = Menu.class.getSimpleName();
@@ -91,6 +94,9 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 		beaconManager.bind(this);
 		BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
 		bluetoothAdapter = bluetoothManager.getAdapter();
+
+//		ACRA.init(this);
+
 	}
 
 	public void destroyActivity(int position) {
@@ -277,8 +283,8 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 			System.arraycopy(scanRecord, startByte + 4, uuidBytes, 0, 16);
 			String hexString = bytesToHex(uuidBytes);
 			// Here is your UUID
-			String uuid = hexString.substring(0, 8) + "-" + hexString.substring(8, 12) + "-" + hexString.substring(12, 16) + "-" + hexString.substring(16, 20)
-					+ "-" + hexString.substring(20, 32);
+			String uuid = hexString.substring(0, 8) + "-" + hexString.substring(8, 12) + "-" + hexString.substring(12, 16) + "-"
+					+ hexString.substring(16, 20) + "-" + hexString.substring(20, 32);
 			// Here is your Major value
 			int major = (scanRecord[startByte + 20] & 0xff) * 0x100 + (scanRecord[startByte + 21] & 0xff);
 			// Here is your Minor value

@@ -93,6 +93,16 @@ public class MealDetailsActivity extends BaseActivity {
 			showRightActionBarButton();
 	}
 
+	@Override
+	protected void onPause() {
+		super.onPause();
+		try {
+			Utils.hideSoftKeyboard(this);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private void initActionBar() {
 		setActionBarForwardButtonText(getResources().getString(R.string.action_bar_checkout));
 		setActionBarBackButtonText(getResources().getString(R.string.action_bar_back));
@@ -171,7 +181,7 @@ public class MealDetailsActivity extends BaseActivity {
 		params.height = width;
 		mMealImageImageView.setLayoutParams(params);
 
-//		Utils.handleOutsideCommentDialogClick(addcommentview, mScrollViewGlobalContainer, this);
+		Utils.handleOutsideCommentDialogClick(addcommentview, mScrollViewGlobalContainer, this);
 		
 	}
 
