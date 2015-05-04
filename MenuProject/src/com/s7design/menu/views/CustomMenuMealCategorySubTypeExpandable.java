@@ -39,7 +39,7 @@ public class CustomMenuMealCategorySubTypeExpandable extends LinearLayout {
 		items = new ArrayList<Item>();
 
 		mGlobalContext = context;
-		currency = Menu.getInstance().getDataManager().getCurrency();
+		currency = Menu.getInstance().getDataManager().getCurrency(context);
 
 		imageLoader = VolleySingleton.getInstance(context).getImageLoader();
 

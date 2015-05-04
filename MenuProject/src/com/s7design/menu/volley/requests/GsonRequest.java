@@ -2,6 +2,7 @@ package com.s7design.menu.volley.requests;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Locale;
 import java.util.Map;
 
 import android.app.Activity;
@@ -59,9 +60,22 @@ public class GsonRequest<T> extends Request<T> {
 
 	private static String getParams(Map<String, String> params, boolean isGet) {
 
+		String locale = "en";
+		
+		try {
+			if(Locale.getDefault().getCountry().equalsIgnoreCase("de")){
+				locale = Locale.getDefault().getCountry().toLowerCase();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			locale = "en";
+		}
+		
 		if (params == null)
 			return "";
 
+		params.put("lang", locale);
+		
 		StringBuilder sb = new StringBuilder();
 
 		for (Map.Entry<String, String> entry : params.entrySet()) {

@@ -51,7 +51,8 @@ import com.s7design.menu.volley.responses.GetTaxRateResponse;
 import com.s7design.menu.volley.responses.GetTipResponse;
 
 /**
- * Splash screen activity used for getting data from server, such are connection to Bluetooth device, and gathering all other data needed for application to
+ * Splash screen activity used for getting data from server, such are connection
+ * to Bluetooth device, and gathering all other data needed for application to
  * work. <br>
  * Also, within this activity, connection on Internet is checked.
  * 
@@ -83,12 +84,12 @@ public class SplashActivity extends BaseActivity {
 			@Override
 			public void onResponse(GetBraintreeTokenResponse token) {
 
-				Menu.getInstance().getDataManager().setClientBraintreeToken(token.token);
-//
-//				Settings.setMajor(SplashActivity.this, "1");
-//				Settings.setMinor(SplashActivity.this, "1");
-//
-//				onBeaconFound();
+				Menu.getInstance().getDataManager().setClientBraintreeToken(SplashActivity.this, token.token);
+				//
+				// Settings.setMajor(SplashActivity.this, "1");
+				// Settings.setMinor(SplashActivity.this, "1");
+				//
+				// onBeaconFound();
 
 				scanForIBeacon();
 			}
@@ -284,23 +285,22 @@ public class SplashActivity extends BaseActivity {
 				params.put("major", Menu.getInstance().getDataManager().getMajor(SplashActivity.this));
 				params.put("minor", Menu.getInstance().getDataManager().getMinor(SplashActivity.this));
 
-				GetRestaurantInfoRequest restaurantInfoRequest = new GetRestaurantInfoRequest(SplashActivity.this, params,
-						new Listener<GetRestaurantInfoResponse>() {
+				GetRestaurantInfoRequest restaurantInfoRequest = new GetRestaurantInfoRequest(SplashActivity.this, params, new Listener<GetRestaurantInfoResponse>() {
 
-							@Override
-							public void onResponse(GetRestaurantInfoResponse restaurantInfo) {
-
-								Menu.getInstance().getDataManager().setRestaurantInfo(restaurantInfo);
-								countDownLatch.countDown();
-							}
-						});
+					@Override
+					public void onResponse(GetRestaurantInfoResponse restaurantInfo) {
+						// TODO: odradjeno
+						Menu.getInstance().getDataManager().setRestaurantInfo(SplashActivity.this, restaurantInfo);
+						countDownLatch.countDown();
+					}
+				});
 
 				GetTaxRateRequest taxRequest = new GetTaxRateRequest(SplashActivity.this, params, new Listener<GetTaxRateResponse>() {
 
 					@Override
 					public void onResponse(GetTaxRateResponse taxRate) {
-
-						Menu.getInstance().getDataManager().setTaxRate(taxRate.rate[0].tax);
+						// TODO: odradjeno
+						Menu.getInstance().getDataManager().setTaxRate(SplashActivity.this, taxRate.rate[0].tax);
 						countDownLatch.countDown();
 					}
 				});
@@ -309,8 +309,8 @@ public class SplashActivity extends BaseActivity {
 
 					@Override
 					public void onResponse(GetTipResponse tipRate) {
-
-						Menu.getInstance().getDataManager().setTipRate(tipRate.rate[0].mintip, tipRate.rate[0].maxtip);
+						// TODO: odradjeno
+						Menu.getInstance().getDataManager().setTipRate(SplashActivity.this, tipRate.rate[0].mintip, tipRate.rate[0].maxtip);
 						countDownLatch.countDown();
 					}
 				});
@@ -319,8 +319,8 @@ public class SplashActivity extends BaseActivity {
 
 					@Override
 					public void onResponse(GetDiscountResponse discount) {
-
-						Menu.getInstance().getDataManager().setDiscount(discount.discount);
+						// TODO: odradjeno
+						Menu.getInstance().getDataManager().setDiscount(SplashActivity.this, discount.discount);
 						countDownLatch.countDown();
 					}
 				});
@@ -329,8 +329,8 @@ public class SplashActivity extends BaseActivity {
 
 					@Override
 					public void onResponse(GetCurrencyResponse currency) {
-
-						Menu.getInstance().getDataManager().setCurrency(currency.currency);
+						// TODO: odradjeno
+						Menu.getInstance().getDataManager().setCurrency(SplashActivity.this, currency.currency);
 						countDownLatch.countDown();
 					}
 				});

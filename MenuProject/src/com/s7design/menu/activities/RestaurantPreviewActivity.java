@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.android.volley.toolbox.NetworkImageView;
 import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
+import com.s7design.menu.dataclasses.Rate;
 import com.s7design.menu.volley.VolleySingleton;
 import com.s7design.menu.volley.responses.GetRestaurantInfoResponse;
 
@@ -37,7 +38,7 @@ public class RestaurantPreviewActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_restaurant_preview);
-		restaurantInfo = Menu.getInstance().getDataManager().getRestaurantInfo();
+		restaurantInfo = Menu.getInstance().getDataManager().getRestaurantInfo(this);
 		initViews();
 	}
 
@@ -73,6 +74,11 @@ public class RestaurantPreviewActivity extends BaseActivity {
 				startActivity(new Intent(RestaurantPreviewActivity.this, TutorialFirstActivity.class));
 			}
 		});
+		
+		Rate rate = new Rate(this);
+		
+		System.out.println("Min tip= " + rate.mintip + "\nMax tip= " + rate.maxtip + "\nTax= " + rate.tax);
+		
 	}
 
 }

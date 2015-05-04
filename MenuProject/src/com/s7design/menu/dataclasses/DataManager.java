@@ -38,28 +38,28 @@ public class DataManager {
 		Settings.setMinor(context, minor);
 	}
 
-	public String getClientBraintreeToken() {
-		return clientBraintreeToken;
+	public String getClientBraintreeToken(Context context) {
+		return Settings.getBraintreeToken(context);
 	}
 
-	public void setClientBraintreeToken(String clientBraintreeToken) {
-		this.clientBraintreeToken = clientBraintreeToken;
+	public void setClientBraintreeToken(Context context, String clientBraintreeToken) {
+		Settings.setBraintreeToken(context, clientBraintreeToken);
 	}
 
-	public float getDiscount() {
-		return discount;
+	public float getDiscount(Context context) {
+		return Settings.getDiscount(context);
 	}
 
-	public void setDiscount(float discount) {
-		this.discount = discount;
+	public void setDiscount(Context context, float discount) {
+		Settings.setDiscount(context, discount);
 	}
 
-	public String getCurrency() {
-		return currency;
+	public String getCurrency(Context context) {
+		return Settings.getCurrency(context);
 	}
 
-	public void setCurrency(String currency) {
-		this.currency = currency;
+	public void setCurrency(Context context,String currency) {
+		Settings.setCurrency(context,currency);
 	}
 
 	public ArrayList<Item> getItemsList() {
@@ -151,12 +151,12 @@ public class DataManager {
 		checkoutList.clear();
 	}
 
-	public void setRestaurantInfo(GetRestaurantInfoResponse restaurantInfo) {
-		this.restaurantInfo = restaurantInfo;
+	public void setRestaurantInfo(Context context,GetRestaurantInfoResponse restaurantInfo) {
+		Settings.setRestaurantInfo(context,restaurantInfo);
 	}
 
-	public GetRestaurantInfoResponse getRestaurantInfo() {
-		return restaurantInfo;
+	public GetRestaurantInfoResponse getRestaurantInfo(Context context) {
+		return Settings.getRestaurantInfo(context);
 	}
 
 	public ArrayList<Category> getCategoriesList() {
@@ -167,22 +167,17 @@ public class DataManager {
 		this.categoriesList = categoriesList;
 	}
 
-	public void setTaxRate(float tax) {
-		if (rate == null)
-			rate = new Rate();
-
-		rate.tax = tax;
+	public void setTaxRate(Context context, float tax) {
+		new Rate(context, tax);
 	}
 
-	public void setTipRate(float min, float max) {
-		if (rate == null)
-			rate = new Rate();
-
-		rate.mintip = min;
-		rate.maxtip = max;
+	public void setTipRate(Context context, float min, float max) {
+		new Rate(context, min, max);
 	}
 
-	public Rate getRate() {
+	public Rate getRate(Context context) {
+		if(rate == null)
+			rate = new Rate(context);
 		return rate;
 	}
 

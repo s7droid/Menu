@@ -56,7 +56,7 @@ public class MealDetailsActivity extends BaseActivity {
 	private View viewSeparator;
 	private RelativeLayout layoutSmall;
 	private ScrollView mScrollViewGlobalContainer;
-	
+
 	private Item item;
 
 	private String currency;
@@ -102,7 +102,7 @@ public class MealDetailsActivity extends BaseActivity {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void initActionBar() {
 		setActionBarForwardButtonText(getResources().getString(R.string.action_bar_checkout));
 		setActionBarBackButtonText(getResources().getString(R.string.action_bar_back));
@@ -182,7 +182,7 @@ public class MealDetailsActivity extends BaseActivity {
 		mMealImageImageView.setLayoutParams(params);
 
 		Utils.handleOutsideCommentDialogClick(addcommentview, mScrollViewGlobalContainer, this);
-		
+
 	}
 
 	private void initData() {
@@ -211,7 +211,7 @@ public class MealDetailsActivity extends BaseActivity {
 		showProgressDialogLoading();
 		VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
 
-		currency = Menu.getInstance().getDataManager().getCurrency();
+		currency = Menu.getInstance().getDataManager().getCurrency(this);
 	}
 
 	private void setData() {

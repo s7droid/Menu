@@ -15,7 +15,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import android.text.InputFilter.LengthFilter;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,13 +31,14 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-import com.android.volley.VolleyError;
 import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
 import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
 import com.s7design.menu.dataclasses.DataManager;
 import com.s7design.menu.dataclasses.Item;
 import com.s7design.menu.dataclasses.Rate;
+import com.s7design.menu.dialogs.OkCancelDialogFragment;
 import com.s7design.menu.utils.Settings;
 import com.s7design.menu.utils.Utils;
 import com.s7design.menu.views.CircleButtonView;
@@ -51,7 +51,7 @@ import com.s7design.menu.volley.responses.GsonResponse;
 import com.s7design.menu.volley.responses.OrderResponse;
 import com.s7design.menu.volley.responses.SendReceiptByEmailResponse;
 
-public class CheckoutActivity extends BaseActivity {
+public class CheckoutActivity extends BaseActivity{
 
 	private static final String TAG = CheckoutActivity.class.getSimpleName();
 
@@ -205,12 +205,12 @@ public class CheckoutActivity extends BaseActivity {
 		data = Menu.getInstance().getDataManager();
 		checkoutList = new ArrayList<Item>();
 
-		Rate rate = data.getRate();
+		Rate rate = data.getRate(this);
 		tax = Utils.round(rate.tax, 2);
 		minTip = Utils.round(rate.mintip, 2);
 		maxTip = Utils.round(rate.maxtip, 2);
-		discount = Utils.round(data.getDiscount(), 2);
-		currency = data.getCurrency();
+		discount = Utils.round(data.getDiscount(CheckoutActivity.this), 2);
+		currency = data.getCurrency(this);
 		// tip = Utils.round((maxTip + minTip) / 2.f, 1);
 		tip = (int) ((maxTip + minTip) / 2);
 
@@ -224,7 +224,7 @@ public class CheckoutActivity extends BaseActivity {
 		setActionBarForwardArrowVisibility(null);
 		setActionBarForwardButtonTextColor(getResources().getColor(R.color.menu_main_orange));
 		setActionBarForwardButtonText(R.string.action_bar_order_summary);
-
+		
 		setActionBarBackButtonOnClickListener(new OnClickListener() {
 
 			@Override
@@ -370,8 +370,16 @@ public class CheckoutActivity extends BaseActivity {
 
 	@Override
 	public void onResponseError(GsonResponse response) {
-		super.onResponseError(response);
 
+		if (response.response != null && response.response.equals("wronglogindetails")) {
+			dismissProgressDialog();
+			Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+			startActivityForResult(intent, REQUEST_LOGIN);
+			enableCheckoutButton();
+
+			return;
+		}
+		
 		enableCheckoutButton();
 	}
 

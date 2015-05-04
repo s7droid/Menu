@@ -147,7 +147,7 @@ public class SignUpActivity extends BaseActivity {
 					return;
 				}
 
-				Braintree braintree = Braintree.getInstance(SignUpActivity.this, Menu.getInstance().getDataManager().getClientBraintreeToken());
+				Braintree braintree = Braintree.getInstance(SignUpActivity.this, Menu.getInstance().getDataManager().getClientBraintreeToken(SignUpActivity.this));
 				braintree.addListener(new Braintree.PaymentMethodNonceListener() {
 					public void onPaymentMethodNonce(String paymentMethodNonce) {
 
