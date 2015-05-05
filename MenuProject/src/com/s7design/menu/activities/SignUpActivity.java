@@ -47,11 +47,11 @@ public class SignUpActivity extends BaseActivity {
 	private EditText mPasswordEditText;
 	// private EditText mNicknameEditText;
 	private EditText mRepeatPasswordEditText;
-	private EditText mCreditCardNumberEditText;
+	private TextView mCreditCardNumberEditText;
 	private EditText mNameOnCardEditText;
-	private EditText mMonthEditText;
-	private EditText mYearEditText;
-	private EditText mCCVEditText;
+	private TextView mMonthEditText;
+	private TextView mYearEditText;
+	private TextView mCCVEditText;
 	private TextView mTextViewTermsOfUse;
 
 	// DATA
@@ -106,11 +106,11 @@ public class SignUpActivity extends BaseActivity {
 		// mNicknameEditText = (EditText)
 		// findViewById(R.id.edittextSignUpActivityNickname);
 		mRepeatPasswordEditText = (EditText) findViewById(R.id.edittextSignUpActivityRepeatPassword);
-		mCreditCardNumberEditText = (EditText) findViewById(R.id.edittextSignUpActivityCardNumber);
+		mCreditCardNumberEditText = (TextView) findViewById(R.id.edittextSignUpActivityCardNumber);
 		mNameOnCardEditText = (EditText) findViewById(R.id.edittextSignUpActivityNameOnCard);
-		mMonthEditText = (EditText) findViewById(R.id.edittextSignUpActivityMonth);
-		mYearEditText = (EditText) findViewById(R.id.edittextSignUpActivityYear);
-		mCCVEditText = (EditText) findViewById(R.id.edittextSignUpActivityCCV);
+		mMonthEditText = (TextView) findViewById(R.id.edittextSignUpActivityMonth);
+		mYearEditText = (TextView) findViewById(R.id.edittextSignUpActivityYear);
+		mCCVEditText = (TextView) findViewById(R.id.edittextSignUpActivityCCV);
 		mTextViewTermsOfUse = (TextView) findViewById(R.id.textviewSignUpScanTermsOfUse);
 
 		mNameOnCardEditText.requestFocus();
@@ -353,9 +353,6 @@ public class SignUpActivity extends BaseActivity {
 			// necessary use getFormattedCardNumber()
 
 			creditCardNumber = scanResult.getRedactedCardNumber();
-			System.out.println("credit card number redacted= " + creditCardNumber);
-			System.out.println("credit card number formatted=" + scanResult.getFormattedCardNumber());
-			System.out.println("credit card number=" + scanResult.cardNumber);
 			// mCreditCardNumberEditText.setText(creditCardNumber);
 			mCreditCardNumberEditText.setText(scanResult.getFormattedCardNumber());
 
@@ -368,6 +365,11 @@ public class SignUpActivity extends BaseActivity {
 				mCCVEditText.setText(scanResult.cvv);
 			}
 
+			mCreditCardNumberEditText.setTextColor(getResources().getColor(R.color.menu_main_gray));
+			mMonthEditText.setTextColor(getResources().getColor(R.color.menu_main_gray));
+			mYearEditText.setTextColor(getResources().getColor(R.color.menu_main_gray));
+			mCCVEditText.setTextColor(getResources().getColor(R.color.menu_main_gray));
+			
 		}
 	}
 

@@ -158,7 +158,7 @@
                     android:layout_height="1dp"
                     android:background="@color/menu_main_divider_color" />
 
-                <com.s7design.menu.views.MenuEditText
+                <com.s7design.menu.views.MenuTextView
                     android:id="@+id/edittextSignUpActivityCardNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -169,8 +169,7 @@
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
                     android:singleLine="true"
-                    android:textColor="@color/menu_main_gray"
-                    android:textColorHint="@color/menu_main_gray_light"
+                    android:textColor="@color/menu_main_gray_light"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -202,7 +201,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
 
-                    <com.s7design.menu.views.MenuEditText
+                    <com.s7design.menu.views.MenuTextView
                         android:id="@+id/edittextSignUpActivityMonth"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -218,12 +217,11 @@
                         android:inputType="number"
                         android:maxLength="2"
                         android:singleLine="true"
-                        android:textColor="@color/menu_main_gray"
-                        android:textColorHint="@color/menu_main_gray_light"
+                        android:textColor="@color/menu_main_gray_light"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
-                    <com.s7design.menu.views.MenuEditText
+                    <com.s7design.menu.views.MenuTextView
                         android:id="@+id/edittextSignUpActivityYear"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -241,8 +239,7 @@
                         android:inputType="number"
                         android:maxLength="4"
                         android:singleLine="true"
-                        android:textColor="@color/menu_main_gray"
-                        android:textColorHint="@color/menu_main_gray_light"
+                        android:textColor="@color/menu_main_gray_light"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -262,7 +259,7 @@
                         android:layout_below="@+id/edittextSignUpActivityYear"
                         android:background="@color/menu_main_divider_color" />
 
-                    <com.s7design.menu.views.MenuEditText
+                    <com.s7design.menu.views.MenuTextView
                         android:id="@+id/edittextSignUpActivityCCV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -272,14 +269,13 @@
                         android:gravity="right"
                         android:hint="@string/sign_up_cvv_hint_text"
                         android:inputType="number"
-                        android:maxLength="3"
+                        android:maxLength="4"
                         android:paddingBottom="10dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:paddingTop="10dp"
                         android:singleLine="true"
-                        android:textColor="@color/menu_main_gray"
-                        android:textColorHint="@color/menu_main_gray_light"
+                        android:textColor="@color/menu_main_gray_light"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 

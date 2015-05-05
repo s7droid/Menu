@@ -14,7 +14,7 @@ public class Constants {
 			return PREFIX_UNSECURE;
 	}
 
-	private static boolean isTest = false;
+	private static boolean isTest = true;
 
 	private static final String BASE_TEST_URL = "usemenu.com/testapi/v1/";
 	private static final String BASE_PRODUCTION_URL = "usemenu.com/api/v1/";
