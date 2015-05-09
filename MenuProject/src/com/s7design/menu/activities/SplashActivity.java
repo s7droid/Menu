@@ -85,11 +85,11 @@ public class SplashActivity extends BaseActivity {
 			public void onResponse(GetBraintreeTokenResponse token) {
 
 				Menu.getInstance().getDataManager().setClientBraintreeToken(SplashActivity.this, token.token);
-				//
-				// Settings.setMajor(SplashActivity.this, "1");
-				// Settings.setMinor(SplashActivity.this, "1");
-				//
-				// onBeaconFound();
+				
+//				 Settings.setMajor(SplashActivity.this, "1");
+//				 Settings.setMinor(SplashActivity.this, "1");
+//				
+//				 onBeaconFound();
 
 				scanForIBeacon();
 			}

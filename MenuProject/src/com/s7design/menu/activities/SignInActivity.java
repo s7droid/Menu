@@ -32,9 +32,9 @@ public class SignInActivity extends BaseActivity {
 	private TextView mRegisterButton;
 	private Button mSignInButton;
 
-	//DATA
+	// DATA
 	private static int REQUEST_SIGN_UP = 54321;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -82,7 +82,7 @@ public class SignInActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				startActivityForResult(new Intent(getApplicationContext(), SignUpActivity.class),REQUEST_SIGN_UP);
+				startActivityForResult(new Intent(getApplicationContext(), SignUpActivity.class), REQUEST_SIGN_UP);
 			}
 		});
 
@@ -100,22 +100,24 @@ public class SignInActivity extends BaseActivity {
 				Map<String, String> params = new HashMap<String, String>();
 				params.put("email", mUsernameEditText.getText().toString());
 
-				ForgotPasswordRequest forgotPasswordRequest = new ForgotPasswordRequest(SignInActivity.this, params, new Listener<ForgotPasswordResponse>() {
+				ForgotPasswordRequest forgotPasswordRequest = new ForgotPasswordRequest(SignInActivity.this, params,
+						new Listener<ForgotPasswordResponse>() {
 
-					@Override
-					public void onResponse(ForgotPasswordResponse forgotPasswordResponse) {
-						
-						dismissProgressDialog();
+							@Override
+							public void onResponse(ForgotPasswordResponse forgotPasswordResponse) {
 
-						if (forgotPasswordResponse.response != null && forgotPasswordResponse.response.equals("success")) {
+								dismissProgressDialog();
 
-							showAlertDialog(R.string.dialog_check_inbox_title, R.string.dialog_check_inbox_content);
-						} else if (forgotPasswordResponse.response != null && forgotPasswordResponse.response.equals(ForgotPasswordResponse.USER_DOESNT_EXIST)) {
+								if (forgotPasswordResponse.response != null && forgotPasswordResponse.response.equals("success")) {
 
-							showAlertDialog(R.string.dialog_no_user_title, R.string.dialog_no_user);
-						}
-					}
-				});
+									showAlertDialog(R.string.dialog_check_inbox_title, R.string.dialog_check_inbox_content);
+								} else if (forgotPasswordResponse.response != null
+										&& forgotPasswordResponse.response.equals(ForgotPasswordResponse.USER_DOESNT_EXIST)) {
+
+									showAlertDialog(R.string.dialog_no_user_title, R.string.dialog_no_user);
+								}
+							}
+						});
 
 				VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(forgotPasswordRequest);
 			}
@@ -146,13 +148,6 @@ public class SignInActivity extends BaseActivity {
 
 								if (loginResponse.response != null && loginResponse.response.equals("success")) {
 									Settings.setAccessToken(SignInActivity.this, loginResponse.accesstoken);
-									// Intent i = new
-									// Intent(SignInActivity.this,
-									// RestaurantPreviewActivity.class);
-									// i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-									// | Intent.FLAG_ACTIVITY_CLEAR_TASK |
-									// Intent.FLAG_ACTIVITY_CLEAR_TOP);
-									// startActivity(i);
 									Intent intent = new Intent();
 									setResult(RESULT_OK, intent);
 									dismissProgressDialog();
@@ -164,6 +159,8 @@ public class SignInActivity extends BaseActivity {
 										showAlertDialog(R.string.dialog_no_user_title, R.string.dialog_no_user);
 									} else if (loginResponse.response.equals("passwordfalse")) {
 										showAlertDialog(R.string.dialog_wrong_password_title, R.string.dialog_wrong_password);
+									} else if (loginResponse.response.equals("lockedout")) {
+										showAlertDialog(R.string.dialog_account_lockedout_title, R.string.dialog_account_lockedout_content);
 									}
 
 								}
@@ -180,15 +177,15 @@ public class SignInActivity extends BaseActivity {
 		});
 
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if(resultCode == Activity.RESULT_OK){
-			if(requestCode == REQUEST_SIGN_UP){
-				
+		if (resultCode == Activity.RESULT_OK) {
+			if (requestCode == REQUEST_SIGN_UP) {
+
 			}
 		}
 	}
-	
+
 }

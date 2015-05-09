@@ -93,6 +93,8 @@
     <string name="dialog_send_receipt_to_email_error">Something went wrong&#8230; You can try to resend your receipt from the main menu under View Past Receipts.</string>
     <string name="dialog_enter_your_comment">Enter Your comment here</string>
     <string name="dialog_please_login_again">Please login again</string>
+    <string name="dialog_account_lockedout_title">Oops!</string>
+    <string name="dialog_account_lockedout_content">For security reasons, logins to your account were blocked. Please try again in 5 minutes or reset your password if you forgot it.</string>
 
     <!-- Checkout activity -->
     <string name="checkout_thank_you_for_order">Thank you for your order!</string>
@@ -113,8 +115,8 @@
     <string name="category_meals_add">ADD</string>
     <string name="category_meals_out_of_stock">SOLD OUT</string>
     <string name="category_meals_no_items_content">It appears that here is no item in this category. Please try ordering something from an other category</string>
-	<string name="category_meals_no_items_title">No items</string>
-    
+    <string name="category_meals_no_items_title">No items</string>
+
     <!-- Sign in -->
     <string name="sign_in_button_text">SIGN IN</string>
     <string name="sign_in_username_hint_text">Email address</string>
