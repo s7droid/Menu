@@ -51,8 +51,7 @@ import com.s7design.menu.volley.responses.GetTaxRateResponse;
 import com.s7design.menu.volley.responses.GetTipResponse;
 
 /**
- * Splash screen activity used for getting data from server, such are connection
- * to Bluetooth device, and gathering all other data needed for application to
+ * Splash screen activity used for getting data from server, such are connection to Bluetooth device, and gathering all other data needed for application to
  * work. <br>
  * Also, within this activity, connection on Internet is checked.
  * 
@@ -85,11 +84,11 @@ public class SplashActivity extends BaseActivity {
 			public void onResponse(GetBraintreeTokenResponse token) {
 
 				Menu.getInstance().getDataManager().setClientBraintreeToken(SplashActivity.this, token.token);
-				
-//				 Settings.setMajor(SplashActivity.this, "1");
-//				 Settings.setMinor(SplashActivity.this, "1");
-//				
-//				 onBeaconFound();
+
+				// Settings.setMajor(SplashActivity.this, "1");
+				// Settings.setMinor(SplashActivity.this, "1");
+				//
+				// onBeaconFound();
 
 				scanForIBeacon();
 			}
@@ -244,29 +243,29 @@ public class SplashActivity extends BaseActivity {
 
 					dismissProgressDialog();
 
-					if (searchAtempts > 0) {
-						--searchAtempts;
-						OkCancelDialogFragment dialog = new OkCancelDialogFragment();
-						dialog.showDialog(getFragmentManager(), "", getString(R.string.dialog_no_restaurants_found), new OnClickListener() {
-
-							@Override
-							public void onClick(View v) {
-								showProgressDialogLoading();
-								scanForIBeacon();
-
-							}
-						}, new OnClickListener() {
-
-							@Override
-							public void onClick(View v) {
-								startActivity(new Intent(getApplicationContext(), MainMenuActivity.class));
-								finish();
-							}
-						});
-					} else {
-						startActivity(new Intent(getApplicationContext(), MainMenuActivity.class));
-						finish();
-					}
+					// if (searchAtempts > 0) {
+					// --searchAtempts;
+					// OkCancelDialogFragment dialog = new OkCancelDialogFragment();
+					// dialog.showDialog(getFragmentManager(), "", getString(R.string.dialog_no_restaurants_found), new OnClickListener() {
+					//
+					// @Override
+					// public void onClick(View v) {
+					// showProgressDialogLoading();
+					// scanForIBeacon();
+					//
+					// }
+					// }, new OnClickListener() {
+					//
+					// @Override
+					// public void onClick(View v) {
+					// startActivity(new Intent(getApplicationContext(), MainMenuActivity.class));
+					// finish();
+					// }
+					// });
+					// } else {
+					startActivity(new Intent(getApplicationContext(), MainMenuActivity.class));
+					finish();
+					// }
 				}
 			}
 		});
@@ -285,21 +284,33 @@ public class SplashActivity extends BaseActivity {
 				params.put("major", Menu.getInstance().getDataManager().getMajor(SplashActivity.this));
 				params.put("minor", Menu.getInstance().getDataManager().getMinor(SplashActivity.this));
 
-				GetRestaurantInfoRequest restaurantInfoRequest = new GetRestaurantInfoRequest(SplashActivity.this, params, new Listener<GetRestaurantInfoResponse>() {
+				GetRestaurantInfoRequest restaurantInfoRequest = new GetRestaurantInfoRequest(SplashActivity.this, params,
+						new Listener<GetRestaurantInfoResponse>() {
 
-					@Override
-					public void onResponse(GetRestaurantInfoResponse restaurantInfo) {
-						// TODO: odradjeno
-						Menu.getInstance().getDataManager().setRestaurantInfo(SplashActivity.this, restaurantInfo);
-						countDownLatch.countDown();
-					}
-				});
+							@Override
+							public void onResponse(GetRestaurantInfoResponse restaurantInfo) {
+								Menu.getInstance().getDataManager().setRestaurantInfo(SplashActivity.this, restaurantInfo);
+								countDownLatch.countDown();
+
+								String major = Menu.getInstance().getDataManager().getMajor(SplashActivity.this);
+								String minor = Menu.getInstance().getDataManager().getMinor(SplashActivity.this);
+
+								if ((major != null && minor != null)) {
+									Intent i = new Intent(SplashActivity.this, RestaurantPreviewActivity.class);
+									i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+									startActivity(i);
+								} else if ((major == null || minor == null)) {
+									Intent i = new Intent(SplashActivity.this, MainMenuActivity.class);
+									i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+									startActivity(i);
+								}
+							}
+						});
 
 				GetTaxRateRequest taxRequest = new GetTaxRateRequest(SplashActivity.this, params, new Listener<GetTaxRateResponse>() {
 
 					@Override
 					public void onResponse(GetTaxRateResponse taxRate) {
-						// TODO: odradjeno
 						Menu.getInstance().getDataManager().setTaxRate(SplashActivity.this, taxRate.rate[0].tax);
 						countDownLatch.countDown();
 					}
@@ -309,7 +320,6 @@ public class SplashActivity extends BaseActivity {
 
 					@Override
 					public void onResponse(GetTipResponse tipRate) {
-						// TODO: odradjeno
 						Menu.getInstance().getDataManager().setTipRate(SplashActivity.this, tipRate.rate[0].mintip, tipRate.rate[0].maxtip);
 						countDownLatch.countDown();
 					}
@@ -319,7 +329,6 @@ public class SplashActivity extends BaseActivity {
 
 					@Override
 					public void onResponse(GetDiscountResponse discount) {
-						// TODO: odradjeno
 						Menu.getInstance().getDataManager().setDiscount(SplashActivity.this, discount.discount);
 						countDownLatch.countDown();
 					}
@@ -329,7 +338,6 @@ public class SplashActivity extends BaseActivity {
 
 					@Override
 					public void onResponse(GetCurrencyResponse currency) {
-						// TODO: odradjeno
 						Menu.getInstance().getDataManager().setCurrency(SplashActivity.this, currency.currency);
 						countDownLatch.countDown();
 					}
@@ -343,48 +351,14 @@ public class SplashActivity extends BaseActivity {
 
 				try {
 					countDownLatch.await(20000, TimeUnit.MILLISECONDS);
+					
+					
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 
 				return null;
 			}
-
-			protected void onPostExecute(Void result) {
-
-				// String accessToken =
-				// Settings.getAccessToken(getApplicationContext());
-				//
-				// if (accessToken.length() > 0) {
-				// Intent i = new Intent(SplashActivity.this,
-				// RestaurantPreviewActivity.class);
-				// i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-				// Intent.FLAG_ACTIVITY_CLEAR_TASK |
-				// Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				// startActivity(i);
-				// } else {
-				// Intent i = new Intent(SplashActivity.this,
-				// MainMenuActivity.class);
-				// i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-				// Intent.FLAG_ACTIVITY_CLEAR_TASK |
-				// Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				// startActivity(i);
-				// }
-
-				String major = Menu.getInstance().getDataManager().getMajor(SplashActivity.this);
-				String minor = Menu.getInstance().getDataManager().getMinor(SplashActivity.this);
-
-				if ((major != null && minor != null)) {
-					Intent i = new Intent(SplashActivity.this, RestaurantPreviewActivity.class);
-					i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					startActivity(i);
-				} else if ((major == null || minor == null)) {
-					Intent i = new Intent(SplashActivity.this, MainMenuActivity.class);
-					i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					startActivity(i);
-				}
-
-			};
 		}.execute();
 	}
 

@@ -27,6 +27,7 @@ import android.util.Log;
 import com.android.volley.VolleyError;
 import com.s7design.menu.callbacks.OnIBeaconSearchResultCallback;
 import com.s7design.menu.callbacks.OnVolleyErrorCallback;
+import com.s7design.menu.dataclasses.Beacon;
 import com.s7design.menu.dataclasses.DataManager;
 import com.s7design.menu.volley.responses.GsonResponse;
 
@@ -57,6 +58,11 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 
 	private Timer timer;
 
+	private Map<String, Beacon> beaconMap;
+
+	private final String storeUuid = "DE5B5C5E-C681-4DF6-9349-0456EDE0EA45";
+	private final String tableUuid = "A5324FA8-BCF1-421B-945E-F83DF4672519";
+
 	public Menu() {
 		instance = this;
 		activityStack = new ArrayList<Activity>();
@@ -65,6 +71,8 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 		dataManager = new DataManager();
 
 		timer = new Timer();
+
+		beaconMap = new HashMap<String, Beacon>();
 	}
 
 	public static synchronized Context getContext() {
@@ -93,7 +101,7 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 		BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
 		bluetoothAdapter = bluetoothManager.getAdapter();
 
-//		ACRA.init(this);
+		// ACRA.init(this);
 
 	}
 
@@ -281,8 +289,8 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 			System.arraycopy(scanRecord, startByte + 4, uuidBytes, 0, 16);
 			String hexString = bytesToHex(uuidBytes);
 			// Here is your UUID
-			String uuid = hexString.substring(0, 8) + "-" + hexString.substring(8, 12) + "-" + hexString.substring(12, 16) + "-"
-					+ hexString.substring(16, 20) + "-" + hexString.substring(20, 32);
+			String uuid = hexString.substring(0, 8) + "-" + hexString.substring(8, 12) + "-" + hexString.substring(12, 16) + "-" + hexString.substring(16, 20)
+					+ "-" + hexString.substring(20, 32);
 			// Here is your Major value
 			int major = (scanRecord[startByte + 20] & 0xff) * 0x100 + (scanRecord[startByte + 21] & 0xff);
 			// Here is your Minor value
@@ -290,9 +298,20 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 
 			Log.d(TAG, "major " + major);
 			Log.d(TAG, "minor " + minor);
+			Log.d(TAG, "uuid " + uuid);
+			Log.d(TAG, "rssi " + rssi);
 
 			Menu.getInstance().getDataManager().setMajor(getApplicationContext(), String.valueOf(major));
 			Menu.getInstance().getDataManager().setMinor(getApplicationContext(), String.valueOf(minor));
+
+			Beacon beacon = new Beacon();
+			beacon.uuid = uuid;
+			beacon.major = major;
+			beacon.minor = minor;
+			beacon.rssi = rssi;
+
+			if (!beaconMap.containsKey(uuid))
+				beaconMap.put(uuid, beacon);
 
 			onIBeaconSearchResult(OnIBeaconSearchResultCallback.SEARCH_RESULT_BEACON_FOUND);
 		}

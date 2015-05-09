@@ -82,7 +82,8 @@ public class Settings {
 	}
 
 	public static final GetRestaurantInfoResponse getRestaurantInfo(Context context) {
-		GetRestaurantInfoResponse response = Utils.getGson().fromJson(getSharedPreferences(context).getString(PREFERENCE_TAG_RESTAURANT_INFO, ""), GetRestaurantInfoResponse.class);
+		GetRestaurantInfoResponse response = Utils.getGson().fromJson(getSharedPreferences(context).getString(PREFERENCE_TAG_RESTAURANT_INFO, ""),
+				GetRestaurantInfoResponse.class);
 		return response;
 	}
 
