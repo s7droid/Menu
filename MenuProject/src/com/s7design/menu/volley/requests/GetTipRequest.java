@@ -17,8 +17,7 @@ public class GetTipRequest extends GsonRequest<GetTipResponse> {
 
 			@Override
 			public void onErrorResponse(VolleyError arg0) {
-				// TODO Auto-generated method stub
-
+				System.out.println("GetTipRequest.GetTipRequest(...).new ErrorListener() {...}.onErrorResponse()");
 			}
 		});
 	}

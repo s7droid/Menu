@@ -17,8 +17,7 @@ public class GetCurrencyRequest extends GsonRequest<GetCurrencyResponse> {
 
 			@Override
 			public void onErrorResponse(VolleyError arg0) {
-				// TODO Auto-generated method stub
-
+				System.out.println("GetCurrencyRequest.GetCurrencyRequest(...).new ErrorListener() {...}.onErrorResponse()");
 			}
 		});
 	}

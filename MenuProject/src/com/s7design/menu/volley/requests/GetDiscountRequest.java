@@ -17,8 +17,7 @@ public class GetDiscountRequest extends GsonRequest<GetDiscountResponse> {
 
 			@Override
 			public void onErrorResponse(VolleyError arg0) {
-				// TODO Auto-generated method stub
-
+				System.out.println("GetDiscountRequest.GetDiscountRequest(...).new ErrorListener() {...}.onErrorResponse()");
 			}
 		});
 	}

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -47,11 +48,6 @@ public class GsonRequest<T> extends Request<T> {
 
 		setTag(outputType);
 	}
-
-	// @Override
-	// public String getBodyContentType() {
-	// return "application/json";
-	// }
 
 	@Override
 	protected Map<String, String> getParams() throws AuthFailureError {
@@ -136,8 +132,10 @@ public class GsonRequest<T> extends Request<T> {
 			if (error == null || error.networkResponse == null) {
 
 				Log.w(TAG, "deliverError(), error message " + error.getMessage());
+				
 				if (error.networkResponse == null)
 					Menu.getInstance().onVolleyErrorReceived(error);
+				
 				return;
 			}
 

@@ -17,8 +17,7 @@ public class GetTaxRateRequest extends GsonRequest<GetTaxRateResponse> {
 
 			@Override
 			public void onErrorResponse(VolleyError arg0) {
-				// TODO Auto-generated method stub
-
+				System.out.println("GetTaxRateRequest.GetTaxRateRequest(...).new ErrorListener() {...}.onErrorResponse()");
 			}
 		});
 	}

@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
+import com.s7design.menu.callbacks.OnIBeaconSearchResultCallback;
 import com.s7design.menu.utils.Settings;
 import com.s7design.menu.utils.Utils;
 import com.s7design.menu.views.MenuButton;
@@ -41,7 +42,7 @@ import com.s7design.menu.views.MenuButton;
  * @author s7Design
  *
  */
-public class MainMenuActivity extends BaseActivity {
+public class MainMenuActivity extends BaseActivity{
 
 	// VIEWS
 	private MenuButton mVenueMenuButton;

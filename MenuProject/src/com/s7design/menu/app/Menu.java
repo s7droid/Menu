@@ -31,7 +31,6 @@ import com.s7design.menu.dataclasses.Beacon;
 import com.s7design.menu.dataclasses.DataManager;
 import com.s7design.menu.volley.responses.GsonResponse;
 
-//@ReportsCrashes(formUri = "", mailTo = "comajlo@gmail.com" /* my email here */)
 public class Menu extends Application implements BeaconConsumer, LeScanCallback, OnIBeaconSearchResultCallback {
 
 	private final String TAG = Menu.class.getSimpleName();
@@ -51,7 +50,7 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 
 	private static final int SPLASH_SCREEN_TIMEOUT = 10000;
 
-	private static final int SCAN_PERIOD = 300000;
+	private static final int SCAN_PERIOD = 60000;
 
 	private BeaconManager beaconManager;
 	private BluetoothAdapter bluetoothAdapter;
@@ -102,7 +101,7 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 		bluetoothAdapter = bluetoothManager.getAdapter();
 
 		// ACRA.init(this);
-
+		MenuTrustManager.init();
 	}
 
 	public void destroyActivity(int position) {
@@ -283,6 +282,7 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 			}
 			startByte++;
 		}
+
 		if (patternFound) {
 			// Convert to hex String
 			byte[] uuidBytes = new byte[16];
@@ -314,6 +314,7 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 				beaconMap.put(uuid, beacon);
 
 			onIBeaconSearchResult(OnIBeaconSearchResultCallback.SEARCH_RESULT_BEACON_FOUND);
+			
 		}
 	}
 

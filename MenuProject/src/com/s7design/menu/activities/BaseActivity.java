@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.s7design.menu.R;
@@ -33,7 +34,7 @@ public class BaseActivity extends Activity implements OnVolleyErrorCallback {
 	private ProgressDialog progressDialog;
 	private AlertDialogEditTextFragment edittextDialog;
 	private AlertDialogFragment alertDialog;
-//	private ProgressDialogFragment progressDialog;
+	// private ProgressDialogFragment progressDialog;
 	private Button buttonActionBarBack;
 	private Button buttonActionBarForward;
 	private ImageButton imageButtonActionBarMenu;
@@ -59,11 +60,11 @@ public class BaseActivity extends Activity implements OnVolleyErrorCallback {
 		alertDialog = new AlertDialogFragment();
 		alertDialog.setFragmentManager(getFragmentManager(), this);
 
-//		progressDialog = new ProgressDialogFragment();
-//		progressDialog.setFragmentManager(getFragmentManager(), this);
+		// progressDialog = new ProgressDialogFragment();
+		// progressDialog.setFragmentManager(getFragmentManager(), this);
 
 		progressDialog = new ProgressDialog(this);
-		
+
 		edittextDialog = new AlertDialogEditTextFragment();
 		edittextDialog.setFragmentManager(getFragmentManager(), this);
 
@@ -177,30 +178,31 @@ public class BaseActivity extends Activity implements OnVolleyErrorCallback {
 	}
 
 	public void showProgressDialog(int body) {
-//		progressDialog.showDialog(getString(body));
+		// progressDialog.showDialog(getString(body));
 		progressDialog.show();
 	}
 
 	public void showProgressDialog(String body) {
-//		progressDialog.showDialog(body);
+		// progressDialog.showDialog(body);
 		progressDialog.show();
 	}
 
 	public void showProgressDialogLoading() {
-//		if (!progressDialog.isVisible) {
-//			progressDialog.show(getFragmentManager(), BaseActivity.class.getSimpleName());
-//			;
-//		}
+		// if (!progressDialog.isVisible) {
+		// progressDialog.show(getFragmentManager(),
+		// BaseActivity.class.getSimpleName());
+		// ;
+		// }
 		progressDialog.show();
 	}
 
 	public void dismissProgressDialog() {
-//		try {
-//			progressDialog.dismiss();
-//			progressDialog.dismissAllowingStateLoss();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		// try {
+		// progressDialog.dismiss();
+		// progressDialog.dismissAllowingStateLoss();
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// }
 		progressDialog.dismiss();
 	}
 
@@ -210,8 +212,6 @@ public class BaseActivity extends Activity implements OnVolleyErrorCallback {
 
 	@Override
 	public void onResponseError(GsonResponse response) {
-
-		Log.e(TAG, "onResponseError");
 
 		dismissProgressDialog();
 
@@ -236,7 +236,6 @@ public class BaseActivity extends Activity implements OnVolleyErrorCallback {
 
 	@Override
 	public void onVolleyError(VolleyError volleyError) {
-
 		dismissProgressDialog();
 		showAlertDialog(getString(R.string.dialog_body_default_error_title), getString(R.string.dialog_body_default_error_message));
 	}

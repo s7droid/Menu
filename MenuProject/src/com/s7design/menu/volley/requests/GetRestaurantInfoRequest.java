@@ -17,7 +17,7 @@ public class GetRestaurantInfoRequest extends GsonRequest<GetRestaurantInfoRespo
 
 			@Override
 			public void onErrorResponse(VolleyError arg0) {
-
+				System.out.println("GetRestaurantInfoRequest.GetRestaurantInfoRequest(...).new ErrorListener() {...}.onErrorResponse()");
 			}
 		});
 	}
