@@ -38,7 +38,8 @@ public class GsonRequest<T> extends Request<T> {
 
 	private static final String PROTOCOL_CHARSET = "utf-8";
 
-	public GsonRequest(Activity context, int method, String url, Map<String, String> params, Class<T> outputType, Listener<T> listener, ErrorListener errorListener) {
+	public GsonRequest(Activity context, int method, String url, Map<String, String> params, Class<T> outputType, Listener<T> listener,
+			ErrorListener errorListener) {
 		super(method, Constants.getPrefix() + Constants.BASE_URL + url + ".php" + (method == Request.Method.GET ? getParams(params, true) : ""), errorListener);
 		this.listener = listener;
 		this.outputType = outputType;
@@ -57,21 +58,21 @@ public class GsonRequest<T> extends Request<T> {
 	private static String getParams(Map<String, String> params, boolean isGet) {
 
 		String locale = "en";
-		
+
 		try {
-			if(Locale.getDefault().getCountry().equalsIgnoreCase("de")){
+			if (Locale.getDefault().getCountry().equalsIgnoreCase("de")) {
 				locale = Locale.getDefault().getCountry().toLowerCase();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			locale = "en";
 		}
-		
+
 		if (params == null)
 			return "";
 
 		params.put("lang", locale);
-		
+
 		StringBuilder sb = new StringBuilder();
 
 		for (Map.Entry<String, String> entry : params.entrySet()) {
@@ -89,7 +90,7 @@ public class GsonRequest<T> extends Request<T> {
 
 		}
 
-		Log.d(TAG, "" + sb.toString());
+		Log.i(TAG, "" + sb.toString());
 
 		return sb.toString();
 	}
@@ -117,7 +118,8 @@ public class GsonRequest<T> extends Request<T> {
 		if (errordata != null)
 			Log.w(TAG, "5 " + (errordata.equals("yes")));
 
-		if ((gsonResponse.response != null && gsonResponse.response.equals("wronglogindetails")) || (errordata != null && errordata.equals("yes"))) {
+		if ((gsonResponse.response != null && gsonResponse.response.equals("wronglogindetails"))
+				|| (gsonResponse.response != null && gsonResponse.response.equals("ccdeclined")) || (errordata != null && errordata.equals("yes"))) {
 			Menu.getInstance().onResponseErrorReceived(gsonResponse);
 		} else {
 			listener.onResponse(response);
@@ -132,10 +134,10 @@ public class GsonRequest<T> extends Request<T> {
 			if (error == null || error.networkResponse == null) {
 
 				Log.w(TAG, "deliverError(), error message " + error.getMessage());
-				
+
 				if (error.networkResponse == null)
 					Menu.getInstance().onVolleyErrorReceived(error);
-				
+
 				return;
 			}
 
@@ -157,7 +159,7 @@ public class GsonRequest<T> extends Request<T> {
 	protected Response<T> parseNetworkResponse(NetworkResponse response) {
 		try {
 			String json = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
-			Log.v(outputType.getSimpleName(), "parseNetworkResponse() " + json);
+			Log.w(outputType.getSimpleName(), "parseNetworkResponse() " + json);
 			return Response.success(gson.fromJson(json, outputType), HttpHeaderParser.parseCacheHeaders(response));
 		} catch (UnsupportedEncodingException e) {
 			return Response.error(new ParseError(e));

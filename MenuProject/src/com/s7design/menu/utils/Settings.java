@@ -11,8 +11,11 @@ public class Settings {
 	private static final String PREFERENCE_NAME = "Preferences";
 
 	public static final String PREFERENCE_TAG_ACCESS_TOKEN = "access_token";
-	public static final String PREFERENCE_TAG_MAJOR = "preference_access_tag_major";
-	public static final String PREFERENCE_TAG_MINOR = "preference_access_tag_minor";
+	public static final String PREFERENCE_TAG_STORE_MAJOR = "preference_access_tag_store_major";
+	public static final String PREFERENCE_TAG_STORE_MINOR = "preference_access_tag_store_minor";
+	public static final String PREFERENCE_TAG_TABLE_MAJOR = "preference_access_tag_table_major";
+	public static final String PREFERENCE_TAG_TABLE_MINOR = "preference_access_tag_table_minor";
+	public static final String PREFERENCE_TAG_IS_IN_RANGE = "preference_access_tag_is_in_range";
 	public static final String PREFERENCE_TAG_BRAIN_TREE_TOKEN = "preference_brain_tree_token";
 	public static final String PREFERENCE_TAG_RESTAURANT_INFO = "preference_tag_restaurant_info";
 	public static final String PREFERENCE_TAG_DISCOUNT = "preference_tag_discount";
@@ -45,23 +48,53 @@ public class Settings {
 		editor.commit();
 	}
 
-	public static String getMajor(Context context) {
-		return getSharedPreferences(context).getString(PREFERENCE_TAG_MAJOR, "");
+	public static String getStoreMajor(Context context) {
+		return getSharedPreferences(context).getString(PREFERENCE_TAG_STORE_MAJOR, "");
 	}
 
-	public static final void setMajor(Context context, String major) {
+	public static final void setStoreMajor(Context context, String major) {
 		Editor editor = getEditor(context);
-		editor.putString(PREFERENCE_TAG_MAJOR, major);
+		editor.putString(PREFERENCE_TAG_STORE_MAJOR, major);
 		editor.commit();
 	}
 
-	public static String getMinor(Context context) {
-		return getSharedPreferences(context).getString(PREFERENCE_TAG_MINOR, "");
+	public static String getStoreMinor(Context context) {
+		return getSharedPreferences(context).getString(PREFERENCE_TAG_STORE_MINOR, "");
 	}
 
-	public static final void setMinor(Context context, String minor) {
+	public static final void setStoreMinor(Context context, String minor) {
 		Editor editor = getEditor(context);
-		editor.putString(PREFERENCE_TAG_MINOR, minor);
+		editor.putString(PREFERENCE_TAG_STORE_MINOR, minor);
+		editor.commit();
+	}
+
+	public static String getTableMajor(Context context) {
+		return getSharedPreferences(context).getString(PREFERENCE_TAG_TABLE_MAJOR, "");
+	}
+
+	public static final void setTableMajor(Context context, String major) {
+		Editor editor = getEditor(context);
+		editor.putString(PREFERENCE_TAG_TABLE_MAJOR, major);
+		editor.commit();
+	}
+
+	public static String getTableMinor(Context context) {
+		return getSharedPreferences(context).getString(PREFERENCE_TAG_TABLE_MINOR, "");
+	}
+
+	public static final void setTableMinor(Context context, String minor) {
+		Editor editor = getEditor(context);
+		editor.putString(PREFERENCE_TAG_TABLE_MINOR, minor);
+		editor.commit();
+	}
+
+	public static boolean getIsInRangeOfTableBeacon(Context context) {
+		return getSharedPreferences(context).getBoolean(PREFERENCE_TAG_IS_IN_RANGE, false);
+	}
+
+	public static final void setIsInRangeOfTableBeacon(Context context, boolean isInRange) {
+		Editor editor = getEditor(context);
+		editor.putBoolean(PREFERENCE_TAG_IS_IN_RANGE, isInRange);
 		editor.commit();
 	}
 

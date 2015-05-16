@@ -47,11 +47,11 @@ public class SignUpActivity extends BaseActivity {
 	private EditText mPasswordEditText;
 	// private EditText mNicknameEditText;
 	private EditText mRepeatPasswordEditText;
-	private TextView mCreditCardNumberEditText;
+	private EditText mCreditCardNumberEditText;
 	private EditText mNameOnCardEditText;
-	private TextView mMonthEditText;
-	private TextView mYearEditText;
-	private TextView mCCVEditText;
+	private EditText mMonthEditText;
+	private EditText mYearEditText;
+	private EditText mCCVEditText;
 	private TextView mTextViewTermsOfUse;
 
 	// DATA
@@ -106,11 +106,11 @@ public class SignUpActivity extends BaseActivity {
 		// mNicknameEditText = (EditText)
 		// findViewById(R.id.edittextSignUpActivityNickname);
 		mRepeatPasswordEditText = (EditText) findViewById(R.id.edittextSignUpActivityRepeatPassword);
-		mCreditCardNumberEditText = (TextView) findViewById(R.id.edittextSignUpActivityCardNumber);
+		mCreditCardNumberEditText = (EditText) findViewById(R.id.edittextSignUpActivityCardNumber);
 		mNameOnCardEditText = (EditText) findViewById(R.id.edittextSignUpActivityNameOnCard);
-		mMonthEditText = (TextView) findViewById(R.id.edittextSignUpActivityMonth);
-		mYearEditText = (TextView) findViewById(R.id.edittextSignUpActivityYear);
-		mCCVEditText = (TextView) findViewById(R.id.edittextSignUpActivityCCV);
+		mMonthEditText = (EditText) findViewById(R.id.edittextSignUpActivityMonth);
+		mYearEditText = (EditText) findViewById(R.id.edittextSignUpActivityYear);
+		mCCVEditText = (EditText) findViewById(R.id.edittextSignUpActivityCCV);
 		mTextViewTermsOfUse = (TextView) findViewById(R.id.textviewSignUpScanTermsOfUse);
 
 		mNameOnCardEditText.requestFocus();
@@ -122,32 +122,40 @@ public class SignUpActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				if (mNameOnCardEditText.getText().toString().isEmpty()) {
-					showAlertDialog(getResources().getString(R.string.dialog_first_name_empty_title), getResources().getString(R.string.dialog_first_name_empty_content));
+					showAlertDialog(getResources().getString(R.string.dialog_first_name_empty_title),
+							getResources().getString(R.string.dialog_first_name_empty_content));
 					return;
 				} else if (mEmailEditText.getText().toString().isEmpty()) {
-					showAlertDialog(getResources().getString(R.string.dialog_email_address_empty_title), getResources().getString(R.string.dialog_email_address_empty_content));
+					showAlertDialog(getResources().getString(R.string.dialog_email_address_empty_title),
+							getResources().getString(R.string.dialog_email_address_empty_content));
 					return;
 				} else if (mPasswordEditText.getText().toString().isEmpty()) {
-					showAlertDialog(getResources().getString(R.string.dialog_password_empty_title), getResources().getString(R.string.dialog_password_empty_content));
+					showAlertDialog(getResources().getString(R.string.dialog_password_empty_title),
+							getResources().getString(R.string.dialog_password_empty_content));
 					return;
 				} else if (mRepeatPasswordEditText.getText().toString().isEmpty()) {
-					showAlertDialog(getResources().getString(R.string.dialog_repeat_password_empty_title), getResources().getString(R.string.dialog_repeat_password_empty_content));
+					showAlertDialog(getResources().getString(R.string.dialog_repeat_password_empty_title),
+							getResources().getString(R.string.dialog_repeat_password_empty_content));
 					return;
 				} else if (mCreditCardNumberEditText.getText().toString().isEmpty()) {
-					showAlertDialog(getResources().getString(R.string.dialog_credit_card_number_empty_title), getResources().getString(R.string.dialog_credit_card_number_empty_content));
+					showAlertDialog(getResources().getString(R.string.dialog_credit_card_number_empty_title),
+							getResources().getString(R.string.dialog_credit_card_number_empty_content));
 					return;
 				} else if (!Utils.isValidExpiryDate(mMonthEditText.getText().toString(), mYearEditText.getText().toString())) {
-					showAlertDialog(getResources().getString(R.string.dialog_invalid_expiry_date_error_title), getResources().getString(R.string.dialog_invalid_expiry_date_error_content));
+					showAlertDialog(getResources().getString(R.string.dialog_invalid_expiry_date_error_title),
+							getResources().getString(R.string.dialog_invalid_expiry_date_error_content));
 					return;
 				} else if (mCCVEditText.getText().toString().isEmpty()) {
 					showAlertDialog(getResources().getString(R.string.dialog_cvv_empty_title), getResources().getString(R.string.dialog_cvv_empty_content));
 					return;
 				} else if (!mPasswordEditText.getText().toString().equals(mRepeatPasswordEditText.getText().toString())) {
-					showAlertDialog(getResources().getString(R.string.dialog_passwords_dont_match_title), getResources().getString(R.string.dialog_passwords_dont_match_content));
+					showAlertDialog(getResources().getString(R.string.dialog_passwords_dont_match_title),
+							getResources().getString(R.string.dialog_passwords_dont_match_content));
 					return;
 				}
 
-				Braintree braintree = Braintree.getInstance(SignUpActivity.this, Menu.getInstance().getDataManager().getClientBraintreeToken(SignUpActivity.this));
+				Braintree braintree = Braintree.getInstance(SignUpActivity.this,
+						Menu.getInstance().getDataManager().getClientBraintreeToken(SignUpActivity.this));
 				braintree.addListener(new Braintree.PaymentMethodNonceListener() {
 					public void onPaymentMethodNonce(String paymentMethodNonce) {
 
@@ -301,16 +309,18 @@ public class SignUpActivity extends BaseActivity {
 		String terms_tokenizer = ". " + getResources().getString(R.string.sign_up_privacy_tokenizer);
 		String terms_tokenizer_clickable = " " + getResources().getString(R.string.sign_up_privacy_tokenizer_clickable) + ".";
 
-		SpannableString ss = new SpannableString(terms_intro + terms_privacy_clickable + terms_and + terms_privacy_policy_clickable + terms_tokenizer + terms_tokenizer_clickable);
+		SpannableString ss = new SpannableString(terms_intro + terms_privacy_clickable + terms_and + terms_privacy_policy_clickable + terms_tokenizer
+				+ terms_tokenizer_clickable);
 		ClickableSpan clickableSpanTermsOfService = new ClickableSpan() {
 			@Override
 			public void onClick(View textView) {
 				startActivity(new Intent(SignUpActivity.this, AboutTheAppActivity.class));
 			}
 		};
-		ss.setSpan(clickableSpanTermsOfService, terms_intro.length() + 1, (terms_intro.length() + 1 + terms_privacy_clickable.length()), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-		ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.menu_main_orange)), terms_intro.length() + 1, (terms_intro.length() + 1 + terms_privacy_clickable.length() - 1),
+		ss.setSpan(clickableSpanTermsOfService, terms_intro.length() + 1, (terms_intro.length() + 1 + terms_privacy_clickable.length()),
 				Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.menu_main_orange)), terms_intro.length() + 1, (terms_intro.length() + 1
+				+ terms_privacy_clickable.length() - 1), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 		ClickableSpan clickableSpanPrivacyPolicy = new ClickableSpan() {
 			@Override
@@ -318,10 +328,12 @@ public class SignUpActivity extends BaseActivity {
 				startActivity(new Intent(SignUpActivity.this, AboutTheAppActivity.class));
 			}
 		};
-		ss.setSpan(clickableSpanPrivacyPolicy, (terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + 1),
-				(terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length()), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-		ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.menu_main_orange)), (terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + 1),
-				(terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length()), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		ss.setSpan(clickableSpanPrivacyPolicy, (terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + 1), (terms_intro.length()
+				+ terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length()), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.menu_main_orange)), (terms_intro.length() + terms_privacy_clickable.length()
+				+ terms_and.length() + 1),
+				(terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length()),
+				Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 		ClickableSpan clickableSpanTokenizerSeeHow = new ClickableSpan() {
 			@Override
@@ -329,13 +341,18 @@ public class SignUpActivity extends BaseActivity {
 				startActivity(new Intent(SignUpActivity.this, TokenizationExplainedActivity.class));
 			}
 		};
-		ss.setSpan(clickableSpanTokenizerSeeHow,
-				(terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length() + terms_tokenizer.length() + 1), (terms_intro.length()
-						+ terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length() + terms_tokenizer.length() + terms_tokenizer_clickable.length() - 1),
+		ss.setSpan(
+				clickableSpanTokenizerSeeHow,
+				(terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length()
+						+ terms_tokenizer.length() + 1), (terms_intro.length() + terms_privacy_clickable.length() + terms_and.length()
+						+ terms_privacy_policy_clickable.length() + terms_tokenizer.length() + terms_tokenizer_clickable.length() - 1),
 				Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-		ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.menu_main_orange)), (terms_intro.length() + terms_privacy_clickable.length() + terms_and.length()
-				+ terms_privacy_policy_clickable.length() + terms_tokenizer.length() + 1), (terms_intro.length() + terms_privacy_clickable.length() + terms_and.length()
-				+ terms_privacy_policy_clickable.length() + terms_tokenizer.length() + terms_tokenizer_clickable.length() - 1), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		ss.setSpan(
+				new ForegroundColorSpan(getResources().getColor(R.color.menu_main_orange)),
+				(terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length()
+						+ terms_tokenizer.length() + 1),
+				(terms_intro.length() + terms_privacy_clickable.length() + terms_and.length() + terms_privacy_policy_clickable.length()
+						+ terms_tokenizer.length() + terms_tokenizer_clickable.length() - 1), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 		mTextViewTermsOfUse.setText(ss);
 		mTextViewTermsOfUse.setMovementMethod(LinkMovementMethod.getInstance());
@@ -369,7 +386,7 @@ public class SignUpActivity extends BaseActivity {
 			mMonthEditText.setTextColor(getResources().getColor(R.color.menu_main_gray));
 			mYearEditText.setTextColor(getResources().getColor(R.color.menu_main_gray));
 			mCCVEditText.setTextColor(getResources().getColor(R.color.menu_main_gray));
-			
+
 		}
 	}
 

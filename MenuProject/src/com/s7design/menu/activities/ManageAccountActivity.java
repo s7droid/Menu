@@ -41,11 +41,11 @@ public class ManageAccountActivity extends BaseActivity {
 	private EditText mEditTextEmail;
 	private EditText mEditTextNewPassword;
 	private EditText mEditTextRepeatPassword;
-	private TextView mEditTextCreditCardNumber;
+	private EditText mEditTextCreditCardNumber;
 	// private EditText mEditTextNameOnCardNew;
-	private TextView mEditTextMonth;
-	private TextView mEditTextYear;
-	private TextView mEditTextCCV;
+	private EditText mEditTextMonth;
+	private EditText mEditTextYear;
+	private EditText mEditTextCCV;
 	private TextView mButtonShowPassword;
 	private Button mButtonChangeCreditCard;
 	private Button mButtonConfirmChanges;
@@ -113,12 +113,12 @@ public class ManageAccountActivity extends BaseActivity {
 		mButtonShowPassword = (TextView) findViewById(R.id.textviewManageAccountActivityHide);
 		mButtonChangeCreditCard = (Button) findViewById(R.id.buttonManageAccountActivityScanCreditCard);
 		mButtonConfirmChanges = (Button) findViewById(R.id.buttonManageAccountCinfirmChanges);
-		mEditTextCreditCardNumber = (TextView) findViewById(R.id.edittextManageAccountActivityCardNumber);
+		mEditTextCreditCardNumber = (EditText) findViewById(R.id.edittextManageAccountActivityCardNumber);
 		// mEditTextNameOnCardNew = (EditText)
 		// findViewById(R.id.edittextManageAccountActivityNameOnCard);
-		mEditTextMonth = (TextView) findViewById(R.id.edittextManageAccountActivityMonth);
-		mEditTextYear = (TextView) findViewById(R.id.edittextManageAccountActivityYear);
-		mEditTextCCV = (TextView) findViewById(R.id.edittextManageAccountActivityCCV);
+		mEditTextMonth = (EditText) findViewById(R.id.edittextManageAccountActivityMonth);
+		mEditTextYear = (EditText) findViewById(R.id.edittextManageAccountActivityYear);
+		mEditTextCCV = (EditText) findViewById(R.id.edittextManageAccountActivityCCV);
 		mLinearLayoutCreditCardDataCOntainer = (LinearLayout) findViewById(R.id.linearlayoutManageAccountActivityCardContainer);
 
 		Utils.handleOutsideEditTextClick(findViewById(R.id.relativelayoutContainer), this);
@@ -179,23 +179,28 @@ public class ManageAccountActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				if (!mEditTextNewPassword.getText().toString().equals(mEditTextRepeatPassword.getText().toString())) {
-					showAlertDialog(getResources().getString(R.string.dialog_passwords_dont_match_title), getResources().getString(R.string.dialog_passwords_dont_match_content));
+					showAlertDialog(getResources().getString(R.string.dialog_passwords_dont_match_title),
+							getResources().getString(R.string.dialog_passwords_dont_match_content));
 					return;
 				} else if (!mEditTextCreditCardNumber.getText().toString().isEmpty()) {
 					Calendar calendar = Calendar.getInstance();
 
 					if (mEditTextMonth.getText().toString().isEmpty() || mEditTextYear.getText().toString().isEmpty()) {
-						showAlertDialog(getResources().getString(R.string.dialog_invalid_expiry_date_error_title), getResources().getString(R.string.dialog_invalid_expiry_date_error_content));
+						showAlertDialog(getResources().getString(R.string.dialog_invalid_expiry_date_error_title),
+								getResources().getString(R.string.dialog_invalid_expiry_date_error_content));
 						return;
 					} else if (Integer.valueOf(mEditTextMonth.getText().toString()) < (calendar.get(Calendar.MONTH) + 1)
 							|| Integer.valueOf(mEditTextYear.getText().toString()) < calendar.get(Calendar.YEAR)) {
-						System.out.println("EditText month= " + Integer.valueOf(mEditTextMonth.getText().toString()) + "\nCalendar month= " + calendar.get(Calendar.MONTH) + 1);
-						showAlertDialog(getResources().getString(R.string.dialog_invalid_expiry_date_error_title), getResources().getString(R.string.dialog_invalid_expiry_date_error_content));
+						System.out.println("EditText month= " + Integer.valueOf(mEditTextMonth.getText().toString()) + "\nCalendar month= "
+								+ calendar.get(Calendar.MONTH) + 1);
+						showAlertDialog(getResources().getString(R.string.dialog_invalid_expiry_date_error_title),
+								getResources().getString(R.string.dialog_invalid_expiry_date_error_content));
 						return;
 					} else if (mEditTextCCV.getText().toString().isEmpty()) {
 						showAlertDialog(getResources().getString(R.string.dialog_cvv_empty_title), getResources().getString(R.string.dialog_cvv_empty_content));
 					} else {
-						Braintree braintree = Braintree.getInstance(ManageAccountActivity.this, Menu.getInstance().getDataManager().getClientBraintreeToken(ManageAccountActivity.this));
+						Braintree braintree = Braintree.getInstance(ManageAccountActivity.this,
+								Menu.getInstance().getDataManager().getClientBraintreeToken(ManageAccountActivity.this));
 						braintree.addListener(new Braintree.PaymentMethodNonceListener() {
 							public void onPaymentMethodNonce(String paymentMethodNonce) {
 
@@ -210,14 +215,15 @@ public class ManageAccountActivity extends BaseActivity {
 
 								params.put("nonce", paymentMethodNonce);
 
-								ModifyAccountRequest request = new ModifyAccountRequest(ManageAccountActivity.this, params, new Listener<ModifyAccountResponse>() {
+								ModifyAccountRequest request = new ModifyAccountRequest(ManageAccountActivity.this, params,
+										new Listener<ModifyAccountResponse>() {
 
-									@Override
-									public void onResponse(ModifyAccountResponse arg0) {
-										finish();
-										dismissProgressDialog();
-									}
-								});
+											@Override
+											public void onResponse(ModifyAccountResponse arg0) {
+												finish();
+												dismissProgressDialog();
+											}
+										});
 
 								VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
 
@@ -243,7 +249,8 @@ public class ManageAccountActivity extends BaseActivity {
 						});
 
 						CardBuilder cardBuilder = new CardBuilder().cardNumber(mEditTextCreditCardNumber.getText().toString())
-								.expirationDate(mEditTextMonth.getText().toString() + "/" + mEditTextYear.getText().toString()).cvv(mEditTextCCV.getText().toString());
+								.expirationDate(mEditTextMonth.getText().toString() + "/" + mEditTextYear.getText().toString())
+								.cvv(mEditTextCCV.getText().toString());
 						braintree.tokenize(cardBuilder);
 						return;
 					}

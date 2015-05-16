@@ -43,8 +43,8 @@ public class OrderMealsActivity extends BaseActivity {
 		int tag = getIntent().getIntExtra(CategoryMealsActivity.INTENT_EXTRA_CATEGORY_TAG, 0);
 
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("major", Settings.getMajor(OrderMealsActivity.this));
-		params.put("minor", Settings.getMinor(OrderMealsActivity.this));
+		params.put("major", Settings.getStoreMajor(OrderMealsActivity.this));
+		params.put("minor", Settings.getStoreMinor(OrderMealsActivity.this));
 		params.put("lang", "en");
 		params.put("cat", String.valueOf(tag));
 
@@ -53,17 +53,18 @@ public class OrderMealsActivity extends BaseActivity {
 			@Override
 			public void onResponse(GetAllItemsInCategoryResponse items) {
 
-				if(items.items == null){
-					showAlertDialog(getString(R.string.category_meals_no_items_title), getString(R.string.category_meals_no_items_content), new OnClickListener() {
-						
-						@Override
-						public void onClick(View v) {
-							finish();
-						}
-					});
+				if (items.items == null) {
+					showAlertDialog(getString(R.string.category_meals_no_items_title), getString(R.string.category_meals_no_items_content),
+							new OnClickListener() {
+
+								@Override
+								public void onClick(View v) {
+									finish();
+								}
+							});
 					return;
 				}
-				
+
 				OrderMealsActivity.this.items = new ArrayList<Item>(Arrays.asList(items.items));
 				Menu.getInstance().getDataManager().setItemsList(OrderMealsActivity.this.items);
 

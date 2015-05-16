@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -15,12 +16,10 @@ import com.s7design.menu.volley.VolleySingleton;
 import com.s7design.menu.volley.responses.GetRestaurantInfoResponse;
 
 /**
- * Welcome activity. This activity contains data about current restaurant. From
- * this activity user can go to tutorials, or see menu of the restaurant, and
- * make an order. <br>
- * In order to enter this activity, user first must satisfied several
- * conditions, such are: Internet and bluetooth connection enabled, and some
- * several conditions, which are checked in {@link SplashActivity}.
+ * Welcome activity. This activity contains data about current restaurant. From this activity user can go to tutorials, or see menu of the restaurant, and make
+ * an order. <br>
+ * In order to enter this activity, user first must satisfied several conditions, such are: Internet and bluetooth connection enabled, and some several
+ * conditions, which are checked in {@link SplashActivity}.
  * 
  * @author s7Design
  *
@@ -54,7 +53,7 @@ public class RestaurantPreviewActivity extends BaseActivity {
 		imageViewRestaurant.setImageUrl(restaurantInfo.imageurl, VolleySingleton.getInstance(getApplicationContext()).getImageLoader());
 		imageViewRestaurant.setDefaultImageResId(R.drawable.no_image);
 		imageViewRestaurant.setErrorImageResId(R.drawable.no_image);
-		
+
 		mRestaurantName.setText(restaurantInfo.restaurantname);
 
 		setActionBarBackButtonVisibility(View.INVISIBLE);
@@ -74,11 +73,10 @@ public class RestaurantPreviewActivity extends BaseActivity {
 				startActivity(new Intent(RestaurantPreviewActivity.this, TutorialFirstActivity.class));
 			}
 		});
-		
-		Rate rate = new Rate(this);
-		
-		System.out.println("Min tip= " + rate.mintip + "\nMax tip= " + rate.maxtip + "\nTax= " + rate.tax);
-		
-	}
 
+		Rate rate = new Rate(this);
+
+		System.out.println("Min tip= " + rate.mintip + "\nMax tip= " + rate.maxtip + "\nTax= " + rate.tax);
+
+	}
 }

@@ -159,7 +159,7 @@
                     android:layout_height="1dp"
                     android:background="@color/menu_main_divider_color" />
 
-                <com.s7design.menu.views.MenuTextView
+                <com.s7design.menu.views.MenuEditText
                     android:id="@+id/edittextManageAccountActivityCardNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -167,8 +167,8 @@
                     android:hint="@string/sign_up_credit_card_number_hint_text"
                     android:inputType="number"
                     android:maxLength="19"
-                    android:paddingTop="10dp"
                     android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
                     android:singleLine="true"
                     android:textColor="@color/menu_main_gray_light"
                     android:textSize="18sp"
@@ -203,7 +203,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
 
-                    <com.s7design.menu.views.MenuTextView
+                    <com.s7design.menu.views.MenuEditText
                         android:id="@+id/edittextManageAccountActivityMonth"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -221,7 +221,7 @@
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
-                    <com.s7design.menu.views.MenuTextView
+                    <com.s7design.menu.views.MenuEditText
                         android:id="@+id/edittextManageAccountActivityYear"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -257,7 +257,7 @@
                         android:layout_below="@+id/edittextManageAccountActivityYear"
                         android:background="@color/menu_main_divider_color" />
 
-                    <com.s7design.menu.views.MenuTextView
+                    <com.s7design.menu.views.MenuEditText
                         android:id="@+id/edittextManageAccountActivityCCV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

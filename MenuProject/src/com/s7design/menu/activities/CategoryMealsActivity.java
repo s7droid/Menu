@@ -60,8 +60,8 @@ public class CategoryMealsActivity extends BaseActivity {
 		initActionBar();
 
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("major", Settings.getMajor(CategoryMealsActivity.this));
-		params.put("minor", Settings.getMinor(CategoryMealsActivity.this));
+		params.put("major", Settings.getStoreMajor(CategoryMealsActivity.this));
+		params.put("minor", Settings.getStoreMinor(CategoryMealsActivity.this));
 		params.put("lang", "en");
 
 		GetCategoriesRequest request = new GetCategoriesRequest(this, params, new Listener<GetCategoriesResponse>() {
@@ -192,7 +192,7 @@ public class CategoryMealsActivity extends BaseActivity {
 			holder.categoryImage.setImageUrl(getItem(position).image, imageLoader);
 			holder.categoryImage.setDefaultImageResId(R.drawable.no_image);
 			holder.categoryImage.setErrorImageResId(R.drawable.no_image);
-			
+
 			holder.categoryTitle.setText(getItem(position).name);
 
 			return convertView;

@@ -2,16 +2,19 @@ package com.s7design.menu.app;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.UUID;
 
 import org.altbeacon.beacon.BeaconConsumer;
 import org.altbeacon.beacon.BeaconManager;
 import org.altbeacon.beacon.MonitorNotifier;
 import org.altbeacon.beacon.Region;
 
+import android.R.menu;
 import android.app.Activity;
 import android.app.Application;
 import android.bluetooth.BluetoothAdapter;
@@ -24,12 +27,16 @@ import android.os.RemoteException;
 import android.support.v4.util.Pair;
 import android.util.Log;
 
+import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.s7design.menu.callbacks.OnIBeaconSearchResultCallback;
 import com.s7design.menu.callbacks.OnVolleyErrorCallback;
 import com.s7design.menu.dataclasses.Beacon;
 import com.s7design.menu.dataclasses.DataManager;
+import com.s7design.menu.volley.VolleySingleton;
+import com.s7design.menu.volley.requests.TableBeaconRequest;
 import com.s7design.menu.volley.responses.GsonResponse;
+import com.s7design.menu.volley.responses.TableBeaconResponse;
 
 public class Menu extends Application implements BeaconConsumer, LeScanCallback, OnIBeaconSearchResultCallback {
 
@@ -48,11 +55,14 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 
 	public static final Integer DISABLING_MINOR_VALUE = 0;
 
-	private static final int SPLASH_SCREEN_TIMEOUT = 10000;
+	private static final int SPLASH_SCREEN_TIMEOUT = 5000;
 
-	private static final int SCAN_PERIOD = 60000;
+	private static final int SCAN_PERIOD_DEFAULT = 60000;
+	private static final int SCAN_PERIOD_CHECKOUT_SCREEN = 10000;
+	private static int SCAN_PERIOD = SCAN_PERIOD_DEFAULT;
 
 	private BeaconManager beaconManager;
+	private BluetoothManager bluetoothManager;
 	private BluetoothAdapter bluetoothAdapter;
 
 	private Timer timer;
@@ -61,6 +71,8 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 
 	private final String storeUuid = "DE5B5C5E-C681-4DF6-9349-0456EDE0EA45";
 	private final String tableUuid = "A5324FA8-BCF1-421B-945E-F83DF4672519";
+
+	private UUID[] uuids;
 
 	public Menu() {
 		instance = this;
@@ -72,6 +84,11 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 		timer = new Timer();
 
 		beaconMap = new HashMap<String, Beacon>();
+
+		uuids = new UUID[2];
+		uuids[0] = UUID.fromString(storeUuid);
+		uuids[1] = UUID.fromString(tableUuid);
+
 	}
 
 	public static synchronized Context getContext() {
@@ -97,7 +114,7 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 
 		beaconManager = BeaconManager.getInstanceForApplication(this);
 		beaconManager.bind(this);
-		BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+		bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
 		bluetoothAdapter = bluetoothManager.getAdapter();
 
 		// ACRA.init(this);
@@ -179,7 +196,9 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 
 	public boolean isOrderEnabled() {
 
-		if ((int) Integer.valueOf(dataManager.getMinor(getApplicationContext())) == DISABLING_MINOR_VALUE)
+		if (dataManager.getTableMajor(getApplicationContext()).isEmpty()
+				|| (int) Integer.valueOf(dataManager.getTableMinor(getApplicationContext())) == DISABLING_MINOR_VALUE
+				|| !dataManager.getIsInRangeOfTableBeacon(getApplicationContext()))
 			return false;
 		else
 			return true;
@@ -187,7 +206,7 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 
 	public boolean isInARestaurant() {
 
-		return dataManager.getMinor(getApplicationContext()).length() > 0 || dataManager.getMajor(getApplicationContext()).length() > 0;
+		return dataManager.getStoreMajor(getApplicationContext()).length() > 0;
 	}
 
 	Handler handler = new Handler();
@@ -195,26 +214,53 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 		public void run() {
 
 			bluetoothAdapter.stopLeScan(Menu.this);
-			onIBeaconSearchResult(OnIBeaconSearchResultCallback.SEARCH_RESULT_BEACON_NOT_FOUND);
+			onIBeaconSearchResult(0);
 			handler.removeCallbacks(runnable);
 		}
 	};
 
 	private OnIBeaconSearchResultCallback onIBeaconSearchResultCallback;
+	private OnIBeaconSearchResultCallback onSubscribeIBeaconSearchResultCallback;
+
+	public void subscribeIBeaconSearchResultCallback(OnIBeaconSearchResultCallback callback) {
+		onSubscribeIBeaconSearchResultCallback = callback;
+	}
+
+	public void subscribeIBeaconSearchResultCallbackCheckout(OnIBeaconSearchResultCallback callback) {
+		onSubscribeIBeaconSearchResultCallback = callback;
+		SCAN_PERIOD = SCAN_PERIOD_CHECKOUT_SCREEN;
+	}
+
+	public void unsubscribeIBeaconSearchResultCallback() {
+		onSubscribeIBeaconSearchResultCallback = null;
+		SCAN_PERIOD = SCAN_PERIOD_DEFAULT;
+		searchForIBeacon(null);
+	}
 
 	private TimerTask timerTask;
+
+	public void searchForIBeaconCheckout(OnIBeaconSearchResultCallback callback) {
+		SCAN_PERIOD = SCAN_PERIOD_CHECKOUT_SCREEN;
+		onSubscribeIBeaconSearchResultCallback = callback;
+		searchForIBeacon(null);
+	}
 
 	public void searchForIBeacon(OnIBeaconSearchResultCallback callback) {
 
 		onIBeaconSearchResultCallback = callback;
 
+		beaconMap.clear();
 		bluetoothAdapter.startLeScan(this);
 		handler.postDelayed(runnable, SPLASH_SCREEN_TIMEOUT);
 
 		if (timerTask != null) {
 			timer.cancel();
-			timer = new Timer();
+			timer.purge();
 		}
+		timer = new Timer();
+
+		if (timerTask != null)
+			timerTask.cancel();
 
 		timerTask = new TimerTask() {
 
@@ -223,6 +269,7 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 
 				Log.w(TAG, "timer run!!!");
 
+				beaconMap.clear();
 				bluetoothAdapter.startLeScan(Menu.this);
 				handler.postDelayed(runnable, SPLASH_SCREEN_TIMEOUT);
 			}
@@ -263,10 +310,6 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 	@Override
 	public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
 
-		Log.d(TAG, "onLeScan");
-		bluetoothAdapter.stopLeScan(this);
-		handler.removeCallbacks(runnable);
-
 		int startByte = 2;
 		boolean patternFound = false;
 		while (startByte <= 5) {
@@ -296,14 +339,6 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 			// Here is your Minor value
 			int minor = (scanRecord[startByte + 22] & 0xff) * 0x100 + (scanRecord[startByte + 23] & 0xff);
 
-			Log.d(TAG, "major " + major);
-			Log.d(TAG, "minor " + minor);
-			Log.d(TAG, "uuid " + uuid);
-			Log.d(TAG, "rssi " + rssi);
-
-			Menu.getInstance().getDataManager().setMajor(getApplicationContext(), String.valueOf(major));
-			Menu.getInstance().getDataManager().setMinor(getApplicationContext(), String.valueOf(minor));
-
 			Beacon beacon = new Beacon();
 			beacon.uuid = uuid;
 			beacon.major = major;
@@ -312,9 +347,6 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 
 			if (!beaconMap.containsKey(uuid))
 				beaconMap.put(uuid, beacon);
-
-			onIBeaconSearchResult(OnIBeaconSearchResultCallback.SEARCH_RESULT_BEACON_FOUND);
-			
 		}
 	}
 
@@ -333,18 +365,104 @@ public class Menu extends Application implements BeaconConsumer, LeScanCallback,
 	@Override
 	public void onIBeaconSearchResult(int result) {
 
-		if (result == OnIBeaconSearchResultCallback.SEARCH_RESULT_BEACON_FOUND) {
+		if (result == OnIBeaconSearchResultCallback.SEARCH_RESULT_DEFAULT) {
 
-		} else if (result == OnIBeaconSearchResultCallback.SEARCH_RESULT_BEACON_NOT_FOUND) {
+			if (beaconMap.containsKey(storeUuid)) {
+				result = OnIBeaconSearchResultCallback.SEARCH_RESULT_STORE_BEACON_FOUND;
 
-			Menu.getInstance().getDataManager().setMajor(getApplicationContext(), String.valueOf(""));
-			Menu.getInstance().getDataManager().setMinor(getApplicationContext(), String.valueOf(""));
+				String tableMajor = "";
+				String tableMinor = "";
+
+				Beacon storeBeacon = beaconMap.get(storeUuid);
+
+				if (beaconMap.containsKey(tableUuid)) {
+					result = OnIBeaconSearchResultCallback.SEARCH_RESULT_TABLE_BEACON_FOUND;
+
+					Beacon closestBeacon = null;
+					int maxRssi = -128;
+
+					ArrayList<Beacon> beacons = new ArrayList<Beacon>(beaconMap.values());
+
+					for (Beacon beacon : beacons) {
+
+						if (beacon.uuid.equals(tableUuid) && beacon.rssi > maxRssi) {
+							maxRssi = beacon.rssi;
+							closestBeacon = beacon;
+						}
+					}
+
+					// Iterator it = beaconMap.entrySet().iterator();
+					// while (it.hasNext()) {
+					// Map.Entry pair = (Map.Entry) it.next();
+					// Beacon beacon = (Beacon) pair.getValue();
+					//
+					// Log.i(TAG, "beacon uuid " + beacon.uuid);
+					// Log.i(TAG, "beacon rssi " + beacon.rssi);
+					//
+					// if (beacon.uuid.equals(tableUuid) && beacon.rssi > maxRssi) {
+					// maxRssi = beacon.rssi;
+					// closestBeacon = beacon;
+					// }
+					// }
+
+					tableMajor = String.valueOf(closestBeacon.major);
+					tableMinor = String.valueOf(closestBeacon.minor);
+
+					Map<String, String> params = new HashMap<String, String>();
+					params.put("major", tableMajor);
+					params.put("minor", tableMinor);
+
+					TableBeaconRequest tableBeaconRequest = new TableBeaconRequest(null, params, closestBeacon.rssi, new Listener<TableBeaconResponse>() {
+
+						@Override
+						public void onResponse(TableBeaconResponse response) {
+
+							dataManager.setIsInRangeOfTableBeacon(getApplicationContext(), response.isInRange());
+
+							if (onIBeaconSearchResultCallback != null) {
+								onIBeaconSearchResultCallback.onIBeaconSearchResult(OnIBeaconSearchResultCallback.SEARCH_RESULT_TABLE_BEACON_FOUND);
+								onIBeaconSearchResultCallback = null;
+							}
+
+							if (onSubscribeIBeaconSearchResultCallback != null)
+								onSubscribeIBeaconSearchResultCallback.onIBeaconSearchResult(OnIBeaconSearchResultCallback.SEARCH_RESULT_TABLE_BEACON_FOUND);
+						}
+					});
+
+					VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(tableBeaconRequest);
+
+					dataManager.setStoreMajor(getApplicationContext(), String.valueOf(storeBeacon.major));
+					dataManager.setStoreMinor(getApplicationContext(), String.valueOf(storeBeacon.minor));
+					dataManager.setTableMajor(getApplicationContext(), tableMajor);
+					dataManager.setTableMinor(getApplicationContext(), tableMinor);
+
+					return;
+
+				}
+
+				dataManager.setStoreMajor(getApplicationContext(), String.valueOf(storeBeacon.major));
+				dataManager.setStoreMinor(getApplicationContext(), String.valueOf(storeBeacon.minor));
+				dataManager.setTableMajor(getApplicationContext(), tableMajor);
+				dataManager.setTableMinor(getApplicationContext(), tableMinor);
+				dataManager.setIsInRangeOfTableBeacon(getApplicationContext(), false);
+
+			} else {
+				result = OnIBeaconSearchResultCallback.SEARCH_RESULT_BEACON_NOT_FOUND;
+
+				dataManager.setStoreMajor(getApplicationContext(), String.valueOf(""));
+				dataManager.setStoreMinor(getApplicationContext(), String.valueOf(""));
+				dataManager.setTableMajor(getApplicationContext(), String.valueOf(""));
+				dataManager.setTableMinor(getApplicationContext(), String.valueOf(""));
+				dataManager.setIsInRangeOfTableBeacon(getApplicationContext(), false);
+			}
 		}
 
 		if (onIBeaconSearchResultCallback != null) {
 			onIBeaconSearchResultCallback.onIBeaconSearchResult(result);
 			onIBeaconSearchResultCallback = null;
 		}
-	}
 
+		if (onSubscribeIBeaconSearchResultCallback != null)
+			onSubscribeIBeaconSearchResultCallback.onIBeaconSearchResult(result);
+	}
 }

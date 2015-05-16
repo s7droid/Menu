@@ -43,7 +43,7 @@ public class TutorialSecondActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				if (!Settings.getMajor(TutorialSecondActivity.this).isEmpty() && !Settings.getMinor(TutorialSecondActivity.this).isEmpty()) {
+				if (!Settings.getStoreMajor(TutorialSecondActivity.this).isEmpty() && !Settings.getStoreMinor(TutorialSecondActivity.this).isEmpty()) {
 					Intent intent = new Intent(getApplicationContext(), CategoryMealsActivity.class);
 					startActivity(intent);
 				} else {

@@ -235,7 +235,8 @@ public class SplashActivity extends BaseActivity {
 			@Override
 			public void onIBeaconSearchResult(int result) {
 
-				if (result == OnIBeaconSearchResultCallback.SEARCH_RESULT_BEACON_FOUND) {
+				if (result == OnIBeaconSearchResultCallback.SEARCH_RESULT_STORE_BEACON_FOUND
+						|| result == OnIBeaconSearchResultCallback.SEARCH_RESULT_TABLE_BEACON_FOUND) {
 
 					onBeaconFound();
 
@@ -281,8 +282,8 @@ public class SplashActivity extends BaseActivity {
 				final CountDownLatch countDownLatch = new CountDownLatch(5);
 
 				Map<String, String> params = new HashMap<String, String>();
-				params.put("major", Menu.getInstance().getDataManager().getMajor(SplashActivity.this));
-				params.put("minor", Menu.getInstance().getDataManager().getMinor(SplashActivity.this));
+				params.put("major", Menu.getInstance().getDataManager().getStoreMajor(SplashActivity.this));
+				params.put("minor", Menu.getInstance().getDataManager().getStoreMinor(SplashActivity.this));
 
 				GetRestaurantInfoRequest restaurantInfoRequest = new GetRestaurantInfoRequest(SplashActivity.this, params,
 						new Listener<GetRestaurantInfoResponse>() {
@@ -292,8 +293,8 @@ public class SplashActivity extends BaseActivity {
 								Menu.getInstance().getDataManager().setRestaurantInfo(SplashActivity.this, restaurantInfo);
 								countDownLatch.countDown();
 
-								String major = Menu.getInstance().getDataManager().getMajor(SplashActivity.this);
-								String minor = Menu.getInstance().getDataManager().getMinor(SplashActivity.this);
+								String major = Menu.getInstance().getDataManager().getStoreMajor(SplashActivity.this);
+								String minor = Menu.getInstance().getDataManager().getStoreMinor(SplashActivity.this);
 
 								if ((major != null && minor != null)) {
 									Intent i = new Intent(SplashActivity.this, RestaurantPreviewActivity.class);
@@ -351,8 +352,7 @@ public class SplashActivity extends BaseActivity {
 
 				try {
 					countDownLatch.await(20000, TimeUnit.MILLISECONDS);
-					
-					
+
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

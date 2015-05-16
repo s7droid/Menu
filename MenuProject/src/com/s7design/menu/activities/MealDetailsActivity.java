@@ -188,8 +188,8 @@ public class MealDetailsActivity extends BaseActivity {
 	private void initData() {
 
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("major", Settings.getMajor(MealDetailsActivity.this));
-		params.put("minor", Settings.getMinor(MealDetailsActivity.this));
+		params.put("major", Settings.getStoreMajor(MealDetailsActivity.this));
+		params.put("minor", Settings.getStoreMinor(MealDetailsActivity.this));
 		params.put("itemtag", String.valueOf(getIntent().getIntExtra(INTENT_EXTRA_TAG, 0)));
 		params.put("lang", "en");
 
@@ -271,8 +271,7 @@ public class MealDetailsActivity extends BaseActivity {
 		}
 
 		textViewLabelLarge.setText(/*
-									 * getString(R.string.meal_details_order) +
-									 * " " +
+									 * getString(R.string.meal_details_order) + " " +
 									 */item.largelabel);
 
 		circleButtonViewPlusLarge.setOnClickListener(new OnClickListener() {
@@ -315,8 +314,7 @@ public class MealDetailsActivity extends BaseActivity {
 		if (item.smalllabel.length() > 0) {
 
 			textViewLabelSmall.setText(/*
-										 * getString(R.string.meal_details_order)
-										 * + " " +
+										 * getString(R.string.meal_details_order) + " " +
 										 */item.smalllabel);
 			mOrderSmallPriceTextView.setText(currency + String.format("%.2f", item.smallprice));
 

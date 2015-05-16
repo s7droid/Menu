@@ -193,7 +193,7 @@
     <string name="main_menu_view_venue_menu">SCHAUE DAS MENÜ AN</string>
     <string name="main_menu_current_order">OFFENE BESTELLUNG</string>
     <string name="main_menu_log_in_or_sign_up">ANMELDEN</string>
-    <string name="main_menu_logout">LOGOUT</string>
+    <string name="main_menu_logout">AUSLOGGEN</string>
 
     <!-- Pickup info -->
     <string name="pickup_info_text">Bitte teile uns Deine Mobiltelefonnummer mit, so dass wir dir eine SMS schicken können sobald Deine Bestellung zum Abholen bereit ist.</string>

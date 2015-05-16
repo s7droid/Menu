@@ -35,6 +35,7 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.s7design.menu.R;
 import com.s7design.menu.app.Menu;
+import com.s7design.menu.callbacks.OnIBeaconSearchResultCallback;
 import com.s7design.menu.dataclasses.DataManager;
 import com.s7design.menu.dataclasses.Item;
 import com.s7design.menu.dataclasses.Rate;
@@ -51,7 +52,7 @@ import com.s7design.menu.volley.responses.GsonResponse;
 import com.s7design.menu.volley.responses.OrderResponse;
 import com.s7design.menu.volley.responses.SendReceiptByEmailResponse;
 
-public class CheckoutActivity extends BaseActivity{
+public class CheckoutActivity extends BaseActivity implements OnIBeaconSearchResultCallback {
 
 	private static final String TAG = CheckoutActivity.class.getSimpleName();
 
@@ -108,8 +109,24 @@ public class CheckoutActivity extends BaseActivity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_checkout);
 
+		// showProgressDialogLoading();
+
 		initData();
 		initViews();
+
+		// Menu.getInstance().searchForIBeacon(new OnIBeaconSearchResultCallback() {
+		//
+		// @Override
+		// public void onIBeaconSearchResult(int result) {
+		//
+		// if (!Menu.getInstance().isOrderEnabled() || total == 0) {
+		// disableCheckoutButton();
+		// } else {
+		// enableCheckoutButton();
+		// }
+		// // dismissProgressDialog();
+		// }
+		// });
 
 	}
 
@@ -126,6 +143,15 @@ public class CheckoutActivity extends BaseActivity{
 			isCheckoutCLicked = false;
 		}
 
+		Menu.getInstance().searchForIBeaconCheckout(this);
+
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+
+		Menu.getInstance().unsubscribeIBeaconSearchResultCallback();
 	}
 
 	private void refreshList() {
@@ -224,7 +250,7 @@ public class CheckoutActivity extends BaseActivity{
 		setActionBarForwardArrowVisibility(null);
 		setActionBarForwardButtonTextColor(getResources().getColor(R.color.menu_main_orange));
 		setActionBarForwardButtonText(R.string.action_bar_order_summary);
-		
+
 		setActionBarBackButtonOnClickListener(new OnClickListener() {
 
 			@Override
@@ -298,54 +324,60 @@ public class CheckoutActivity extends BaseActivity{
 			public void onClick(View v) {
 
 				disableCheckoutButton();
+				showProgressDialogLoading();
 
-				if (!Menu.getInstance().isOrderEnabled() || !Menu.getInstance().isInARestaurant()) {
-					showAlertDialog(R.string.dialog_title_warning, R.string.dialog_cannot_order);
-					enableCheckoutButton();
-					return;
-				}
+				Menu.getInstance().searchForIBeacon(new OnIBeaconSearchResultCallback() {
 
-				if (!Settings.getAccessToken(getApplicationContext()).equals("")) {
+					@Override
+					public void onIBeaconSearchResult(int result) {
 
-					showProgressDialogLoading();
+						if (!Menu.getInstance().isOrderEnabled() || !Menu.getInstance().isInARestaurant()) {
+							showAlertDialog(R.string.dialog_title_warning, R.string.dialog_cannot_order);
+							enableCheckoutButton();
+							dismissProgressDialog();
+							return;
+						}
 
-					System.out.println("accesstoken= " + Settings.getAccessToken(getApplicationContext()));
+						if (!Settings.getAccessToken(getApplicationContext()).equals("")) {
 
-					Map<String, String> params = new HashMap<String, String>();
-					params.put("accesstoken", Settings.getAccessToken(CheckoutActivity.this));
-					// params.put("major",
-					// Menu.getInstance().getDataManager().getMajor());
-					// params.put("minor",
-					// Menu.getInstance().getDataManager().getMinor());
-					params.put("major", Settings.getMajor(CheckoutActivity.this));
-					params.put("minor", Settings.getMinor(CheckoutActivity.this));
+							showProgressDialogLoading();
 
-					CheckIfPhoneNeededRequest request = new CheckIfPhoneNeededRequest(CheckoutActivity.this, params,
-							new Listener<CheckIfPhoneNeededResponse>() {
+							System.out.println("accesstoken= " + Settings.getAccessToken(getApplicationContext()));
 
-								@Override
-								public void onResponse(CheckIfPhoneNeededResponse arg0) {
+							Map<String, String> params = new HashMap<String, String>();
+							params.put("accesstoken", Settings.getAccessToken(CheckoutActivity.this));
+							params.put("major", Settings.getStoreMajor(CheckoutActivity.this));
+							params.put("minor", Settings.getStoreMinor(CheckoutActivity.this));
 
-									enableCheckoutButton();
+							CheckIfPhoneNeededRequest request = new CheckIfPhoneNeededRequest(CheckoutActivity.this, params,
+									new Listener<CheckIfPhoneNeededResponse>() {
 
-									if (arg0.response != null && arg0.response.equals("numberneeded")) {
-										dismissProgressDialog();
-										Intent intent = new Intent(CheckoutActivity.this, PickupInfoActivity.class);
-										startActivityForResult(intent, REQUEST_PHONE_NUMBER);
-									} else if (arg0.response != null && arg0.response.equals("notneeded")) {
-										checkout();
-									}
-								}
-							});
+										@Override
+										public void onResponse(CheckIfPhoneNeededResponse arg0) {
 
-					VolleySingleton.getInstance(CheckoutActivity.this).addToRequestQueue(request);
+											enableCheckoutButton();
 
-				} else {
-					isCheckoutCLicked = true;
-					Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
-					startActivityForResult(intent, REQUEST_LOGIN);
-					enableCheckoutButton();
-				}
+											if (arg0.response != null && arg0.response.equals("numberneeded")) {
+												dismissProgressDialog();
+												Intent intent = new Intent(CheckoutActivity.this, PickupInfoActivity.class);
+												startActivityForResult(intent, REQUEST_PHONE_NUMBER);
+											} else if (arg0.response != null && arg0.response.equals("notneeded")) {
+												checkout();
+											}
+										}
+									});
+
+							VolleySingleton.getInstance(CheckoutActivity.this).addToRequestQueue(request);
+
+						} else {
+							isCheckoutCLicked = true;
+							Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+							startActivityForResult(intent, REQUEST_LOGIN);
+							dismissProgressDialog();
+							enableCheckoutButton();
+						}
+					}
+				});
 
 			}
 		});
@@ -371,15 +403,21 @@ public class CheckoutActivity extends BaseActivity{
 	@Override
 	public void onResponseError(GsonResponse response) {
 
+		Log.e(TAG, "onResponseError " + response.errordata);
+
+		dismissProgressDialog();
+
 		if (response.response != null && response.response.equals("wronglogindetails")) {
-			dismissProgressDialog();
 			Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
 			startActivityForResult(intent, REQUEST_LOGIN);
+			dismissProgressDialog();
 			enableCheckoutButton();
 
 			return;
+		} else if (response.response != null && response.response.equals("ccdeclined")) {
+			showAlertDialog(R.string.dialog_title_error, R.string.dialog_card_declined);
 		}
-		
+
 		enableCheckoutButton();
 	}
 
@@ -526,27 +564,22 @@ public class CheckoutActivity extends BaseActivity{
 			if (requestCode == REQUEST_LOGIN) {
 				Map<String, String> params = new HashMap<String, String>();
 				params.put("accesstoken", Settings.getAccessToken(CheckoutActivity.this));
-				// params.put("major",
-				// Menu.getInstance().getDataManager().getMajor());
-				// params.put("minor",
-				// Menu.getInstance().getDataManager().getMinor());
-				params.put("major", Settings.getMajor(CheckoutActivity.this));
-				params.put("minor", Settings.getMinor(CheckoutActivity.this));
+				params.put("major", Settings.getStoreMajor(CheckoutActivity.this));
+				params.put("minor", Settings.getStoreMinor(CheckoutActivity.this));
 
-				CheckIfPhoneNeededRequest request = new CheckIfPhoneNeededRequest(CheckoutActivity.this, params,
-						new Listener<CheckIfPhoneNeededResponse>() {
+				CheckIfPhoneNeededRequest request = new CheckIfPhoneNeededRequest(CheckoutActivity.this, params, new Listener<CheckIfPhoneNeededResponse>() {
 
-							@Override
-							public void onResponse(CheckIfPhoneNeededResponse arg0) {
-								if (arg0.response != null && arg0.response.equals("numberneeded")) {
-									Intent intent = new Intent(CheckoutActivity.this, PickupInfoActivity.class);
-									startActivityForResult(intent, REQUEST_PHONE_NUMBER);
-								} else if (arg0.response != null && arg0.response.equals("notneeded")) {
-									showProgressDialogLoading();
-									checkout();
-								}
-							}
-						});
+					@Override
+					public void onResponse(CheckIfPhoneNeededResponse arg0) {
+						if (arg0.response != null && arg0.response.equals("numberneeded")) {
+							Intent intent = new Intent(CheckoutActivity.this, PickupInfoActivity.class);
+							startActivityForResult(intent, REQUEST_PHONE_NUMBER);
+						} else if (arg0.response != null && arg0.response.equals("notneeded")) {
+							showProgressDialogLoading();
+							checkout();
+						}
+					}
+				});
 
 				VolleySingleton.getInstance(CheckoutActivity.this).addToRequestQueue(request);
 			}
@@ -574,11 +607,13 @@ public class CheckoutActivity extends BaseActivity{
 
 		checkedoutItems = (ArrayList<Item>) cloneList(checkoutList);
 
+		Log.e(TAG, "CHECKOUT BEFORE NEWORDER");
+
 		// /////////////
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("type", "neworder");
-		params.put("major", Settings.getMajor(CheckoutActivity.this));
-		params.put("minor", Settings.getMinor(CheckoutActivity.this));
+		params.put("major", Settings.getTableMajor(CheckoutActivity.this));
+		params.put("minor", Settings.getTableMinor(CheckoutActivity.this));
 		params.put("language", data.getLanguage());
 		params.put("accesstoken", Settings.getAccessToken(this));
 		params.put("itemcount", String.valueOf(checkoutList.size()));
@@ -590,7 +625,8 @@ public class CheckoutActivity extends BaseActivity{
 		params.put("day", String.valueOf(cal.get(Calendar.DAY_OF_MONTH)));
 		params.put("month", String.valueOf(cal.get(Calendar.MONTH) + 1));
 		params.put("year", String.valueOf(cal.get(Calendar.YEAR)));
-		params.put("time", String.valueOf(cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE)));
+		int minute = cal.get(Calendar.MINUTE);
+		params.put("time", String.valueOf(cal.get(Calendar.HOUR_OF_DAY) + ":" + (minute > 9 ? minute : "0" + minute)));
 
 		OrderRequest createOrderRequest = new OrderRequest(this, params, new Listener<OrderResponse>() {
 
@@ -608,8 +644,8 @@ public class CheckoutActivity extends BaseActivity{
 							for (Item item : checkoutList) {
 								Map<String, String> itemParams = new HashMap<String, String>();
 								itemParams.put("type", "addtoorder");
-								itemParams.put("major", Settings.getMajor(CheckoutActivity.this));
-								itemParams.put("minor", Settings.getMinor(CheckoutActivity.this));
+								itemParams.put("major", Settings.getTableMajor(CheckoutActivity.this));
+								itemParams.put("minor", Settings.getTableMinor(CheckoutActivity.this));
 								itemParams.put("language", data.getLanguage());
 								itemParams.put("tag", String.valueOf(item.quantitySmall > 0 ? item.smalltag : item.largetag));
 								itemParams.put("amount", String.valueOf(item.quantitySmall > 0 ? item.quantitySmall : item.quantityLarge));
@@ -650,8 +686,8 @@ public class CheckoutActivity extends BaseActivity{
 
 								Map<String, String> executeParams = new HashMap<String, String>();
 								executeParams.put("type", "execute");
-								executeParams.put("major", Settings.getMajor(CheckoutActivity.this));
-								executeParams.put("minor", Settings.getMinor(CheckoutActivity.this));
+								executeParams.put("major", Settings.getTableMajor(CheckoutActivity.this));
+								executeParams.put("minor", Settings.getTableMinor(CheckoutActivity.this));
 								executeParams.put("language", data.getLanguage());
 								executeParams.put("orderid", response.orderid);
 								executeParams.put("accesstoken", Settings.getAccessToken(CheckoutActivity.this));
@@ -681,6 +717,8 @@ public class CheckoutActivity extends BaseActivity{
 
 							} else {
 								Log.d(TAG, "latch said false");
+								dismissProgressDialog();
+								showAlertDialog(getString(R.string.dialog_body_default_error_title), getString(R.string.dialog_body_default_error_message));
 							}
 						}
 					}.execute();
@@ -767,8 +805,8 @@ public class CheckoutActivity extends BaseActivity{
 
 			holder.circleButtonViewQty.setAsQty(holder.isSmall ? item.quantitySmall : item.quantityLarge);
 			holder.textViewName.setText(item.name);
-			holder.textViewPrice.setText(String.format("%.2f", holder.isSmall ? (item.smallprice * item.quantitySmall)
-					: (item.largeprice * item.quantityLarge)));
+			holder.textViewPrice.setText(String
+					.format("%.2f", holder.isSmall ? (item.smallprice * item.quantitySmall) : (item.largeprice * item.quantityLarge)));
 			holder.circleButtonViewDel.setAsDel();
 			holder.circleButtonViewMinus.setAsRemoveGrey();
 			holder.circleButtonViewPlus.setAsAddGrey();
@@ -799,8 +837,7 @@ public class CheckoutActivity extends BaseActivity{
 						ViewHolder holder = (ViewHolder) v.getTag();
 						holder.layoutMinusPlus.setVisibility(View.GONE);
 						holder.layoutName.setVisibility(View.VISIBLE);
-						holder.circleButtonViewQty.setAsQty(holder.isSmall ? getItem(holder.position).quantitySmall
-								: getItem(holder.position).quantityLarge);
+						holder.circleButtonViewQty.setAsQty(holder.isSmall ? getItem(holder.position).quantitySmall : getItem(holder.position).quantityLarge);
 					}
 				});
 			}
@@ -923,6 +960,16 @@ public class CheckoutActivity extends BaseActivity{
 		for (Item item : list)
 			clone.add((Item) item.clone());
 		return clone;
+	}
+
+	@Override
+	public void onIBeaconSearchResult(int result) {
+
+		if (!Menu.getInstance().isOrderEnabled() || total == 0) {
+			disableCheckoutButton();
+		} else {
+			enableCheckoutButton();
+		}
 	}
 
 }

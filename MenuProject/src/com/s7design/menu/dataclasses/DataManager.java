@@ -22,20 +22,44 @@ public class DataManager {
 	private String clientBraintreeToken;
 	private String language = "en";
 
-	public String getMajor(Context context) {
-		return Settings.getMajor(context);
+	public String getStoreMajor(Context context) {
+		return Settings.getStoreMajor(context);
 	}
 
-	public void setMajor(Context context, String major) {
-		Settings.setMajor(context, major);
+	public void setStoreMajor(Context context, String major) {
+		Settings.setStoreMajor(context, major);
 	}
 
-	public String getMinor(Context context) {
-		return Settings.getMinor(context);
+	public String getStoreMinor(Context context) {
+		return Settings.getStoreMinor(context);
 	}
 
-	public void setMinor(Context context, String minor) {
-		Settings.setMinor(context, minor);
+	public void setStoreMinor(Context context, String minor) {
+		Settings.setStoreMinor(context, minor);
+	}
+
+	public String getTableMajor(Context context) {
+		return Settings.getTableMajor(context);
+	}
+
+	public void setTableMajor(Context context, String major) {
+		Settings.setTableMajor(context, major);
+	}
+
+	public String getTableMinor(Context context) {
+		return Settings.getTableMinor(context);
+	}
+
+	public void setTableMinor(Context context, String minor) {
+		Settings.setTableMinor(context, minor);
+	}
+
+	public boolean getIsInRangeOfTableBeacon(Context context) {
+		return Settings.getIsInRangeOfTableBeacon(context);
+	}
+
+	public void setIsInRangeOfTableBeacon(Context context, boolean isInRange) {
+		Settings.setIsInRangeOfTableBeacon(context, isInRange);
 	}
 
 	public String getClientBraintreeToken(Context context) {
@@ -58,8 +82,8 @@ public class DataManager {
 		return Settings.getCurrency(context);
 	}
 
-	public void setCurrency(Context context,String currency) {
-		Settings.setCurrency(context,currency);
+	public void setCurrency(Context context, String currency) {
+		Settings.setCurrency(context, currency);
 	}
 
 	public ArrayList<Item> getItemsList() {
@@ -151,8 +175,8 @@ public class DataManager {
 		checkoutList.clear();
 	}
 
-	public void setRestaurantInfo(Context context,GetRestaurantInfoResponse restaurantInfo) {
-		Settings.setRestaurantInfo(context,restaurantInfo);
+	public void setRestaurantInfo(Context context, GetRestaurantInfoResponse restaurantInfo) {
+		Settings.setRestaurantInfo(context, restaurantInfo);
 	}
 
 	public GetRestaurantInfoResponse getRestaurantInfo(Context context) {
@@ -176,7 +200,7 @@ public class DataManager {
 	}
 
 	public Rate getRate(Context context) {
-		if(rate == null)
+		if (rate == null)
 			rate = new Rate(context);
 		return rate;
 	}

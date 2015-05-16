@@ -42,7 +42,7 @@ import com.s7design.menu.views.MenuButton;
  * @author s7Design
  *
  */
-public class MainMenuActivity extends BaseActivity{
+public class MainMenuActivity extends BaseActivity implements OnIBeaconSearchResultCallback {
 
 	// VIEWS
 	private MenuButton mVenueMenuButton;
@@ -71,26 +71,30 @@ public class MainMenuActivity extends BaseActivity{
 		super.onResume();
 		isLoggedIn = !Settings.getAccessToken(getApplicationContext()).equals("") ? true : false;
 		isOrderListEmpty = Menu.getInstance().getDataManager().getCheckoutList().size() == 0 ? true : false;
-		isOutsideRestaurant = (Settings.getMajor(MainMenuActivity.this).isEmpty() && Settings.getMinor(MainMenuActivity.this).isEmpty());
+		isOutsideRestaurant = !Menu.getInstance().isInARestaurant();
 
 		if (isLoggedIn) {
 			mMenageYourProfileButton.setEnabled(true);
-			mMenageYourProfileButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_manage_account_orange), null, null, null);
+			mMenageYourProfileButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_manage_account_orange), null,
+					null, null);
 			mMenageYourProfileButton.setCompoundDrawablePadding((int) Utils.convertDpToPixel(15, MainMenuActivity.this));
 			mMenageYourProfileButton.setTextColor(getResources().getColor(R.color.menu_main_gray));
 
 			mViewPastReceiptsButton.setEnabled(true);
-			mViewPastReceiptsButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_view_receipts_orange), null, null, null);
+			mViewPastReceiptsButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_view_receipts_orange), null, null,
+					null);
 			mViewPastReceiptsButton.setCompoundDrawablePadding((int) Utils.convertDpToPixel(15, MainMenuActivity.this));
 			mViewPastReceiptsButton.setTextColor(getResources().getColor(R.color.menu_main_gray));
 		} else {
 			mMenageYourProfileButton.setEnabled(false);
-			mMenageYourProfileButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_manage_account_gray), null, null, null);
+			mMenageYourProfileButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_manage_account_gray), null, null,
+					null);
 			mMenageYourProfileButton.setCompoundDrawablePadding((int) Utils.convertDpToPixel(15, MainMenuActivity.this));
 			mMenageYourProfileButton.setTextColor(Color.parseColor("#999999"));
 
 			mViewPastReceiptsButton.setEnabled(false);
-			mViewPastReceiptsButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_view_receipts_gray), null, null, null);
+			mViewPastReceiptsButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_view_receipts_gray), null, null,
+					null);
 			mViewPastReceiptsButton.setCompoundDrawablePadding((int) Utils.convertDpToPixel(15, MainMenuActivity.this));
 			mViewPastReceiptsButton.setTextColor(Color.parseColor("#999999"));
 
@@ -99,28 +103,33 @@ public class MainMenuActivity extends BaseActivity{
 		if (isOutsideRestaurant) {
 			if (Settings.getAccessToken(getApplicationContext()).isEmpty()) {
 				mReviewCurrentOrderButton.setText(getResources().getString(R.string.main_menu_log_in_or_sign_up));
-				mReviewCurrentOrderButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_log_in_sign_up_orange), null, null, null);
+				mReviewCurrentOrderButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_log_in_sign_up_orange), null,
+						null, null);
 				mReviewCurrentOrderButton.setCompoundDrawablePadding((int) Utils.convertDpToPixel(15, MainMenuActivity.this));
 			} else {
 				mReviewCurrentOrderButton.setText(getResources().getString(R.string.main_menu_logout));
-				mReviewCurrentOrderButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_log_in_sign_up_gray), null, null, null);
+				mReviewCurrentOrderButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_log_in_sign_up_gray), null,
+						null, null);
 				mReviewCurrentOrderButton.setCompoundDrawablePadding((int) Utils.convertDpToPixel(15, MainMenuActivity.this));
 			}
 		} else {
 			mReviewCurrentOrderButton.setText(getResources().getString(R.string.main_menu_current_order));
-			mReviewCurrentOrderButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_view_current_order_gray), null, null, null);
+			mReviewCurrentOrderButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_view_current_order_gray), null,
+					null, null);
 			mReviewCurrentOrderButton.setCompoundDrawablePadding((int) Utils.convertDpToPixel(15, MainMenuActivity.this));
 		}
 
 		if (isOrderListEmpty) {
-			mReviewCurrentOrderButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_view_current_order_gray), null, null, null);
+			mReviewCurrentOrderButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_view_current_order_gray), null,
+					null, null);
 			mReviewCurrentOrderButton.setCompoundDrawablePadding((int) Utils.convertDpToPixel(15, MainMenuActivity.this));
 		} else {
-			mReviewCurrentOrderButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_view_current_order_orange), null, null, null);
+			mReviewCurrentOrderButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_view_current_order_orange), null,
+					null, null);
 			mReviewCurrentOrderButton.setCompoundDrawablePadding((int) Utils.convertDpToPixel(15, MainMenuActivity.this));
 		}
 
-		if (Settings.getMajor(MainMenuActivity.this).isEmpty() && Settings.getMinor(MainMenuActivity.this).isEmpty()) {
+		if (Settings.getStoreMajor(MainMenuActivity.this).isEmpty() && Settings.getStoreMinor(MainMenuActivity.this).isEmpty()) {
 			mVenueMenuButton.setTextColor(getResources().getColor(R.color.menu_main_gray_light));
 			mVenueMenuButton.setText(getResources().getString(R.string.main_menu_category_not_available));
 			mVenueMenuButton.setFont(false);
@@ -136,15 +145,26 @@ public class MainMenuActivity extends BaseActivity{
 		if (isOrderListEmpty) {
 			if (Settings.getAccessToken(getApplicationContext()).isEmpty()) {
 				mReviewCurrentOrderButton.setText(getResources().getString(R.string.main_menu_log_in_or_sign_up));
-				mReviewCurrentOrderButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_log_in_sign_up_orange), null, null, null);
+				mReviewCurrentOrderButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_log_in_sign_up_orange), null,
+						null, null);
 				mReviewCurrentOrderButton.setCompoundDrawablePadding((int) Utils.convertDpToPixel(15, MainMenuActivity.this));
 			} else {
 				mReviewCurrentOrderButton.setText(getResources().getString(R.string.main_menu_logout));
-				mReviewCurrentOrderButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_log_in_sign_up_gray), null, null, null);
+				mReviewCurrentOrderButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_log_in_sign_up_gray), null,
+						null, null);
 				mReviewCurrentOrderButton.setCompoundDrawablePadding((int) Utils.convertDpToPixel(15, MainMenuActivity.this));
 			}
 		}
 
+		Menu.getInstance().subscribeIBeaconSearchResultCallback(this);
+
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+
+		Menu.getInstance().unsubscribeIBeaconSearchResultCallback();
 	}
 
 	/**
@@ -154,7 +174,7 @@ public class MainMenuActivity extends BaseActivity{
 
 		isLoggedIn = !Settings.getAccessToken(getApplicationContext()).equals("") ? true : false;
 		isOrderListEmpty = Menu.getInstance().getDataManager().getCheckoutList().size() == 0 ? true : false;
-		isOutsideRestaurant = (!Settings.getMajor(MainMenuActivity.this).isEmpty() ? false : true) && (!Settings.getMinor(MainMenuActivity.this).isEmpty() ? false : true);
+		isOutsideRestaurant = !Menu.getInstance().isInARestaurant();
 
 		mVenueMenuButton = (MenuButton) findViewById(R.id.buttonMainMenuActivityViewVenue);
 		mTutorialsButton = (Button) findViewById(R.id.buttonMainMenuActivityViewTutorial);
@@ -277,7 +297,7 @@ public class MainMenuActivity extends BaseActivity{
 	}
 
 	private void venuMenuButtonAction() {
-		if (!Settings.getMajor(MainMenuActivity.this).isEmpty() && !Settings.getMinor(MainMenuActivity.this).isEmpty())
+		if (!Settings.getStoreMajor(MainMenuActivity.this).isEmpty() && !Settings.getStoreMinor(MainMenuActivity.this).isEmpty())
 			startActivity(new Intent(getApplicationContext(), CategoryMealsActivity.class));
 
 	}
@@ -312,6 +332,23 @@ public class MainMenuActivity extends BaseActivity{
 
 	private void aboutTheAppButtonAction() {
 		startActivity(new Intent(getApplicationContext(), AboutTheAppActivity.class));
+	}
+
+	@Override
+	public void onIBeaconSearchResult(int result) {
+
+		if (Settings.getStoreMajor(MainMenuActivity.this).isEmpty() && Settings.getStoreMinor(MainMenuActivity.this).isEmpty()) {
+			mVenueMenuButton.setTextColor(getResources().getColor(R.color.menu_main_gray_light));
+			mVenueMenuButton.setText(getResources().getString(R.string.main_menu_category_not_available));
+			mVenueMenuButton.setFont(false);
+			mVenueMenuButton.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+		} else {
+			mVenueMenuButton.setTextColor(getResources().getColor(R.color.menu_main_gray));
+			mVenueMenuButton.setText(getResources().getString(R.string.main_menu_view_venue_menu));
+			mVenueMenuButton.setFont(true);
+			mVenueMenuButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.main_menu_view_menu_orange), null, null, null);
+			mVenueMenuButton.setCompoundDrawablePadding((int) Utils.convertDpToPixel(15, MainMenuActivity.this));
+		}
 	}
 
 }
