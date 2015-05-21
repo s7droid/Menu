@@ -170,16 +170,17 @@ public class Utils {
 	
 	public static boolean isValidExpiryDate(String month, String year) {
 
-		if (month.length() < 2 || year.length() < 4)
+		if (month.length() < 2 || year.length() < 2)
 			return false;
 
+		year = "20" + year;
+		
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/yy");
 		simpleDateFormat.setLenient(false);
 		try {
 			Date cardDate = simpleDateFormat.parse(month + "/" + year);
 			return !cardDate.before(new Date());
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

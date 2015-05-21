@@ -222,7 +222,6 @@ public class BaseActivity extends Activity implements OnVolleyErrorCallback {
 
 				@Override
 				public void onClick(View v) {
-
 					startActivity(new Intent(BaseActivity.this, SignInActivity.class));
 					finish();
 				}
@@ -230,7 +229,12 @@ public class BaseActivity extends Activity implements OnVolleyErrorCallback {
 
 			return;
 		}
-
+		
+		if(response.response != null && response.response.equals("ccdeclined")){
+			showAlertDialog(R.string.dialog_title_error, R.string.dialog_card_declined);
+			return;
+		}
+		
 		showAlertDialog(getString(R.string.dialog_body_default_error_title), getString(R.string.dialog_body_default_error_message));
 	}
 

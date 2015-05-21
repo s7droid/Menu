@@ -166,7 +166,6 @@ public class SignUpActivity extends BaseActivity {
 						params.put("password", mPasswordEditText.getText().toString());
 						params.put("nonce", paymentMethodNonce);
 						params.put("name", mNameOnCardEditText.getText().toString());
-						// params.put("phonenumber", "0641234567");
 
 						SignUpRequest signUpRequest = new SignUpRequest(SignUpActivity.this, params, new Listener<SignUpResponse>() {
 
@@ -211,8 +210,6 @@ public class SignUpActivity extends BaseActivity {
 		mShowHidePasswordButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
-				System.out.println("SHOW/HIDE PASS BUTTON CLICKED");
 
 				if (isPasswordShowing) {
 					mShowHidePasswordButton.setText(R.string.sign_up_show);

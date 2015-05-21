@@ -19,8 +19,6 @@ public class SignUpRequest extends GsonRequest<SignUpResponse> {
 
 			@Override
 			public void onErrorResponse(VolleyError arg0) {
-				// TODO Auto-generated method stub
-
 			}
 		});
 	}
